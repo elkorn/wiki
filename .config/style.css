@@ -1,0 +1,179 @@
+body {
+    font: 1.2em "adelle-sans", "Bitstream Vera Sans", sans-serif;
+    color : white; /*#bfc7cb;*/ /*rgb(190, 197, 195);*/
+    background-color: rgb(4, 29, 31); /*rgb(2, 14, 15);*/
+    line-height: 1.5;
+    padding: 3rem;
+}
+
+code, pre {
+    font: .55em Bitstream Vera Sans Mono, monospace;
+    color: #61B984;
+}
+
+
+.toc ul {
+    list-style-type: none;
+}
+
+.toc {
+    font-size: .5em;
+}
+
+.toc-link {
+    font-size: .5em;
+    text-decoration: none;
+}
+
+pre {
+    border-left: 1px solid rgba(54, 143, 213, 0.38);
+    background-color: rgba(103, 165, 214, 0.04);
+    border-radius: 10px;
+    padding: .5rem;
+    box-shadow: -3px 0px 8px -4px rgba(54, 143, 213, 0.32);
+    line-height : 2;
+}
+
+li {
+    margin-left: 1em;
+}
+
+blockquote {
+    background: rgb(12, 24, 25);
+    border-radius: 20px;
+    padding: 1em;
+    margin: 1em;
+    font-style: italic;
+    box-shadow: 0px 0px 14px 0px rgba(160, 217, 228, 0.45);
+}
+
+table.pad {
+    margin-left : -42px;
+}
+
+
+img.screenshot {
+    margin-left : -20px;
+    padding-top : 20px;
+    padding-bottom : 10px;
+}
+
+td {
+    vertical-align : top;
+}
+
+
+
+td p.copy, td h1 {
+    padding-left : 10px;
+}
+
+p.copy {
+    font-size : 8pt;
+    line-height : 11pt;
+    text-align : left;
+    color: #4A6F5F;
+}
+
+a {
+    color: #71EC94;
+    text-shadow: 0px 0px 4px rgba(115, 192, 140, 0.46);
+    -webkit-transition: all 0.5s;
+}
+
+
+a:hover {
+    color: #B0FFC7;
+    text-shadow: 0px 0px 6px rgba(124, 226, 157, 1);
+}
+
+aa {
+    color: #D6C56C;
+    text-shadow: 0px 0px 6px #75722E;
+}
+
+aa:hover {
+    color: #FAE781;
+    text-shadow: 0px 0px 6px #CCC248;
+}
+
+
+h1, h2, h3, h4 {
+    color : rgb(206, 230, 231);
+    text-shadow: 0px 0px 7px rgba(160, 217, 228, 0.45);
+}
+
+h1 {
+    margin-left: -3px;
+    font-size : 2em;
+    font-weight : normal;
+}
+
+h2 {
+    font-size : 1.6em;
+    font-weight : normal;
+    /* padding-top : 20px; */
+    margin-bottom : -6px;
+}
+
+h3 {
+    font-size : 1.4em;
+    font-weight : normal;
+    padding-top : 15px;
+    margin-bottom : -6px;
+}
+
+p, ol, ul {
+    text-align : justify;
+    font-weight : normal;
+}
+
+ol, ul {
+    margin-left : -40px;
+}
+
+p, li {
+    margin-bottom : 4px;
+}
+
+
+.inline_code {}
+
+.download {
+    margin-top : -5px;
+    font-size : 8pt;
+    line-height : 12pt;
+    padding-bottom : 10px;
+}
+
+
+.sh {
+    font: 8pt Bitstream Vera Sans Mono, monospace;
+    color: #86B39E;
+    text-shadow: 0px 0px 8px #1F4946;
+
+    background-color: rgba(103, 214, 192, 0.07);
+    border-left: 1px solid rgba(50, 156, 131, 0.38);
+    box-shadow: -3px 0px 8px -4px rgba(42, 160, 66, 0.32);
+    margin-left: -20px;
+    padding-left: 18px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    line-height : 12pt;
+}
+
+
+.green {
+    font-family: monospace;
+    font: 8pt Bitstream Vera Sans Mono, monospace;
+    color: #65F089;
+    text-shadow: 0px 0px 6px #67A79F;
+}
+
+.red {
+    font-family: monospace;
+    font: 8pt Bitstream Vera Sans Mono, monospace;
+    color: #F13D35;
+    text-shadow: 0px 0px 6px #FD4E7F;
+}
+
