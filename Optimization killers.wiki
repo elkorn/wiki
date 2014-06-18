@@ -1,0 +1,133 @@
+= Node.js - optimization killers =
+
+Example code for tracing opts/deopts:
+{{{
+//Function that contains the pattern to be inspected (using with statement)
+function containsWith() {
+    return 3;
+    with({}) {}
+}
+
+function printStatus(fn) {
+    switch(%GetOptimizationStatus(fn)) {
+        case 1: console.log("Function is optimized"); break;
+        case 2: console.log("Function is not optimized"); break;
+        case 3: console.log("Function is always optimized"); break;
+        case 4: console.log("Function is never optimized"); break;
+        case 6: console.log("Function is maybe deoptimized"); break;
+    }
+}
+
+//Fill type-info
+containsWith();
+
+%OptimizeFunctionOnNextCall(containsWith);
+//The next call
+containsWith();
+
+//Check
+printStatus(containsWith);
+}}}
+
+The following flags have to be applied for the code to work:
+
+{{{
+$ node --trace_opt --trace_deopt --allow-natives-syntax test.js
+Function is not optimized
+}}}
+
+To verify that it works, run:
+
+{{{
+$ node --trace_opt --trace_deopt --allow-natives-syntax test.js
+[optimizing 000003FFCBF74231 <JS Function containsWith (SharedFunctionInfo 00000000FE1389E1)> - took 0.345, 0.042, 0.010 ms]
+Function is optimized
+}}}
+
+== Unsupported syntax ==
+Some constructs are currently not optimizable:
+
+- Generator functions
+- Functions that contain a `for-of` statement
+- Functions that contain a `try-catch` statement
+- Functions that contain a `try-finally` statement
+- Functions that contain a compound `let` assignment
+- Functions that contain a compound `const` assignment
+- Functions that contain object literals that contain `__proto__`, or `get` or `set` declarations.
+
+Likely never optimizable:
+- Functions that contain a `debugger` statement
+- Functions that call literally `eval()`
+- Functions that contain a `with` statement
+
+Using one of these makes the *entire* function unoptimizable.
+`eval` and `with` can cause deopts of other functions, not only the ones they're
+contained in, since they cause dynamic scoping of everything in the exec path.
+
+Even if a construct is not reachable by any practical execution path, it still
+causes a function to be unoptimizable.
+{{{
+// This will cause a deopt anyway.
+if (DEVELOPMENT) {
+    debugger;
+}
+}}}
+
+The workaround is to minimize the scope of unoptimizable statements - create
+separate local functions that contain nothing else but them.
+This makes sure that as small a part of the code as possible is deoptimized.
+
+== Case of `arguments` ==
+
+Don't assign to a defined parameter while also using `arguments`.
+Instead, save the parameter to a new variable.
+
+*Leaking the object*
+
+All of the following cases leak `arguments`:
+{{{
+function leaksArguments1() {
+    return arguments;
+}
+
+function leaksArguments2() {
+    var args = [].slice.call(arguments);
+}
+
+function leaksArguments3() {
+    var a = arguments;
+    return function() {
+        return a;
+    };
+}
+}}}
+
+A workaround is to create a new array inline and use a `for` loop to fill it up
+with arguments.
+It's quite tedious, since it cannot be abstracted.
+A more sensible alternative would be to create a macro as a build step, e.g.:
+{{{
+function doesntLeakArguments() {
+    INLINE_SLICE(args, arguments);
+    return args;
+}
+// which would expand to this:
+function doesntLeakArguments() {
+    var $_len = arguments.length;var args = new Array($_len); for(var $_i = 0; $_i < $_len; ++$_i) {args[$_i] = arguments[$_i];}
+    return args;
+}
+}}}
+
+*Safe usage*
+
+Only use:
+- `arguments.length`
+- `arguments[i]` where `i` is always a valid integer index into the `arguments`
+- Never use `arguments` directly without `.length` or `[i]` (STRICTLY `x.apply(y, arguments)` is ok, nothing else is, e.g. `.slice`. `Function#apply` is special)
+
+== switch ==
+Have under 128 case statements, more than that causes a deopt.
+
+== For-in ==
+Generally, use `Object.keys` instead.
+There are multiple cases of `for-in` to remember and it's not worth it.

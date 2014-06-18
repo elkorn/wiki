@@ -1,0 +1,8 @@
+= Tools - SVN =
+
+== Creating a patch ==
+To *create* a patch, use `svn diff > ~/path/patch_name.diff`.
+
+To *apply* a patch, use `patch -p0 -i ~/path/patch_name.diff`.
+
+To create a patch from *specific revisions*, use `svn diff -r123:456 > patch_name.diff`.

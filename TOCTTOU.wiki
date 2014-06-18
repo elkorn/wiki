@@ -1,0 +1,5 @@
+= TOCTTOU (time of check to time of use) =
+A class of software bugs caused by changes between *checking* of a condition and the *use* of the results of that check. It's a specific case of a *race condition*.i
+
+== Preventing TOCTTOU ==
+The general technique is to use exception handling instead of checking the results (e.g. of permission checking method ran before the actual logic). 

@@ -1,0 +1,121 @@
+= Node.js - security =
+
+== CSRF protection ==
+{{{class="brush: javascript"
+app.use(express.csrf());
+app.use(function(req, res, next) {
+    res.locals.csrftoken = req.csrfToken();
+    next();
+}
+}}}
+
+And then somewhere in the HTML:
+{{{
+<input type="hidden" name="_csrf" value="{{csrftoken}}">
+}}}
+
+- Express CSRF middleware ignores verifying tokens on HTTP `GET`, `OPTIONS` and
+`HEAD` requests.
+- Ensure `GET` APIs are non-mutating.
+
+== Preventing internal implementation disclosure ==
+- Remove the `X-Powered-By` header.
+{{{class="brush: javascript"
+app.disable("x-powered-by");
+}}}
+
+- Change the default session cookie name (from `connect.sid`)
+{{{class="brush: javascript"
+app.use(express.session({
+    secret: "13375UP4H4X0R",
+    key: "yourCusomtKey",
+    /* ... */
+});
+}}}
+
+== XSS protection ==
+- It's a myth that template libraries handle output encoding by default, making the application safe from XSS attacks.
+- Encode untrusted data for _correct context_, depending on where it will reside.
+    - HTML Body
+        - & -> `&amp;`
+        - < -> `&lt;`
+        - > -> `&gt;`
+        - " -> `&quot;`
+        - ' -> `&#x27;`
+        - / -> `&#x2F;`
+    - HTML attributes
+        - e.g. `<input type="text" name="firstname" value="{untrusted}">`
+        - Non-alphanumeric chars -> `&#xHH;` format
+    - CSS
+        - e.g. `<div style="width={untrusted};">contents</div>`
+        - Untrusted ata -> CSS hex encoding (`\HH` or `\HHHHHH`)
+    - JS
+        - e.g. `<script>var firstName="{untrusted}"</script>`
+        - Non-alphanumeric chars -> `\uXXXX;` unicode format
+    - URL
+        - e.g. `<a href="{untrusted}">Show details</a>`
+        - Untrusted data -> `encodeURI()`
+    - URL parameter
+        - e.g. `<a href="/account?id={untrusted}">Show details</a>`
+        - Untrusted data -> `encodeURIComponent()`
+- Use [[https://www.owasp.org/index.php/Category:OWASP_Enterprise_Security_API|proven utilities]] for encoding.
+- DOM-based XSS: Encode both on the server and client side.
+- Add `HTTPOnly`, `Secure` attributes on the Session cookie:
+{{{class="brush: javascript"
+app.use(express.session({
+    secret: "s3Cur3",
+    key: "sessionId",
+    cookie: {
+        httpOnly: true,
+        secure: true
+    }
+});
+}}}
+- Add *content security policy* header
+{{{class="brush: javascript"
+var policy = {
+    defaultPolicy: {
+        "default-src": ["'self'"],
+        "img-src": ["static.example.com"]
+    }
+}
+
+helmet.csp.policy(policy);
+}}}
+
+== HTTP parameter pollution ==
+Express populate HTTP request parameters with the same name in an array.
+{{{
+// POST firstname=John&firstname=Mary
+req.body.firstname
+// => ["John", "Mary"]
+}}}
+
+This mechanism can be exploited by an attacker to:
+- trigger type errors on the server (uncaught errors crash it and cause DoS)
+- modify application behavior (e.g. store arrays in the DB)
+- bypass input validation applied on strings in the code, WAF, browser filters
+{{{
+["John", "John"] + "Doe"
+// => "John, John Doe"
+}}}
+
+Countermeasures:
+- *Check the expected type* as a part of input validation.
+- Incorporate *input fuzzing* into test suites to discover problems.
+- Implement a *robust error handling mechanism*, using `try/catch`, `domain` and `cluster`.
+
+== Regular Expression Denial of Service (REDoS) ==
+Evil regexps can take exponential execution time when applied to certain
+non-matching inputs. By default, regexps get executed in the event loop thread,
+so it can be exploited for DoS attacks.
+
+Evil regexp pattern requiremenets:
+- Grouping with repetition
+- Inside repeated group, repetition (`(a+)+`) or alternation with overlapping (`(a|aa)+`)
+- Example: Input pattern `aaaaaaaaaaaaa!` for a commonly used URL validation regexp
+    - 30 input characters take 6sec, 40 take 3hr 46min.
+
+
+Review the regexps in the code for evil patterns.
+Do not use user supplied inputs as regexps.

@@ -1,0 +1,93 @@
+= Tools - Riak =
+
+Querying
+GET/PUT/DELETE
+MapReduce
+Full-Text Search
+Secondary Indexes (2i)
+
+Client libraries for nearly every platform.
+
+Under the hood
+consistent hashing
+160bit keyspace
+
+replicas
+requests go to fallback neighboring nodes when a node fails
+handoff - data returns when node is back up
+
+and rebalancing
+
+masterless, deployed as a cluster of 5 nodes per cluster
+
+automatic self healing
+repairs divergent, missing or corrupt replicas
+large clusters, long term storage
+
+
+Riak 1.4
+Eventually consistent counters
+- distributed data type in Riak
+- PN Counters are capable of being incremented (P) an decremeted (N)
+- automatic conflict resolution after a network partition
+- 2i queries are sorted and client can request only first N results
+- pagination allows queries to begin where n left off to deliver the rest
+- can also view start, continuation, end value etc.
+
+Riak Control - mgmt studio?
+
+progressbar for handoff
+reduced object storage overhead (not turned on by default- check release notes)
+udpated protocol buffer properties
+overload protection for vnode processes
+cascading real-time writes for riak enterprise multi-datacenter replication
+
+
+when and why?
+enough data to require >1 physical machine (>5 prefereably)
+when availability > consistency (big data, critical data)
+when data can be modeled as keys and values - denormalization
+
+Case studies
+enstratatius - cloud infrastructure mgmt
+George Reese - moving from mysql to riak
+best buy - replatform of e-commerce platform
+copious - registered accts and tokens for FB/twitter logins; lookign to move over more data due to operational simplicity.
+mochi - high availability and low latency
+openX - couchDB + cassandra -> riak and riak core
+voxer - 60 nodes, 100s TBs of data, 400k concurrent users, billions of daily requests
+
+Hybrid solutions
+- riak with postgres
+- riak with elastic search
+- riak with hadoop
+- secondary analytic clusters (enterprise)
+
+Hosting options
+- amazon AMIs
+- Engine Yard
+- Azure VM depot
+- SoftLayer
+
+Open Source + commercial (enterprise)
+- multi datacenter replication
+- realtime or full-sync
+- 24/7 support
+1.4 enterprise
+- faster, more conns bvetween clusters
+- per connection statistics - better
+- ssl, nat and full sync scheduling support
+
+Riak Cloud Storage
+- large object support
+- S3-compatible API
+-multi-tenancy
+- reporting on usage
+
+Future Work
+- tight Solr integration
+- greater consistency
+-faster data transfer between clusters
+- dynamic ring resizing
+- check github
+

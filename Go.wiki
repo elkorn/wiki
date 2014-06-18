@@ -1,0 +1,38 @@
+= Go =
+
+[[Libraries]]
+
+== Resources ==
+
+- [[https://gobyexample.com/|Go by example]] - a massive list of useful code examples, presenting how specific aspects of Go work.
+- [[http://go-lang.cat-v.org/go-code|List of useful Go apps and packages]]
+
+== Quirks and issues ==
+=== Using the `html/template` package ===
+A problem with templates not rendering:
+
+When I run:
+{{{
+t, _ := template.ParseFiles("index.html")
+t.Execute(w, nil)
+}}}
+the page loads fine. But when I try and run
+{{{
+t := template.New("first")
+t, _ = t.ParseFiles("index.html")
+t.Execute(w, nil)
+}}}
+the only thing that loads is a blank page.
+
+The solution:
+
+    The first version works as you expect because the package-level `ParseFiles`
+    function will return a new template that has the name and content of the
+    first parsed file. 
+    In the second case, though, you're creating a template named `"first"` and
+    then parsing one with name `"index.html"`.
+    When you call `t.Execute` on `"first"`, it's still empty.
+    You can fix the problem by either: Using `template.New("index.html")`, so that
+    the file name matches the template name you parse next or Providing the
+    template name you want to execute explicitly with
+    `t.ExecuteTemplate(w, "index.html", nil)`.

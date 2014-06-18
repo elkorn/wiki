@@ -1,0 +1,98 @@
+= Redis =
+
+== Example use cases ==
+- calculating whose friends are online using sets
+- memcached
+- distributed lock manager for process coordination
+- full text inverted index lookups
+- tag clouds
+- leaderboards
+- circular log buffers (works like a automatically emptied, fixed-size queue)
+- DB for uni vourse availability info
+ - if the set contains a course ID, then the course has free seats left
+ - data is scraped and processed continuously
+- server for backed sessions (they are often one-time used and never queried by anything other than their primary key)
+- fast, atomically incremented counters
+- polling the DB every few seconds
+- transient data in general
+ - CSRF tokens
+ - handshake data
+- sharing state between processes (producer + consumer real-time cooperation)
+- mimic a `tail -f` for system logging
+- tracking _all_ of the IDs that have been used for records in a system
+- quickly pick a random item from a set
+- API rate limiting
+- A/B testing
+ - realtime user behavior tracking, writing short-lived state and picking random items
+- inbox method
+ - each user gets a queue and a set to keep track of followers
+ - e.g. fanning out messages (like in Twitter)
+ - pub/sub in general
+ - workers periodically reporting their load average to a sorted set
+  - redistributing load
+   - when issuing a job, grab the 3 least loaded workers from the sorted set and pick one of them at random
+- multiple GIS indexes
+- recommendation engine based on relationships
+- social graphs
+- reducing impedance mismatch (DB data model can more closely match the one used in the application)
+
+== Who's online? ==
+(From [[http://www.lukemelia.com/blog/archives/2010/01/17/redis-in-practice-whos-online/|Redis in practice: Who's online?]])
+
+Redis goes beyond a simple key-value store for the values can be simple strings,
+but also data structures.
+Redis supports lists, sets and ordered sets.
+Redis' implementation of a set has the same properties as an abstract set.
+
+Be able to see which of your friends are online.
+
+The idea is to have one active set per minute.
+During each request that comes in from a logged-in user, we’ll add a user ID to
+the active set.
+When we want to know which user IDs are online, we can union the last 5 sets to
+get a collection of user IDs who have made a request in the last 5 minutes.
+
+{{http://www.lukemelia.com/images/blog/presence-online-users-diagram.png}}
+
+Now, if we have a set of the user’s friend’s IDs, we can intersect that with the
+online users and we’ve got our online friend IDs.
+
+{{http://www.lukemelia.com/images/blog/presence-online-friends-diagram.png}}
+
+{{{
+# Defining the keys
+
+def current_key
+    key(Time.now.strftime("%M"))
+end
+
+def keys_in_last_5_minutes
+    now = Time.now
+    times = (0..5).collect {|n| now - n.minutes }
+    times.collect{ |t| key(t.strftime("%M")) }
+end
+
+def key(minute)
+    "online_users_minute_#{minute}"
+end
+
+# Tracking an Active User
+
+def track_user_id(id)
+    key = current_key
+    redis.sadd(key, id)
+end
+
+# Who's online
+
+def online_user_ids
+    redis.sunion(*keys_in_last_5_minutes)
+end
+
+def online_friend_ids(interested_user_id)
+    redis.sunionstore("online_users", *keys_in_last_5_minutes)
+    redis.sinter("online_users", "user:#{interested_user_id}:friend_ids")
+end
+}}}
+
+

@@ -1,0 +1,70 @@
+%toc
+
+= The BMEAN stack =
+
+It's the MEAN stack extended with Breeze.js for advanced client-side data
+storage. Example application:
+
+https://github.com/dai-shi/notes-app-sample
+
+= Fit.js =
+
+Fitting things into other things.
+
+http://soulwire.github.io/fit.js/
+
+= jQuery notebook =
+
+Like Aloha, only lighter.
+
+http://raphaelcruzeiro.github.io/jquery-notebook/
+
+= localForage =
+
+Mozilla's abstraction over `localStorage`, IndexedDB and WebSQL. The underlying
+driver is chosen automatically.
+
+https://hacks.mozilla.org/2014/02/localforage-offline-storage-improved/
+
+https://github.com/mozilla/localForage
+
+= Sculpt =
+
+A collection of node.js transform stream utilities for data manipulation.
+
+https://github.com/Obvious/sculpt
+
+= BipIO =
+
+An API server, similar to what IFTTT does.
+
+Works on Node, RabbitMQ and MongoDB.
+
+https://github.com/bipio-server/bipio
+
+= jspm =
+
+Looks like an alternative for Bower.
+
+https://github.com/jspm/jspm-cli
+
+= Mockery =
+Allows mocking.
+
+https://github.com/mfncooper/mockery
+
+= Rewire =
+Dependency injection in JS - allows rewiring private variables in modules.
+
+https://github.com/jhnns/rewire
+
+= Sinon =
+A mocking/stubbing library
+
+http://sinonjs.org/
+
+= Supervizer =
+
+A node.js daemon process manager to spawn/start/stop node apps.
+
+https://github.com/oOthkOo/supervizer

@@ -1,0 +1,15 @@
+= P=NP =
+
+The general class of questions for which some algorithm can provide an answer in
+polynomial time is called $P$.
+
+For some questions there is no known way to find an answer quickly, but given a
+ready-made answer, it may be possible to verify its correctness quickly.
+
+The class of questions for which an answer can be _verified_ in polynomial time
+is called $NP$.
+
+$P=NP$ is really a question. If it was true, it would mean that problems
+verifiable in polynomial time would also be solvable in polynomial time.
+If $P\neq NP$ was true, it would mean that there exist problems answers for
+which can be verified in polynomial time, but they cannot be solved as fast.

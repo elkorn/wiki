@@ -1,0 +1,77 @@
+%toc
+
+= angular-http-auth =
+
+A reliable solution for client-side auth handling.
+
+https://github.com/witoldsz/angular-http-auth
+
+Also, to enable the password manager to store the credentials, an `iframe` has
+to be used alongside a `timeout` function.
+The solution is then somewhat hacky.
+
+{{{class="brush: xhtml"
+<iframe src="sink.html" name="sink"
+        style="display:none"></iframe>
+
+<form name="loginForm"
+      action="sink.html" target="sink" method="post"
+      ng-submit="login(credentials)"
+      novalidate form-autofill-fix>
+  <label for="username">Username:</label>
+  <input type="text" id="username"
+         ng-model="credentials.username">
+  <label for="password">Password:</label>
+  <input type="password" id="password"
+         ng-model="credentials.password">
+  <button type="submit">Login</button>
+</form>
+}}}
+
+By providing an action, the browser's regular form-submitting logic will kick
+in, but without a visible action for the user.
+The action is directed to `sink.html`.
+
+To provide autofill, some more hackage is required - due to the fact that most
+browsers do not trigger an event on an autofilled input. Fortunately, the
+[[http://victorblog.com/2014/01/12/fixing-autocomplete-autofill-on-angularjs-form-submit|formAutofillFix]] directive circumvents this issue.
+
+{{{class="brush: javascript"
+.directive('formAutofillFix', function ($timeout) {
+  return function (scope, element, attrs) {
+    element.prop('method', 'post');
+    if (attrs.ngSubmit) {
+      $timeout(function () {
+        element
+          .unbind('submit')
+          .bind('submit', function (event) {
+            event.preventDefault();
+            element
+              .find('input, textarea, select')
+              .trigger('input')
+              .trigger('change')
+              .trigger('keydown');
+            scope.$apply(attrs.ngSubmit);
+          });
+      });
+    }
+  };
+});
+}}}
+
+= Hotkeys =
+Define htokeys in JS instead of as attributes.
+(attribute hotkeys tend to get tedious and unmaintainable)
+
+http://chieffancypants.github.io/angular-hotkeys/
+
+= angular-classy =
+Make the controller syntax more readable and flexible.
+
+http://davej.github.io/angular-classy/
+
+= generator-powder =
+Yeoman generator for scaffolding apps based on Express, Mongo, Angular and 
+Bootstrap, powered by gulp, bower and browserify.
+
+https://github.com/yamalight/generator-powder

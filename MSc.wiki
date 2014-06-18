@@ -1,0 +1,9 @@
+= MSc =
+
+[[Topic]]
+
+[[Vertex cover problem]]
+
+[[Kernelization]]
+
+[[Parameterized algorightms]]

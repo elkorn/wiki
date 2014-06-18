@@ -1,0 +1,30 @@
+= Architecture - Concurrency - Optimistic vs pessimistic concurrency control =
+%toc
+== Optimistic concurrency control ==
+A method assuming that multiple transactions can frequently complete without interfering with one another. 
+
+When running, transactions use data resources without acquiring locks on them. Each transaction verifies *before commiting* that no other modifications to the content it has read have been made. If it was, the transaction rolls back and can be restarted.
+
+OCC is generally used in environments with low data contention (conflict tendency). In such environments, throughput can be increased by using OCC, due to the lack of concurrency management overhead (managing and waiting for locks). 
+
+In environments with high data contention though, transactions often have to be restarted, defeating the performance gains.
+
+=== OCC phases ===
+ * *Begin* - record a timestamp, marking the transaction's beginning.
+ * *Modify* - read DB values and tentaviely write changes.
+ * *Validate* - check whether other transactions have modified currently processed data. This includes transactions that completed after this transaction's start time and (optionally) transactions that are still active at validation time.
+ * *Commit/Rollback* - Apply changes if no conflict detected. If there is one, resolve it (usually by aborting the transaction).
+
+If these phases are not performed as a single atomic operation, [[TOCTTOU]] bugs might occur.
+
+=== Web usage ===
+
+HTTP provides a built-in OCC with ETag. 
+
+GET method returns an ETag, used by subsequent PUT request through `If-Match` headers.
+
+== Pessimistic concurrency control ==
+It basically boils down to lockgin an operation of a transation if it may cause a violation of integrity rules, until this possibility disappears.
+
+== Semi-optimistic concurrency control ==
+A hybrid approach, block operation in some situations where they might violate rules. In other cases do not block, delaying the rule checking to the end of the transaction.

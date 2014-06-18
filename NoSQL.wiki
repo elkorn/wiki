@@ -1,0 +1,198 @@
+= NoSQL =
+%toc
+
+[[http://nosql-database.org/|Master list of all the NoSQL products]]
+[[Redis]]
+
+This section requires followups:
+- [[http://www.slideshare.net/kevinweil/nosql-at-twitter-nosql-eu-2010|NoSQL@Twitter]]
+
+== What should you be using NoSQL for ==
+=== General use cases ===
+*Bigness*
+
+Big data, big numbers of users/computers, big supply chains, big science etc.
+When something becomes so massive that it has to be intensively distributed,
+NoSQL fits the bill.
+Remember though that bigness can be across many different dimensions, not just
+disk space.
+
+*Masive write performance*
+
+Writing large amounts of data (e.g. Facebook's 135 billion messages per month or
+Twitter's 7TB of data per day) has to be distributed over a cluster. That
+implies key-value access, MapReduce, replication, fault tolerance, consistency
+issues etc.
+
+*Fast key-value access*
+
+When low latency is the key, it's hard to beat hashing on a key and reading the
+value in ~1 disk seek.
+
+*Flexible schema / flexible datatypes*
+
+NoSQL offers column-oriented, graph, advanced data structures, document-oriented
+and key-value.
+Complex objects can be easily stored without many mappings.
+NoSQL also mostly uses friendly data types like JSON.
+
+*Schema migration*
+
+Schemas are imposed by the application at run-time.
+Different parts of the application can have a different view of the schema.
+This can also cause some pains when the dynamic schema changes while the
+application is running on production and already has data stored.
+
+*Write availability*
+
+Partitioning, CAP (Consistency-Availability-network Partition tolerance), eventual consistency etc. help with making sure that ~100%
+writes to the database succeed.
+
+*No single point of failure*
+
+High availability with auto load balancing and cluster sizing help to remedy
+fault tolerance issues.
+
+*Generally available parallel computing*
+
+Related to baking in analytical features such as MapReduce.
+
+*Easier maintainability, administration and operations*
+
+Vendors try to make sure that the DBs are as easy to use as possible.
+Also, NoSQL products are made mainly for programmers by programmers.
+They are aimed to be easy to use and compatible with the technologies popular
+with developers.
+
+*Right data for the right problem*
+
+Example: when the domain of your problem is based on a graph, You can use a
+graph database and have native support instead of trying to wedge the graph
+idioms into a relational system.
+
+*Avoid hitting a performance wall*
+
+NoSQL products are highly scalable out-of-the-box.
+
+*Distributed systems support*
+
+NoSQL products are naturally aligned with distributed data-centers and similar
+systems due to their focus on scale.
+They tend to use partitions and avoid heavy strict consistency protocols.
+
+*Tunable CAP tradeoffs*
+
+Relational DBs choose strong consistency which means that they cannot tolerate a
+parition failure.
+NoSQL products actually come with a "slider" for balancing between the CAP
+tradeoffs.
+It depends on what pays best in each specific case, so it's a big advantage.
+
+=== Specific use cases ===
+- Managing large streams of non-transactional data: logs, clickstreams etc.
+- Syncing online/offline data (CouchDB targets this)
+- Fast, load-independent response times
+- Avoiding heavy joins. This is the case when complex joins stop performing under load in an RDBMS.
+- Apps with a variety of different write/read/query/consistency pattern support
+ - there are systems optimized for 50/50, 95% reads or 95% writes
+ - read-only apps needing speed and resiliency, tolerating slightly stale data
+ - apps with moderate perf, r/w access, simple queries, authoritative data
+ - read-only apps with complex query requirements
+- load balancing for accomodating data and usage concentrations to keep microprocessors busy
+- real-time inserts, updates and quries
+- hierarchical daa (threaded discussions, parts explosion)
+- dynamic table creation
+- two tier apps with low-latency data made available through a fast NoSQL interface but computed by high-latency Hadoop (or other low priority) apps
+- sequential data reading (the right underlying model must be selected!)
+- slicing off parts of service to it's own system for performance/scalability (e.g. user login)
+- caching (a high perf caching tier)
+- voting
+- real-time page view counters
+- user registration, profile, session data
+- document, catalog and content mgmt systems, inventory, shopping carts and complex data structures in general, as they can be stored as a whole
+- archiving, storing a large continual data stream that is still accessible online
+- analytics - MapReduce, Hive, Pig used to perform analytical queries and scale-out systems with high write load support
+- heterogenous types of data (e.g. different media types) at a generic level
+- embedded systems - simplicity and performance are very important due to limited resources
+- "market" games
+ - when somebody buys a building, the list of bought things should pop up quickly- so you partition the owner column of the building table so the select is single-partitioned
+ - when somebody buys sth from somebody else, you update the owner column along with the price
+- federal law agencies track ppl in real-time using credit or loyalty cards and travel reservations
+- real-time fraud detection by comparing transactions to known patterns
+- helping diagnose the typology of tumors by integrating the history of every patient
+- in-memory DBs for high update situations e.g. displaying everyone's "last active" time
+- handling lower-freq multipart queries with materialized views while processing hi-freq streaming data
+- priority queues
+- calculations on cached data using a program-friendly interface (without an ORM)
+- unique a large dataset using simple key-value columns
+- rolling values up into different time slices for fast queries
+- computing the intersection of two massive sets, where a join would be too slow
+- a [[http://highscalability.com/scaling-twitter-making-twitter-10000-percent-faster|timeline a'la Twitter]]
+
+=== Analytics use cases ===
+These are mainly related to Hadoop and boil down to answering questions in the
+like of the following.
+
+- How many requests do we serve each day?
+- What is the average or nth percentile latency?
+- Grouped by response code: hourly distribution?
+- How many searches happen each day at Twitter?
+- Where do they come from?
+- How many unique queries?
+- How many unique users?
+- Geographic distribution?
+- How does usage differ for mobile users?
+- How does usage differ for 3rd party desktop client users?
+- Cohort analysis: all users who signed up on the same day—then see how they differ over time.
+- Site problems: what goes wrong at the same time?
+- Which features get users hooked?
+- Which features do successful users use often?
+- Search corrections and suggestions (not done now at Twitter, but coming in the feature).
+- What can web tell about a user from their tweets?
+- What can we tell about you from the tweets of those you follow?
+- What can we tell about you from the tweets of your followers?
+- What can we tell about you from the ratio of your followers/following?
+- What graph structures lead to successful networks? (Twitter’s graph structure is interesting since it’s not two-way) 
+- What features get a tweet retweeted?
+- When a tweet is retweeted, how deep is the corresponding retweet three?
+- Long-term duplicate detection (short term for abuse and stopping spammers)
+- Machine learning. About not quite knowing the right questions to ask at first. How do we cluster users?
+- Language detection (contact mobile providers to get SMS deals for users—focusing on the most popular countries at first).
+- How can we detect bots and other non-human tweeters?
+
+=== Poor use cases ===
+These are very important as you should avoid them intensively.
+
+*OLTP*
+
+VoltDB is an exception here, but complex, multi-object transactions are
+generally not supported. Programmers are supposed to denormalize, use documents
+or other coplex strategies like compensating transactions.
+
+*Data integrity*
+
+SQL uses a declarative approach NoSQL systems rely on applications to maintain
+integrity.
+
+*Data independence*
+
+Data outlasts apps.
+But in NoSQL, apps drive everything.
+Relational data might last for the entire enterprise lifetime.
+
+*SQL*
+
+Duh.
+More and more systems are starting to provide SQLish interfaces though.
+
+*Ad-hoc queries*
+Answering real-time, unpredictable questions is still the domain of RDBs.
+
+*Complex relationships*
+
+*Maturity and stability*
+
+People know RDBs, there are also more tools available for them.
+When in doubt, this is the road that will be most likely traveled.
+
+

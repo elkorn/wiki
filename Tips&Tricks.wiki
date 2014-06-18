@@ -1,0 +1,90 @@
+%title AngularJS - TipsAndTricks
+%toc
+
+== `ngModel` ==
+=== Writing ===
+ * Watch out when another directive bound to teh same element as the one using `ngModel` is trying to write to scope.
+  * If the directive using `ngModel` is an `input[type="file"]`, this will cause a DOM Exception 11 if it's not empty.
+  * Work around that by separating the directives, but only if you conclude that this is not a design flaw.
+
+== Hacking core directives ==
+
+Angular is very hackable due to its modular nature.
+
+As an example: hacking the `ngSrc` directive to apply the `img src` attribute
+only when the `src` components are defined:
+{{{class='brush: javascript'
+angular.module('btford.ng-src', []).
+  config(function ($provide) {
+
+    // given `{{x}} y {{z}}` return `['x', 'z']`
+    function getExpressions (str) {
+      var offset = 0,
+          parts = [],
+          left,
+          right;
+      while ((left = str.indexOf('{{', offset)) > -1 &&
+             (right = str.indexOf('}}', offset)) > -1) {
+        parts.push(str.substr(left+2, right-left-2));
+        offset = right + 1;
+      }
+
+      return parts;
+    }
+
+    $provide.decorator('ngSrcDirective', function ($delegate, $parse) {
+      // `$delegate` is an array of directives registered as `ngSrc`
+      // btw, did you know you can register multiple directives to the same name?
+
+      // the one we want is the first one.
+      var ngSrc = $delegate[0];
+
+      ngSrc.compile = function (element, attrs) {
+        var expressions = getExpressions(attrs.ngSrc);
+        var getters = expressions.map($parse);
+
+        return function(scope, element, attr) {
+          attr.$observe('ngSrc', function(value) {
+            if (getters.every(function (getter) { return getter(scope); })) {
+              attr.$set('src', value);
+            }
+          });
+        };
+      };
+
+      // our compile function above returns a linking function
+      // so we can delete this
+      delete ngSrc.link;
+
+      return $delegate;
+    });
+  });
+}}}
+
+Another tip: the low level boilerplate can be abstracted away with the use of
+custom helpers.
+
+{{{class='brush: javascript'
+angular.module('btford.ng-src', []).
+  hackDirective('ngSrc', function ($delegate) {
+    /*
+     * ~ do stuff ~
+     */
+
+    return $delegate;
+  });
+
+// helper definition
+(function () {
+  var originalModule = angular.module;
+  angular.module = function () {
+    var module = originalModule.apply(this, arguments);
+    module.hackDirective = function (name, fn) {
+      module.config(function ($provide) {
+        $provide.decorator(name + 'Directive', fn);
+      });
+    };
+    return module;
+  }
+}());
+}}}

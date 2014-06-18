@@ -1,0 +1,13 @@
+= AngularJS - Deploying to Heroku from angular-fullstack =
+
+When deploying for the first time, run:
+
+```
+yo angular-fullstack:deploy heroku
+```
+
+then `cd` into the heroku dir and `git push heroku master`.
+
+After modifying the application, use the `grunt heroku` task.
+After that, `cd` and `push`.
+
