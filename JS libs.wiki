@@ -68,3 +68,9 @@ http://sinonjs.org/
 A node.js daemon process manager to spawn/start/stop node apps.
 
 https://github.com/oOthkOo/supervizer
+
+= Webpack =
+Webpack is a module bundler. 
+It takes modules with dependencies and emits static assets representing that modules.
+
+http://webpack.github.io/

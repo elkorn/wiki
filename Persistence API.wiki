@@ -116,7 +116,7 @@ class InvoiceService extends Processor {
                 case None => // TODO recovery
             }
         case GetInvoice(id) =>
-            sender() ! invoices.getOrElse(id, "not found: " + id)
+            sender() ! invoices.getOrElse(id, "not found: " + id) ===
 
         case Persistent(SendInvoiceTo(id, address), _) =>
             // TODO send to the invoice printing service.
