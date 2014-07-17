@@ -75,3 +75,8 @@ Yeoman generator for scaffolding apps based on Express, Mongo, Angular and
 Bootstrap, powered by gulp, bower and browserify.
 
 https://github.com/yamalight/generator-powder
+
+= jsTags =
+Library for using tags (as in content tags, not ctags) in Angular.
+
+http://eranhirs.github.io/jsTag/
