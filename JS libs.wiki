@@ -74,3 +74,14 @@ Webpack is a module bundler.
 It takes modules with dependencies and emits static assets representing that modules.
 
 http://webpack.github.io/
+
+= Gulp recipes =
+A set of recipes for quickly creating performant Gulp tasks.
+
+https://github.com/gulpjs/gulp/tree/master/docs/recipes
+
+= Please JS = 
+
+A simple tool for generating pleasing colors.
+
+https://github.com/Fooidge/PleaseJS

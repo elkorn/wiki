@@ -4,6 +4,8 @@
 
 [[Process-related files and tree]]
 
+[[Pulseaudio too silent]]
+
 [[Size of a directory]]
 
 [[User management]]
