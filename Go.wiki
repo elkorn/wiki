@@ -1,5 +1,7 @@
 = Go =
 
+[[GoArchitecture]]
+
 [[Libraries]]
 
 [[Profiling]]
