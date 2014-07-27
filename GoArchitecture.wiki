@@ -1,0 +1,157 @@
+= Go - Architecture =
+%toc
+
+== Structuring applications ==
+=== Don't use global variables ===
+
+The prime example is `net/http`'s `handleFunc`. The simplest way is to pass a function there:
+{{{
+package main
+import (
+ “fmt”
+ “net/http”
+)
+func main() {
+    http.HandleFunc(“/hello”, hello)
+    http.ListenAndServe(“:8080", nil)
+}
+func hello(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, “hi!”)
+}
+}}}
+
+Unfortunately, ay state has to be accessed through a global variable then.
+
+A better alternative is to use an encompassing type:
+{{{
+type HelloHandler struct {
+    db *sql.DB
+}
+func (h *HelloHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+    var name string
+    // Execute the query.
+    row := h.db.QueryRow(“SELECT myname FROM mytable”)
+    if err := row.Scan(&name); err != nil {
+        http.Error(w, err.Error(), 500)
+        return
+    }
+    // Write it back to the client.
+    fmt.Fprintf(w, “hi %s!\n”, name)
+}
+
+func main() {
+    // Open our database connection.
+    db, err := sql.Open(“postgres”, “…”)
+    if err != nil {
+        log.Fatal(err)
+    }
+    // Register our handler.
+    http.Handle(“/hello”, &HelloHandler{db: db})
+    http.ListenAndServe(“:8080", nil)
+}
+}}}
+
+See that the state has been nicely encapsulated.
+Also, the handler becomes unit-testable.
+
+=== Separate your binary from your application ===
+
+Placing the `main.go` file along with the binary causes the appliaction to be unusable as a library and constrains it to have only one binary.
+
+A more flexible approach is to use an `src` (or whatever) directory, whose each subdir is effectively a binary:
+{{{
+camlistore/
+  cmd/
+    camget/
+      main.go
+    cammount/
+      main.go
+    camput/
+      main.go
+    camtool/
+      main.go
+}}}
+
+Additional benefit of this approach is that you get a cleaner abstraction of what code belongs to the core domain logic and what is just a client.
+Remember that a binary is a client for the library you are creating, an interface for the user to interact with it.
+An example of an `adder` package, sproting a CLI and a Web interface:
+{{{
+adder/
+  adder.go          // core
+  cmd/
+    adder/
+      main.go       // CLI
+    adder-server/
+      main.go       // Web
+}}}
+
+To install the whole bundle, use `go get` with an ellipsis: `go get github.com/elkorn/adder/...`.
+
+=== Wrap types for application-specific context ===
+
+This is a universal rule - create proxies that access underlying generic components only through specific, application-bound context.
+A good example is the database:
+{{{
+package myapp
+import (
+    "database/sql"
+)
+type DB struct {
+    *sql.DB
+}
+type Tx struct {
+    *sql.Tx
+}
+
+// Open returns a DB reference for a data source.
+func Open(dataSourceName string) (*DB, error) {
+    db, err := sql.Open("postgres", dataSourceName)
+    if err != nil {
+        return nil, err
+    }
+    return &DB{db}, nil
+}
+// Begin starts an returns a new transaction.
+func (db *DB) Begin() (*Tx, error) {
+    tx, err := db.DB.Begin()
+    if err != nil {
+        return nil, err
+    }
+    return &Tx{tx}, nil
+}
+
+// CreateUser creates a new user.
+// Returns an error if user is invalid or the tx fails.
+func (tx *Tx) CreateUser(u *User) error {
+    // Validate the input.
+    if u == nil {
+        return errors.New("user required")
+    } else if u.Name == "" {
+        return errors.New("name required")
+    }
+
+    // Perform the actual insert and return any errors.
+    return tx.Exec(`INSERT INTO users (...) VALUES`, ...)
+}
+}}}
+
+The context is isolated in a relevant component, which exposes a simple API that can accomodate any changes You might want to introduce later.
+
+The `Tx` example provides an additional boon of transactional composition, e.g. for creating multiple users:
+{{{
+tx, _ := db.Begin()
+for _, u := range users {
+    tx.CreateUser(u)
+}
+tx.Commit()
+}}}
+
+=== Don't go crazy with subpackages ===
+
+The most important thing to note here is that the need for a packagae should be dictated by logical functionality, not the number of files.
+Larger packages are OK.
+
+A few points to take heed of:
+# *Group related types and code together in each file.*
+# *The most important type goes at the top.* Types of decreasing importance go lower.
+# *Once your app exceeds 10k loc*, reevaluate ts structure in the context of whether could it be broken into smaller projects.
