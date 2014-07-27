@@ -1,0 +1,172 @@
+= Go - Profiling =
+
+== Built-in profiling capabilities ==
+Introductory note - Go's [[http://golang.org/pkg/testing/|testing]] package provides a bult-in `benchmark` functionality.
+Functions of the form
+{{{
+func BenchmarkXxxx(*testing.B)
+}}}
+
+are considered benchmarks and are executed by `go test -bench`.
+Benchmarks are run sequentially.
+
+A sample benchmark function might look like so:
+{{{
+func BenchmarkHello(b *testing.B) {
+    for i := 0; i < b.N; i++ {
+        fmt.Sprintf("hello")
+    }
+}
+}}}
+
+Note that the benchmark must run the code `b.N` times.
+
+Some profiling flags such as `-cpuprofile` and `-memprofile` are available. Check the link for more info.
+
+== Using the pprof tool ==
+
+(from http://blog.golang.org/profiling-go-programs)
+
+When not using thet testing builtins, custom profile flags should be defined:
+
+{{{
+var cpuprofile = flag.String("cpuprofile", "", "write cpu profile to file")
+
+func main() {
+    flag.Parse()
+    if *cpuprofile != "" {
+        f, err := os.Create(*cpuprofile)    // cpuprofile is a file.
+        if err != nil {
+            log.Fatal(err)
+        }
+        pprof.StartCPUProfile(f)
+        defer pprof.StopCPUProfile()
+    }
+}}}
+
+Then, we can use the new flag:
+
+{{{
+$ make havlak1.prof
+./havlak1 -cpuprofile=havlak1.prof
+# of loops: 76000 (including 1 artificial root node)
+$ go tool pprof havlak1 havlak1.prof
+Welcome to pprof!  For help, type 'help'.
+(pprof)
+}}}
+
+`go tool pprof` is a variant of Google's [[https://code.google.com/p/gperftools/wiki/GooglePerformanceTools|`pprof` C++ profiler]].
+Important command: `topN`:
+
+{{{
+(pprof) top10
+Total: 2525 samples
+     298  11.8%  11.8%      345  13.7% runtime.mapaccess1_fast64
+     268  10.6%  22.4%     2124  84.1% main.FindLoops
+     251   9.9%  32.4%      451  17.9% scanblock
+     178   7.0%  39.4%      351  13.9% hash_insert
+     131   5.2%  44.6%      158   6.3% sweepspan
+     119   4.7%  49.3%      350  13.9% main.DFS
+      96   3.8%  53.1%       98   3.9% flushptrbuf
+      95   3.8%  56.9%       95   3.8% runtime.aeshash64
+      95   3.8%  60.6%      101   4.0% runtime.settype_flush
+      88   3.5%  64.1%      988  39.1% runtime.mallocgc
+}}}
+
+A profiled program stops about 100 times / sec and records a sample consisting of the program counters on the currently executing goroutine's stack.
+To sort by 4th and 5th columns, use the `-cum` (cumulative) flag.
+
+The percentage might not be 100% even when it theoretically should.
+This is due to the fact that each stack sample includes only the bottom 100 frames.
+
+The `web` command draws a graph of the profile data in SVG format and opens it in a web browser. Requires [[http://www.graphviz.org/|graphviz]].
+
+- Each box in the graph corresponds to a function, and is sized accoring to the number of samples in which it was running.
+- An edge from box X to Y indicates that X calls Y.
+- The number along the edge is the number of times that call appears in a sample.
+- Recursion shows as an edge to self with a number (weight).
+- To show only samples including a specific function, e.g. `mapaccess1`, write `web mapaccess1`.
+
+These commands give us a higher level overview of what's going on in the program.
+
+=== Details ===
+
+To look closely at a specific function, use `list`:
+
+{{{
+(pprof) list DFS
+Total: 2525 samples
+ROUTINE ====================== main.DFS in /home/rsc/g/benchgraffiti/havlak/havlak1.go
+   119    697 Total samples (flat / cumulative)
+     3      3  240: func DFS(currentNode *BasicBlock, nodes []*UnionFindNode, number map[*BasicBlock]int, last []int, current int) int {
+     1      1  241:     nodes[current].Init(currentNode, current)
+     1     37  242:     number[currentNode] = current
+     .      .  243:
+     1      1  244:     lastid := current
+    89     89  245:     for _, target := range currentNode.OutEdges {
+     9    152  246:             if number[target] == unvisited {
+     7    354  247:                     lastid = DFS(target, nodes, number, last, lastid+1)
+     .      .  248:             }
+     .      .  249:     }
+     7     59  250:     last[number[currentNode]] = lastid
+     1      1  251:     return lastid
+(pprof)
+}}}
+
+First 3 columns are:
+- the number of samples taken while running that line, 
+- the number of samples taken while running that line OR in code called from that line,
+- the line number in the file.
+
+There are also supplementary commands:
+- `disasm` shows a disassembly instead of an src listing (can show which instructions are expensive).
+- `weblist` shows the source listing in which clicking a line shows the disasm.
+
+`runtime.mallocgc` means that GC has been caugh in a sample.
+To find why GC is running during the execution, use `-memprofile`.
+
+Custom `memprofile` might look like so:
+{{{
+var memprofile = flag.String("memprofile", "", "write memory profile to this file")
+...
+
+    FindHavlakLoops(cfgraph, lsgraph)
+    if *memprofile != "" {
+        f, err := os.Create(*memprofile)
+        if err != nil {
+            log.Fatal(err)
+        }
+        pprof.WriteHeapProfile(f)
+        f.Close()
+        return
+    }
+}}}
+
+Using `go tool` with the different profile causes it to analyse memory allocations:
+
+{{{
+$ go tool pprof havlak3 havlak3.mprof
+Adjusting heap profiles for 1-in-524288 sampling rate
+Welcome to pprof!  For help, type 'help'.
+(pprof) top5
+Total: 82.4 MB
+    56.3  68.4%  68.4%     56.3  68.4% main.FindLoops
+    17.6  21.3%  89.7%     17.6  21.3% main.(*CFG).CreateNode
+     8.0   9.7%  99.4%     25.6  31.0% main.NewBasicBlockEdge
+     0.5   0.6% 100.0%      0.5   0.6% itab
+     0.0   0.0% 100.0%      0.5   0.6% fmt.init
+(pprof)
+}}}
+
+The memory profiler only records information for approximately one block perf half megabyte allocated to reduce overhead.
+
+Functions can be listed all the same through `list`, but this time we will have memory usage instead of stack frames listed.
+
+`go tool pprof --inuse_objects` will report allocations instead  of sizes.
+
+It may be usefule to graph the allocations that are causing GC through `web mallocgc`.
+This graph may be unreadable though - most parts of your code will allocate something and so large number of nodes with small sample numbers will interfere visually with the big ones.
+To display only the nodes that account for at least 10% of the samples, use `go tool pprof --nodefraction=0.1 havlak4 havlak4.prof`.
+
+To presrve performance, you need to take into account memory management, regardless of the fact of using a GC'ed language.
+E.g. if your algorithms need a lot of bookkeeping structures, create a cache of some sort prior too using them, instead of recreating a fresh structure on every iteration.

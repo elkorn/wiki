@@ -2,13 +2,17 @@
 
 [[Libraries]]
 
+[[Profiling]]
+
 == Resources ==
 
 - [[https://gobyexample.com/|Go by example]] - a massive list of useful code examples, presenting how specific aspects of Go work.
 - [[http://go-lang.cat-v.org/go-code|List of useful Go apps and packages]]
 
 == Quirks and issues ==
+
 === Using the `html/template` package ===
+
 A problem with templates not rendering:
 
 When I run:
@@ -36,3 +40,55 @@ The solution:
     the file name matches the template name you parse next or Providing the
     template name you want to execute explicitly with
     `t.ExecuteTemplate(w, "index.html", nil)`.
+
+
+=== Using io.Reader in an efficient manner ===
+
+(from https://www.datadoghq.com/2014/07/crossing-streams-love-letter-gos-io-reader/)
+
+Avoid using `readAll` and similar methods - make use of streams (work with `read` instead).
+Remember how you program in UNIX - piping output etc. There are no intermediate state files storing the data e.g.:
+
+{{{
+# this is how we program for some reason
+ls > files.txt
+grep "foo" files.txt > grepped.txt
+wc -l grepped.txt
+rm files.txt grepped.txt
+}}}
+
+Programming with intermediate state files is a more imperative approach, and such thinking almost always leads to inefficiencies.
+
+Example of bad vs good:
+
+BAD
+{{{
+func LoadGzippedJSON(r io.Reader, v interface{}) error {
+    data, err := ioutil.ReadAll(r)
+    if err != nil {
+        return err
+    }
+    // oh wait, we need a Reader again.. 
+    raw := bytes.NewBuffer(data)
+    unz, err := gzip.NewReader(raw)
+    if err != nil {
+        return err
+    }
+    buf, err := ioutil.ReadAll(unz)
+    if err != nil {
+        return err
+    }
+    return json.Unmarshal(buf, &v)
+}
+}}}
+
+GOOD
+{{{
+func LoadGzippedJSON(r io.Reader, v interface{}) error {
+    raw, err := gzip.NewReader(r)
+    if err != nil {
+        return err
+    }
+    return json.NewDecoder(raw).Decode(&v)
+}
+}}}
