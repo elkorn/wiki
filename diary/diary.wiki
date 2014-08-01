@@ -1,4 +1,5 @@
 
-= Available links =
+= Generated Links =
     - [[2014-01-14]]
+    - [[2014-08-01]]    - 36. JUG Wrocław - Akka.{Persistence, Cluster}
     - [[diary]]
