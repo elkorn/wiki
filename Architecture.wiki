@@ -1,5 +1,7 @@
 = Architecture =
 
+[[Capacity planning]]
+
 [[Concurrency]]
 
 [[Design]]

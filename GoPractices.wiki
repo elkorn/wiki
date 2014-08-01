@@ -1,0 +1,224 @@
+= Go - Practices =
+%toc
+
+== Use a single $GOPATH ==
+
+If your project is very big and important, it deserves a separate `$GOPATH`.
+Until that time though, don't try to use multiple `$GOPATH`s.
+It will just slow you down.
+
+== Wrap for-select idiom in a function ==
+
+`for-select` is the bread and butter of concurrent programming in Go.
+
+If there is a situation where you need to break out of such loop, labels have to be used.
+Instead, wrap the loop in a function - it will be much easier to just `return` from it.
+Also, you gain the opportunity to return an error.
+
+Example comparison:
+{{{
+// The wrong way
+func main() {
+
+L:
+    for {
+        select {
+        case <-time.After(time.Second):
+            fmt.Println("hello")
+        default:
+            break L
+        }
+    }
+
+    fmt.Println("ending")
+}
+
+// The right way
+func main() {
+    foo()
+    fmt.Println("ending")
+}
+
+func foo() {
+    for {
+        select {
+        case <-time.After(time.Second):
+            fmt.Println("hello")
+        default:
+            return
+        }
+    }
+}
+}}}
+
+== Always use tagged literals ==
+
+What it means - use named properties while instantiating structs ad-hoc.
+Example:
+{{{
+type T struct {
+    Foo string
+    Bar int
+    Qux string
+}
+
+func main() {
+    t := T{Foo: "example", Bar: 123}
+    fmt.Printf("t %+v\n", t)
+}
+}}}
+
+Otherwise, the compiler will throw an error when the struct changes.
+On the other hand, it might be intentional.
+
+== Split initializations into multiple lines ==
+
+Well, duh.
+It scales.
+Remember after the comma after each line, including the last one.
+
+== Add String() method for integers const values ==
+
+It increases readability - it's an equivalent of overriding `toString()` in Java or C#.
+
+{{{
+type State int
+
+const (
+    Running State = iota 
+    Stopped
+    Rebooting
+    Terminated
+)
+
+func (s State) String() string {
+    switch s {
+    case Running:
+        return "Running"
+    case Stopped:
+        return "Stopped"
+    case Rebooting:
+        return "Rebooting"
+    case Terminated:
+        return "Terminated"
+    default:
+        return "Unknown"
+    }
+}
+
+func main() {
+    state := Running
+
+    // print: "state 0"
+    fmt.Println("state ", state)
+}
+}}}
+
+== Start iota with a +1 increment ==
+
+This tip is bullshit.
+`iota+1` seems to be the equivalent of `undefined` in JS.
+It returns `Unknwown` when `String()`ed.
+
+A better alternative (related to the previous example) would be to do the following.
+{{{
+const (
+    Unknown State = iota 
+    Running
+    Stopped
+    Rebooting
+    Terminated
+)
+}}}
+
+== Return function calls ==
+
+Instead of
+{{{
+func bar() (string, error) {
+    v, err := foo()
+    if err != nil {
+        return "", err
+    }
+
+    return v, nil
+}
+}}}
+
+Return this.
+{{{
+func bar() (string, error) {
+    return foo()
+}
+}}}
+
+== Convert slices, maps etc. into custom types ==
+
+Instead of a `map[string][string]`, use a clear type name for the sake of readability.
+The second benefit here is extensibility, as you can now add methods to instances of that type.
+
+== Use contextual wrapper functions ==
+
+Abstract error handling, locking, DB connections etc. into contextual wrappers.
+{{{
+func withLockContext(fn func()) {
+    mu.Lock
+    defer mu.Unlock()
+
+    fn()
+}
+
+func foo() {
+    withLockContext(func() {
+        // foo related stuff
+    })
+}
+
+func withDBContext(fn func(db DB)) error {
+    // get a db connection from the connection pool
+    dbConn := NewDB()
+
+    return fn(dbConn)
+}
+
+func foo() {
+    withDBContext(func(db *DB) error {
+        // foo related stuff
+    })
+}
+}}}
+
+== Add setter,getters for map access ==
+
+A prime example is of concurrent access to a map.
+What if one goroutine does `m["foo"] = bar` and another one `delete(m, "foo")`?
+
+Encapsulate.
+{{{
+func Put(key, value string) {
+    mu.Lock()
+    m[key] = value
+    mu.Unlock()
+}
+func Delete(key string) {
+    mu.Lock()
+    delete(m, key)
+    mu.Unlock()
+}
+}}}
+
+One step further - use an interface to abstract storage away.
+
+{{{
+type Storage interface {
+    Delete(key string)
+    Get(key string) string
+    Put(key, value string)
+}
+}}}
+
+*Note:*
+Sometimes, interfaces are overkill.
+You might need to lock several variables at once.
+This would lead to layering of interaces.
+Apply this improvement only if it does not bring too much additional complexity to the table.
