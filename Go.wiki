@@ -2,11 +2,14 @@
 
 [[GoArchitecture]]
 
+[[GoConcurrencyPatterns]]
+
 [[Libraries]]
 
 [[Profiling]]
 
 [[GoPractices]]
+
 == Resources ==
 
 - [[https://gobyexample.com/|Go by example]] - a massive list of useful code examples, presenting how specific aspects of Go work.
