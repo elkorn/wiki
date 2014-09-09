@@ -7,3 +7,5 @@
 [[Kernelization]]
 
 [[Parameterized algorightms]]
+
+[[How to write a paper]]

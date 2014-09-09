@@ -1,7 +1,7 @@
 = Go - Profiling =
 
 == Built-in profiling capabilities ==
-Introductory note - Go's [[http://golang.org/pkg/testing/|testing]] package provides a bult-in `benchmark` functionality.
+Introductory note - Go's [[htgolangtp://golang.org/pkg/testing/|testing]] package provides a bult-in `benchmark` functionality.
 Functions of the form
 {{{
 func BenchmarkXxxx(*testing.B)
