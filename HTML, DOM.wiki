@@ -32,3 +32,6 @@ document.head.compareDocumentPosition(document.body) // 4
 
 Note that `#two` is contained in `#one` and the result is 16 + 4, which means 
 that `#two` is contained by `#one` and also is following it.
+
+[[http://ejohn.org/blog/comparing-document-position/|John Resig]] elaborates on browser support as well as how to polyfill 
+the functionality in different browsers.
