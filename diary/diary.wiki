@@ -1,5 +1,14 @@
+= Diary =
 
-= Generated Links =
-    - [[2014-01-14]]
-    - [[2014-08-01]]    - 36. JUG Wrocław - Akka.{Persistence, Cluster}
-    - [[diary]]
+== 2014 ==
+
+=== November ===
+    * [[2014-11-05|Being the worst - ep. 11/12 (Application and Domain Services, DSL-based code generation)]]
+
+=== August ===
+    * [[2014-08-11|JUG - Uncle Bob, "Architecture- the lost years"]]
+    * [[2014-08-01|JUG 36 - Akka persistence, cluster, plugins]]
+
+=== January ===
+    * [[2014-01-14]]
+
