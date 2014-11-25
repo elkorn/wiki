@@ -1,7 +1,20 @@
 = Go - Profiling =
 
+== Tip for profiling a single test ==
+To run and profile a single test, it must be run in the context of a benchmark.
+Moreover, any other tests must be blocked from running.
+To do so, use the following:
+
+{{{
+go test -run="^$" -bench="TheTestToProfile" -cpuprofile="out.prof"
+}}}
+
+`-run="^$"` will bar any tests from being actually run - thus not having their 
+stack samples collide with the profiler output.
+
+
 == Built-in profiling capabilities ==
-Introductory note - Go's [[http://golang.org/pkg/testing/|testing]] package provides a bult-in `benchmark` functionality.
+Introductory note - Go's [[htgolangtp://golang.org/pkg/testing/|testing]] package provides a bult-in `benchmark` functionality.
 Functions of the form
 {{{
 func BenchmarkXxxx(*testing.B)

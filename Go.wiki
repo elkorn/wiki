@@ -2,9 +2,13 @@
 
 [[GoArchitecture]]
 
+[[GoConcurrencyPatterns]]
+
 [[Libraries]]
 
 [[Profiling]]
+
+[[GoPractices]]
 
 == Resources ==
 

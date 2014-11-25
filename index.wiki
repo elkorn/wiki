@@ -16,6 +16,10 @@
 
 [[Go]]
 
+[[Health]]
+
+[[Inpsiration]]
+
 [[MSc]]
 
 [[Music]]
@@ -29,3 +33,5 @@
 [[Tools]]
 
 [[UNIX]]
+
+[[Web]]

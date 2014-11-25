@@ -1,0 +1,234 @@
+= Distributed computing =
+
+== Fallacies of distributed computing ==
+
+There exist 8 main assumptions about distributed systems which architects tend to make,
+that prove wrong in the long run.
+
+=== The network is reliable ===
+==== Reason ====
+We are not talking only about hitting the failure described in a switch's MTBF statement,
+when your application is a 365x7, mission critical type of software.
+
+There are plenty of problems.
+- Power failures,
+- Someone tripson the network cord,
+- All of a sudden clients connect wirelessly,
+- If the hardware does not fail - the software can.
+
+This is an issue especially when working with 3rd parties (think: payment systems,
+external services), since you don't really ahve any control over the behavior or
+connection to the given 3rd party.
+
+Lastly, there are cases of attacks such as DDOS.
+
+The network is *unreliable* and that software architects have to take that into account.
+
+==== Solutions ====
+
+You need to think about hardware and software redundancy and weigh the risks of failure
+vs. the required investments.
+Things tend to stop being binary or absolute, everything rather becomess characterized
+by specific sets of tradeoffs.
+
+On the software side, you need to think about messages being lost whenever communicating
+over the network.
+
+You need to start thinking about tools providing message delivery guarantees and which 
+of those guarantees is the most applicable to your case (e.g. at-least-once delivery,
+at-most-once delivery, exactly-once delivery, in-order, out-of-order...), because each 
+one comes with different performance characteristics and functional tradeoffs.
+Think about retrying, acknowledging messages, coping with duplicates (idempotency of
+messages), reordering messages, integrity of messages etc.
+
+=== Latency is zero ===
+==== Reason ====
+Latency is how much time it takse for data to move between places.
+This is opposed to bandwidth, which describes *how much* data can be transferred in
+given time.
+
+Latency can be good on LAN - but that's pretty much it. It's non-negligible everywhere
+else.
+
+Latency is more problematic than bandwidth.
+Within the last 11 years, bandwidth has increased 1468x, while latency only 10x.
+Furthermore, there exists a natural boundary for latency.
+The minimum round-trip time between two points on earth is determined by speed of light.
+It will always take at least 30ms to send a ping from Europe to the US and back even if
+the processing would be done in real time.
+
+Beware of constructs that provide "network transparency" - such as distributed objects.
+Network communication is by nature latent and asynchronous.
+There is no way around that at this time.
+
+==== Solutions ====
+
+Make as few calls as possible and try to move as much data per call as possible.
+This serves to reduce the share of round-trip time in the request-response cycle.
+
+You should test application's reaction to latency.
+Real world conditions should be emulated in test environments so that reliable results
+can be achieved.
+
+=== Bandwidth is infinite ===
+==== Reason ====
+
+This is not a very strong fallacy - bandwidth is getting much better with time.
+
+The balancing forces though are as follows:
+# While bandwidth grows, so does the amount of information we try to squeeze through it (think terabytes of data a day!).
+# The smaller the frame size, the larger the packet loss.
+    # To achieve 500 Mbps with 9000 byte frames, we need a packet loss rate of $\leq 1*10^(-5)$
+    # To achieve 500 Mbps with 1500 byte frames, we need a packet loss rate of $\leq 2.8*10^(-7)$
+
+==== Solutions ====
+
+Strive to limit the information sent over the wire.
+
+Consider that in the production environment there may be bandwidth problems out of your
+control.
+Bear in mind how much data is expected to travel over the wire.
+
+=== The network is secure ===
+==== Reason ====
+
+Even if your application is secure, there are no guarantees that any 3rd party code that
+you happen to use or interact with also is.
+
+Additionally, there comes network security.
+Over 50% of chief security officers admit to having a "Moat & Castle" approach to
+security i.e. once the perimeter has been breached, there is mostly nothing to stop an
+attacker.
+
+Use of automated attack tools is so widespread that attack metric providers have started
+to work on a more meaningful metric than just "incidents".
+
+==== Solutions ====
+
+Security is a process that has to be taken into account *from day 1*.
+It is a system quality attribute that has to be taken into account starting from the 
+architectural level.
+
+Security is also a vast topic that is hard to summarize properly in a paragraph.
+Threat modelling has to be performed to evaluate risks and after following analysis, 
+decisions have to be made which ones should be mitigated by what measures.
+As with most things, there are tradeoffs between mitigation costs and risk probability.
+Security can be implemented on multiple layers, from infratstructure, to applications.
+
+As an architect, not being a security expert does not relieve you from being aware of the
+need for it as well as the implications it, as well as the lack of it, may have.
+Example implications:
+- you might not be able to use multicast due to security concerns,
+- user accounts with limited privileges might not be able to access some networked resource.
+
+=== Topology does not change ===
+==== Reason ====
+
+Deploying an application to an organization, the network topology is usually beyond your
+control.
+The operations team may add or remove servers or make changes to the networks (change
+protocols, rewire a subnet etc.)
+
+With clients, the situtation is more extreme - there are laptops, ad-hoc networks and
+wireless mobile devices.
+Topology is changing *constantly*.
+
+==== Solutions ====
+
+Do not depend on specific endpoints or routes, if you cannot be prepared to renegotiate
+endpoints.
+
+Also, you would want to be able to either provide location transparency (using a service 
+bus) or provide discovery services.
+
+Another strategy would be to abstract the physical structure of the network.
+The most obvious step would be to favor DNS names instead of IP addresses.
+
+*WS-Routing vs WS-Addressing*
+
+In WS-Routing, a message describes its own path - meaning that it is assumed to know the
+path in advance.
+WS-Addressing relies on "Next Hop" routing (as does TCP/IP), meaning its more robust.
+
+Also, routing in SQL Server Service Broker is problematic - whenever topology changes, the
+IT department has to go into the SQLSSB and update the routing tables.
+
+=== There is one administrator ===
+==== Reason ====
+
+This fallacy may not apply to small, isolated LANs and similar networks.
+
+Enterprises have usually different administrators assigned to parts of the system based
+on their expertise - databases, web servers, networks, Windows, Linux, Mainframe etc.
+
+Problems occur when the company cooperates with xternal entities or if an application is
+deployed for Internet consumption and hosted by an external hosting service or consuming
+external services.
+In these situations, the administrators of those services are not under your control.
+
+If everything goes well, you might not even have to care.
+You most definitely do, when things are starting to go wrong.
+
+==== Solutions ====
+Provide administrators with tools to diagnose and find problems, especially if the
+application involves more than one company ("whose problem is that?").
+
+Proactively, include tools for monitoring ongoing operations as well e.g. to allow admins
+to identify problems when they are small - before they become a system failure.
+
+Express iteroperability in contracts.
+This is very important when it comes to updating parts of the system, even more so when
+operating with 3rd parties. 
+Pieces of the system as well as its partners should be able to interop with it regardless
+of what state parts of the system are.
+Be aware of that and keep in mind backward compatibility and maybe even forward
+compatibility.
+
+Remember also that each administrator may constrain your options (e.g. set disk quotas,
+limit privileges, limit ports and protocols etc.) due to their specific needs.
+
+=== Transport cost is zero ===
+==== Reason ====
+
+One way to interpret this is that going from application level to the transport level 
+(think OSI/ISO stack) is free.
+This is false, since marshalling has to be done to get data onto the wire - that adds to
+latency and takes up computer resources (this pertains to the "Latency is zero" fallacy).
+
+Another way of interpretation is that the costs (as in $$$) for setting and running the
+network are zero.
+The infrastructure has to be bought, the bandwidth for Internet connections has to be
+leased, operating and maintaining the network running is not free either.
+Someone, somewhere will have to pay for all this.
+
+==== Solution ====
+
+It might be sensible to take into account when preparing projections of the project's
+financial impact.
+
+Even if you managed to build an incredible, disruptive new service - neglecting the costs 
+that are required to set it up, host it or run it will cause you to fail.
+
+Remember also that even if other fallacies do not apply to your situation, this one most
+likely will anyway.
+
+=== The network is homogenous ===
+==== Reason ====
+
+It is naive to assume that a network consists solely of devices of one type, communicating
+in the same way with each other.
+
+Assumng this fallacy would not cause too much serious trouble at the lower network level 
+since IP is quite ubiquitous - it may result in suboptimal use of the non-native IP
+resources.
+
+==== Solutions ====
+
+Pay attention to the fact that the network is not homogenous at the application level.
+The implications is that you have to assume interoperability will be needed sooner or
+later and be ready to support it from Day 1 or a least design where you'd add it later.
+
+Reliance on proprietary protocols is not advised, as integration of those is harder.
+It's better to use standard, open technologies that are widely recognized and accepted.
+The most notable of course are XML, Web Services, HTTP, JSON.
+

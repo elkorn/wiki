@@ -1,6 +1,10 @@
 = Architecture =
 
+[[Capacity planning]]
+
 [[Concurrency]]
+
+[[DistributedComputing]]
 
 [[Design]]
 

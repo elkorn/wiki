@@ -155,3 +155,178 @@ A few points to take heed of:
 # *Group related types and code together in each file.*
 # *The most important type goes at the top.* Types of decreasing importance go lower.
 # *Once your app exceeds 10k loc*, reevaluate ts structure in the context of whether could it be broken into smaller projects.
+
+== Structuring tests ==
+
+(from https://medium.com/@benbjohnson/structuring-tests-in-go-46ddee7a25c)
+
+=== Don't use frameworks ===
+Go's `testing` is good enough.
+Author proposes the following helpers to make assertions less verbose:
+{{{
+import (
+    "fmt"
+    "path/filepath"
+    "runtime"
+    "reflect"
+    "testing"
+)
+
+// assert fails the test if the condition is false.
+func assert(tb testing.TB, condition bool, msg string, v ...interface{}) {
+    if !condition {
+        _, file, line, _ := runtime.Caller(1)
+        fmt.Printf("\033[31m%s:%d: "+msg+"\033[39m\n\n", append([]interface{}{filepath.Base(file), line}, v...)...)
+        tb.FailNow()
+    }
+}
+
+// ok fails the test if an err is not nil.
+func ok(tb testing.TB, err error) {
+    if err != nil {
+        _, file, line, _ := runtime.Caller(1)
+        fmt.Printf("\033[31m%s:%d: unexpected error: %s\033[39m\n\n", filepath.Base(file), line, err.Error())
+        tb.FailNow()
+    }
+}
+
+// equals fails the test if exp is not equal to act.
+func equals(tb testing.TB, exp, act interface{}) {
+    if !reflect.DeepEqual(exp, act) {
+        _, file, line, _ := runtime.Caller(1)
+        fmt.Printf("\033[31m%s:%d:\n\n\texp: %#v\n\n\tgot: %#v\033[39m\n\n", filepath.Base(file), line, exp, act)
+        tb.FailNow()
+    }
+}
+}}}
+
+Benefit:
+
+{{{
+// Before
+func TestSomething(t *testing.T) {
+    value, err := DoSomething()
+    if err != nil {
+        t.Fatalf("DoSomething() failed: %s", err)
+    }
+    if value != 100 {
+        t.Fatalf("expected 100, got: %d", value)
+    }
+}
+
+// After
+func TestSomething(t *testing.T) {
+    value, err := DoSomething()
+    ok(t, err)
+    equals(t, 100, value)
+}
+}}}
+
+=== Use the '..._test' package ===
+
+E.g. for `package myapp`, keep the following files in its directory:
+- `myapp.go`
+- `myapp_test.go`
+
+Then, specify `package myapp_test` in `myapp_test.go`.
+Such setup will help maintain the proper visibility of things while testing.
+
+Also, it's the only case where Go will allow multiple packages in one directory.
+
+=== Use test-specific types ===
+
+For example, set up a test database using a temp file and providing a `close` function for simple teardown.
+
+{{{
+type TestDB struct {
+    *DB // the original application-specific DB type
+}
+// NewTestDB returns a TestDB using a temporary path.
+func NewTestDB() *TestDB {
+    // Retrieve a temporary path.
+    f, err := ioutil.TempFile("", "")
+    if err != nil {
+        panic("temp file: %s", err)
+    }
+    path := f.Name()
+    f.Close()
+    os.Remove(path)
+    // Open the database.
+    db, err := Open(path, 0600)
+    if err != nil {
+        panic("open: %s", err)
+    }
+    // Return wrapped type.
+    return &TestDB{db}
+}
+// Close and delete Bolt database.
+func (db *TestDB) Close() {
+    defer os.Remove(db.Path())
+    db.DB.Close()
+}
+}}}
+
+=== Use inline interfaces and simple mocks ===
+
+The idea is that the caller should create the interface it wants 
+instead of the callee having to provide one.
+
+An example is given based on a Yo app client.
+{{{
+package yo
+type Client struct {}
+// Send sends a "yo" to someone.
+func (c *Client) Send(recipient string) error
+// Yos retrieves a list of my yo's.
+func (c *Client) Yos() ([]*Yo, error)
+}}}
+
+To make it able to send Yo's, the following can be declared.
+{{{
+package myapp
+type MyApplication struct {
+    YoClient interface {
+        Send(string) error
+    }
+}
+func (a *MyApplication) Yo(recipient string) {
+    return a.YoClient.Send(recipient)
+}
+}}}
+
+In `main.go`, a client can be injected.
+{{{
+package main
+func main() {
+    c := yo.NewClient()
+    a := myapp.MyApplication{}
+    a.YoClient = c
+    ...
+}
+}}}
+
+As well as in tests.
+{{{
+package myapp_test
+// TestYoClient provides mockable implementation of yo.Client.
+type TestYoClient struct {
+    SendFunc func(string) error
+}
+func (c *TestYoClient) Send(recipient string) error {
+    return c.SendFunc(recipient)
+}
+func TestMyApplication_SendYo(t *testing.T) {
+    c := &TestYoClient{}
+    a := &MyApplication{YoClient: c}
+    // Mock our send function to capture the argument.
+    var recipient string
+    c.SendFunc = func(s string) error {
+        recipient = s
+        return nil
+    }
+    // Send the yo and verify the recipient.
+    err := a.Yo("susy")
+    ok(t, err)
+    equals(t, "susy", recipient)
+}
+}}}

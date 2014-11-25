@@ -1,0 +1,12 @@
+= Bash - replace text in files =
+
+To replace some text in specified files:
+{{{
+grep -nl "foo"  *.go | xargs sed -i 's/foo/bar/g'
+}}}
+
+recursively:
+{{{
+grep -rl "foo"  *.go | xargs sed -i 's/foo/bar/g'
+}}}
+
