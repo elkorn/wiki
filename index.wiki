@@ -1,4 +1,8 @@
-= My knowledge base =
+=  My knowledge base =
+
+[[diary/diary|Diary]]
+
+---------------------
 
 [[Architecture]]
 
@@ -7,6 +11,8 @@
 [[Bash]]
 
 [[Craftsmanship]]
+
+[[Functional Programming]]
 
 [[Go]]
 

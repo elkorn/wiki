@@ -1,0 +1,49 @@
+= Functional Programming =
+
+== Points-free programming ==
+
+
+Points-free programming style is to define functions withour ever making direct
+reference to their arguments.
+
+Example:
+{{{
+var sum = function(list)_{
+    return reduce(add, 0, list);
+}
+// Transforms to
+var sum = _.partial(reduce, add, 0);
+
+
+// Different example
+var propEq = function(prop, val) {
+    return function(obj) {
+        return obj[prop] === val;
+    }
+}
+
+// Transforms to
+var propEq = function(prop,val) {
+    return compose(eq(val), get(prop));
+}
+}}}
+
+=== Use-over function === 
+
+`use(func).over(transformer1, ..., transformerN)` accepts N parameters, feeds 
+them to the respective transformers  and then calls `func` using the results of 
+all of these. 
+
+{{{
+var propEq = use(pipe).over(get, eq);
+// ...
+.then(filter(propEq('member', memberName)))
+.then(reject(propEq('complete', true)))
+}}}
+
+
+== Transforming an array ==
+
+Use `arr.map(pick['p1','p2' /*, ... */ ])`.
+
+

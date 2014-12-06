@@ -1,0 +1,61 @@
+= Greg Young - polyglot data =
+
+Current state is conceptually transient, it can be presistent.
+Full reversals preferred over partial reversals.
+Not-losing data, recording all kinds of transactions retains the most
+information possible - future projections might apply to past data, previously not 
+considered.
+Projection: event stream[event type] => state.
+
+Cool idea - not knowing ho to value data is a good reason to store it just in case.
+
+Aside: HBO criminal masterminds w/Greg.
+
+WORM drive - write once, read many
+
+Snapshotting - specific version as a base state.
+Thing to ponder upon: stop trying to adapt data to 1 database.
+Use multiple, of type appropriate to each case (projections, operation types).
+
+Different approach - learning lots of different models. Discuss with W.
+
+Aside: Scaling DDD talk - 1st rendition.
+
+Log-structured merge
+
+Storing the fresh, current slices of data separately from everything else.
+Different read models, different SLAs - more wiggle room, separating
+characteristic complexity.
+
+Optimize for replaying projections to avoid service bus kludges.
+The key here is to use checkpoint logging.
+Subscription state management is shifted to event clients.
+Storing checkpoints atomically with changes relieves of idempotency problems.
+
+This actually equals to keeping an event store.
+
+Aside: Axon for building event stores on top of different DB systems.
+
+Idea: HTTP Try-Again-In: %d
+
+Don't forget about the operational overhead.
+Refactoring brownfields- partial event sourcing (e.g. per actor decisions).
+
+CQRS criteria:
+- is this core business info?
+- syncing with often-offline apps
+- auditing/security requirements
+- places of more substantial complexity
+
+Sticking to the optimistic concurrency model is popular in larger systems.
+
+Full consistency when possible, falling back to eventual consistency - approaches?
+
+Don't rename events, don't change their semantic meaning.
+Aside from that use weak serialization - versioning events is easy without a 
+rigid serialized structure.
+
+References:
+- SimpleCQRS on Github
+- dddcqrs website
+- Lamport's paper on event ordering - vector clock concepts.
