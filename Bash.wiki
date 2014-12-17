@@ -1,5 +1,7 @@
 = Bash =
 
-[[Using tput]]
+[[Parameter expansion]]
 
 [[Replace text in files]]
+
+[[Using tput]]
