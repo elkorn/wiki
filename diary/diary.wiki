@@ -2,7 +2,12 @@
 
 == 2014 ==
 
+=== December ===
+    * [[2014-12-17|JUG - Continuous Deployment]]
+    * [[2014-12-02|Greg Young - polyglot data]]
+
 === November ===
+    * [[2014-11-12|Nice quote]]
     * [[2014-11-05|Being the worst - ep. 11/12 (Application and Domain Services, DSL-based code generation)]]
 
 === August ===
