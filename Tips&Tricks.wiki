@@ -88,3 +88,9 @@ angular.module('btford.ng-src', []).
   }
 }());
 }}}
+
+== Animating ng-if ==
+
+To animate `ng-if`ed elements, use the following classes:
+- `.ng-if.ng-enter` and `.ng-if.ng-enter-active`,
+- `.ng-if.ng-leave` and `.ng-if.ng-leave-active`,

@@ -1,0 +1,16 @@
+= ng-wroclaw #4 =
+
+New UI frameworks based on Angular - modern alternatives to AngularUI.
+UI-router is the well-established replacement for `ngRoute`.
+
+== ZURB Foundation for Apps ==
+- route generation with Gulp tasks
+
+
+== Supersonic ==
+- Ionic fork
+- some components replaced with native counterparts
+- apps are multipage -> webview for each element with cross-view communication
+
+== OnsenUI ==
+
