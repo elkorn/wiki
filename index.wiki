@@ -20,6 +20,8 @@
 
 [[Inpsiration]]
 
+[[JVM]]
+
 [[MSc]]
 
 [[Music]]
@@ -27,8 +29,6 @@
 [[Node.js]]
 
 [[Resources]]
-
-[[Scala]]
 
 [[Tools]]
 
