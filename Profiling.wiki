@@ -414,3 +414,7 @@ Running that looks very similar to the second version.
 {{http://blog.cloudflare.com/static/images/garbage-recyler.png}}
 
 Any arbitrary type can be reused in that manner, not only `[]byte` slices.
+
+=== Benchmark visualization ===
+
+https://github.com/ajstarks/svgo/blob/master/benchviz/benchviz.go can be used to visualize benchmark results.
