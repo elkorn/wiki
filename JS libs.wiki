@@ -85,3 +85,44 @@ https://github.com/gulpjs/gulp/tree/master/docs/recipes
 A simple tool for generating pleasing colors.
 
 https://github.com/Fooidge/PleaseJS
+
+= spots, functional pipeline, potential point-free  =
+
+https://github.com/bahmutov/spots
+https://github.com/bahmutov/functional-pipeline
+https://github.com/bahmutov/eslint-rules
+
+Spots allow to do tacit programming easier by selective partial application e.g.
+{{{
+var S = require('spots');
+[3,6,9].map(S(div, S, 3));
+
+S(div,S,3)(6) === div(6,3); // true
+}}}
+
+This can be combined with the `functional-pipeline` lib to create more complicated combinators e.g.
+{{{
+var S = require('spots');
+var fp = require('functional-pipeline');
+['3','6','9'].map(
+    fp(
+        S(parseInt, S, 10),
+        S(div, S, 3)));
+}}}
+
+A nice plus is the `potential-point-free` plugin for `eslint` which detects functions that can be made tacit.
+{{{
+/* eslint potential-point-free:1 */
+function print(x) {
+  console.log(x);
+}
+[1, 2, 3].forEach(function printX(x) {
+  print(x);
+});
+
+// eslint
+$ eslint --rulesdir .. test.js 
+test.js
+   7:18  warning  printX   potential-point-free
+✖ 1 problem
+}}}

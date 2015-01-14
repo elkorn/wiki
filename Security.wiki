@@ -119,3 +119,42 @@ Evil regexp pattern requiremenets:
 
 Review the regexps in the code for evil patterns.
 Do not use user supplied inputs as regexps.
+
+== Don't use eval ==
+
+Indirect forms of `eval`:
+{{{
+setInterval(String, number);
+setTimeout(String, number);
+new Function(String);
+}}}
+
+== Avoid command injection ==
+
+`child_process.exec` is actually a `bash` interpreter, not a program launcher.
+Do not pass user input to `child_process.exec` to avoid potential commands being injected through subshells.
+Using `child_process.execFile` is a safe alternative.
+
+== Temp files ==
+
+Instead of creating temporary files (to avoid disk space usage) use Streams.
+
+== Cookie theft ==
+
+Any third-party javascript can read cookies on the page it's being run.
+To prevent this, set the `HttpOnly` flag on cookies.
+
+== Content Security Policy ==
+Introduce a security poilicy for your domain through an HTTP header e.g. `Content-Security-Policy: default-src 'self' *.home.com`.
+
+== Tools  ==
+=== Helmet ===
+https://github.com/evilpacket/helmet
+Helmet provides middleware for securing a node.js application.
+
+=== npm shrinkwrap ===
+Locks down dependency versions recursively - useful for making releases.
+
+=== retire.js ===
+retire.js detects module versions with known vulnerabilities (both node and browser modules).
+
