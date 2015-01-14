@@ -1,0 +1,36 @@
+= React is not as good as it could be =
+
+Via "Don't React" presentation.
+
+Don't follow the hype, the community, the companies.
+The only thing you should follow is the science.
+
+React has virtual DOM.
+That's good, since the real DOM is very slow.
+
+Unfortunately, the authors did not quite grasp the idea of reactive programming.
+Their docs mention 'reactive data flow' or 'reactive state' - things that do not exist.
+
+There are two ways of communicating:
+- interactive communication, where a module defines what it affects
+- reactive communication, where a module defines what it is affected by
+
+In interavtive programming, there are 2 key roles:
+- passive, where methods are being exposed to mutate internal state (this is bad)
+- proactive, where the only communication responsibilities are sending and handling events (this is good).
+
+
+React has mostly a passive API, especially the `state` concepts.
+
+It could be improved by:
+- promoting virtual DOM to first-class data structures
+- making it fully proactive
+- making it more explicit - less magic
+
+== Alternatives ==
+Virtual DOM libraries:
+- https://github.com/Matt-Esch/virtual-dom
+- https://github.com/staltz/cycle
+
+Better frameworks: check [[MVCFrameworks]].
+
