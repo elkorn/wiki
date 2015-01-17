@@ -1,0 +1,55 @@
+= Chamberconf 1 =
+
+== To nie zawsze wina aplikacji ==
+
+Bandwidth testing - use different packet sizes, traffic shapes etc.
+
+Kirk Pepperdine performance materials.
+Weave monitoring into the application during the deisgn phase - account for possible numbers(resource usage, data flow).
+Charting these values may provide new perspective.
+
+JavaMelody, Zabbix, Nagios, Ganglia
+
+slideshare d0cent high-availability introduction
+
+A backup copy has to go to a geographically separated location to avoid natural disasters.
+
+Recovery Point Objective - how muc data is lost when restoring
+Recovery Time Objective - how much time it takes to restore
+
+snapshot/replica is not a proper backup:
+- it is not geographically separated
+- snapshots are not permanent - they're being overwritten, sometimes without our consent
+
+=== Network topology ===
+
+Switchers prefer big packets - the capacities highlghted by vendors are achievable in favorable conditions.
+Dense small packet traffic can cause jams nevertheless.
+Przepływność na ang. - symbol rate?
+
+Defense in depth
+
+=== Sharing the infrasttructure ===
+
+Net, disks, fs, virtualization can be shared between products, internal systems, presales, preproduction.
+
+Remember about system load when creating a lot of virtual machines on a single host - the system has to do context switching.
+It compounds with the user load, giving a higher total load than reported by default metrics.
+
+vMotion can cause resource transfe loops.
+
+Xen and LXC mentioned as VM alternatives.
+Light virtualizations do not pretend that we have more resources than we actually do.
+
+Containers allow lbrary sharing.
+
+If the infrastructure sucks, show load tests to prove it.
+
+Create SLAs for when will your application be working.
+
+Performance lab?
+
+There is no one-size-fits-all solution, but Nagios is a bit too complicated for starters - there is a lot of data nobody knows what to do with.
+Simple tools - iostat on the server. For the first few days don't aggregate the data, just try to understand what is going on.
+Measure the key characteristics that are of utmost importance for your application.
+
