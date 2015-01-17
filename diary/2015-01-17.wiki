@@ -53,3 +53,81 @@ There is no one-size-fits-all solution, but Nagios is a bit too complicated for 
 Simple tools - iostat on the server. For the first few days don't aggregate the data, just try to understand what is going on.
 Measure the key characteristics that are of utmost importance for your application.
 
+=== Reactive impl w/Akka ===
+
+=== Distributed Consesus aka what do we eat for lunch ===
+
+Consensus = Termination + Validity + Integrity + Agreement
+Distributed system - a system where pariticpants communicate asynchronously using messages.
+
+Failure detection in such a setting must rely on external knowledge, most likely supported by time.
+Byzantine generals problem...
+Actor description...
+Fallacies of distributed computing...
+
+Failure modes describe how a component might fail.
+- fail-stop
+- fail-recover: recovering might cause data inconsistencies (as in nonsensical data)
+- byzantine: a node can fail, can respond with incorrect values and intends to be malicious - the data can look ok, but is targeted to harm the system. This requires extreme amounts of messaging to consent on something.
+
+Use failstop or failrecover for 99% normal cases.
+
+==== 2-phase commit ====
+# Propose value to all instances
+# Commit the write after getting acknowledged.
+
+Problems:
+- propose value and die
+- propose value to 1 node and die
+
+Proposing needs timeouts (uncommited propositions must be flushed).
+
+Timeouts + recovery commiter - the commiter asks the nodes what's been said (propose or commit).
+If at least one node sees a commited state, then the recovery commiter can send the commit to the rest.
+If the commiter dies, we're fucked.
+
+==== Quorum ====
+First node has a value and tells other to vote for it.
+If a node does not have anything to vote on, it votes on the first value received.
+If no majority can be reached, an additional round of voting has to be performed.
+This is cool, but cannot be guaranteed to terminate - there can always be infinite ties.
+
+==== Paxos ====
+
+Basic paxos - choose exactly one value. 
+Aside: JavaZone paxos presentation?
+oCore idea is based around a replicated state machine.
+If all nodes see the same event history, then they will agree on a single value having this history as its only knowledge source.
+Roles: 
+Acceptor: 
+Proposer, 
+Learner, 
+Leader: a special kind of Proposer, gets changed on every voting turn.
+
+Proposals are numbered with seq numbers, which e.g. [serverId|roundNr]
+2 Phases: Prepare and Accept
+
+Leader increments his sequence number and sends his value along with it to all acceptors.
+Every acceptor checks whether he has accepted a value with ahigher sequence number yet.
+If not, it responds to the proposer with an acceptance message.
+The accepter has to respond with an acceptance message containing the accepted value and its seq num, even if it's not the one the current proposer issued.
+If the Proposer received back a different value, it re-sends it to all of the acceptors.
+After that, the acceptors send a Learn message to the Learners with the accepted value.
+
+If acceptors accepted a value with a higher sequence number, then the algorithm has to be restarted for this proposer with the higher seq num.
+
+Additions: stable leader, performance *bcast roundtrip trimming), ensure full replication, resiliency to number of actors differing.
+This is dealt with in Multi Paxos.
+
+==== Raft ====
+leader based, less processes than paxos, simplicity as a goal
+
+includes snapshotting and membership
+
+Follower - Candidate - Leader
+
+Voting works similarly to quorum.
+
+Candidate votes for himself and requests votes from Followers.
+Aside: Try implementing Raft. (Akka FSM DSL is cool)
+FLP Impossibility result paper... -> consensus is doomed to fail.
