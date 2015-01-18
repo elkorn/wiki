@@ -1,0 +1,29 @@
+= Chamberconf #2 =
+
+== Akka Streams ==
+
+Backpressure - solving the slow consumer problem
+Push + NACK - bounded buggers, drop and re-transmit messages.
+Negative ACKnowledgment (consumer tells the publisher that he has too much msgs) is not enough.
+The problem is that it is also asnchronous - there may be already more messages on the way whe nthe consumer sends the NACK.
+
+Reactive streams = "Dynamic push/pull"
+Just push - not safe when slow subscriber
+Just pull - slow when fast subscriber
+
+Slow subscriber tells the publisher to give him as many elements as he has space in his buffer.
+Fast subscriber can issue more `Reauest(n)`before data arrives.
+Happy case - no costs related to blocking the publisher, the only costs are related to sending additional messages.
+
+Aside: How to create a lazy file iterator?
+
+Streams are potentially infinite - `fold`s may not terminate. a `runningFold` would be appropriate.
+Read more about flowgraphs http://akka.io/news/2014/09/12/akka-streams-0.7-released.html
+
+Akka dispatchers ...
+
+`StatefulStage` is te only stateful element of a stream pipeline.
+The API is somewhat based on `become`.
+
+Implementing custom junctions - the `FlexiMerge` helper allows us to say from which one we want t read, and then emit.
+https://github.com/sbt/sbt-boilerplate - templates for generating code.
