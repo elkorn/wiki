@@ -1,0 +1,735 @@
+= Tools - Octave =
+%toc
+
+== Basic operations ==
+{{{
+octave:6> 6^2
+ans =  36
+octave:7> 1 == 2
+ans = 0
+octave:8> 1 ~= 2
+ans =  1
+octave:10> 1 && 0
+ans = 0
+octave:11> 1 || 0
+ans =  1
+octave:12> xor(1,0)
+ans =  1
+octave:13> xor(1,1)
+ans = 0
+octave:15> PS1('>> ')
+>> 
+>> a = 3
+a =  3
+>> b = 'hi'
+b = hi
+>> b = 'hi';
+>> c = (3>=1);
+>> c
+c =  1
+>> a = pi;
+>> a
+a =  3.1416
+>> disp(a)
+ 3.1416
+>> disp(sprintf('2 decimals: %0.2f',a))
+2 decimals: 3.14
+>> format long
+>> a
+a =  3.14159265358979
+>> format short
+>> a
+a =  3.1416
+>> A = [1 2; 3 4; 5 6]
+A =
+
+   1   2
+   3   4
+   5   6
+>> v = [1 2 3] % 1 by 3
+v =
+
+   1   2   3
+
+>> v = [1; 2; 3] % 3 by 1
+v =
+
+   1
+   2
+   3
+>> v = 1:0.1:2
+v =
+
+ Columns 1 through 8:
+
+    1.0000    1.1000    1.2000    1.3000    1.4000    1.5000    1.6000    1.7000
+
+ Columns 9 through 11:
+
+    1.8000    1.9000    2.0000
+
+
+>> ones(2,3)
+ans =
+
+   1   1   1
+   1   1   1
+
+>> ones(3,2)
+ans =
+
+   1   1
+   1   1
+   1   1
+
+>> c = 2*ones(2,3) % also, `zeros`
+c =
+
+   2   2   2
+   2   2   2
+
+>> w = ones(1,3)
+w =
+
+   1   1   1
+
+>> w = rand(1,3)
+w =
+
+   0.70851   0.94212   0.29808
+
+>> w = rand(3,1)
+w =
+
+   0.602332
+   0.401473
+   0.072355
+
+>> w = rand(3,1)
+w =
+
+   0.68600
+   0.90467
+   0.80151
+
+>> w = rand(3,1)
+w =
+
+   0.35819
+   0.84049
+   0.66920
+
+>> w = randn(1,3) % from Gaussian distr
+w =
+
+   1.577927  -0.097761  -1.136075
+
+>> w = -6 + sqrt(10) * randn(1,10000);
+>> hist(w) % histogram
+>> hist(w,50) % histogram
+>> eye(3)
+ans =
+
+Diagonal Matrix
+
+   1   0   0
+   0   1   0
+   0   0   1
+% also, use `help {anything}` for built-in help.
+}}}
+
+== Moving data around ==
+
+{{{
+% A = [1 2; 3 4; 5 6]
+
+>> size(A)
+ans =
+
+   3   2
+
+>> length(A) % size of the longest dimension
+ans =  3
+>> length([1 2 3 4])
+ans =  4
+>> who
+Variables in the current scope:
+
+A    a    ans  b    c    v    w
+
+>> whos
+Variables in the current scope:
+
+   Attr Name        Size                     Bytes  Class
+   ==== ====        ====                     =====  ===== 
+        A           3x2                         48  double
+        a           1x1                          8  double
+        ans         1x1                          1  logical
+        b           1x2                          2  char
+        c           2x3                         48  double
+        v           1x11                        24  double
+        w           1x10000                  80000  double
+
+Total is 10027 elements using 80131 bytes
+>> v = w(1:10)
+v =
+
+ Columns 1 through 8:
+
+  -1.85036  -4.99490  -5.24149  -5.30683   0.45473  -6.32664  -5.26601  -8.31906
+
+ Columns 9 and 10:
+
+  -7.82427  -3.34916
+
+>> whos
+Variables in the current scope:
+
+   Attr Name        Size                     Bytes  Class
+   ==== ====        ====                     =====  ===== 
+        A           3x2                         48  double
+        a           1x1                          8  double
+        ans         1x1                          1  logical
+        b           1x2                          2  char
+        c           2x3                         48  double
+        v           1x10                        80  double
+        w           1x10000                  80000  double
+
+Total is 10026 elements using 80187 bytes
+
+>> save hello.mat v;
+>> clear v
+>> load hello.mat
+>> who
+Variables in the current scope:
+
+A    a    ans  b    c    v    w
+>> save hello.txt v -ascii % save as ASCII-formatted text
+>> A = rand(4,4)
+A =
+
+   0.319047   0.030859   0.840240   0.174995
+   0.825687   0.157595   0.947932   0.561120
+   0.032448   0.150073   0.082587   0.872453
+   0.333152   0.042347   0.831259   0.336317
+
+>> A(2,:)
+ans =
+
+   0.82569   0.15760   0.94793   0.56112
+
+>> A(:,2)
+ans =
+
+   0.030859
+   0.157595
+   0.150073
+   0.042347
+
+>> A([1 3], :)
+ans =
+
+   0.319047   0.030859   0.840240   0.174995
+   0.032448   0.150073   0.082587   0.872453
+>> A(:,2) = [10; 11; 12; 13]
+A =
+
+    0.319047   10.000000    0.840240    0.174995
+    0.825687   11.000000    0.947932    0.561120
+    0.032448   12.000000    0.082587    0.872453
+    0.333152   13.000000    0.831259    0.336317
+
+>> A = [A, [100; 200; 300; 400]]
+A =
+
+   3.1905e-01   1.0000e+01   8.4024e-01   1.7500e-01   1.0000e+02
+   8.2569e-01   1.1000e+01   9.4793e-01   5.6112e-01   2.0000e+02
+   3.2448e-02   1.2000e+01   8.2587e-02   8.7245e-01   3.0000e+02
+   3.3315e-01   1.3000e+01   8.3126e-01   3.3632e-01   4.0000e+02
+
+>> A(:) % put all elements into a single column vector
+ans =
+
+   3.1905e-01
+   8.2569e-01
+   3.2448e-02
+   3.3315e-01
+   1.0000e+01
+   1.1000e+01
+   1.2000e+01
+   1.3000e+01
+   8.4024e-01
+   9.4793e-01
+   8.2587e-02
+   8.3126e-01
+   1.7500e-01
+   5.6112e-01
+   8.7245e-01
+   3.3632e-01
+   1.0000e+02
+   2.0000e+02
+   3.0000e+02
+   4.0000e+02
+
+>> A = [1 2; 3 4; 5 6]
+A =
+
+   1   2
+   3   4
+   5   6
+
+>> B = [11 12; 13 14; 15 16]
+B =
+
+   11   12
+   13   14
+   15   16
+
+>> C = [A B]
+C =
+
+    1    2   11   12
+    3    4   13   14
+    5    6   15   16
+
+>> C = [A;B]
+C =
+
+    1    2
+    3    4
+    5    6
+   11   12
+   13   14
+   15   16
+
+}}}
+
+Also:
+- `load file.dat`, `load('file.dat')` imports a data file into the scope.
+
+== Computing data ==
+{{{
+>> A
+A =
+
+   1   2
+   3   4
+   5   6
+
+>> B
+B =
+
+   11   12
+   13   14
+   15   16
+
+>> C = [1 1; 2 2]
+C =
+
+   1   1
+   2   2
+
+>> A*C
+ans =
+
+    5    5
+   11   11
+   17   17
+
+>> A .* B % take each element of A and multiply it by corresponding element of B
+ans =
+
+   11   24
+   39   56
+   75   96
+
+>> A .^ 2 % element-wise squaring
+ans =
+
+    1    4
+    9   16
+   25   36
+
+>> v = [1; 2; 3]
+v =
+
+   1
+   2
+   3
+
+>> 1 ./ v
+ans =
+
+   1.00000
+   0.50000
+   0.33333
+
+>> 1 ./ A
+ans =
+
+   1.00000   0.50000
+   0.33333   0.25000
+   0.20000   0.16667
+
+>> log(v)
+ans =
+
+   0.00000
+   0.69315
+   1.09861
+
+>> exp(v) % e^v
+ans =
+
+    2.7183
+    7.3891
+   20.0855
+
+>> e.^v
+ans =
+
+    2.7183
+    7.3891
+   20.0855
+
+>> abs(v)
+ans =
+
+   1
+   2
+   3
+
+>> -v
+ans =
+
+  -1
+  -2
+  -3
+
+>> v + ones(length(v),1)
+ans =
+
+   2
+   3
+   4
+
+>> v .+ 1
+ans =
+
+   2
+   3
+   4
+
+>> A'
+ans =
+
+   1   3   5
+   2   4   6
+
+>> (A')'
+ans =
+
+   1   2
+   3   4
+   5   6
+
+>> a = [1 15 2 0.5]
+a =
+
+    1.00000   15.00000    2.00000    0.50000
+
+>> val = max(a)
+val =  15
+>> [val, ind] = max(a)
+val =  15
+ind =  2
+>> max(a)
+ans =  15
+>> max(A) % column-wise maximum
+ans =
+
+   5   6
+
+>> a < 3
+ans =
+
+   1   0   1   1
+
+>> a = [1 15 2 0.5]
+a =
+
+    1.00000   15.00000    2.00000    0.50000
+
+>> find (a < 3)
+ans =
+
+   1   3   4
+
+>> magic(3) % 3x3 magic triangle, convenient for matrix generation
+ans =
+
+   8   1   6
+   3   5   7
+   4   9   2
+>> A = magic(3)
+A =
+
+   8   1   6
+   3   5   7
+   4   9   2
+
+>> [r,c] = find(A >= 7)
+r =
+
+   1
+   3
+   2
+
+c =
+
+   1
+   2
+   3
+
+>> floor(a)
+ans =
+
+    1   15    2    0
+
+>> ceil(a)
+ans =
+
+    1   15    2    1
+
+>> round(a)
+ans =
+
+    1   15    2    1
+
+>> max(rand(3))
+ans =
+
+   0.71836   0.86637   0.70080
+
+>> max(rand(3), rand(3)) % element-wise maximum of the two random matrices
+ans =
+
+   0.53947   0.46529   0.91213
+   0.96463   0.63457   0.61481
+   0.45498   0.40820   0.86916
+>> max(A, [], 1) % max in the first dimension of A (per-column)
+ans =
+
+   8   9   7
+
+>> max(A, [], 2) % max in the second dimension of A (per-row)
+ans =
+
+   8
+   7
+   9
+>> max(max(A)) % max element in A
+ans =  9
+>> max(A(:))
+ans =  9
+>> A = magic(9)
+A =
+
+   47   58   69   80    1   12   23   34   45
+   57   68   79    9   11   22   33   44   46
+   67   78    8   10   21   32   43   54   56
+   77    7   18   20   31   42   53   55   66
+    6   17   19   30   41   52   63   65   76
+   16   27   29   40   51   62   64   75    5
+   26   28   39   50   61   72   74    4   15
+   36   38   49   60   71   73    3   14   25
+   37   48   59   70   81    2   13   24   35
+
+>> sum(A, 1)
+ans =
+
+   369   369   369   369   369   369   369   369   369
+
+>> sum(A,2)
+ans =
+
+   369
+   369
+   369
+   369
+   369
+   369
+   369
+   369
+   369
+
+>> A .* eye(9) % element-wise product
+ans =
+
+   47    0    0    0    0    0    0    0    0
+    0   68    0    0    0    0    0    0    0
+    0    0    8    0    0    0    0    0    0
+    0    0    0   20    0    0    0    0    0
+    0    0    0    0   41    0    0    0    0
+    0    0    0    0    0   62    0    0    0
+    0    0    0    0    0    0   74    0    0
+    0    0    0    0    0    0    0   14    0
+    0    0    0    0    0    0    0    0   35
+
+>> sum(sum(A .* eye(9))) % the sum of the sum of elements in an element-wise product
+ans =  369
+>> sum(sum(A .* flipud(eye(9)))) % sum on the other diagonal
+ans =  369
+>> flipud(eye(9))
+ans =
+
+Permutation Matrix
+
+   0   0   0   0   0   0   0   0   1
+   0   0   0   0   0   0   0   1   0
+   0   0   0   0   0   0   1   0   0
+   0   0   0   0   0   1   0   0   0
+   0   0   0   0   1   0   0   0   0
+   0   0   0   1   0   0   0   0   0
+   0   0   1   0   0   0   0   0   0
+   0   1   0   0   0   0   0   0   0
+   1   0   0   0   0   0   0   0   0
+}}}
+
+== Plotting data ==
+{{{
+>> t=[0:0.01:0.98];
+>> y1 = sin(2*pi*4*t);
+>> y2 = cos(2*pi*4*t);
+>> plot(t, y2);
+>> hold on
+>> plot(t, y1, 'r');
+>> xlabel('time');
+>> ylabel('value');
+>> legend('sin', 'cos');
+>> title('my plot');
+>> print -dpng 'plot.png';
+>> close
+>> figure(1); plot(t, y1);
+>> figure(2); plot(t, y2); % two separate plot windows
+>> subplot(1,2,1); % Divide plot into a 1x2 grid, access 1st element
+>> plot(t,y1); % goes into the first element
+>> subplot(1,2,2);
+>> plot(t,y2); % goes into the second element
+>> axis([0.5 1 -1 1]) % sets the and y ranges. Also, try `help axis`.
+>> clf; % clear figures
+>> A = magic(5);
+>> imagesc(A) % 5x5 grid of colors, corresponding to values
+>> imagesc(A), colorbar, colormap gray; % grayscale color map with color legend
+}}}
+
+== Control statements ==
+{{{
+>> v = zeros(10,1)
+>> for i=1:10,
+>   v(i) = 2^il
+>  end;
+>> indices = 1:10;
+>> for i=indices;
+>   disp(i);
+>  end;
+>> i = 1;
+>> while i <= 5,
+>   v(i) = 100;
+>   i = i+1;
+>  end;
+>> while true,
+>   v(i) = 999;
+>   i = i+1;
+>   if i == 6,
+>     breakl
+>   end;
+>  end;
+>> % else, elseif
+}}}
+
+=== Function definitions ===
+{{{
+% y - output argument
+% x - input argument
+
+function y = squareThisNumber(x)
+    y = x^2;
+}}}
+
+{{{
+% returning multiple values
+function [y1,y2] = squareAndCubeThisNumber(x)
+    y1 = x^2;
+    y2 = x^3;
+}}}
+
+Compute the cost function $J(\Theta)$.
+{{{
+>> theta = [0; 1];
+>> X = [1 1; 1 2; 1 3];
+>> y = [1; 2; 3];
+>> j = costFunctionJ(X,y,theta)
+j = 0
+>> theta = [0;0];
+>> j = costFunctionJ(X,y,theta)
+j = 2.3333
+>> (1^2 + 2^2 + 3^2) / (2*3)
+ans = 2.3333
+
+% costFunctionJ.m
+function J = costFunctionJ(X, y, theta)
+    % X - design matrix
+    % y - class labels
+
+    m = size(X,1);
+    predictions = X*theta % predictions of hypothesis on all `m` examples
+    sqrErrors = (predictions-y).^2;
+    J = 1/(2*m)*sum(sqrErrors);
+}}}
+
+Change Octave's search path:
+{{{
+>> addpath('/home/user/scripts')
+}}}
+
+== Vectorization ==
+
+=== Basic example ===
+Example: $h_\Theta(x)=\Sum^n_{j=0}{\Theta_jx_j}=\Thets^Tx$
+
+Unvectorized:
+{{{
+prediction = 0.0;
+for j = 1:n+1,
+    prediction = prediction + theta(j) * x(j)
+end;
+}}}
+Vectorized:
+{{{
+prediction = theta` *; % uses Octave's highly optimized low-level routines.
+}}}
+
+==== In C++ ====
+Unvectorized
+{{{
+double prediction = 0.0;
+for (int j = 0; j <= n; j++)
+    prediction += theta[j] *[j];
+}}}
+
+Vectorized
+{{{
+double prediction = theta.transpose() * x;
+}}}
+
+=== Gradient descent example ===
+Example: $\Theta_j := \Theta_j - \alpha \frac{1}{m}\sum^m_{i=1}(h_\Theta(x^{(i)})-y^{)i)})x_l^{(i)}$
+(for all $j$)
+
+Vectorized implementation:
+
+$\Theta := \Theta - \alpha\delta$ where $\delta = \frac{1}{m}\sum^m_{i=1}(h_\Theta(x^{(i)})-y^{(i)})x^{(i)}$.
+
+    A vectorized implementation will usually run much faster than a normal loop.
+
