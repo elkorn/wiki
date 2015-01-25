@@ -1,0 +1,113 @@
+= Chamberconf #2 =
+
+== Akka Streams ==
+
+Backpressure - solving the slow consumer problem
+Push + NACK - bounded buggers, drop and re-transmit messages.
+Negative ACKnowledgment (consumer tells the publisher that he has too much msgs) is not enough.
+The problem is that it is also asnchronous - there may be already more messages on the way whe nthe consumer sends the NACK.
+
+Reactive streams = "Dynamic push/pull"
+Just push - not safe when slow subscriber
+Just pull - slow when fast subscriber
+
+Slow subscriber tells the publisher to give him as many elements as he has space in his buffer.
+Fast subscriber can issue more `Reauest(n)`before data arrives.
+Happy case - no costs related to blocking the publisher, the only costs are related to sending additional messages.
+
+Aside: How to create a lazy file iterator?
+
+Streams are potentially infinite - `fold`s may not terminate. a `runningFold` would be appropriate.
+Read more about flowgraphs http://akka.io/news/2014/09/12/akka-streams-0.7-released.html
+
+Akka dispatchers ...
+
+`StatefulStage` is te only stateful element of a stream pipeline.
+The API is somewhat based on `become`.
+
+Implementing custom junctions - the `FlexiMerge` helper allows us to say from which one we want t read, and then emit.
+https://github.com/sbt/sbt-boilerplate - templates for generating code.
+akka.io/docs - WIP docs
+
+== Spark 101 ==
+
+Why Spark?
+Hadoop is not well
+- MapReduce imposes a complicated programming model. Hadoop addressed it by creating Hive (SQL on Hadoop Cluster) - unfortunately it's not very performant.
+    - there are best practives but declaratvity is being lost
+- It suffers from a number of performance issues
+    - For each map-reduce pair, the output is saved to disk (!!!)
+    - Iterative algorthms go through IO paths repeatedly - there are no smart optimizations.
+    - The API (key, value) sucks - even joins are tough to implement.
+- Batch-mode analysis is important, but reacting to events is more important: hadoop lacks support of "almost" realtime
+
+
+Word-count in scala:
+{{{
+val wc = scala.io.Source.FromFile(args(0)).getLines
+    .map(_.toLowerCase)
+    .flatMap(_.split(" ").toSeq)
+    .groupBy(word => word)
+    .map{ case (word, group => word(group.size) }
+}}}
+
+It looks almost the same in spark, onlu `new SparkContext` instead of a file.
+Spark performance - not tied to map-reduce cycle.
+Spark has a notion of `Stage` - similar to a map-reduce phase, denoting independent stages of processing.
+Optimizations: 
+- shuffling is avoided when data is already partitioned (good if you add new data to `groupBy` to some that is already processed).
+- RAM caching -> 100x faster than Hadoop map-reduce
+
+Aside: Akka vs. Storm -> http://www.warski.org/blog/2013/06/akka-vs-storm/
+
+RDD -  resilient distributed dataset, an abstraction over data in a cluster
+Resilient - if data is lost, it can be recreated
+
+{{{
+val master = "spaek://host:pt"
+val conf = new SparkConf().setMaster(master)
+val sc = new SparkContext(conf)
+/* type: RDD*/ val logs = sc.textFile("hdfs://logs.txt") // the can be on HDFS, GlusterFS etc or even locally.
+val lcLogs: RDD = logs.map(_.toLowerCase) // does not block
+val errors: RDD = logs.filter(_.contains("error") // does not block
+val numberOfErrors = errors.count() // blocks - actually triggers Spark
+}}}
+
+Transformations (map, filter, flatmap, sample, union intersect, distinct etc.) are lazy; Actions (reduce, collect etc.) are eager.
+
+Spark also has a REPL that simulates a cluster.
+
+Spark stack elements: Spark SQL, Spark Streaming, MLli (machine learning) GraphX (graph).
+
+Spark SQL lets you query structured data as RDD.
+Schema RDDs provide a single interface for efficiently working with RDDs through SQL-92 or HiveQL.
+
+Spark SQL:
+- Catalyst Optimizer
+- Spark SQL Core
+- Hive Support (additional)
+
+usage:
+{{{
+val sqlCtx = new SQLContext(sc);
+// /opt/spark/examples/srcm/main/resources/people.txt -> default spark example data
+case class Person(name: String, age: Int)
+val people = sc.textFile(".../people.txt")
+        .map(_.split(","))
+        .map(p => Person(p(0), p(1).trim.toInt))
+
+people.registerTempTable("people")
+val teenagers = sqlContext.sql("SELECT name FROM people WHERE age >= 13 AND age <= 19")
+teenagers.map(t => "Name: " + t(0)).collect(...)
+}}}
+
+Other fun things:
+- `cacheTable`
+- use Scala functions within SQL queries
+
+Aside: read about Scala Par.
+
+Spark streaming - almot real-time data processing.
+Spark streaming reads live streamed data in windows, couple it with data it already has, build a small RDD and send it to the Spark Core.
+[[It]] uses a `StreamingContext`. ssc instead of RDDs.
+
