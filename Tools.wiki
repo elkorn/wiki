@@ -8,6 +8,8 @@
 
 [[NoSQL]]
 
+[[Octave]]
+
 [[PostgreSQL]]
 
 [[Riak]]
