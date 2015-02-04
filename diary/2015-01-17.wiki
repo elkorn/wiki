@@ -14,7 +14,7 @@ slideshare d0cent high-availability introduction
 
 A backup copy has to go to a geographically separated location to avoid natural disasters.
 
-Recovery Point Objective - how muc data is lost when restoring
+Recovery Point Objective - how much data is lost when restoring
 Recovery Time Objective - how much time it takes to restore
 
 snapshot/replica is not a proper backup:
