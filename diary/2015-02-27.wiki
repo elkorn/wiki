@@ -1,0 +1,184 @@
+= LambdaDays 2. =
+
+== Kinga Panasiewicz - How computers change our brains. Can computers cause mental or neurological disorders? ==
+
+25% of people in the world will be affected by mental or neurological disorders (Alzheimer's, bipolar, depression etc.) and having a brain disorder will make about 25 years shorter.
+Baby elephant is able to walk after birth - animals receive more 'prebaked' knowledge because their brains are not as plastic as ours - i.e. do nto acquire as much new skills during their lifetime.
+
+Neurons that fire together, wire together.
+Melatonin - dracula hormone, produced and activated when it's dark.
+
+Delayed sleep pahse disorder - awake at night, sleepy during the day.
+Using the computer or using an iPad at night suppresses the release of melatonin.
+
+Gaming/internet addiction has been shown to cause shrinkage of the gray matter.
+The frontal lobe is hurt the most, and it is reponsive for analytical planning, memory, attention span etc.
+
+Our vision directly affects our hearing and vice versa, because the signals travel through the same wires. (baba/dada recording)
+Memory palace - creating associations between space and thoughts/memories (memory palace approach - moving from memory to memory in your head).
+
+There is no such thing as using google frees up your brain processing power to do other things.
+There is no such thing as a set pool of brain power.
+
+Alzheimer's disease as a disconnection syndrome. Delbeuck X. Van der Linden M.
+Neural synchrony indexes disordered preception and cognition in schizophrenia. Spencer K. et al.
+Cravings and impaired dopamine function. Ko, Han
+Impaired cognitive functioning. Dong, Devito
+
+== Nilanjan Raychaudhuri - You say big data, I say fast data ==
+
+Fast data - a stream of data coming in real time, which has to be stored and analyzed quickly to make money off of.
+
+=== The big picture ===
+Problem -> Data modelling and analysis -> data + fast data solution / administration / visualization (-> Redis) -> YARN (resource mgmt) -> HDFS (storage)
+
+=== Examples ===
+Predicting breaking news:
+- look at wiki edits
+- event log
+- data pipeline
+    - admin/alerts
+    - storage
+Detecting network intrusions - pretty similar but we look at network traffic.
+
+Pinterest:
+App -> Singer -> Kafka -> Spark -> memsql -> insights
+                   |
+                   V
+                 Secor -> S3
+
+Netflix recommendations: filtering as its happening
+http://techblog.netflix.com/2015/02/wahts-trending-on-netflix.html
+
+Lambda architecture - data + batch,speed and serving layers + queries
+Lambda architecture might disappear if we have streams doing this work.
+Probabilistic data structures for web analutics and data mining.
+
+BlinkDB - run a query within 2 seconds, run a query with error=0.1 and confidence 95%
+Tachyon - shared memory layer for lambda stuff
+
+Online Machine Learning - analytic algorithms that learn as they go (good for streaming processing)
+GraphX, MLLib
+
+== Andre van Delft - Reactive programming with Algebra ==
+
+S.C Kleene - Representation of events in nerve nets and finite automata
+R. Milner - Pi calculus
+Algebra of Communicating Processes - again, *protocols!*
+
+SubScript - ACP in Scala
+Appliations:
+- GUI controllers
+- text parser
+- discrete event simulation
+- ...
+
+Parboiled - parser combinator lib on top of Scala
+
+Scala script keyword? Forked Scala compiler provides that probably.
+
+== Runar Bjarnason - An Invitation to Functional Programming ==
+
+(Side-effect avoiding is already in [[../Functional Programming]].)
+
+Pure functions are reusable (only one functionality, no init or cleanup), testable (no dependencies), parallelizable (no interference, separated from the environment) and comprehensible (can be understood by its own since it contains every piece needed to carry out its logic).
+
+*Parametricity* - the propertu of a polymorphic function that it behaves the same for all types of arguments.
+
+Functional programs scale, becasue they can be reasoned about more easily.
+This is due to *conceptual integration* - a set of operations can be grouped together and given a name, further serving as a tool for other cases. Example: `foldRight`.
+ 
+*Compositionality* of functional programs has an analogue in maths - e.g. 42 = 2 * 3 * 7. The result is the composition of its parts, not more nor less.
+
+Compositional reasoning: to conclude `P` about `X`, you take `X` apart into components, conclude `P` about each of them and assemble the conclusions.
+
+FP benefits you to the extent you use it - you don't have to go all in (i.e. use FP everywhere and for everything), but you should *play* with it according to your skill and comfort level (always feel a little bit like you don;t know what you're doing) to improve.o
+Starting with FP in a company - start with a purely functional core and gradually build that outward to peripheral systems.
+
+== Konrad Malawski - Async ==
+
+Maths and statistics is not applicable to latency, because it's not normally distributed.
+You need to measure, graphing is appropriate in form of latency as a function of percentile's, ideally compared to the SLA.
+
+=== Concurrent vs lock-free vs wait-free ===
+
+A thread may get locked and starved in concurrent algorithm.
+
+Lock-free: the program threads are run sufficiently long at least one of the threads is able to progress.
+Wait-free: every operation has a bound number of steps after it makes progress.
+
+=== IO / AIO / NIO / Zero ===
+
+Linux *A*IO = JVM *N*IO (Asynchronous IO / New IO)
+
+=== C10K problem ===
+
+10k concurrent connections problem - related mainly to threaded servers of the day (that is: apache).
+
+slution: `epoll` (evented poll).
+
+`epoll_create` / `watch sock,1,2,3..N` / `epoll_wait` / `pevents`
+
+`O(n)` is a no-go for "epic" scalalbility - `O(1)` should be aimed for.
+
+=== Distributed systems ===
+
+The bigger the system, the more 'rnadom' the latency - i.e. the bigger the probability that e.g. everybody will GC at the same time.
+
+*Backup requests* - a  technique for fighting 'long tail latencies'. Example: when you need a 300ms response time, set a timer ofr 100ms before sending a request to an actor, if the response does not arrive during that time, send backup requests to other actors to get the data within the remaining time. An actor might respond faster. This is wasteful, bu t helps meeting SLAs.
+
+Jeff Dean - Achieving Rapid Response Times in Lage Online Services
+Peter Bailis - Doing Redundant Work to Speed Up Distributed Queries
+Krzysztof Janosz @ Akkathon - TailChoppingRouter
+
+*Combined requests* - avoiding duplicated work by aggregating requests, possibly increasing latency. Combined requests work well when you have an SLA with a backend system (e.g. that you can query it once every X seconds).
+
+Backpressure - notify the downstream system that you're ready for work - request more work from the producer. When the trigger is on the downstream, we are dealing with *pull-based backpressure*.
+
+
+=== Conclusion ===
+
+Keep your systems pure, be aware of interanls, async all the things, messaging all the way.
+Sometimes you need to know when you need to bite the bullet and handle mutability.
+
+Treat the imperativity of Scala as an opportunity to achieve high performance when needed, dropping out of the purely functional world. 
+Then, wrap this mutability as a monolithic component within the otherwise clean and functional code.
+
+CppCon - Juggling razorblade,s Herb Sutter
+ShmooCon - C10M proble, defending the Internet at scale, Robert Graham
+
+Lambdakrk.pl
+geecon.org
+krakowscala.pl
+hdrhistogram.org
+
+== Functional Survival ==
+
+Basic aproach to IO - while 1, poll
+More modern - run loops
+- structured handling of commone IO op types
+- concurent operations
+- abstracting away low-level system calls and buffer handling
+- delegate objects (think Reactor/Callback approach in Hintjens' book)
+Drawbacks:
+- no composition of sequential operations
+- spreading the task logic across several function
+
+== Noel Markham - A purely functional approach to building large applications ==
+
+Practical intuition on monads in Scala is that they are `flatMap`able and thus can be used in a `for` comprehension.
+`scalaz.Reader`
+
+=== Monad transformers ===
+`scalaz.OptionT` can wrap e.g. a `Future[Option[T]]` and then allows to pretend that the future is not there - e.g. mapping etc. is possible in a more straightforward way.
+To go back to the original type from the `OptionT`-wrapped one, use the `run` method.
+
+==== The `ReaderT` monad ====
+
+Kleisli transformer - category theory term (transforming between categroy domains), go through Milewski notes.
+
+Shapeless contrib package for ScalaCheck - useful
+
+
+
+
