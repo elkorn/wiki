@@ -4,6 +4,9 @@
 == 2015 ==
 
 === February ===
+    * [[2015-02-27|Lambda Days: Day 2]]
+    * [[2015-02-26|Lambda Days: Day 1]]
+    * [[2015-02-09]]
     * [[2015-02-03|Jesteś ekspertem, i co dalej? - Sławomir Sobótka]]
 
 === January ===

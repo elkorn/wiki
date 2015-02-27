@@ -1,4 +1,4 @@
-= Lambda Days: Day 1 =
+== Lambda Days: Day 1 ==
 
 LambdaAcademy.org
 Luna lang
