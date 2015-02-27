@@ -1,4 +1,56 @@
-= LambdaDays 2. =
+= Lambda Days: Day 2 =
+
+== Conclusions ==
+=== Reduce screen time as much as possible. ===
+- Do more conceptual work.
+- Use the kindle more.
+    - Do not read PDFs on a laptop/tablet.
+    - Use *instapaper* to send stuff to kindle.
+- Try to plan your computer activities ahead.
+    - This will have other benefits also, for example making your computer time count more will force you to become increasingly more efficient. This goes hand in hand with using snippets for example.
+    - Try to avoid faebooking and youtubing.
+        - Find something that motivates you to stop procrastinating.
+- Be more in tune with your nature
+    - Get more info on Jung's typology 
+    - Get more info about being an ISTP and how to live life to be happier as such
+- [ ] Prepare a checklist for reducing your screen time - concretize your priorities.
+- Print the longer reading materials.
+- Lower the computer screen so that you look at it from above.
+- Use a physical notebook for taking notes.
+    - Refactor the notes onto the computer once-twice a week.
+    - Do not do it immediately, let it rest for a few days so that you have to challenge yourself again when refactoring the notes.
+ 
+=== Finish the started reading materials: ===
+- [ ] Milewski
+- [ ] Monadic web patterns
+- [ ] FP in Scala
+- [ ] After finishing these materials, decide what to do with other open books on Goodreads.
+
+=== Continue implementing Aquila ===
+- Do not focus on how capacious the types should be now, you'll get to it later if such need arises.
+- Focus on delivering working software.
+- Use pointers from the presentations to infuse your code:
+    - Check out Noel Markham's code for practical Scalaz usage - this will help with nested monads.
+    - Keep the domain logic separated from the transport. Create a `domain` package and a `transport.actors` package.
+    - Inspire yourself by the clojure project from the last presentation of Day 1.
+
+=== Further directions ===
+- Continue studying FP.
+- Immerse yourself more in data engineering / machine learning.
+- Focus on more ambitious reading materials - be more strict in judging RSS signal/noise.
+- Use cljs on the frontend.
+
+=== Asides ===
+
+==== Vim ====
+- Streamline configuration
+- Make it faster (remove unused plugins)
+- Learn to use quickfix
+- Make extensive usage of snippets
+- Create a 'cheat sheet' mechanism (e.g. display available snippets in Quickfix)
+
+==== Implement a property-based testing framework in JS ====
+- the idea seed file  is in `~/Documents/Misc/
 
 == Kinga Panasiewicz - How computers change our brains. Can computers cause mental or neurological disorders? ==
 
@@ -178,7 +230,4 @@ To go back to the original type from the `OptionT`-wrapped one, use the `run` me
 Kleisli transformer - category theory term (transforming between categroy domains), go through Milewski notes.
 
 Shapeless contrib package for ScalaCheck - useful
-
-
-
 
