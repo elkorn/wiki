@@ -6,6 +6,8 @@
 
 [[Play]]
 
+[[ScalaTest]]
+
 [[Substitution-related]]
 
 [[Traits]]

@@ -1,0 +1,62 @@
+= Lens =
+
+This topic should be followed up on when you're more qualified to reason about these topics.
+
+SPJ presentation:
+[[https://pdlvimeocdn-a.akamaihd.net/11073/941/195814777.mp4?token2=1426025400_f1ce041424a36f8be91eb40b5a56dbca&aksessionid=6464f9f872ab29c5]]
+
+Lenses in Scalaz:
+http://eed3si9n.com/learning-scalaz/Lens.html
+
+
+In functional programming, lenses are a construct that allow functional, composable access to data structures.
+They were called "jQuery for data types".
+A simple example of a lens would be a function giving you access to the `minutes` portion of a `DateTime` structure.
+
+A lens is a first-class value with a type of `Lens' s a`, where `s` is the container type and `a` is the *focus* type.
+
+Lens composition:
+{{{
+composeL :: Lens' s1 s2
+         -> Lens' s2 a
+         -> Lens' s1 a
+}}}
+
+Haskell already supports a similar concept through nested records, but the code for that is quite cumbersome.
+
+More concrete example:
+{{{
+data Person = P { name :: String
+                , addr :: Address
+                , salary :: Int }
+data Address = A { road :: String
+                 , city :: String
+                 , postcode :: String }
+
+setPostcode :: String -> Person -> Person
+setPostcode pc p =
+    set (laddr `composeL` lpostcode) pc p
+}
+}}}
+
+We want to have a lens for each field:
+{{{
+data Person = P { name :: String
+                , addr :: Address
+                , salary :: Int }
+lname :: Lens' Person String
+laddr :: Lens' Person Address
+lsalary :: Lens' Person Int
+}}}
+
+as well as means to use it for getting or updating values:
+{{{
+view :: Lens' s a -> s -> a
+view :: Lens' s a -> a -> s -> s
+}}}
+
+and the aforementioned way of composing them:
+
+{{{
+somposeL :: Lens' s1 s2 -> Lens' s2 a -> Lens' s1 a
+}}}

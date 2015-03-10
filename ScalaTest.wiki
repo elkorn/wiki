@@ -1,0 +1,44 @@
+= ScalaTest =
+
+Read the [ScalaDoc](http://www.scalatest.org/scaladoc) for ScalaTest - there is a lot of info there, much of it not covered in the main guide.
+
+`trait Checkpoints` aggregates assertion errors, allowing you to have all the erro messages instead of failing the spec on the first faield test.
+
+During the presentation (JUG), the followign opinion was voiced again:
+
+> If you're writing Scala and have to use mocks, that's a code smell.
+
+This pertains to maintaing purity in tested functions.
+
+`scalatest.fixtures` allows to create data fictures for test which are then injected into `in` blocks.
+You need to extend `fixtures.FlatSpec` instead of just `scalatest.FlatSpec`.
+{{{
+type FixtureParam = yourtype
+def withFixture(test: someTestType): Outcome
+}}}
+
+`trait PatienceConfiguration` allows defining the `timeout` and `interval` values for asynchronous code executed within tests.
+This is useful whenutilizing the `whenReady` function (similar to `Await` but async).
+Another use case is the `eventually { ... }` construct, which tries to execute the code block every `interval` ms until `timeout` value has been reached.
+
+Test tagging:
+{{{
+it should "do something" taggedAs IntegrationTest in {
+    ...
+}
+}}}
+
+This allows running only a specifiedset of tests - can be used through test configurations.
+
+Object property checking:
+{{{
+person should have (
+    'id(123),
+    'name("test"),
+    ...
+)
+}}}
+
+This was compared to a [[lens]].
+
+
