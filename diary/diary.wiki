@@ -3,6 +3,9 @@
 
 == 2015 ==
 
+=== March ===
+    * [[2015-03-11|.NET UG  CQRS x3]]
+
 === February ===
     * [[2015-02-27|Lambda Days: Day 2]]
     * [[2015-02-26|Lambda Days: Day 1]]

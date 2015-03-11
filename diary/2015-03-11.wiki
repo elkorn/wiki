@@ -1,0 +1,78 @@
+= .NET UG  CQRS x3 =
+CQRS origins - Eiffel language (Bertrand Meyer, 1988).
+
+CQRS is not an application architecture, rather an approach to dealing with what is happening within the application.
+It can be applied to parts of a system, not necessarily to it wholly.
+
+The key idea of CQRS is segregating commanding units (classes in OO) from querying units.
+Having such segregation allows asymmetric scaling the read and write side.
+
+The most common application of CQRS is at the application service boundaries. (e.g. integration points with external services)
+
+== Approach ==
+*Queries* return data that should be represented in the UI in the format in which it should be represented.
+{{{
+Multiple -------+
+ data    -------+--> ReadModel ------> ViewModel ------> View
+sources  -------+
+}}}
+
+The *read model* is a denormalized form of data.
+It's tailor-made for the use case as the app needs it.
+It can be anything from a DB view to a static HTML file.
+
+Queries should not be reusable (we want to isolate the parts of the system that change) and each query should be used in only one place (so we don't have avalanche changes).
+
+*Commands* express user's intents.
+{{{                                                           
+                                                                 +--+
+                                                              +->|DB|
+                            cmdX +-+             +---------+  |  +--+
+                           +---->|B|---> ... -+->|x handler+--+    
+User------>  Action  ------+SEND |U|          |  +---------+         
+               ^           +---->|S|---> ... -+->|y handler|--+      
+               |            cmdY +-+          |  +---------+  |  +--+
+               +------------------------------+               +->|DB|
+           Validation                     Validation             +--+
+}}}                                                                
+                                                                   
+Commands should not map directly to CRUD actions - they should reflect the domain point of view on what is happening.
+Handlers do not report back - commands should be fire-and-forget.
+
+    In C# they use a `void|object` type to denote that commands may return values.
+    Such behavior is treated as OK e.g. if we are dealing with small systems, where it might be easy and practical to return.
+    In larger applications it gets harder though.
+    Thus, they denote the base `Command` method to return something or `void`.
+    I think this is a bit weak - the actor model allows for greater flexibility here.
+    We can still write idiomatic actor code and return values from commands - we just set up a receiving actor.
+    Given that we stick to the rule that all messages between actors are fire-and-forget in the sense of not returning a value from a method, such approach will not be any different from what we do normally.
+
+== Additional tips ==
+
+Useful naming convention for command interfaces: `IDoSomething` e.g. `IBuyProduct`.
+Despite of what has been said about using CQRS only for parts of the system, making every action driven by commands adds up to simplifying the introduction of AOP into the logic.
+This can be done by adding a middleware chain to the main event dispatching methods (so that every command gets piped through the aspects).
+
+Making the system event-driven is very good in terms of OCP - we enable extending the existing CQRS structure with new commands, queries, events, handlers and aspects very easily without any need for changing the instrumentation logic or mucking within existing business functionality.
+
+CQRS is meant to be used as an approach within mission-critical _components_. 
+(See that these components can be 100% CQRS as advised before)
+
+Sagas are CQRS [[ProcessManagers]].
+
+== Event sourcing ==
+
+- 1 write DB, multiple read DBs
+- asynchronous, distributed handlers
+- even log kept *aside* the "main" DB (ES can be applied to parts of the system)
+
+Given that we follow the CQRS approach, event sourcing is very simple to implement - we just need to add a middleware into the chain of responsibility hooked to the event dispatcher.
+This middleware would be responsible for appending events to the log before passing them on.
+If we put some DDD into the mix, the state of *aggregates* (which contain business logic) is rebuilt from the domain events.
+Aggregates do not expose a direct form of state - the only way of communicating is through events.
+*Read models* are also recreatable from events.
+                                                                   
+                                                                   
+                                                                   
+                                                                   
+                                                                   
