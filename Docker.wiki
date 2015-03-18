@@ -1,0 +1,11 @@
+= Tools - Docker =
+
+Build container from a local Dockerfile:
+{{{
+docker build -t container_name .
+}}}
+
+Run bash inside the built container:
+{{{
+docker run -t -i container_name /bin/bash
+}}}
