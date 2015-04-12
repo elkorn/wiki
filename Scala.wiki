@@ -4,6 +4,8 @@
 
 [[Asynchronous processing]]
 
+[[Implicits]]
+
 [[Play]]
 
 [[ScalaTest]]
