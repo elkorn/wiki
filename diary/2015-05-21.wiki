@@ -1,0 +1,32 @@
+= Conclusions from the CC Platform architecture =
+
+== Multi-tenant model support ==
+
+Rather an elegant approach.
+We have the notion of a `domain`, which maps 1-to-1 with a system tenant.
+Each domain has its own Origin URL, which allows recognizing which requests should be treated as coming from which domain.
+The `factory` property serves as the composition root of the actor hierarchy used for each domain.
+{{{
+  {
+    id = 1
+    urls = ["url1.com", "url2.com"]
+    app.customer = "customerName"
+    auth = xxx.xxx.xxx.DomainAuthorizationClient
+    integration = {
+      name = "exampleDomain"
+      factory = "xxx.xxx.xxx.xxx.ActorPropsFactory"
+    }
+  }
+}}}
+
+=== Architecture ===
+
+*Bad part:* The top-level feature actor interfaces in each domain enforce responding to messages through piping the results of abstract methods that require using a `Future` as a result.
+This enforces the choice of using the `ask` pattern underneath (or is there any other way of having a `Future` for an actor response?), promoting _ask creep_.
+
+*Possible solution:*  Create a special type of message that contains knowledge about who to respond to with the final result.
+In the basic case, this could save some `ask`s in cases when the response does not need to be processed by the actor on it's way out (i.e. it can be directly forwarded to the original requester).
+When there is a need for additional processing of the output, the solution could be using a message type that also includes a stack of transforming operations. 
+A problem I can see with this approach is that the composition of the stacked operations will be problematic in terms of accepted/returned types - transformations would have to be A->A. 
+There could be some intermediate types derived, all of which extend a common trait.
+
