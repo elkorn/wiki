@@ -1,0 +1,165 @@
+* From API to protocol
+  Push notifications are basically TCP long-term connections.
+  P2P in webRTC is a ton of hacks on top of HTTP and TCP.
+  An internal administration dashboard might be a good use case for SOAP due to its nature.
+
+**  Why build your own protocol?
+    sync vs async
+    streaming needs a new protocol
+    if you don't need guaranteed delivery, don't use TCP
+    different network topologies + IoT - devices that do not have to connect directly to the network
+    embedded
+    building over a communication channel - e.g. low-energy bluetooth
+
+** State machines as a base of a protocol
+   Having a state machine is a good idea to handle the intricacies of your protocol.
+   It's also wise to have a grammar for your protocol along with a parser for it.
+
+** Versioning of the protocol
+   A protocol must be versioned.
+   Versioning enables protocol negotiation between server and client.
+
+** Error mgmt
+   Prefer error codes over error messages... duh
+
+** Authentication and session
+   Session poisoning
+
+** Toolbox
+   think of your API and code as protocols - do not just break stuff
+   make use of the state machine concept
+   experiment!
+
+* Functional patterns for scala beginners
+  expressions
+  algebraic design - encoding knowledge into types and combinators before fleshing out concrete implementations of the primitives
+  ADTs
+    - sum type or product type
+        - product type is a multiplication of type values in a container such as a tuple, case class etc.: cardinality of a product type is the multiplication (product) of the cardinalities of its constituent types.
+        - sum type - enums (e.g. boolean is an  enum comprised of  t \in {true, false}), JSON (null, string, array, obj, number, true, false) - the idea is that the number of types is limited.
+          - in Scala, we model this with sealed traits
+          - cardinality of a sum type is the sum of the cardinalities of its constituent types.
+  - OOP: easy to add cases
+  - FP: easy to add functions
+  
+ Two things that have the same structure are isomorphic. 
+ Associativity...
+ Distributing multiplication over addition... ("X", Right(42)) -> Right(("X", 42))
+ c^(a+b) <=> c^a * c^b -> case analysis encoding
+ boolean blindness -> https://shreevatsa.wordpress.com/2015/01/31/boolean-blindness/
+** Programming with contextualized values
+   - Options (Maybe monad in Haskell)
+   - Eithers etc. 
+   - scalaz.\/ : has type disjunction, is unbiased as well as eithers
+
+   Both Either and \/ fail fast - use scalaz.Validation for accumulating errors.
+    has types successNel and failureNel (non-empty list)
+
+** Typeclasses
+   Monoid - Big Data typeclass :)
+   Monoid as a parameterized trait and implementations for types as classes.
+   Automatic wiring through implicits
+
+   typeclass convergence problem - it is a good practice to have one implementation of a behavior for a type. If you have multiple behaviors, it's reasonable to create type wrappers which are removed during compilation.
+
+** Separate effects from logic
+   Kleisli categories
+   Encode effects description as an ADT
+   Execute effects "at the end of the world"
+
+* Scala in a corporate startup
+  compilation times are a pain
+  https://www.chrisstucchio.com/blog/2014/bondage_and_discipline.html
+
+
+  Pretty good arguments against Scala
+  Scala code often turns into poetry and writing a project is a collaboration effort, not a beauty competition :)
+  "Any fool can write code that a computer can understand. Good programmers write code that humans can understand. " - M. Fowler
+
+  Don't develop in Scala when you'll have to package it in an OSGi bundle with Java modules.
+* Cassandra 101
+  Datastax
+  Cassandra is:
+  - a shared nothing masterless datastore
+  - highly oriented on availability (AP over C unless you use lightweight transactions which is turning Cassandra around)
+  - biggest mindset change is learning to model differently ("I only want it to go to a single server regardless of the cluster size")
+  
+** Master/slave
+  Master serves all writes -> fault -> re-election
+  read from master and optionally slave
+  Scaling writes with M/S needs sharding
+** P2P
+   no master
+   read/write to any
+   eventual consistency (duh)
+** Cassandra itself
+   Biggest users - Apple, Spotify, banking, IoT apps
+   Based on Dynamo and BigTable (column family data model) papers
+   Cassandra has multi data center support built in from the start - They don't have to be real data centers though, you can designate nodes to different uses, e.g. user-facing and containing the replicated data for spark
+*** Parts taken from Dynamo
+**** Consistent hashing
+    You don't want a full table scan on a 1000 node cluster
+    Availability + Partition tolerance: replication
+    
+    Cassandra takes a column (partition key) and hashes them using an algorithm such as murmur3, each node of the cluster owns a range of hash keys this gives a more even spread of data.
+    In the background, nodes exchange state information through gossip protocol (with the client as well), adjusting hash ranges and data distribution.
+
+**** Replication
+     1) simple replication - give it a number and Cassandra will replicate data that many times (select a hash and replicate to next n-1 adjacent nodes)
+     2) NetworkTopology
+        - you need to be topology aware
+        - failures occur mostly between data centers, between racks etc.
+        - every Cassandra node must know its data center and rack
+        - replicas won't be put on the same ruck unless Replication Factor > # of racks
+
+        You can select a coordinator for each data center Cassandra runs on (e.g. based on latency). It is not a special node, it just does one additional request related to ...
+        When replicating between remote data centers, Cassandra will replicate data only to one node in a remote DC, the rest is left up to gossip.
+        Cassandra requires you to describe the required consistency of each query.
+*** Tunable consistency
+    Data is replicated N times.
+    Every query you need to give consistency:
+    - ALL
+    - QUORUM
+    - LOCAL_QUORUM
+    - ONE
+
+    http://planetcassandra.org/blog/a-netflix-experiment-eventual-consistency-hopeful-consistency-by-christos-kalantzis/
+
+    Lightweight transactions - Cassandra can use Paxos to maintain consistency, but this is consequential and goes rather against the idea of Cassandra.
+
+*** How Cassandra scales
+    Throw more nodes at a cluster
+    Bootstrapping + joining the ring (this can take some time for large data sets)
+    - gossiping the join
+    - small pieces of data are transferred to the new nodes
+    - the new nodes do not service requests until they are fully bootstrapped
+    - the completion of the bootstrap process is announced to the rest of the system
+
+*** Data modelling
+    CQL language - looks similar to SQL but forget normalization data modelling concepts - denormalisation is the key to performance with Cassandra
+    A big part of the idea is to store it as close as possible to how you need it to be used.
+
+    Cassandra cannot join/aggregate -
+
+    Keyspace - analogous to a schema. Also, it determines the replication factor.
+    Tables looks similarly to SQL tables.
+    Cassandra limits stuff you can do to things that can be satisfied on a single node,
+
+    UUID - like in dynamo
+
+**** User defined types
+     Every time you want to do a JOIN, think a type in your table.
+     - complex data in one place
+     - no multi-gets (multi-partitions)
+     - nesting
+
+*** Query patterns
+    Selecting a primary key determines how you can query it
+    If you use timestamps in a primary key, it's useful to take into account sorting ing the data (WITH CLUSTERING ORDER BY (timestamp DESC...))
+    according to how you want to use it, e.g. use DESC when most recent data is more important.
+
+    Range queries, "slice" operations on disk.
+
+  
+     
+
