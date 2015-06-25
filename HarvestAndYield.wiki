@@ -1,0 +1,31 @@
+= Distributed computing - harvest and yield =
+
+Any distributed system will experience enough faults that it will have to make a choice between reducing yield (i.e. stop answering requests) and reducing harvest (i.e. giving answers based on incomplete data) - such decisions should be based on business requirements.
+
+Fact of the matter is that most often failures of consistency are tolerated or even expected, but just about every failure of availability means lost money.
+The choice of availability over consistency is at its core a business choice, not a technical one.
+Examples of availability failure consequences:
+
+- failed google search == fewer ads served and advertisers charged,
+- an item that cannot be added to a basket == fewer items solde,
+- an unprocessed credit charge == regulatory fine.
+
+== Harvest ==
+
+Harvest is the ratio of the amount of data available to the total amount of data in the system.
+
+Given we have three nodes `A`,`B` and `C`, containing indexes of web pages containing the following search terms:
+- `A`: "cute"
+- `B`: "baby"
+- `C`: "animals"
+a search for "cute baby animals", combining results from all nodes, would have a 100% harvest.
+If node `B` was unavailable, the system might return the result for "cute animales"
+
+== Yield == 
+
+Numerically, yield is typically close to uptime.
+However, it is more useful in practice - it maps directly to user experience.
+Yield correctly reflects the fact that not all esconds have equal value.
+A second of downtime during a period when no queries are being made has no impact on yield.
+That same second of downtime during peak and off-peak times generates the same uptime but a vastly different yield value.
+

@@ -1,0 +1,77 @@
+= PWL - Reading academic materials =
+
+Reading research papers and articles oftentimes tends to be quite a daunting task.
+The main difficulties for me present themselves in the areas of understanding the argument of a paper: 
+- I cannot seem to grasp the process that has lead to presented conclusions
+- there are parts seemingly missing from the reasoning that appear as crucial for getting the whole picture
+- ...
+
+Apart from that, a pressing issue is that of the effort to reward ratio.
+Unless you are well versed in the field in which it is set or are some kind of a prodigy, just a paper (even mindfully) will most likely lead to confusion and leave you with a ton of questions with precisely zero answers. 
+Re-reading it *may* help, but unless it is a long or an especially dense one, there is a good chance that you are going to dedicate much more of your time and effort to understand it than it is needed.
+
+Long story short -  *reading scientific papers in a straightforward way is not the most efficient way to get the most of them*.
+
+There is some information on that topic in various parts of the internet, to which I link at the end.
+There is a lot of link following involved though, and I thought it would be beneficial to stitch together the not necessarily related materials into a more comprehensive post.
+
+== Peter Klein's method - the art of skimming ==
+
+Professor Peter Klein has published this method as a handout to his students in 2010.
+I find it extremely helpful in dealing with works that leave me stumped otherwise.
+The original publishing can be found [[http://organizationsandmarkets.com/2010/08/31/how-to-read-an-academic-article/|here]].
+
+The method consists of two stages.
+Firstly, the reader needs to focus on "embracing" the paper mentally.
+Secondly, to cement the understanding of the matter and argument, an individual critique of it should be developed.
+
+=== Step 1: Skimming ===
+# Read the abstract if provided.
+# Read the introduction.
+# Read the conclusion.
+# Skim the middle
+    - look at elements that stand out the most: section titles, tables, figures etc.
+    - the idea here is to get a feel for the style and flow of the paper
+        - is it methodological, empirical, tehoretical, conceptual or something else?
+        - is it a theoretical contribution, an empirical application of a theory, a critique or something else?
+
+# Read the whole paper quickly.
+    - skip the equations, figures, tables, code listings etc.
+# Go back again and carefully read the whole thing, focusing on the most "meaty" parts.
+
+=== Step 2: Analysis through critique ===
+# Ask if the reasoning makes sense.
+    - Is it internally consistent?
+    - Is it substantiated by arguments or evidence?
+    - Mr Klein states here that this skill takes some experience to develop. It's so true that it almost hurts. :) Actually talking yourself through the critique process, writing down questions and answering them verbally is one thing that has helped me to get *somewhat closer* to being able to do it.
+# Compare the article to others you've read on the same or a closely related subject.
+    - If this is your first, find some other ones and skim them, focusing on introductions and conclusions.
+    - See how the arguments match up between the papers: are they consistent, contradictory or maybe do not really relate?
+    - Use [[https://scholar.google.com|Google Scholar]], a citation index, science publisher web pages etc. as well as discussion groups or blogs to see where is this article quoted and what they say about it.
+    - Check out a reference work - something from a well-established journal, handbook or encyclopedia to see how this article fits in the broader context of its subject area.
+
+== Supplementary techniques ==
+
+From my own experience, a few additional techniques can help you getting to the bottom of a science paper.
+They apply mostly to cases when you have a problem with understanding the concepts presented in a paper. If you don't have any issues with that and just want to focus on optimizing your effort/reward ratio, you may want to skip some of those.
+
+- Make notes as you go. 
+  It's pretty obvious, but the notes should be useful enough to serve as a reliable anchor when you get back to them after some time.
+- When encountering terms and statements you don't understand, include them in the notes accompanied by questions that state your doubts. 
+  The questions can range from simple ones such as "what does xxx mean" to more complex e.g. ... (TODO: remind yourself the questions you asked in Chen, Kanj, Xia)
+- Within your notes, colour-code the elements of the paper that are not directly understandable (i.e. they warrant explanation in the paper or you have to look them up) but are used as building blocks for the main conclusions. 
+  This often helps to increase the "at-a-glance" visibility of how the paper arguments are structured.
+- Take advantage of the [[https://en.wikipedia.org/wiki/Spacing_effect|spacing effect]]. 
+  Leave the paper and your notes lying around even if you don't understand everything from the get-go. Read the notes again after a few days, following up on the things you forgot during that time. The fresh perspective oftentimes leads to a breakthrough.
+- (regarding the previous point)  I try to maintain a process of making my notes manually in a paper notebook and then persisting them to a computer (`org-mode` or `vimwiki`).
+  When I finish the notes on an article and start feeling comfortable with what it presents, I give myself a few days to "forget" and then after some time get to writing them down on a computer.
+  This makes me go over them more honestly and tends to further cement the knowledge that the material bears.
+
+== Resources ==
+
+- http://organizationsandmarkets.com/2010/08/31/how-to-read-an-academic-article/
+- http://www.u.arizona.edu/~mlindsey/sirls_reading/index.html 
+- http://www.biochem.arizona.edu/classes/bioc568/papers.htm 
+- http://violentmetaphors.com/2013/08/25/how-to-read-and-understand-a-scientific-paper-2/ 
+
+
