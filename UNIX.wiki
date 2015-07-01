@@ -2,6 +2,8 @@
 
 [[ACLs]]
 
+[[CentOS]]
+
 [[Process-related files and tree]]
 
 [[Pulseaudio too silent]]
