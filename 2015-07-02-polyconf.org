@@ -1,0 +1,51 @@
+* Day 1
+** The Lisp in the machine
+   Burden of knowledge - a set of problems related to having stateful data in your system.
+   E.g. you can update info only by one good mean, otherwise the state might be incorrect.
+
+*** Kafka
+    Topics -> Partitions | split by machine
+    Partitions serve as log queues for a topic.
+    There are no rules of topic writing.
+    A message put on a topic gets an offset - unopinionated positional number, strongly ordered only by partition.
+    Offsets allow replays.
+
+    topics = datastream | eventstream -> datastream is for RDS, eventstream for elasticsearch.
+
+*** Clojure 
+    The assumption of laziness being useful on production is confirmed.
+    Infinite lazy streams in Braintree.
+
+    Divorce tests from frameworks :)))
+    
+    Keep GC to frequent, small runs.
+    Don't use default configs for Kafka
+
+    Monitor as much as you can - be proactive if problems are incoming.
+
+** Polyglot performance
+   @corbett
+
+   Minimization of the serial component and chattiness.
+
+   d3 algorithm for evenly distributing data over parallel processes.
+
+*** Ghost cells: external faces
+    Adding ghost nodes to massage pieces of data into shape to increase parallelism, and then throwing them away afterwards.
+
+    PTP communication, barriers, broadcast.
+
+** The promise of relational programming
+   Pretty much the same stuff as on the minikanren workshop.
+
+   miniKanren can be embedded in various languages, not only lisps.
+    
+
+
+    
+    
+
+    
+
+
+    
