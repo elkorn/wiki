@@ -39,13 +39,143 @@
    Pretty much the same stuff as on the minikanren workshop.
 
    miniKanren can be embedded in various languages, not only lisps.
+
+* Day 2
+** Hacking C for fun and learning
+   Cello - higher leve lprogramming in C
+   - generics
+   - polymorphic fns
+   - GC  
+   - constructors  
+   - interfaces
+   - range/slice methods working like in python
+     
+   Interfaces used pretty much for everything.
+
+   Implementing `type_of` by borrowing from fat pointers.
+
+** Inside WebSockets
+   Describing the frame structure of the WS protocol.
+** Rocking the Time Series boat with C, Haskell and CLJS
+   LevelDB as a good backend for time series data.
+
+   Requirements for a successful system operating on time series:
+   - start with querying: fast + parallel
+     3-step aggregate -> local aggr. (parallel) | append | combine
+     Use sequence IDs in addition to timestamps to:
+        - avoid timestamp resolution collisions,
+        - ensure sub-resolution order,
+        - snapshot data on problems,
+        - remain idempotent (data with the same timestamps and sequenceIds will never collide).
+    - Stream Fusion (there's a paper on that)
+      functional processing of streams?
+      Combinations - groupBy, several aggregates in one run, many nested aggregates
+
+      Break queries down, aggregate each part independently, combine the aggregates and transform the result for readability.
+
+      Instead of establishing consensus for each data points, do it for chunked snapshots.
+
+** Mesomatic - the cluster is a library
+   Exoscale, @pyr
+   riemann, collectd
+
+   Describing the road from a simple, one-machine solution to a distributed system (pets to cattle, nice analogy)
+
+   Immediate problem after scaling up - mostly machines are underutilized, but you still cannot service peaks.
+   
+*** Mesos way of working
+    masters supervise and manage
+    slaves expose resources
+    zookeeper keeps everything up
+
+    Executors manage workloads to slaves.
+    Offer-based allocation model
+    Mesos tasks additional features: health-checks, asking for port fwds and persistence storage volumes
+
+*** Mesomatic
+    Good foundation for building *aaS solutions.
+    Clojure facades for Mesos concepts, with Core.async as well.
+    You receive `resource-offers` and you send `launch-tasks`.
     
 
-
-    
     
 
     
 
+   
+   
 
+      
+
+** Apps in Elm
+   Elm has a Mailbox concept for messages passing, it can be passed messages and exposes a signal for subscribing.
+   Tasks used for async.
+
+** Introduction to Crystal
+   Ruby syntax, compiled - possibility for optimizations.
+   MEGA fast, type safe, have union types.
+
+** Things you're missing in languages
+   Yan Cui, gamesys
+
+*** F#
+    type providers - a way for the compiler to get type information from external data sources
+    unit-of-measure
+*** convenient type stuff
+    duck typing (js, python, ruby):  convenience >> safety
+    implicit interface implementation (Go) : convenience ~ safety (compile time errors possible)
+*** Clojure
+    homoiconicity - program structure similar to syntax to the extent of being able to understand the inner working just by reading the code
+    form: code as data structure (sexps)
+    macros - useful e.g. for visibility (quoting failing expressions in test results instead of just values)
+    quote expansion done at compile time
+*** Rust
+    Borrowed pointers (pass by reference) - moving ownership of pointers between variables - simple, frugal pointer usage.
+    References are also immutable by default
+    Borrower's scope must not outlast the owner's scope - cannot deallocate somebody else's resources.
+    Races are eliminated at compile time.
+*** Idris
+    Generics ~ param. polymorphism
+    Dependent types - types that depend on arbitrary values. Eliminate valid state by making it unrepresentable through types.
+    Josh Kaufman - how to learn anything
+
+    1. Deconstruct the skill
+    2. Learn enough to self-correct
+    3. Remove distractions :))) duh
+    4. Practice at least 20 hrs - power through frustration
+       
+** Contracts as types
+   prismatic schema https://github.com/Prismatic/schema
+
+   Moving from a static to a dynamic language.
+
+   Types ~ formal proofs
+   Tests ~ experimental evidence
     
+   Educated programmers tend to be more productive in statically typed languages.
+   This is due to informal reasoning - types support it the most here.
+
+   Dynamic languages are good and fast for exploration and prototyping.
+   An example of what contracts allow are heterogeneous lists with strictly defined elements. 
+   When use define a schema, define a generator for it as well. Use test.check. https://github.com/clojure/test.check
+   Using the schemas (contracts) with property-based testing, you often do not have to have any assertions in your tests - schemas do that for you, it's enough to just run the functions.
+
+   What could we know?
+   produced types, type relationships, value relationships
+
+   it doesn't have to be clojure :)
+
+** Post-FRP UI programming
+   React, Om, Purescript
+
+** Racket and Typed Racket
+   Racket allows embedding sub-languages within it
+   (e.g. a lazy programming language, slideshow lagnuage, document generation language)
+   
+*** Typed Racket
+    Typed sister language to Racket
+    Types can be translated into contracts.
+    Chaperone technique for contracts.
+    It is possible to create type systems in Racket.
+    The macro system is leveraged for that purpose.
+    Typed Racket - gradual typing now!
