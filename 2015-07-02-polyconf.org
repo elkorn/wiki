@@ -39,7 +39,6 @@
    Pretty much the same stuff as on the minikanren workshop.
 
    miniKanren can be embedded in various languages, not only lisps.
-
 * Day 2
 ** Hacking C for fun and learning
    Cello - higher leve lprogramming in C
@@ -179,3 +178,92 @@
     It is possible to create type systems in Racket.
     The macro system is leveraged for that purpose.
     Typed Racket - gradual typing now!
+* Day 3
+** Phoenix web framework
+   Phoenix channel - duplex channel between a client and a server. Websockets, basically.
+
+   Elixir utilizes the machine very well, so vertical scaling is efficient.
+   Thanks to the actor model, horizontal scaling is easy as well.
+   Ecto tool
+   There is generally a lot of tools out there already.
+   Applications are wrapped supervision trees with some additional convenience - e.g. configuration support, many applications can be started and stopped as a unit etc.
+   Elixir observer tool
+   
+** Simply Devign
+   Communication between developers and designers. Three core premises
+   - talk often,
+   - talk goals (leave out digressions)
+   - talk simple: find the best common language denominator 
+
+
+
+   
+** Polyglot microservices with a dash of Wittgenstein
+
+** Joe Nash - immersion
+   tokenization - take sensitive data and replace it with something we don;t care about.
+   Don't keep sensitive data in application state, secure the transport.
+   Tactical immersion.
+   Narrative immersion. - keep card details in data
+   Spatial immersion.
+
+** Unikernels
+   software - application on top of an OS
+   built locally, but deployed remotely
+
+   special vm images built from a modular stack - every app is compiled into its own OS
+   MirageOS presentation
+   Nymote - personal cloud solution
+   Hal VM, Ling
+
+** Julia 
+   designed for JIT compilation
+   expressive language of types
+   powerful multiple dispatch system
+   metaprogramming, macros
+   implicit generated functions
+
+   The core selling point is that it doesn't have types, but tags, and is extremely fast for a dynamic language.
+
+   DEADBEEF, DECEA5ED, CAFEBABE, OB5E55ED :)
+
+   matrices are stored contiguously in memory
+   you can print out LLVM output by @code_llvm.
+   you can print out native code by @code_native
+
+** Erlang in multilingual systems
+
+   Properties given by the BEAM
+   - lightweight, massive concurrency
+   - async comm
+   - process isolation
+   - error handling
+   - hot-swapping
+   - soft real-time
+   - support for introspection and monitoring
+   - immutable data
+   - no global data
+   Features:
+   - pattern matching
+   - modules
+   - functional paradigm
+   - predefined set of data types (records are used for adding "new" types - tuples, whose first element is `record`)
+
+     Elixir, LFE (Lisp-flavored Erlang, https://github.com/rvirding/lfe)
+
+     Erlog - logic PL, subset of Erlang.
+     Has backtracking, logical variables, unification
+     Good mapping between Erlog and Erlang data types, except logical variables
+     Luerl 
+
+*** Erlang ports
+    the IO monad :)
+
+    They make the outside world look like an erlang process.
+     C-nodes
+**** linked-in drivers
+     Move fnuctinoality inside Erlang.
+     Can be more efficient than "normal" ports.
+     no safety
+
+     
