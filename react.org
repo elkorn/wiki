@@ -1,0 +1,114 @@
+* React
+** TODO Higher order components https://medium.com/@dan_abramov/mixins-are-dead-long-live-higher-order-components-94a0d2f9e750
+** Flux
+*** TODO Basic architecture
+*** Evolution
+**** Flux tradeoff examples
+- If actions aren't objects, it is harder to replay them for debugging purposes.
+- Having no type constants makes it harder to typecheck actions with Flow.
+
+**** Key developments
+The first thing is action creators returning dispatched actions. The evolution is from 
+#+begin_src javascript
+export function addTodo(text) {
+  AppDispatcher.dispatch({
+    type: ActionTypes.ADD_TODO,
+    text: text
+  });
+}
+#+end_src
+
+to
+
+#+begin_src javascript
+export function addTodo(text) {
+  return {
+    type: ActionTypes.ADD_TODO,
+    text: text
+  };
+}
+#+end_src
+
+Obviously, the actions become decoupled from the dispatcher - IoC kicks in.
+The consequence here is that action creators cannot be called directly.
+Practically, you'd wrap them anyway (or use a library) for server side rendering.
+
+Async action creators would work as follows:
+#+begin_src emacs-lisp
+export function addTodo(text) {
+  return dispatch => ({
+    dispatch({
+      type: ActionTypes.ADD_TODO,
+      text: text
+    });
+    API.addTodo(text).then(
+        () => dispatch({
+        type: ActionTypes.ADD_TODO_SUCCESS,
+        text: text
+        }),
+        () => dispatch({
+        type: ActionTypes.ADD_TODO_FAILURE,
+        text: text
+        })
+    );
+  });
+}
+#+end_src
+
+The second thing is thanks to that the Stores can be made stateless.
+An inherent features of Stores is that they *managed*, not *own* state.
+A 'default' implementation of a store would look somewhat like this:
+#+begin_src javascript
+let _todos = [];
+const TodoStore = Object.assign(new EventEmitter(), {
+  getTodos() {
+    return _todos;
+  }
+});
+AppDispatcher.register(function (action) {
+  switch (action.type) {
+  case ActionTypes.ADD_TODO:
+    _todos = _todos.concat([action.text]);
+    TodoStore.emitChange();
+    break;
+  }
+});
+export default TodoStore;
+#+end_src
+
+can be turned into:
+
+#+begin_src javascript
+const initialState = { todos: [] };
+export default function TodoStore(state = initialState, action) {
+  switch (action.type) {
+  case ActionTypes.ADD_TODO:
+    return { todos: state.todos.concat([action.text]) };
+  default:
+    return state;
+}
+#+end_src
+
+So the state of a Store is a function of its initial state and the actions that have been performed on it.
+
+Benefits of those advancements:
+- Testability in isolation
+- Hot reloading (done in https://github.com/gaearon/redux)
+- The dispatcher owns the state and can revert the application to any previous state without serialization.
+  This means transactionality out of the box, allowing for stuff like https://github.com/gaearon/redux-devtools.
+- No need to =waitFor()= - the dispatcher controls when changes are emitted.
+- Change updates can be subscribed to, but the dispatcher may also expose a cursor-like functionality.
+- Declarative style - focus on *what* instead of *how*.
+
+
+
+  
+*** Followups
+**** TODO https://medium.com/@nextminds/replaying-bugs-with-flux-52f6bd8c8307
+**** TODO https://github.com/nextminds/FluxRecorder
+**** TODO http://cycle.js.org/
+**** TODO https://facebook.github.io/react/blog/2015/02/20/introducing-relay-and-graphql.html
+**** TODO https://github.com/omcljs/om
+**** TODO cursors e.g. https://github.com/dustingetz/react-cursor
+**** TODO watch https://www.youtube.com/watch?v=xsSnOQynTHs
+**** watch React Europe https://www.youtube.com/channel/UCorlLn2oZfgOJ-FUcF2eZ1A
