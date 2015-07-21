@@ -208,6 +208,122 @@ stantiation, but as soon as React.createClass is called to cache the value. This
 means you can’t use any instance specific data in the getDefaultProps method.
 
 *** TODO Higher order components https://medium.com/@dan_abramov/mixins-are-dead-long-live-higher-order-components-94a0d2f9e750
+**** Mixins
+     There are three main use cases for React mixins: utility functions, lifecycle hooks and state providers.
+     Mixins are on their way out starting from 0.13 though. 
+     If you use mixins for utility functions, extract them to modules.
+     They were more useful though when used for the other cases.
+     This is due to React "merging" lifecycle hooks - if both the component and its mixins have defined a lifecycle hook (i.e. =componentDidMount=), then React will merge them.
+     The same applies to =getInitialState=.
+     This is useful - mixins can subscribe components to Flux stores or work with their DOM nodes after being updated.
+     There are drawbacks to mixins though:
+     - The mixin <-> component contract is implicit.
+     - Use too many mixins and they will start to clash.
+       React will throw exceptions if you use two different instances of the same mixin even with different parameters.
+     - They tend to add more state to components.
+     - They complicate performance optimizations.
+       If you implement the =shouldComponentUpdate= method in your component, different mixins might need their own implementations.
+
+**** Higher-order components
+     This is one of the proposed ways to replace mixins with composition.
+     Using ES6 classes, it boils down to inheritance.
+     Taking the Flux Store connection mixin as an example, this is how you would implement it in the old way:
+#+begin_src javascript
+function StoreMixin(...stores) {
+  const Mixin = {
+    getInitialState() {
+      return this.getStateFromStores(this.props);
+    },
+    componentDidMount() {
+      stores.forEach(store => store.addChangeListener(this.handleStoresChanged));
+    },
+    componentWillUnmount() {
+      stores.forEach(store => store.removeChangeListener(this.handleStoresChanged));
+    },
+    handleStoresChanged() {
+      if(this.isMounted()) {
+        this.setState(this.getStateFromStores(this.props));
+      }
+    }
+  };
+
+  return Mixin;
+}
+
+const UserProfilePage = React.createClass({
+  mixins: [StoreMixin(UserStore)],
+  propTypes: {
+    userId: PropTypes.number.isRequired
+  },
+  getStateFromStores(props) {
+    return {
+      user: UserStore.get(props.userId)
+    };
+  },
+  render() {
+    const {user} = this.state;
+    return (
+        <div>
+        {user ? user.name : 'Loading'}
+        </div>
+    );
+  }
+});
+#+end_src
+     With the higher-order component approach it would look thusly.
+#+begin_src javascript
+const connectToStores = (ComposedComponent, stores, getStateFromStores) => {
+    return class extends React.Component {
+        getInitialState() {
+            return getStateFromStores(this.props);
+        }
+
+        componentDidMount() {
+            stores.forEach(store => store.addChangeListener(this.handleStoresChanged));
+        }
+
+        componentWillUnmount() {
+            stores.forEach(store => store.removeChangeListener(this.handleStoresChanged));
+        }
+
+        handleStoresChanged() {
+            if(this.isMounted()) {
+            this.setState(getStateFromStores(this.props));
+            }
+        }
+
+        render() {
+            return (<ComposedComponent {...this.props} {...this.state} />);
+        }
+        };
+
+        class ProfilePage extends React.Component {
+        static propTypes = {
+            userId: PropTypes.number.isRequired,
+            user: PropTypes.object // user becomes a prop
+        };
+
+        render() {
+            var { user } = this.props;
+            return (
+                <div>
+                {user ? user.name: 'Loading'}
+            </div>
+            );
+        }
+    }
+}
+
+export
+default connectToStores(
+    ProfilePage, [UserStore], props => ({
+        user: UserStore.get(props.userId)
+    }));
+#+end_src
+     Key benefits of this approach:
+     - Wrapping the component and passing additional props to it instead of managing state.
+     - Wrapper's lifecycle hooks work without any special merging, just by virtue of composition.
+
 *** DONE Routing
 
     Routing hierarchy (e.g. in =routes.js=):
@@ -258,8 +374,7 @@ Router.run(routes, Router.HashLocation, (Root) => {
 });
 #+end_src
 
-
-
+**** TODO Followup: https://github.com/acdlite/flummox/blob/v3.5.1/docs/docs/guides/why-flux-component-is-better-than-flux-mixin.md
 
 * TODO Webpack
 
