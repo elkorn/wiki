@@ -1,5 +1,4 @@
 * React
-** TODO Higher order components https://medium.com/@dan_abramov/mixins-are-dead-long-live-higher-order-components-94a0d2f9e750
 ** Flux
 *** TODO Basic architecture
 *** Evolution
@@ -34,7 +33,7 @@ The consequence here is that action creators cannot be called directly.
 Practically, you'd wrap them anyway (or use a library) for server side rendering.
 
 Async action creators would work as follows:
-#+begin_src emacs-lisp
+#+begin_src javascript
 export function addTodo(text) {
   return dispatch => ({
     dispatch({
@@ -100,15 +99,176 @@ Benefits of those advancements:
 - Change updates can be subscribed to, but the dispatcher may also expose a cursor-like functionality.
 - Declarative style - focus on *what* instead of *how*.
 
+** Este.js
+*** DONE App structure
+    This is a top-down overview of an Este.js app structure.
+**** main.js
+    - Imports routes.
+    - Bootstraps the application: renders the Router component in the given DOM root.
+**** routes.js
+    - Imports top-level components for all pages.
+**** App
+     - Imports all stores.
+     - Renders the main layout.
+     - =RouteHandler= is rendered within the main layout.
+     - Owns the global app state.
+**** Pages
+     - Top-level components for app areas.
+     - Composition roots for all functionalities related to the specific area.
+     - Additionally taking care of setting page titles, rendering headers, etc.
+**** Components
+     - Define the way of displaying data in the UI.
+     - Provide connection points (event handlers etc.) for invoking actions.
+     - Data is passed through props.
+     - State should be kept as high up as possible (optimally in the App), state owners have to be clearly defined.
+
+**** Actions
+     - Each logical part of the app has its own =actions.js= file, exposing action creator functions.
+       They perform logical validation and call the dispatcher to actually dispatch the created actions.
+**** Stores
+     - Stores react to dispatched actions and update the global application state.
 
 
-  
-*** Followups
-**** TODO https://medium.com/@nextminds/replaying-bugs-with-flux-52f6bd8c8307
-**** TODO https://github.com/nextminds/FluxRecorder
-**** TODO http://cycle.js.org/
-**** TODO https://facebook.github.io/react/blog/2015/02/20/introducing-relay-and-graphql.html
-**** TODO https://github.com/omcljs/om
-**** TODO cursors e.g. https://github.com/dustingetz/react-cursor
-**** TODO watch https://www.youtube.com/watch?v=xsSnOQynTHs
-**** watch React Europe https://www.youtube.com/channel/UCorlLn2oZfgOJ-FUcF2eZ1A
+*** DONE State
+    - =lib/state.js= implements a state representation.
+    - Based on immutable data structures.
+    - Emits change events (previous state is kept for diffing while debugging).
+    - It can be *revived* provided a =storesReviver= function.
+      - The =storesReviver= delegates to data-specific revivers.
+      - =state.js= imports all revivers.
+      - Instantiating the =State= class causes the state to be loaded from a server file or from =window._appState=.
+      - Loading state uses a data-specific reviver as a custom transform function for the `Immutable.fromJS` method.
+**** DONE Pending actions
+     - Whenever any action is dispatched, the dispatcher implementation uses a cursor on a pending actions hashmap (which can be hydrated from the server).
+     - The action key (acquired from overriding =.toString()= by =setToString=) is set to =true= before the actual action promise dispatch and to =false= after its resolution.
+     - This is useful when a loader needs to be displayed or as a logical action debouncing.
+** Concepts
+*** DONE Immutable data structures
+    One of the more popular immutable data structure libs for JS is immutable.js.
+    Immutability reduces complexity due to not having to handle changes to a on object as in mutable data structures.
+    A whole class of bugs is eliminated thusly.
+    On top of that, immutable data structures allow a host of optimizations due to their nature.
+**** Optimizations
+    - Thanks to structural sharing (i.e. reusing parts of data structures that were extended), the memory footprint is lesser than with e.g. copy-on-write data structures.
+      Speed is also improved.
+    - immutable.js uses ===== for equality checks and tries to return the existing collection when an operation would result in an identical collection.
+      This is useful in memoization when running a deeper equality check could be more costly than re-running the memoized function.
+**** API
+    - =Map=, =OrderedMap=, =List=, =Seq=
+    - Accept raw objects, arrays etc. as input
+    - Can be converted back to raw objects: shallowly with =.toArray()= or =.toObject()= and deeply with =.toJS()=.
+    - All immutable iterables implement =toJSON()= which means that they can be passed directly to =JSON.stringify=.
+    - The structures are intended to be nested.
+      Lens methods are provided on =List=, =Map= and =OrderedMap=: =getIn=, =setIn=, =updateIn= as well as a =mergeDeep= method.
+    - =Seq= is lazy.
+      It has functor-like methods =map=, =filter= etc. - but only unfolds when needed.
+      This allows to operate on them like in Haskell, create infinite ranges etc.  
+    - Equality is based on values, not references.
+#+begin_src javascript
+var map1 = Immutable.Map({a:1, b:1, c:1});
+var map2 = Immutable.Map({a:1, b:1, c:1});
+assert(map1 !== map2); // two different instances
+assert(Immutable.is(map1, map2)); // have equivalent values
+assert(map1.equals(map2)); // alternatively use the equals method
+#+end_src
+
+
+
+*** DONE PropTypes
+    - A mechanism provided by React itself.
+    - Allow defining constraints on what the component expect to get passed as props.
+    - Violating the contract established by =PropTypes= will cause a =console.warn= to be issued.
+    - A =getDefaultProps= function can be implemented to provide a default set of properties. 
+      It is called as soon as =React.createClass= is called on the component, so no instance-specific references can be used within it.
+      Default values should be provided only for properties that are not required (i.e. their =propType= doesn't have =.isRequired= specified).
+      
+#+begin_src javascript
+var SurveyTableRow = React.createClass({
+    propTypes: {
+        survey: React.PropTypes.shape({
+            id: React.PropTypes.number.isRequired
+        }).isRequired,
+        onClick: React.PropTypes.func
+    },
+});
+
+var SurveyTable = React.createClass({
+    getDefaultProps: function () {
+        return {
+            surveys: []
+            };
+    }
+});
+#+end_src
+
+Create the getDefaultProps function on your component to provide a default set of
+properties. This should only be done for props that aren’t required.
+It’s important to note that getDefaultProps is not called during component in-
+stantiation, but as soon as React.createClass is called to cache the value. This
+means you can’t use any instance specific data in the getDefaultProps method.
+
+*** TODO Higher order components https://medium.com/@dan_abramov/mixins-are-dead-long-live-higher-order-components-94a0d2f9e750
+*** DONE Routing
+
+    Routing hierarchy (e.g. in =routes.js=):
+
+    #+begin_src javascript
+    var Router = require('react-router');
+    var Route = Router.Route;
+
+    // declare routes and their hierarchy
+    var routes = (
+    <Route handler={App}>
+        <DefaultRoute handler={Home}/>
+        <NotFoundRoute handler={NotFound} name="not-found" />
+        <Route path="about" handler={About}/>
+        <Route path="inbox" handler={Inbox}>
+        <Route path="messages/:id" handler={Message}/>
+        </Route>
+    </Route>
+    );
+    #+end_src
+
+- The value of =:id= in =inbox/messages/:id= will be assigned to =this.props.params.id= in the =Message= component.
+- When the url is =/=, the handler from =DefaultRoute= will be activated - here, the =<RouteHandler />= in =App= will be =Home=.
+- The =NotFoundRoute='s handler is activated when the beginning of its parent's path matches the URL, but none of the siblings match the rest of it.
+
+Route handler (in =app.react.js=):
+
+#+begin_src javascript
+var RouteHandler = Router.RouteHandler;
+
+var App = React.createClass({
+  render () {
+    return (
+      <div>
+        <h1>App</h1>
+        <RouteHandler/>
+      </div>
+    )
+  }
+});
+#+end_src
+
+Bootstrap code (in =main.js=):
+
+#+begin_src javascript
+Router.run(routes, Router.HashLocation, (Root) => {
+  React.render(<Root/>, document.body);
+});
+#+end_src
+
+
+
+
+* TODO Webpack
+
+* Followups
+** TODO https://medium.com/@nextminds/replaying-bugs-with-flux-52f6bd8c8307
+** TODO https://github.com/nextminds/FluxRecorder
+** TODO http://cycle.js.org/
+** TODO https://facebook.github.io/react/blog/2015/02/20/introducing-relay-and-graphql.html
+** TODO https://github.com/omcljs/om
+** TODO cursors e.g. https://github.com/dustingetz/react-cursor
+** TODO watch https://www.youtube.com/watch?v=xsSnOQynTHs
+** TODO watch React Europe https://www.youtube.com/channel/UCorlLn2oZfgOJ-FUcF2eZ1A
