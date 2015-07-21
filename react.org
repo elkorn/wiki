@@ -92,13 +92,19 @@ So the state of a Store is a function of its initial state and the actions that 
 
 Benefits of those advancements:
 - Testability in isolation
-- Hot reloading (done in https://github.com/gaearon/redux)
+- Hot reloading (done in [[https://github.com/gaearon/redux][redux]])
 - The dispatcher owns the state and can revert the application to any previous state without serialization.
   This means transactionality out of the box, allowing for stuff like https://github.com/gaearon/redux-devtools.
 - No need to =waitFor()= - the dispatcher controls when changes are emitted.
 - Change updates can be subscribed to, but the dispatcher may also expose a cursor-like functionality.
 - Declarative style - focus on *what* instead of *how*.
+  
+*** Notable variants
+    - [[https://github.com/gaearon/redux][Redux]] 
 
+    - [[https://acdlite.github.io/flummox][Flummox]]
+    - [[https://github.com/spoike/refluxjs][Reflux]]
+     
 ** Este.js
 *** DONE App structure
     This is a top-down overview of an Este.js app structure.
