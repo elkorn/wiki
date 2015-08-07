@@ -254,7 +254,8 @@ instance Monad Maybe where
 
 See that Maybe is a Functor, an Applicative *and* a Monad.
 
-*** IO Monad
+* Useful monads
+** IO
 
 *getLine* takes no args and gets user input.
 
@@ -285,12 +286,12 @@ Also, there is the =do= notation to sugar-coat the bindings:
 
 #+begin_src haskell
 result = do
-    filename <- getLine
-    contents <- readFile
-    putStrLn contents
+filename <- getLine
+contents <- readFile
+putStrLn contents
 #+end_src
 
-*** Writer Monad
+** Writer
 
 Example case: halving with logs.
 
@@ -317,10 +318,38 @@ Every writer has a log and a value.
 data Writer w a = Writer { runWriter :: (a, w) }  
 #+end_src
 
+We can achieve the desired result like that:
+
+#+begin_src haskell
+half 8 >>= half
+#+end_src
+
+or like that
+
+#+begin_src haskell
+half <=< half $ 8 
+#+end_src
+
+where =<=<= is the monad composition operator.
+
+To write to the log, use `tell`.
+To put a value in the Writer, use `return`.
+
+#+begin_src haskell
+half :: Int -> Writer Int String
+half x = do
+    tell ("Just halved" ++ (show x) ++ "!")
+    return (x `div` 2)
+#+end_src
+
+To extract values from the Writer, use =runWriter=:
 
 * Terminology
 
 *Normal form* - a fully evaluated expression.
+#+begin_src haskell
+runWriter $ half 8
+-- => (4, "I just halved 8!")
 After evaluating, the expression itself is replaced in memory with an indirect reference to the value of its result.
 
 *Weak head normal form* - a partially evaluated expression, whose first constructor has been evaluated, but whose members
@@ -339,3 +368,16 @@ Prelude Data.Tuple> let z = swap (x,x+1)
 Prelude> :sprint z
 z = (_,_) -- WHNF
 #+end_src
+runWriter $ half 8 >>= half
+-- => (2, "I just halved 8!I just halved 4!")
+#+end_src
+
+The composition actually does exactly the same thing as the original example code.
+
+=return= just wraps a value in a Writer monad:
+
+#+begin_src haskell
+return val = Writer(val, "")
+#+end_src
+
+Note that Writer allows using any Monoid as the log.
