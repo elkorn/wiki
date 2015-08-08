@@ -1,0 +1,425 @@
+#+FILETAGS: :vimwiki:
+
+* Profiling
+** Go - Profiling
+
+*** Tip for profiling a single test
+To run and profile a single test, it must be run in the context of a benchmark.
+Moreover, any other tests must be blocked from running.
+To do so, use the following:
+
+#+begin_example
+go test -run="^$" -bench="TheTestToProfile" -cpuprofile="out.prof"
+#+end_example
+
+`-run="^$"` will bar any tests from being actually run - thus not having their 
+stack samples collide with the profiler output.
+
+
+*** Built-in profiling capabilities
+Introductory note - Go's [[htgolangtp://golang.org/pkg/testing/][testing]] package provides a bult-in `benchmark` functionality.
+Functions of the form
+#+begin_example
+func BenchmarkXxxx(*testing.B)
+#+end_example
+
+are considered benchmarks and are executed by `go test -bench`.
+Benchmarks are run sequentially.
+
+A sample benchmark function might look like so:
+#+begin_example
+func BenchmarkHello(b *testing.B) {
+    for i := 0; i < b.N; i++ {
+        fmt.Sprintf("hello")
+    }
+}
+#+end_example
+
+Note that the benchmark must run the code `b.N` times.
+
+Some profiling flags such as `-cpuprofile` and `-memprofile` are available. Check the link for more info.
+
+*** Using the pprof tool
+
+(from http://blog.golang.org/profiling-go-programs)
+
+When not using thet testing builtins, custom profile flags should be defined:
+
+#+begin_example
+var cpuprofile = flag.String("cpuprofile", "", "write cpu profile to file")
+
+func main() {
+    flag.Parse()
+    if *cpuprofile != "" {
+        f, err := os.Create(*cpuprofile)    // cpuprofile is a file.
+        if err != nil {
+            log.Fatal(err)
+        }
+        pprof.StartCPUProfile(f)
+        defer pprof.StopCPUProfile()
+    }
+#+end_example
+
+Then, we can use the new flag:
+
+#+begin_example
+$ make havlak1.prof
+./havlak1 -cpuprofile=havlak1.prof
+# of loops: 76000 (including 1 artificial root node)
+$ go tool pprof havlak1 havlak1.prof
+Welcome to pprof!  For help, type 'help'.
+(pprof)
+#+end_example
+
+`go tool pprof` is a variant of Google's [[https://code.google.com/p/gperftools/wiki/GooglePerformanceTools][`pprof` C++ profiler]].
+Important command: `topN`:
+
+#+begin_example
+(pprof) top10
+Total: 2525 samples
+     298  11.8%  11.8%      345  13.7% runtime.mapaccess1_fast64
+     268  10.6%  22.4%     2124  84.1% main.FindLoops
+     251   9.9%  32.4%      451  17.9% scanblock
+     178   7.0%  39.4%      351  13.9% hash_insert
+     131   5.2%  44.6%      158   6.3% sweepspan
+     119   4.7%  49.3%      350  13.9% main.DFS
+      96   3.8%  53.1%       98   3.9% flushptrbuf
+      95   3.8%  56.9%       95   3.8% runtime.aeshash64
+      95   3.8%  60.6%      101   4.0% runtime.settype_flush
+      88   3.5%  64.1%      988  39.1% runtime.mallocgc
+#+end_example
+
+A profiled program stops about 100 times / sec and records a sample consisting of the program counters on the currently executing goroutine's stack.
+To sort by 4th and 5th columns, use the `-cum` (cumulative) flag.
+
+The percentage might not be 100% even when it theoretically should.
+This is due to the fact that each stack sample includes only the bottom 100 frames.
+
+The `web` command draws a graph of the profile data in SVG format and opens it in a web browser. Requires [[http://www.graphviz.org/][graphviz]].
+
+**** Each box in the graph corresponds to a function, and is sized accoring to the number of samples in which it was running.
+**** An edge from box X to Y indicates that X calls Y.
+**** The number along the edge is the number of times that call appears in a sample.
+**** Recursion shows as an edge to self with a number (weight).
+**** To show only samples including a specific function, e.g. `mapaccess1`, write `web mapaccess1`.
+
+These commands give us a higher level overview of what's going on in the program.
+
+**** Details
+
+To look closely at a specific function, use `list`:
+
+#+begin_example
+(pprof) list DFS
+Total: 2525 samples
+ROUTINE ====================== main.DFS in /home/rsc/g/benchgraffiti/havlak/havlak1.go
+   119    697 Total samples (flat / cumulative)
+     3      3  240: func DFS(currentNode *BasicBlock, nodes []*UnionFindNode, number map[*BasicBlock]int, last []int, current int) int {
+     1      1  241:     nodes[current].Init(currentNode, current)
+     1     37  242:     number[currentNode] = current
+     .      .  243:
+     1      1  244:     lastid := current
+    89     89  245:     for _, target := range currentNode.OutEdges {
+     9    152  246:             if number[target] == unvisited {
+     7    354  247:                     lastid = DFS(target, nodes, number, last, lastid+1)
+     .      .  248:             }
+     .      .  249:     }
+     7     59  250:     last[number[currentNode]] = lastid
+     1      1  251:     return lastid
+(pprof)
+#+end_example
+
+First 3 columns are:
+***** the number of samples taken while running that line, 
+***** the number of samples taken while running that line OR in code called from that line,
+***** the line number in the file.
+
+There are also supplementary commands:
+***** `disasm` shows a disassembly instead of an src listing (can show which instructions are expensive).
+***** `weblist` shows the source listing in which clicking a line shows the disasm.
+
+`runtime.mallocgc` means that GC has been caugh in a sample.
+To find why GC is running during the execution, use `-memprofile`.
+
+Custom `memprofile` might look like so:
+#+begin_example
+var memprofile = flag.String("memprofile", "", "write memory profile to this file")
+...
+
+    FindHavlakLoops(cfgraph, lsgraph)
+    if *memprofile != "" {
+        f, err := os.Create(*memprofile)
+        if err != nil {
+            log.Fatal(err)
+        }
+        pprof.WriteHeapProfile(f)
+        f.Close()
+        return
+    }
+#+end_example
+
+Using `go tool` with the different profile causes it to analyse memory allocations:
+
+#+begin_example
+$ go tool pprof havlak3 havlak3.mprof
+Adjusting heap profiles for 1-in-524288 sampling rate
+Welcome to pprof!  For help, type 'help'.
+(pprof) top5
+Total: 82.4 MB
+    56.3  68.4%  68.4%     56.3  68.4% main.FindLoops
+    17.6  21.3%  89.7%     17.6  21.3% main.(*CFG).CreateNode
+     8.0   9.7%  99.4%     25.6  31.0% main.NewBasicBlockEdge
+     0.5   0.6% 100.0%      0.5   0.6% itab
+     0.0   0.0% 100.0%      0.5   0.6% fmt.init
+(pprof)
+#+end_example
+
+The memory profiler only records information for approximately one block perf half megabyte allocated to reduce overhead.
+
+Functions can be listed all the same through `list`, but this time we will have memory usage instead of stack frames listed.
+
+`go tool pprof --inuse_objects` will report allocations instead  of sizes.
+
+It may be usefule to graph the allocations that are causing GC through `web mallocgc`.
+This graph may be unreadable though - most parts of your code will allocate something and so large number of nodes with small sample numbers will interfere visually with the big ones.
+To display only the nodes that account for at least 10% of the samples, use `go tool pprof --nodefraction=0.1 havlak4 havlak4.prof`.
+
+To presrve performance, you need to take into account memory management, regardless of the fact of using a GC'ed language.
+E.g. if your algorithms need a lot of bookkeeping structures, create a cache of some sort prior too using them, instead of recreating a fresh structure on every iteration.
+
+**** Memory statistics
+
+Can be read with `runtime.ReadMemstats(&m)`.
+This struct has tons of members.
+
+Useful ones for looking at the heap:
+***** `HeapInuse` - no. of bytes in the heap that are allocated,
+***** `HeapIdle` - no. of bytes in the heap waiting to be used,
+***** `HeapSys` - no. of bytes obtained from the OS,
+***** `HeapReleased` - no. of bytes released to the OS.
+
+*Example* - the garbage making program
+#+begin_example
+func makeBuffer() []byte {
+    return make([]byte, rand.Intn(5000000)+5000000
+}
+
+func main() {
+    pool := make([][]byte,20)
+    makes := 0
+    for {
+        b := makeBuffer()
+        makes += 1
+        i := rand.Intn(len(pool))
+        pool[i] = b
+        time.Sleep(time.Second)
+    }
+}
+#+end_example
+
+How the profile looks like:
+{{http://blog.cloudflare.com/static/images/garbage.png}}
+`HeapInuse` plateaus at about 150m bytes due to the fixed size of the buffer.
+It's visible though that `HeapSys` is about 2.5x more than the program actually needs to have.
+
+This pattern is common in GCed programs - idle memory gets reused and rarely gets released to the OS.
+
+Manual memory mgmt can be used to solve it - using a channel allows to keep a separate pool of unused buffers.
+This pool can be then used to retrieve a buffer or make a new one if the channel is empty.
+
+#+begin_example
+package main
+
+import (
+    "fmt"
+    "math/rand"
+    "runtime"
+    "time"
+)
+
+func makeBuffer() []byte {
+    return make([]byte, rand.Intn(5000000)+5000000)
+}
+
+func main() {
+    pool := make([][]byte, 20)
+
+    buffer := make(chan []byte, 5)
+
+    var m runtime.MemStats
+    makes := 0
+    for {
+        var b []byte
+        select {
+        case b = <-buffer:
+        default:
+            makes += 1
+            b = makeBuffer()
+        }
+
+        i := rand.Intn(len(pool))
+        if pool[i] != nil {
+            select {
+            case buffer <- pool[i]:
+                pool[i] = nil
+            default:
+            }
+        }
+
+        pool[i] = b
+
+        time.Sleep(time.Second)
+
+        bytes := 0
+        for i := 0; i < len(pool); i++ {
+            if pool[i] != nil {
+                bytes += len(pool[i])
+            }
+        }
+
+        runtime.ReadMemStats(&m)
+        fmt.Printf("%d,%d,%d,%d,%d,%d
+", m.HeapSys, bytes, m.HeapAlloc,
+            m.HeapIdle, m.HeapReleased, makes)
+    }
+}
+#+end_example
+
+The results:
+{{http://blog.cloudflare.com/static/images/garbage-pool.png}}
+
+Now, utilization of memory is nearly 100%.
+
+The key to this memory recycling mechanism is a buffered channel `buffer`.
+When the program needs a buffer, it first tries to read one from the channel:
+#+begin_example
+select {
+    case b <- buffer:
+    default:
+        b := makeBuffer()
+}
+#+end_example
+
+This either places a retrieved slice in the buffer or creates a new one, if the channel is empty.
+
+To put slices back into the channel, do a similar thing:
+#+begin_example
+select {
+    case buffer <- pool[i]:
+        pool[i] = nil
+    default:
+}
+#+end_example
+
+If the `buffer` channel is full, then nothing is being done to avoid blocking.
+Note that this pool can be even reused across goroutines due to the nature of channels.
+
+Cloudflare buffer recycler works by having a goroutine that handles creation of buffers and sharing them across other goroutines.
+Two channels: `get` (to get a new buffer) and `give` (to return a buffer to the pool) are used for all communication.
+Internally, the recycler keeps a linked list of returned buffers and periodically removes the ones that are too old and unlikely to be reused.
+That allows to cope with bursts of demand.
+#+begin_example
+package main
+
+import (
+    "container/list"
+    "fmt"
+    "math/rand"
+    "runtime"
+    "time"
+)
+
+var makes int
+var frees int
+
+func makeBuffer() []byte {
+    makes += 1
+    return make([]byte, rand.Intn(5000000)+5000000)
+}
+
+type queued struct {
+    when time.Time
+    slice []byte
+}
+
+func makeRecycler() (get, give chan []byte) {
+    get = make(chan []byte)
+    give = make(chan []byte)
+
+    go func() {
+        q := new(list.List)
+        for {
+            if q.Len() == 0 {
+                q.PushFront(queued{when: time.Now(), slice: makeBuffer()})
+            }
+
+            e := q.Front()
+
+            timeout := time.NewTimer(time.Minute)
+            select {
+            case b := <-give:
+                timeout.Stop()
+                q.PushFront(queued{when: time.Now(), slice: b})
+
+           case get <- e.Value.(queued).slice:
+               timeout.Stop()
+               q.Remove(e)
+
+           case <-timeout.C:
+               e := q.Front()
+               for e != nil {
+                   n := e.Next()
+                   if time.Since(e.Value.(queued).when) > time.Minute {
+                       q.Remove(e)
+                       e.Value = nil
+                   }
+                   e = n
+               }
+           }
+       }
+
+    }()
+
+    return
+}
+
+func main() {
+    pool := make([][]byte, 20)
+
+    get, give := makeRecycler()
+
+    var m runtime.MemStats
+    for {
+        b := <-get
+        i := rand.Intn(len(pool))
+        if pool[i] != nil {
+            give <- pool[i]
+        }
+
+        pool[i] = b
+
+        time.Sleep(time.Second)
+
+        bytes := 0
+        for i := 0; i < len(pool); i++ {
+            if pool[i] != nil {
+                bytes += len(pool[i])
+            }
+        }
+
+        runtime.ReadMemStats(&m)
+        fmt.Printf("%d,%d,%d,%d,%d,%d,%d
+", m.HeapSys, bytes, m.HeapAlloc
+             m.HeapIdle, m.HeapReleased, makes, frees)
+    }
+}
+#+end_example
+
+Running that looks very similar to the second version.
+{{http://blog.cloudflare.com/static/images/garbage-recyler.png}}
+
+Any arbitrary type can be reused in that manner, not only `[]byte` slices.
+
+**** Benchmark visualization
+
+https://github.com/ajstarks/svgo/blob/master/benchviz/benchviz.go can be used to visualize benchmark results.

@@ -1,7 +1,0 @@
-= JUG - Uncle Bob, "Architecture- the lost years" =
-
-
-
-Prevailer - persistence tool
-
-

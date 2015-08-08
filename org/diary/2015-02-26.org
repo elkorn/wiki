@@ -1,0 +1,126 @@
+#+FILETAGS: :vimwiki:
+
+* 2015-02-26
+** Lambda Days: Day 1
+
+LambdaAcademy.org
+Luna lang
+
+** Keynote: Garrett Smith - Rediscovering a Useful Pattern Language, Lessons from Bouncy Squirrel
+
+Functional language neighborhood chart - 2014
+
+Christopher Alexander - The Timeless Way of Building
+
+Patterns should be driven not only by thought, feeling is an important piece of the puzzle.
+Employing things that feel right is in agreement with emergent architecture.
+
+Functional composition: properly named functions can be composed to tell stories using human words, which gives confidence of understanding how the programworks.
+
+Other patterns supported emotionally:
+*** REPL: encourages playing around and experimenting
+*** Visual representation: gives a higher level overview of the program structure
+*** Human readable text: enables participation in social contexts and textual tools
+
+Patterns are not prescribed - truly useful patterns emerge through ways of discovery and experience.
+
+Also, truly useful patterns cut across languages and ways of thinking.
+
+
+** Kevin Hammond - Megacore, Megafast, Megacool: Functional Patterns of Parallelism
+
+http://www.paraphrase-ict.eu/
+Parallel Patterns for Heterogenous Multicore Systems
+RePhrase: Refactoring Parallel Hterogenous Software
+Megacore architecture - nodes linked into systems, each node having several large CPU cores + specialist manycore accelerators
+
+Megacore devices most likely will not have shared memory, NUMA is most probable.
+
+Nvidia Tegra K1 shares RAM between the CPU and GPU.
+
+Dark silicon approach - powering up processing units on demand to minimize overall energy usage.
+
+To utilize parallelism capabilities maximally, the overhead has to be minimized... duh, missed an essential remark.
+
+To improve parallelization potential, incidental and essential dependencies have to be identified.
+
+New way of thinking:
+*** millions of threads
+*** eliminate deadlocks from the model
+*** ...
+*** ...
+*** "the only solution that works for parallelism is functional programming"
+      - purity
+          - ... 
+          - impossible for parallel processes to interfere 
+          - sequential debugging / parallel execution
+
+Parallelism vs concurrency: parallelism is the reality, concurrency is an illusion.
+Paraphrase approach:
+*** bottom-up, identify hygienic (?) components (bricks)
+*** semi-auto refactoring
+*** Think about the pattern of parallelism -> mapreduce,task farm, par search, par completion....
+*** Turn the patterns to skeletal code
+*** Iterate
+
+Farm vs map - farm has a fixed number of workers for the whole collection, a map has a worker per item.
+HOFs can capture parallel patterns - this is how you are starting to do this lately.
+the `Skel` library for Erlang captures some parallelization patterns.
+
+Dependent/independent composition - parallelism as an aspect of composition?
+
+** Torben Hoffman - Thinking Like an Erlanger
+
+Domain-specific languages fill a larger gap within that domain:
+*** shorter feedback loop
+*** less mgmt required
+*** express your thoughts more directly and efficiently
+
+Tony Hoare: CSP
+Robin Sharp: Principles of protocol design
+
+The golden trinity of Erlang:
+*** fail fast
+*** share nothing
+*** failure handling
+
+Use processes, use threads where appropriate in everyday programming.
+Do not constrain yourself in this matter.
+
+
+*** Game of life
+
+Issues with traditional approach:
+**** not scalable (i.e. the new state loop)
+**** imperative data structures are ugly
+
+A more Erlangy alternative: one process per cell, communicating with neighbors naturally.
+A process for each cell + an additional collector process for each one to get state information from neighbours.
+Synchronization problems -> collectors may ask for past or future states.
+Fixes: keep a history of past states (in real life - limit the history depth) and queue responses (for future states).
+This shows a more generic approach to handling common issues related to handling issues with messaging protocols.
+
+*** Conclusions
+
+**** *Focus on protocols, they are extremely important.*
+       - diagramming is helpful (seq. diagrams)
+**** *Ask 'what could go wrong here?'*
+**** *Use supervisors to monitor the life of your objects/processes and restart them.*
+**** *Use transaction logs.*
+**** *Async protocols are nasty to test, but required to build a robust, scalable system.*
+**** *Use QuickCheck, focusing on one process at a time.*
+**** https://github.com/lehoff/egol
+ 
+Elixir: Ruby-like syntax, hygienic macros (easy to do DSLs), better data handling support - but you require good Erlang knowledge to code in Elixir.
+
+** Evelina Gabasova - Understanding cancer behaviour with F#
+
+** Justin Leitgeb - A Year of Haskell
+
+Hoogle, Hayoo
+quickcheck, hspec
+Frege on JVM
+Hapistrano :)
+Halcyon for deployments
+Learn you a Haskell for great good
+Real world Haskell

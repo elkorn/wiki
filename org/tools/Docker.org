@@ -1,0 +1,14 @@
+#+FILETAGS: :vimwiki:
+
+* Docker
+#= Tools - Docker =
+
+Build container from a local Dockerfile:
+#+begin_example
+docker build -t container_name .
+#+end_example
+
+Run bash inside the built container:
+#+begin_example
+docker run -t -i container_name /bin/bash
+#+end_example

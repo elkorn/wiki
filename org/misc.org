@@ -1,0 +1,9 @@
+* TODO ProcessManager notes
+<2015-03-19 Thu>
+
+* TODO [[http://shipilev.net/blog/2014/nanotrusting-nanotime/][Nanotrusting nanotime]]
+
+* Think about what you want to achieve.
+  Is it feasible to try to jump into systems engineering or does it make more
+  sense to actually become a  [[http://aestheticio.com/learn-design-non-designers/][more well-rounded Web developer]], capable of
+  doing projects end-to-end for clients directly? 

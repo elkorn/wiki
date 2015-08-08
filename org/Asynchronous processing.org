@@ -1,0 +1,114 @@
+#+FILETAGS: :vimwiki:
+
+* Asynchronous processing
+** Asynchronous processing
+
+*** Futures vs Promises
+
+Futures and Promises implement the same concept, but Promises are read-write
+(i.e. you can do side effects with them).
+
+Futures are just read-only handles to computations that are going to finish in
+some time.
+
+*** Retrying
+
+The problem:
+
+#+begin_example
+def toss(probability: Int) {
+    if(rand.nextInt % probability == 0)
+        throw new RuntimeException("Boom");
+}
+
+Await.result(future(toss(2)), 50 millis)
+Await.result(future(toss(2)), 50 millis)
+// reflection of a non-deterministic behavior concept
+#+end_example
+
+We want a method kinda like this:
+
+#+begin_example
+// f should run for at most n+1 times.
+def retry[T](n: Int)(f: => T): Future[T] =
+    future { f } recoverWith {
+        case e if n > 0 => retry(n - 1)(f)
+    }
+
+#+end_example
+
+*** Timeouts
+
+The problem:
+
+#+begin_example
+def aBlockingSlowCall: String = {
+    Thread.sleep(1000)
+    "foo"
+}
+
+future { aBlockingSlowCall }
+res: s.c.Future[String] = ...
+
+Await.result(res, 500 millis)
+// j.u.c.TimeoutException: Futures timed out after [500 ms]
+#+end_example
+
+The problem is that the timeout is only known at the `Await` level.
+It sucks due to the fact that `Await`s are generally put at the web controller
+level.
+
+What we really want is for each component to know about its related timeouts.
+
+Enter `com.twitter.util.Future`:
+
+#+begin_example
+def within(timeout: Duration)(implicit timer: Timer): Future[A]
+
+val pool = FuturePool.unboundedPool
+
+pool { aBlockingSlowCall }
+    within (100 millis)
+
+res: c.t.u.Future[String] = ???
+
+Await.result(res)
+// c.t.u.TimeoutException: 100.milliseconds
+#+end_example
+
+[[https://github.com/wix/future-perfect][Future perfect]] from Wix provides an abstraction over c.t.u.Futures.
+
+#+begin_example
+object App extends FuturePerfect { // FP is a trait
+    val executorService = Executors.newScheduledThreadPool(10)
+
+    val future = execution(
+        name = "foo",
+        timeout = 100 millis,
+        retryPolicy = RetryPolicy(retries = 1)) {
+            // some blocking call
+            // partial function can be defined for specific exception cases
+        })
+}
+
+val result = Await.result(future)
+#+end_example
+
+The problem with future perfect is that you get a Twitter future back, not a
+Scala future.
+To convert between the two:
+
+#+begin_example
+import com.twitter.{util => tw} // import util as tw
+
+implicit def twf2scf[T](tf: tw.Future[T]):
+    Future[T] = {
+        val p = Promise[T]
+        tf respond {
+            case tw.Return(r) => p success r
+            case tw.Throw(e) => p failure e
+        }
+
+        p.future
+    }
+#+end_example

@@ -1,0 +1,16 @@
+#+FILETAGS: :vimwiki:
+
+* Libraries
+** Go - Libraries
+# %toc
+
+*** Logging
+**** [[https://github.com/davecgh/go-spew][go-spew]]
+**** [[https://github.com/golang/glog][glog]] ported from C++ by Rob Pike
+**** [[http://godoc.org/github.com/dgryski/trifles/go-wtflog][wtflog]], a more funny alternative, logging levels might be quite useful though.
+
+*** Profiling
+**** perftools' [[http://golang.org/pkg/net/http/pprof/][pprof]]
+
+*** Utility
+**** [[https://github.com/tobyhede/go-underscore]], like underscore.js. (under heavy development right now, keep an eye on that one)

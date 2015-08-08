@@ -1,0 +1,83 @@
+#+FILETAGS: :vimwiki:
+
+* WellManagedAMDCodebase
+** Well managed AMD codebase
+
+Such a codebase is characterized by 5 traits.
+
+*** 1. Dependencies are always declared
+
+Scripts should not assume that a dependency will be available in the target environment e.g. a jQuery plugin should not assume jQuery being present.
+Instead, all dependencies should be explicitly stated in the module definition.
+
+*** 2. 3rd party code is shimmed
+
+If a 3rd-party module implicitly depends on some module and is not AMD-oriented, the dependencies have to be made explicit by using a shim.
+Example:
+#+begin_example
+var require = {
+    shim: {
+        "lib/cool-plugin": {
+            deps: ["lib/jquery"]
+        }
+    }
+}
+#+end_example
+
+*** 3. Definitions are separate from executions
+
+This trait improves testability and reusability.
+The problem occurs when a `define` call not only defines a module but also invokes it.
+This causes unavoidable side effects and makes mocking harder.
+
+The solution is to use separate `define` statements for actual definition and execution.
+Example:
+#+begin_example
+## js/User.js
+define(function(require) {
+    var User = function(name, greeter) {
+        this.name = name;
+        this.greeter = greeter;
+    };
+
+    User.prototype.sayHello = function() {
+        this.greeter('Hello ' + this.name);
+    };
+
+    return User;
+});
+
+## js/page.js
+define(function(require) {
+    var User = require('js/User');
+    var user = new User('Alice', window.alert);
+    
+    user.sayHello();
+});
+#+end_example
+
+*** 4. Dependency loading is asynchronous
+
+Require.js enables asynchronous loading by default when the module is placed in a function.
+It gets invoked only after all dependencies are met.
+#+begin_example
+define(['lib/jquery', 'lib/underscore'], function($,_) {
+    'use strict';
+    // init
+});
+#+end_example
+
+*** 5. Modules do not depend on globals.
+
+Instead of using globals, create a module with important constants and so on.
+3rd-party globals can be shimmed:
+#+begin_example
+// Calc is global, but we export it as a local variable when it's required.
+var require = {
+    shim: {
+        'lib/calculator': {
+            export: "Calc"
+        }
+    }
+};
+#+end_example

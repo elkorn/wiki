@@ -1,0 +1,4 @@
+#+FILETAGS: :vimwiki:
+
+* 2014-01-14
+Math $ \sum{i=1}^N a_i^2 = \infty $

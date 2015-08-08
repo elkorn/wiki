@@ -1,0 +1,54 @@
+#+FILETAGS: :vimwiki:
+
+* 2015-01-12
+** The Humane Representation of Thought
+
+(via http://vimeo.com/115154289)
+
+*** Representations
+
+Representations carry ideas to the humane understanding.
+Think about the periodic table, Bohr's atom model, mathematic notations, different data visualizations etc.
+
+The invention of powerful representations and media driving them was the motor of intellectual progress for the last 2000 years.
+
+
+The work style of sitting hunched over a machine is not humane.
+
+*** Modes of understanding
+
+**** visual (sheet music)
+**** aural (sound of music)
+**** tactile (playing a guitar)
+**** kinesthetic (dancing to music)
+**** spatial (enjoying an orchestra)
+
+Jerome Bruner:
+**** enactive (riding a bike)
+**** iconic (looking at a bike schematic)
+**** symbolic (talking about how bikes work scientifically)
+
+Speech is purely symbolic.
+Writing is an iconic mode of speech.
+
+Other frameworks: Howard Gardner, Kieran Egan.
+
+
+Doing intellectual work nowadays limits the modes of understanding to Visual and Symbolic.
+With computers it gets even worse - with a book, you have a tactile response of the paper, you can be spatial by building a shelf, you can write.
+Everything else than typing letters is incredibly cumbersome on computers/tablets.
+They are our cage, forbidding from using our full intellectual potential.
+
+Inhumane - we cannot think in all the ways we can.
+Wasteful - we only use a part of our understanding. Other parts are idling - this is an inefficient solution.
+
+*** The dynamic medium
+
+Computational - can simulate processes in the world.
+Responsive - can show results in many different ways.
+Connected - dynamic material can exchange information between each other.
+
+A computational medium can be actively modelled and explored (enactive) and what is it doing in many different ways (iconic), what leads to representing it symbolicly.
+
+Sussman talks about computers as small as a grain of sand infused into physical materials as a future direction.
+This is a far off vision, but the technology grows exponentially and we always get blindsided by exponentials, so it makes sense to design and prototype for the future.

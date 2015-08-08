@@ -1,0 +1,16 @@
+#+FILETAGS: :vimwiki:
+
+* User management
+** UNIX - User management
+
+*** List the active X sessions
+
+#+begin_example
+# who -u
+root     tty1         Jun 14 05:54 00:03        9353
+mat      :0           Jun 14 05:54   ?          9391
+mat      pts/1        Jun 14 05:55   .          9538
+#+end_example
+
+You can use `kill` to log each session out- the last number in each line is its
+PID.

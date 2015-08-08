@@ -1,0 +1,320 @@
+* MonadicDesignPatternsForTheWeb
+
+...
+
+The connection between polymorphic set comprehension notation and the `for` notation in Scala can be made explicit by stating the following relationship:
+    The correspondence between set comprehension and `for` notation takes $\{*|pattern \in S | condition |*\}$ to:
+    #+begin_example
+    for (x <- S if condition) yield {
+        x match { case pattern => x }
+    }
+    #+end_example
+* Points-free programming
+
+Points-free programming style is to define functions withour ever making direct
+reference to their arguments.
+
+Example:
+#+begin_example
+var sum = function(list)_{
+    return reduce(add, 0, list);
+}
+// Transforms to
+var sum = _.partial(reduce, add, 0);
+
+
+// Different example
+var propEq = function(prop, val) {
+    return function(obj) {
+        return obj[prop] === val;
+    }
+}
+
+// Transforms to
+var propEq = function(prop,val) {
+    return compose(eq(val), get(prop));
+}
+#+end_example
+
+** Use-over function
+
+`use(func).over(transformer1, ..., transformerN)` accepts N parameters, feeds 
+them to the respective transformers  and then calls `func` using the results of 
+all of these. 
+
+#+begin_example
+var propEq = use(pipe).over(get, eq);
+// ...
+.then(filter(propEq('member', memberName)))
+.then(reject(propEq('complete', true)))
+#+end_example
+
+* Transforming an array
+
+Use `arr.map(pick['p1','p2' /*, ... */ ])`.
+
+* Avoiding side-effects
+
+Make any state changes that occur as a result of an action explicit by returning
+them as a part of the result.
+This can be achieved by returning a tuple or returning multiple values if the 
+language supports it.
+
+Example with implicit side-effects:
+#+begin_example
+class Cafe {
+    // This is not the original first step of the example.
+    // The change made from the first step is that `Payments` are being
+    // injected to allow testability.
+    def buyCoffee(cc: CreditCard, p: Payments): Coffee = {
+        val cup = new Coffee()
+        // Still, we have to mock to test this, because it's an implicit side effect.
+        p.charge(cc, cup.price)
+        cup
+    }
+
+}
+#+end_example
+
+To make the state change explicit:
+#+begin_example
+class Cafe {
+    def buyCoffee(cc: CreditCard): (Coffee, Charge) = {
+        val cup = new Coffee()
+        // Now it is up to the caller to do something with the charge.
+        // SRP is happy.
+        // No mocks have to be injected because no side effects have to be
+        // stubbed out.
+        (cup, new Charge(cc, cup.price))
+    }
+}
+#+end_example
+
+A nice example is an approximation of Haskell's `IO` in Scala:
+#+begin_example
+class IO[A](val apply: RealWorld => (A, RealWorld))
+#+end_example
+
+Where the `RealWorld` argument is the state of the world before the I/O and the
+`(A, RealWorld)` result represents the result of the I/O and the state of the
+world after performing this action.
+
+Practically, this is represented as:
+#+begin_example
+class IO[A](val apply: () => A)
+#+end_example
+
+How would `main` look as a pure function:
+#+begin_example
+sealed trait RealWorld
+
+abstract class Program {
+    private val realWorld = new RealWorld {}
+
+    final def main(args: Array[String]): Unit = {
+        pureMain(args).apply()   
+    }
+
+    def pureMain(args: IndexedSeq[String]): IO[Unit]
+}
+#+end_example
+
+Wrapping actions in `IO` is conceptually very similar to just delaying them.
+The actual application of the action is being deferred to a point in code that
+calls their `.apply()` method.
+An `IO[A]` is just a lazy `A`.
+* Seminal typeclasses
+The typeclasses allowing functional data manipulation are based on that a value is wrapped in a *context*.
+
+- *functors* allow you to apply a function to a wrapped value using =fmap= or =<$>=.
+- *applicatives* allow you to apply a wrapped function to a wrapped value using =<*>= or =liftA=.
+- *monads* allow you to a function that returns a wrapped value to a wrapped value using =>>== or =liftM=. 
+
+** Functor
+When a value is wrapped in a context, you cannot directly apply a function to it.
+The Functor typeclass defined an =fmap= function, which unwraps a value from its context, applies a function to it and wraps it back.
+
+#+begin_src ghci
+> fmap (+3) (Just 2)
+Just 5
+> fmap (+3) Nothing
+Nothing
+#+end_src
+
+This works because =Maybe= is a Functor.
+#+begin_src haskell
+instance Functor Maybe where
+    fmap func (Just val) = Just (func val)
+    fmap func Nothing = Nothing
+#+end_src
+
+In a language without =Maybe= you would write:
+
+#+begin_src javascript
+var post = Post.find_by_id(1);
+if (post) return post.title;
+else return null;
+#+end_src
+
+but in Haskell you get
+
+#+begin_src haskell
+fmap (getPostTitle) (findPost 1)
+#+end_src
+
+or equivalently
+
+#+begin_src haskell
+getPostTitle <$> (findPost 1)
+#+end_src
+
+Lists are Functors.
+
+#+begin_src haskell
+instance Functor [] where
+    fmap = map
+#+end_src
+
+As are functions.
+
+#+begin_src haskell
+instance Functor ((->) r) where
+    fmap f g = f . g 
+#+end_src
+
+** Applicative
+
+With an applicative, values are wrapped in a context, but functions are too.
+This presents new opportunities.
+
+The =Control.Applicative= module defines an =<*>= operator that knows how to apply wrapped functions to wrapped values.
+
+Examples:
+
+#+begin_src haskell
+Just (+3) <*> Just 2 == Just 5
+#+end_src
+
+Applying a list of functions to a list.
+#+begin_src ghci
+> [(*2), (+3)] <*> [1, 2, 3]
+[2, 4, 6, 4, 5, 6]
+#+end_src
+
+Applicatives are more expressive than Functors in that e.g. you can apply a binary function to two wrapped values:
+
+#+begin_src ghci
+> (+) <$> (Just 5)
+Just (+5)
+> Just (+5) <*> (Just 3)
+Just 8
+#+end_src
+
+And there is a function for that 
+
+#+begin_src haskell
+liftA2 (*) (Just 5) (Just 3)
+#+end_src
+
+which is not possible with Functors:
+
+#+begin_src ghci
+> (+) <$> (Just 5)
+Just (+5)
+> Just (+5) <$> (Just 4)
+error
+#+end_src
+
+** Monad
+
+Functors apply a *function* to a wrapped value.
+
+Applicatives apply a *wrapped function* to a wrapped value.
+
+Monads apply a *function that returns a wrapped value* to a wrapped value.
+
+It is achieved through the /bind/ operator =>>==.
+
+A partial definition of a Monad looks like so.
+
+#+begin_src haskell
+class Monad m where
+    (>>=) :: m a -> (a -> m b) -> m b
+#+end_src
+
+The =>>== operator takes a =Monad a= and a function that knows what to do with its wrapped value, returning a =Monad b=.
+
+An example of the Maybe Monad:
+#+begin_src haskell
+instance Monad Maybe where
+    Nothing >>= func = Nothing
+    Just val >>= func  = func val -- here, the m a -> a stripping occurs.
+#+end_src
+
+
+See that Maybe is a Functor, an Applicative *and* a Monad.
+
+*** IO Monad
+
+*getLine* takes no args and gets user input.
+
+#+begin_src haskell
+getLine :: IO String
+#+end_src
+
+*readFile* takes a file path and returns its contents as a string.
+
+#+begin_src haskell
+readFile :: FilePath -> IO String
+#+end_src
+
+*putStrLn* takes a string and prints it.
+
+#+begin_src haskell
+putStrLn :: String -> IO ()
+#+end_src
+
+The neat thing is that these functions can be chained. 
+To print out contents of a file with path given as user input:
+
+#+begin_src haskell
+getline >>= readFile >>= putStrLn
+#+end_src
+
+Also, there is the =do= notation to sugar-coat the bindings:
+
+#+begin_src haskell
+result = do
+    filename <- getLine
+    contents <- readFile
+    putStrLn contents
+#+end_src
+
+*** Writer Monad
+
+Example case: halving with logs.
+
+#+begin_src haskell
+half x = (x `div` 2, "I just halved " ++ (show x) ++ "!")
+#+end_src
+
+What we need to do to have the logs concatenated nicely:
+#+begin_src haskell
+finalValue = (val2, log1 ++ log2)
+    where (val1, log1) = half 8
+          (val2, log2) = half val1
+#+end_src
+
+What we want: 
+
+#+begin_src haskell
+half . half $ 8
+#+end_src
+
+Every writer has a log and a value.
+
+#+begin_src haskell
+data Writer w a = Writer { runWriter :: (a, w) }  
+#+end_src
+
+

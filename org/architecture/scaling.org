@@ -1,0 +1,17 @@
+* Horizontal scaling
+
+Horizontal scaling or _scaling out_ means adding more nodes to a system, such as adding a
+computer to a distributed system.
+
+E.g. scaling from 1 Web server to 3.
+
+Related terms: shared data storage, clustering, supercomputers, I/O performance.
+
+* Vertical scaling
+
+Vertical scaling or _scaling up_ means adding more resources to a single node
+within the system.
+It enables more efficient use of virtualization technology.
+
+E.g. adding CPUs or memory to a machine, expanding the number of processes for
+Apache.

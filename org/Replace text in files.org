@@ -1,0 +1,14 @@
+#+FILETAGS: :vimwiki:
+
+* Replace text in files
+#= Bash - replace text in files =
+
+To replace some text in specified files:
+#+begin_example
+grep -nl "foo"  *.go | xargs sed -i 's/foo/bar/g'
+#+end_example
+
+recursively:
+#+begin_example
+grep -rl "foo"  *.go | xargs sed -i 's/foo/bar/g'
+#+end_example

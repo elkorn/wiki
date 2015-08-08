@@ -1,0 +1,110 @@
+#+FILETAGS: :vimwiki:
+
+* ScalaTest
+#= ScalaTest =
+
+Read the [ScalaDoc](http://www.scalatest.org/scaladoc) for ScalaTest - there is a lot of info there, much of it not covered in the main guide.
+
+`trait Checkpoints` aggregates assertion errors, allowing you to have all the erro messages instead of failing the spec on the first faield test.
+
+During the presentation (JUG), the followign opinion was voiced again:
+
+> If you're writing Scala and have to use mocks, that's a code smell.
+
+This pertains to maintaing purity in tested functions.
+
+`scalatest.fixtures` allows to create data fictures for test which are then injected into `in` blocks.
+You need to extend `fixtures.FlatSpec` instead of just `scalatest.FlatSpec`.
+#+begin_example
+type FixtureParam = yourtype
+def withFixture(test: someTestType): Outcome
+#+end_example
+
+`trait PatienceConfiguration` allows defining the `timeout` and `interval` values for asynchronous code executed within tests.
+This is useful whenutilizing the `whenReady` function (similar to `Await` but async).
+Another use case is the `eventually { ... }` construct, which tries to execute the code block every `interval` ms until `timeout` value has been reached.
+
+Test tagging:
+#+begin_example
+it should "do something" taggedAs IntegrationTest in {
+    ...
+}
+#+end_example
+
+This allows running only a specifiedset of tests - can be used through test configurations.
+
+Object property checking:
+#+begin_example
+person should have (
+    'id(123),
+    'name("test"),
+    ...
+)
+#+end_example
+
+This was compared to a [[lens]].
+
+
+** lens
+#= Lens =
+
+This topic should be followed up on when you're more qualified to reason about these topics.
+
+SPJ presentation:
+[[https://pdlvimeocdn-a.akamaihd.net/11073/941/195814777.mp4?token2=1426025400_f1ce041424a36f8be91eb40b5a56dbca&aksessionid=6464f9f872ab29c5]]
+
+Lenses in Scalaz:
+http://eed3si9n.com/learning-scalaz/Lens.html
+
+
+In functional programming, lenses are a construct that allow functional, composable access to data structures.
+They were called "jQuery for data types".
+A simple example of a lens would be a function giving you access to the `minutes` portion of a `DateTime` structure.
+
+A lens is a first-class value with a type of `Lens' s a`, where `s` is the container type and `a` is the *focus* type.
+
+Lens composition:
+#+begin_example
+composeL :: Lens' s1 s2
+         -> Lens' s2 a
+         -> Lens' s1 a
+#+end_example
+
+Haskell already supports a similar concept through nested records, but the code for that is quite cumbersome.
+
+More concrete example:
+#+begin_example
+data Person = P { name :: String
+                , addr :: Address
+                , salary :: Int }
+data Address = A { road :: String
+                 , city :: String
+                 , postcode :: String }
+
+setPostcode :: String -> Person -> Person
+setPostcode pc p =
+    set (laddr `composeL` lpostcode) pc p
+}
+#+end_example
+
+We want to have a lens for each field:
+#+begin_example
+data Person = P { name :: String
+                , addr :: Address
+                , salary :: Int }
+lname :: Lens' Person String
+laddr :: Lens' Person Address
+lsalary :: Lens' Person Int
+#+end_example
+
+as well as means to use it for getting or updating values:
+#+begin_example
+view :: Lens' s a -> s -> a
+view :: Lens' s a -> a -> s -> s
+#+end_example
+
+and the aforementioned way of composing them:
+
+#+begin_example
+somposeL :: Lens' s1 s2 -> Lens' s2 a -> Lens' s1 a
+#+end_example

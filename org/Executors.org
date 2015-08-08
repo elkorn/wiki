@@ -1,0 +1,30 @@
+#+FILETAGS: :vimwiki:
+
+* Executors
+** Executors
+
+*** Executor interfaces
+**** *Executor* is an interface for launching tasks.
+**** *ExecutorService* adds features to manage lifecycle of individual tasks and the executor.
+**** *ScheduledExecutorService* supports future/periodic task execution.
+
+Usage equivalence:
+#+begin_example
+(new Thread(r)).start(); // r - Runnable obj
+===
+e.execute(r);            // e - Executor obj
+#+end_example
+
+Depending on the `Executor` implementation, the `execute` method may create a 
+new thread and launch its runnable immediately, but it's more likely that it 
+will use an existing worker thread to run `r` or place it in a queue to wait for
+a thread.
+
+`ExecutorService` has a `submit` method, accepting `Runnable` and `Callable` 
+objects (`Callable`s allow a task to return a value).
+`submit` returns a `Future`.
+
+`ScheduledExecutorService` has a `schedule` method which executes a task after
+a given delay.
+Additionaly there are `scheduleAtFixedRate` and `scheduleWithFixedDelay` methods
+executing the tasks repeatedly.

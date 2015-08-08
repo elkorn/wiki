@@ -1,0 +1,628 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>API problems</title>
+<!-- 2015-08-08 Sat 13:51 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "center",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">API problems</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. API problems</a>
+<ul>
+<li><a href="#sec-1-1">1.1. How our data models and representations influence/determine possible scenarios of concurrent actor operation.</a></li>
+<li><a href="#sec-1-2">1.2. Network problems</a>
+<ul>
+<li><a href="#sec-1-2-1">1.2.1. Partitions</a></li>
+<li><a href="#sec-1-2-2">1.2.2. Latency variations</a></li>
+<li><a href="#sec-1-2-3">1.2.3. Reordered messages</a></li>
+<li><a href="#sec-1-2-4">1.2.4. Repeated messages.</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-3">1.3. Consistency decisions</a>
+<ul>
+<li><a href="#sec-1-3-1">1.3.1. Strict linearizability: all actors in the system sync. acknowledge each write to shared data, yielding a global total order of operations. Systems acts as if its state is held in a single atomic reference. Very expensive but intuitive.</a></li>
+<li><a href="#sec-1-3-2">1.3.2. Causal consistency: logically temporal relationships between dependent changes to shared data are tracked (this is done through logical clocks, acting like temporal state versioning). This yields a partial order of all operations. Much cheaper than strict linearalizability but offers many desirable guarantees as well e.g. to read your own writes. Without a causal cons. mechanism it is possible e.g. for a web client to write a value through an HTTP API and then see the previous value when it performs a read or query some time afterwards.</a></li>
+<li><a href="#sec-1-3-3">1.3.3. Eventual consistency: concurrent writes converge (with possible conflicts) such that different readers will all eventually see the same result at some point in the future, after all prior writes have been applied. The only guarantee provided here is <span class="underline">liveness</span> - all actors within the system will propagate writes until all actors have seen every write.</a></li>
+<li><a href="#sec-1-3-4">1.3.4. As every actor in a system has to sync. acknowledge each write made by others, then those actors cannot accept any new work until that happens. During this time system will appear to be down (unavailable).</a></li>
+<li><a href="#sec-1-3-5">1.3.5. If no consesnus is required then any actor can always accept new work. Omitting any other issues that might arise. the system will always be available and responsive to external parties.</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-4">1.4. Possible solutions</a>
+<ul>
+<li><a href="#sec-1-4-1">1.4.1. Conflict-free Replicated Data Types (CRDTs), relying upon the algebra of <span class="underline">semilattices</span>.</a></li>
+<li><a href="#sec-1-4-2">1.4.2. CRDTs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> API problems</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+(via <a href="http://writings.quilt.org/2014/05/12/distributed-systems-and-the-end-of-the-api/">http://writings.quilt.org/2014/05/12/distributed-systems-and-the-end-of-the-api/</a>)
+</p>
+
+<p>
+The API is considered to be a hold-over from concepts predating distributed
+systems.
+</p>
+
+<p>
+APIs necessitate actor coupling.
+Only two-party client/server architectures are admitted.
+There are 7 main topologies: Ring, Mesh, Star, Fully Connected, Line, Tree, Bus.
+Yet the API requires these topologies to be pushed into client/server boxes 
+(e.g. through tools like queues or service buses).
+Arbitrary data is being used.
+Clients always need to reconcile with the server how should the data be represented.
+</p>
+
+<p>
+APIs are synchronous in nature.
+There are some patterns and workarounds, but still they are just that.
+</p>
+
+<p>
+APIs do not take into account the fundamental distributed system problems:
+</p>
+<ul class="org-ul">
+<li>Network failure modes such as latency, disconnection, partitioning, offline contexts,
+</li>
+<li>Making consistency choices relevant to a given application and being aware of consistency choices being made on our behalf,
+</li>
+<li>Being aware the impact of made consistency choices,
+</li>
+</ul>
+</div>
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> How our data models and representations influence/determine possible scenarios of concurrent actor operation.</h3>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Network problems</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Not acknowledging the nature of the network (i.e. trying to hide it under some
+abstraction) causes its failures to have to be accounted for very explicitly
+and often times hurting the performance.
+The basic network failure modes:
+</p>
+</div>
+<div id="outline-container-sec-1-2-1" class="outline-4">
+<h4 id="sec-1-2-1"><span class="section-number-4">1.2.1</span> Partitions</h4>
+</div>
+<div id="outline-container-sec-1-2-2" class="outline-4">
+<h4 id="sec-1-2-2"><span class="section-number-4">1.2.2</span> Latency variations</h4>
+<div class="outline-text-4" id="text-1-2-2">
+<ul class="org-ul">
+<li>variable latency (overloaded, switches, GC etc.)
+</li>
+<li>complete and permanent loss of interconnect
+</li>
+<li>offline operation
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-1-2-3" class="outline-4">
+<h4 id="sec-1-2-3"><span class="section-number-4">1.2.3</span> Reordered messages</h4>
+</div>
+<div id="outline-container-sec-1-2-4" class="outline-4">
+<h4 id="sec-1-2-4"><span class="section-number-4">1.2.4</span> Repeated messages.</h4>
+<div class="outline-text-4" id="text-1-2-4">
+<p>
+A partition between app servers can cause in-memory sessions to diverge 
+(use a state server?), leading to incariants being violated on the whole stack.
+Increased latency may trip some machines/services within different parts of the
+system, leading to spiking reconnect attempts and thus cascading latency.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> Consistency decisions</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+The set of consistency options is like a multidimensional space as there are a
+lot of considerations that go into choosing a set of consistency guarantees.
+</p>
+
+<p>
+The most common cases include:
+</p>
+</div>
+<div id="outline-container-sec-1-3-1" class="outline-4">
+<h4 id="sec-1-3-1"><span class="section-number-4">1.3.1</span> Strict linearizability: all actors in the system sync. acknowledge each write to shared data, yielding a global total order of operations. Systems acts as if its state is held in a single atomic reference. Very expensive but intuitive.</h4>
+</div>
+<div id="outline-container-sec-1-3-2" class="outline-4">
+<h4 id="sec-1-3-2"><span class="section-number-4">1.3.2</span> Causal consistency: logically temporal relationships between dependent changes to shared data are tracked (this is done through logical clocks, acting like temporal state versioning). This yields a partial order of all operations. Much cheaper than strict linearalizability but offers many desirable guarantees as well e.g. to read your own writes. Without a causal cons. mechanism it is possible e.g. for a web client to write a value through an HTTP API and then see the previous value when it performs a read or query some time afterwards.</h4>
+</div>
+<div id="outline-container-sec-1-3-3" class="outline-4">
+<h4 id="sec-1-3-3"><span class="section-number-4">1.3.3</span> Eventual consistency: concurrent writes converge (with possible conflicts) such that different readers will all eventually see the same result at some point in the future, after all prior writes have been applied. The only guarantee provided here is <span class="underline">liveness</span> - all actors within the system will propagate writes until all actors have seen every write.</h4>
+<div class="outline-text-4" id="text-1-3-3">
+<p>
+Choosing a consistency model has a compensating impact on Availability and Partition tolerance (from the CAP theorem).
+The basic dynamic tradeoff between consistency and availability:
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-3-4" class="outline-4">
+<h4 id="sec-1-3-4"><span class="section-number-4">1.3.4</span> As every actor in a system has to sync. acknowledge each write made by others, then those actors cannot accept any new work until that happens. During this time system will appear to be down (unavailable).</h4>
+</div>
+<div id="outline-container-sec-1-3-5" class="outline-4">
+<h4 id="sec-1-3-5"><span class="section-number-4">1.3.5</span> If no consesnus is required then any actor can always accept new work. Omitting any other issues that might arise. the system will always be available and responsive to external parties.</h4>
+<div class="outline-text-4" id="text-1-3-5">
+<p>
+An important thing to note that different parts of a system may have different consensus requirements and guarantees may change over time in order to accomodate user expectations and coherence demands of different kinds of data.
+</p>
+
+<p>
+Network APIs provide nothing in terms of CAP - nothing is being presumed, apart from a socket being available.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> Possible solutions</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+The key factors required in a distributed system:
+</p>
+<ul class="org-ul">
+<li>Communication: the ability to share data among the various actors.
+</li>
+<li>Computation: the ability to consume and transform data, producing new data as a result that is perfhaps itself communicated.
+</li>
+</ul>
+
+<p>
+Two main approaches have been developed:
+</p>
+<ul class="org-ul">
+<li>Consistency As Logical Monotonicity (CALM theorem), relying upon temporal logic
+</li>
+</ul>
+</div>
+<div id="outline-container-sec-1-4-1" class="outline-4">
+<h4 id="sec-1-4-1"><span class="section-number-4">1.4.1</span> Conflict-free Replicated Data Types (CRDTs), relying upon the algebra of <span class="underline">semilattices</span>.</h4>
+<div class="outline-text-4" id="text-1-4-1">
+<p>
+They constrain the types of operations that a system can perform in order to ensure convergence over time of changes to data shard by concurrent actors and eliminate network failure modes as source of errors.
+</p>
+
+<p>
+CRDTs are included as a banner feature in the impending next release of Riak.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-4-2" class="outline-4">
+<h4 id="sec-1-4-2"><span class="section-number-4">1.4.2</span> CRDTs</h4>
+<div class="outline-text-4" id="text-1-4-2">
+<p>
+A <b>lattice</b>:
+</p>
+<ul class="org-ul">
+<li>partially-ordered set
+<ul class="org-ul">
+<li>for any two members \(\{a, b\}\) there exists
+<ul class="org-ul">
+<li>a least upper bound 
+<ul class="org-ul">
+<li>a value "greater than" both members
+</li>
+<li>called the <span class="underline">join</span> or the <span class="underline">supremum</span>, denoted as \(a \vee b\) 
+</li>
+</ul>
+</li>
+<li>a greatest lower bound 
+<ul class="org-ul">
+<li>a value that is "less than" both members
+</li>
+<li>called the <span class="underline">meet</span> or the <span class="underline">infimum</span>, denoted as \(a \wedge b\)
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+A <b>semilattice</b>:
+</p>
+
+<ul class="org-ul">
+<li>a lattice that admits only the join or the meet
+</li>
+<li>in another words, it is ordered in only one direction.
+</li>
+</ul>
+
+<p>
+If a lattice has an absolute maximum (top) or an absolute minimum (bottom) it is said to be bounded. 
+</p>
+
+<p>
+CRDTs are premised upon join semilattices - a "greater than" relationship holds for every member of such a set.
+</p>
+
+<p>
+Two examples:
+</p>
+
+<ul class="org-ul">
+<li>The- of natural numbers, where the join operation is <code>max</code>.
+</li>
+<li>The set \(\{a,b\}\) semilattice with a <code>union</code> join operation:
+</li>
+</ul>
+
+<pre class="example">
+        {a,b}        / \
+       /     \        |
+    {a}       {b}     |
+   /   \              |
+{a}    $\emptyset$    | time
+</pre>
+
+<p>
+A set semilattice with a join operation of <code>union</code> will never lose information - the value of each memeber will always increase in size along with the joins across participants sharing the semilattice.
+</p>
+
+<p>
+Join and meet operations for any semilattice must satisfy 3 axiomatic properties:
+</p>
+
+<ul class="org-ul">
+<li>Associativity: ability to batch inputs to an operation in any way without affecting the result. <code>f(f(a,b),c) =</code> f(a, f(b,c))=
+</li>
+<li>Commutativity: ability to change the order of operation inputs without affecting the result. <code>f(a,b) =</code> f(b,a)=
+</li>
+<li>Idempotence: ability to apply an operation multiple times without affecting  the result. <code>f(f(a)) =</code> f(a)=
+</li>
+</ul>
+
+<p>
+As long as these properties hold, the data structure is a semilattice and is sheltered from some of the most problematic network failure modes: reordering and repeating of network messages.
+</p>
+
+<p>
+As long as liveness is preserved (most inimal guarantee of eventual consistency) the convergence of concurrent modifications occurs without conflict.
+Operations that aim for reducing information over time, however, do not inherently satisfy these axioms.
+They key is that only the primitive operations over semilattices and CRDTs must satisfy then; other operations can be implemented in terms of those primitives, thus yielding the desired characteristics.
+More details on how this is done can be found in <a href="http://hal.upmc.fr/file/index/docid/555588/filename/techreport.pdf">the study</a>.
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="sec-1-4-2-1" name="sec-1-4-2-1"></a>CRDT Data Models<br  /><div class="outline-text-5" id="text-1-4-2-1">
+<p>
+CRDTs have been built to represent a wide range of data types, including:
+</p>
+
+<ul class="org-ul">
+<li>counters
+</li>
+<li>registers
+</li>
+<li>sets
+</li>
+<li>(multi)maps
+</li>
+<li>dense and sprase lists/vectors
+</li>
+<li>partially-ordered sequences
+</li>
+<li>trees
+</li>
+<li>graphs
+</li>
+</ul>
+
+<p>
+Semilattices naturally support immutability.
+The most naive approach to CRDTs is to keep an immutable log of operations being applied or state being added.
+Things like histories, rollbacks, consistent snapshots all come effectively for free.
+</p>
+</div>
+</li>
+
+<li><a id="sec-1-4-2-2" name="sec-1-4-2-2"></a>From APIs to CRDTs<br  /><div class="outline-text-5" id="text-1-4-2-2">
+<p>
+Use cases addressable by an API might can be entirely supersetted by using a CRDT.
+The transformation is of changing imperative, side-effecting calls as
+</p>
+<pre class="example">
+api.setName(personId, "Chas");
+</pre>
+<p>
+into reified data that gets added to a CRDT, which is replicated from a "client" to other actors:
+</p>
+<pre class="example">
+{ :person-id person-id :name "Chas" }
+</pre>
+
+<p>
+"Operations" being cast to data become computable - they can be copied, routed, reordered, manipulated and having applied programs to them at any level of a system.
+This is similar to how event sourcing and message queues are premised - producers and consumers are decoupled and operations are serialized as messages, becoming as pliable as any other data.
+</p>
+
+<p>
+CRDT implementations have been generally materialized as libraries, not runtimes/languages.
+Other programming models well suited for distributed systems:
+</p>
+</div>
+<ol class="org-ol"><li><a id="sec-1-4-2-2-1" name="sec-1-4-2-2-1"></a>Event sourcing<br  /></li>
+<li><a id="sec-1-4-2-2-2" name="sec-1-4-2-2-2"></a>Stream-based computation (Storm)<br  /></li>
+<li><a id="sec-1-4-2-2-3" name="sec-1-4-2-2-3"></a><a href="#sec-1-4-2-2-3-1">1.4.2.2.3.1</a> for characterizing scale-invariant concurrent distributed computation<br  /><ol class="org-ol"><li><a id="sec-1-4-2-2-3-1" name="sec-1-4-2-2-3-1"></a>TupleSpaces<br  /><div class="outline-text-7" id="text-1-4-2-2-3-1">
+<p>
+#= Architecture - tuple spaces =
+A tuple space is an implementation of the associative memory paradigm for parallel/distributed computing. It provides a repository of tuples that can be accessed concurrently. As an illustrative example, consider that there are a group of processors that produce pieces of data and a group of processors that use the data. Producers post their data as tuples in the space, and the consumers then retrieve data from the space that match a certain pattern. This is also known as the blackboard metaphor (<a href="#sec-1-4-2-2-3-1-1">1.4.2.2.3.1.1</a>). Tuple space may be thought as a form of distributed shared memory.
+</p>
+
+<p>
+Example (JavaSpaces):
+</p>
+<pre class="example">
+// An Entry class
+public class SpaceEntry implements Entry {
+     public final String message = "Hello World!";
+     public Integer count = 0;
+ 
+     public String service() {
+         ++count;
+         return message;
+     }
+ 
+     public String toString() {
+         return "Count: " + count;
+     }
+}
+// Hello World! server
+public class Server {
+     public static void main(String[] args) throws Exception {
+         SpaceEntry entry = new SpaceEntry();            // Create the Entry object
+         JavaSpace space = (JavaSpace)space();           // Create an Object Space
+         // Register and write the Entry into the Space
+         space.write(entry, null, Lease.FOREVER);        
+         // Pause for 10 seconds and then retrieve the Entry and check its state.
+         Thread.sleep(10 * 1000);
+         SpaceEntry e = space.read(entry, null, Long.MAX_VALUE);
+         System.out.println(e);
+     }
+}
+// Client
+public class Client {
+     public static void main(String[] args) throws Exception {
+         JavaSpace space = (JavaSpace) space();
+         SpaceEntry e = space.take(new SpaceEntry(), null, Long.MAX_VALUE);
+         System.out.println(e.service());
+         space.write(e, null, Lease.FOREVER);
+     }
+}
+</pre>
+</div>
+<ol class="org-ol"><li><a id="sec-1-4-2-2-3-1-1" name="sec-1-4-2-2-3-1-1"></a>BlackboardSystem<br  /><div class="outline-text-8" id="text-1-4-2-2-3-1-1">
+<p>
+#= Architecture - blackboard system =
+</p>
+
+<p>
+A blackboard system is an artificial intelligence application based on the blackboard architectural model, where a common knowledge base, the "blackboard", is iteratively updated by a diverse group of specialist knowledge sources, starting with a problem specification and ending with a solution. Each knowledge source updates the blackboard with a partial solution when its internal constraints match the blackboard state. In this way, the specialists work together to solve the problem. The blackboard model was originally designed as a way to handle complex, ill-defined problems, where the solution is the sum of its parts.
+</p>
+
+
+<p>
+The following scenario provides a simple metaphor that gives some insight into how a blackboard functions:
+</p>
+
+<p>
+A group of specialists are seated in a room with a large blackboard. They work as a team to brainstorm a solution to a problem, using the blackboard as the workplace for cooperatively developing the solution.
+</p>
+
+<p>
+The session begins when the problem specifications are written onto the blackboard. The specialists all watch the blackboard, looking for an opportunity to apply their expertise to the developing solution. When someone writes something on the blackboard that allows another specialist to apply their expertise, the second specialist records their contribution on the blackboard, hopefully enabling other specialists to then apply their expertise. This process of adding contributions to the blackboard continues until the problem has been solved.
+</p>
+</div>
+</li></ol>
+</li></ol>
+</li>
+<li><a id="sec-1-4-2-2-4" name="sec-1-4-2-2-4"></a>Reactive patterns (FRP).<br  /></li></ol>
+</li>
+
+<li><a id="sec-1-4-2-3" name="sec-1-4-2-3"></a>Costs<br  /><ol class="org-ol"><li><a id="sec-1-4-2-3-1" name="sec-1-4-2-3-1"></a>All operations must adhere to the semilattice axioms.<br  /></li>
+<li><a id="sec-1-4-2-3-2" name="sec-1-4-2-3-2"></a>CRDTs must be used to mediate all interactions between all actors in a distributed system in order to benefit from their advantages.<br  /></li></ol>
+</li></ol>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2015-08-08 Sat 13:51</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

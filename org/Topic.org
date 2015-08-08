@@ -1,0 +1,36 @@
+#+FILETAGS: :vimwiki:
+
+* Topic
+** MSc - Topic
+
+*** Parameterized computational complexity
+
+**** Opis
+
+W klasie NP istnieją problemy, które wymagają czasu wykładniczego względem
+rozmiaru danych wejściowych $n$.
+Można je jednak rozwiązać w czasie wielomianowym względem $n$ oraz wykładniczym
+(lub gorszym) względem pewnego parametru $k$ charkateryzującego 'trudność'
+danych wejściowych. Jeśli $k$ jest ograniczone, to problemy te da sie rozwiązać
+w rozsądnym czasie, mimo że należą do klasy trudnorozwiązywalnych.
+
+Bardziej formalnie, parametryzowany problem $P$ jest rozwiązywalny przy
+stałym $k$ (ang. fixed-parameter tractable, FPT),
+jeśli da się go rozwiązać w czasie $f(k)n^c$, gdzie $f$ jest dowolną funkcją $k$,
+a $c$ stałą.
+
+Celem pracy jest zaimplementowanie algorytmów oraz dokonanie badań
+eksperymentalnych rowiązywania wybranych problemów FPT, np. problemu pokrycia
+wierzchołkowego (ang. vertex cover problem).
+
+**** Plan pracy
+
+***** Studia literaturowe.
+***** Wybór problemów FPT.
+***** Opracowanie algorytmów, implementacja, badania eksperymentalne.
+***** Sformulowanie wniosków.
+
+**** Literatura
+
+***** Downey R.G., Fellows M.R., Parameterized complexity, Springer 1999.
+***** Chen J., Kanj A., Xia G., Improved upper bounds for vertex cover, Theor. Comput. Sci., 411 (40-42):3736-3756, 2010.

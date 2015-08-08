@@ -1,0 +1,22 @@
+#+FILETAGS: :vimwiki:
+
+* VoltDB
+** Tools - VoltDB
+
+An in-memory relational database, radically focused on performance and
+scalability.
+
+http://voltdb.com/
+
+*** Use cases
+**** Financial trade monitoring
+**** Web bot vulnerability scanning (SaaS)
+**** Online gaming leaderboard
+**** Package tracking
+**** Ad content serving
+**** Telephone exchange call detail record mgmt
+**** Airline reservation/ticketing
+
+This section requires followups:
+**** http://highscalability.com/blog/2010/6/28/voltdb-decapitates-six-sql-urban-myths-and-delivers-internet.html
+**** [[http://highscalability.com/blog/2010/12/6/what-the-heck-are-you-actually-using-nosql-for.html][Use cases]]

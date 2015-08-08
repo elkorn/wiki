@@ -1,0 +1,14 @@
+#+FILETAGS: :vimwiki:
+
+* Traits
+#= Scala - traits =
+
+Instead of abstract class one also often uses the keyword `trait` in Scala.
+Traits are abstract classes that are meant to be added to some other class.
+This might be because a trait adds some methods or fields to an unknown parent
+class.
+For instance, a trait Bordered might be used to add a border to a various
+graphical components.
+Another usage scenario is where the trait collects signatures of some 
+functionality provided by different classes, much in the way a Java interface 
+would work.

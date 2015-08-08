@@ -1,0 +1,41 @@
+#+FILETAGS: :vimwiki:
+
+* ACLs
+#= UNIX - ACLs =
+
+ACLs allow automatically defining permissions for files created within a directory.
+
+(Do they also affect permissions of files moved in there?)
+
+ACLs are displayed using the `getfacl` command.
+#+begin_src bash
+$ getfacl dir
+# file: dir
+# owner: agruen
+# group: suse
+user::rwx
+group::r-x
+other::---
+#+end_src
+
+Granting a user permissions:
+
+#+begin_src bash
+$ setfacl -m user:joe:rwx dir
+#+end_src
+
+Set a default ACL for a group:
+#+begin_src bash
+$ setfacl -d -m group:toolies:r-x dir
+$ getfacl --omit-header dir
+user::rwx
+user:joe:rwx
+group::r-x
+mask::rwx
+other::---
+default:user::rwx
+default:group::r-x
+default:group:toolies:r-x
+default:mask::r-x
+default:other::---
+#+end_src

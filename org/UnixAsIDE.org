@@ -1,0 +1,99 @@
+#+FILETAGS: :vimwiki:
+
+* UnixAsIDE
+** Unix as IDE
+(via http://blog.sanctum.geek.nz/series/unix-as-ide/ )
+
+The main parts of this are:
+
+*** File and project management — ls, find, grep/ack, bash
+*** Text editor and editing tools — vim, awk, sort, column
+*** Compiler and/or interpreter — gcc, perl
+*** Build tools — make
+*** Debugger — gdb, valgrind, ltrace, lsof, pmap
+*** Version control — diff, patch, svn, git
+
+*** Files
+**** Listing
+`ls`:
+
+-`t` — List files in order of last modification date, newest first. This is useful for very large directories when you want to get a quick list of the most recent files changed, maybe piped through head or sed 10q. Probably most useful combined with -l. If you want the oldest files, you can add -r to reverse the list.
+-`X` — Group files by extension; handy for polyglot code, to group header files and source files separately, or to separate source files from directories or build files.
+-`v` — Naturally sort version numbers in filenames.
+-`S` — Sort by filesize.
+-`R` — List files recursively. This one is good combined with -l and pipedthrough a pager like less.
+
+Open the results in `vim`:
+
+#+begin_example
+$ ls -XR | vim -
+#+end_example
+
+**** Finding
+
+***** `find -name '*.c'` — Find files with names matching a shell-style pattern. Use `-iname` for a case-insensitive search.
+***** `find -path '*test*'` — Find files with paths matching a shell-style pattern. Use `-ipath` for a case-insensitive search.
+***** `find -mtime -5` — Find files edited within the last five days. You can use `+5` instead to find files edited before five days ago.
+***** `find -newer server.c` — Find files more recently modified than `server.c`.
+***** `find -type d` — Find directories. For files, use -type f; for symbolic links, use `-type l`.
+***** `ls` — Provide an `ls -l` style listing, as above
+***** `delete` — Delete matching files
+***** `exec` — Run an arbitrary command line on each file, replacing `{}` with the appropriate filename, and terminated by `\;;` for example:
+#+begin_example
+$ find -name '*.c' -exec vim {} +
+#+end_example
+
+**** Searching
+`grep`:
+***** `-R`: searches the current directory tree recursively for anything matching the given string
+***** `-i`: case insensitive
+***** `-l`: print just the list of files containing the matches
+***** `-v`: exclude a file/directory from the search
+
+`ack` and `ag` are alternatives for `grep` which ignore VCS stuff by default as well as allow using Perl-compatible regexps.
+
+
+*** Building
+
+`make`: 
+
+Canonical usage:
+
+#+begin_example
+CC = gcc
+OBJECTS = main.o example.o library.o
+BINARY = example
+
+all: example
+
+example: $(OBJECTS)
+    $(CC) $(OBJECTS) -o $(BINARY)
+
+clean:
+    rm -f $(BINARY) $(OBJECTS)
+
+install: example
+    cp $(BINARY) /usr/bin
+#+end_example
+
+More general usage examples:
+
+#+begin_example
+icons: create.png read.png update.png delete.png
+
+create.png: create.svg
+    convert create.svg create.raw.png && \
+    pngcrush create.raw.png create.png
+
+read.png: read.svg
+    convert read.svg read.raw.png && \
+    pngcrush read.raw.png read.png
+
+update.png: update.svg
+    convert update.svg update.raw.png && \
+    pngcrush update.raw.png update.png
+
+delete.png: delete.svg
+    convert delete.svg delete.raw.png && \
+    pngcrush delete.raw.png delete.png
+#+end_example

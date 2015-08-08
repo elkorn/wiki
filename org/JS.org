@@ -1,0 +1,4 @@
+#+FILETAGS: :vimwiki:
+
+* JS
+#= JS =

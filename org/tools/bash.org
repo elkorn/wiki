@@ -1,0 +1,125 @@
+* Downloading
+** Download a whole webpage
+#+begin_example
+wget --mirror -p --convert-links -P TARGET_PATH http://foobar.com
+#+end_example
+
+** Download all files from an Apache listing
+#+begin_example
+ wget -r -N --no-parent --reject '*index.html*' -nH --cut-dirs=1 http://foobar.com
+#+end_example
+
+* Parameter expansion
+** Substring
+#+begin_example
+var="abcdef"
+echo ${var:1:3} # bcd
+#+end_example
+
+** Replace a string
+#+begin_example
+var="apples and cherries"
+echo ${var/apples/cherries} # cherries and cherries
+#+end_example
+
+*Global substitution*
+#+begin_example
+var="apples and apples and cherries"
+echo ${var//apples/cherries} # cherries and cherries and cherries
+#+end_example
+
+*Remove substring*
+#+begin_example
+var="apples and cherries"
+echo ${var/apples/} #  and cherries
+#+end_example
+
+*Remove pattern from end of a string*
+#+begin_example
+var="apples and cherries"
+echo${car%cherries} # apples and 
+#+end_example
+
+** Change case
+#+begin_example
+var="abcdef"
+echo ${var^^} # ABCDEF
+#+end_example
+#+begin_example
+var="ABCDEF"
+echo ${var,,} # abcdef
+#+end_example
+*Lowercase all filenames*
+#+begin_example
+for i in *.JPG; do
+  mv "$i" "${i,,}"
+done
+#+end_example
+** Parameters
+*Access given parameter*
+#+begin_example
+echo ${@:3} # prints the 3rd parameter provided to the script
+#+end_example
+** Filenames
+*Print a filename without the extension*
+#+begin_example
+var=file.txt
+echo ${var%.*}
+#+end_example
+
+*Print only an extension*
+#+begin_example
+var=file.txt
+echo ${var#*.}
+#+end_example
+
+*Print last segments of a path*
+#+begin_example
+var="/usr/bin/emacs"
+echo ${var##*/} # emacs
+#+end_example
+
+*Print the preceding segments of a path*
+#+begin_example
+var="/usr/bin/emacs"
+echo${var%/*} # /usr/bin
+#+end_example
+* Replace text in files
+
+To replace some text in specified files:
+#+begin_example
+grep -nl "foo"  *.go | xargs sed -i 's/foo/bar/g'
+#+end_example
+
+recursively:
+#+begin_example
+grep -rl "foo"  *.go | xargs sed -i 's/foo/bar/g'
+#+end_example
+
+* Using tput
+** Color capabilities
+
+*** `tput setab [1-7]` – Set a background color using ANSI escape
+*** `tput setb [1-7]` – Set a background color
+*** `tput setaf [1-7]` – Set a foreground color using ANSI escape
+*** `tput setf [1-7]` – Set a foreground Color
+
+** Text capabilities
+*** `tput bold` – Set bold mode
+*** `tput dim` – turn on half-bright mode
+*** `tput smul` – begin underline mode
+*** `tput rmul` – exit underline mode
+*** `tput rev` – Turn on reverse mode
+*** `tput smso` – Enter standout mode (bold on rxvt)
+*** `tput rmso` – Exit standout mode
+*** `tput sgr0` – Turn off all attributes
+
+** Color codes
+*** `0` – Black
+*** `1` – Red
+*** `2` – Green
+*** `3` – Yellow
+*** `4` – Blue
+*** `5` – Magenta
+*** `6` – Cyan
+*** `7` – White

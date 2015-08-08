@@ -1,0 +1,1824 @@
+#+FILETAGS: :vimwiki:
+
+* Tools
+#= Tools =
+
+[[Docker]]
+
+[[Git]]
+
+[[JS libs]]
+
+[[Nginx]]
+
+[[NoSQL]]
+
+[[Octave]]
+
+[[PostgreSQL]]
+
+[[Riak]]
+
+[[SVN]]
+
+[[Testing Tools]]
+
+[[Vagrant]]
+
+[[Vim]]
+
+[[VoltDB]]
+** Docker
+#= Tools - Docker =
+
+Build container from a local Dockerfile:
+#+begin_example
+docker build -t container_name .
+#+end_example
+
+Run bash inside the built container:
+#+begin_example
+docker run -t -i container_name /bin/bash
+#+end_example
+** Git
+#= Tools - Git =
+
+Nothing here, this is just a test.
+** JS libs
+# %toc
+
+*** The BMEAN stack
+
+It's the MEAN stack extended with Breeze.js for advanced client-side data
+storage. Example application:
+
+https://github.com/dai-shi/notes-app-sample
+
+*** Fit.js
+
+Fitting things into other things.
+
+http://soulwire.github.io/fit.js/
+
+*** jQuery notebook
+
+Like Aloha, only lighter.
+
+http://raphaelcruzeiro.github.io/jquery-notebook/
+
+*** localForage
+
+Mozilla's abstraction over `localStorage`, IndexedDB and WebSQL. The underlying
+driver is chosen automatically.
+
+https://hacks.mozilla.org/2014/02/localforage-offline-storage-improved/
+
+https://github.com/mozilla/localForage
+
+*** Sculpt
+
+A collection of node.js transform stream utilities for data manipulation.
+
+https://github.com/Obvious/sculpt
+
+*** BipIO
+
+An API server, similar to what IFTTT does.
+
+Works on Node, RabbitMQ and MongoDB.
+
+https://github.com/bipio-server/bipio
+
+*** jspm
+
+Looks like an alternative for Bower.
+
+https://github.com/jspm/jspm-cli
+
+*** Mockery
+Allows mocking.
+
+https://github.com/mfncooper/mockery
+
+*** Rewire
+Dependency injection in JS - allows rewiring private variables in modules.
+
+https://github.com/jhnns/rewire
+
+*** Sinon
+A mocking/stubbing library
+
+http://sinonjs.org/
+
+*** Supervizer
+
+A node.js daemon process manager to spawn/start/stop node apps.
+
+https://github.com/oOthkOo/supervizer
+
+*** Webpack
+Webpack is a module bundler. 
+It takes modules with dependencies and emits static assets representing that modules.
+
+http://webpack.github.io/
+
+*** Gulp recipes
+A set of recipes for quickly creating performant Gulp tasks.
+
+https://github.com/gulpjs/gulp/tree/master/docs/recipes
+
+*** Please JS
+
+A simple tool for generating pleasing colors.
+
+https://github.com/Fooidge/PleaseJS
+
+*** spots, functional pipeline, potential point-free
+
+https://github.com/bahmutov/spots
+https://github.com/bahmutov/functional-pipeline
+https://github.com/bahmutov/eslint-rules
+
+Spots allow to do tacit programming easier by selective partial application e.g.
+#+begin_example
+var S = require('spots');
+[3,6,9].map(S(div, S, 3));
+
+S(div,S,3)(6) === div(6,3); // true
+#+end_example
+
+This can be combined with the `functional-pipeline` lib to create more complicated combinators e.g.
+#+begin_example
+var S = require('spots');
+var fp = require('functional-pipeline');
+['3','6','9'].map(
+    fp(
+        S(parseInt, S, 10),
+        S(div, S, 3)));
+#+end_example
+
+A nice plus is the `potential-point-free` plugin for `eslint` which detects functions that can be made tacit.
+#+begin_example
+/* eslint potential-point-free:1 */
+function print(x) {
+  console.log(x);
+}
+[1, 2, 3].forEach(function printX(x) {
+  print(x);
+});
+
+// eslint
+$ eslint --rulesdir .. test.js 
+test.js
+   7:18  warning  printX   potential-point-free
+✖ 1 problem
+#+end_example
+** Nginx
+#= Tools - NGINX =
+
+Optimization article (FOLLOW UP!): http://www.softwareprojects.com/resources/programming/t-optimizing-nginx-and-php-fpm-for-high-traffic-sites-2081.html
+** NoSQL
+*** NoSQL
+# %toc
+
+[[http://nosql-database.org/][Master list of all the NoSQL products]]
+[[Redis]]
+
+This section requires followups:
+**** Redis
+***** Redis
+
+****** Example use cases
+******* calculating whose friends are online using sets
+******* memcached
+******* distributed lock manager for process coordination
+******* full text inverted index lookups
+******* tag clouds
+******* leaderboards
+******* circular log buffers (works like a automatically emptied, fixed-size queue)
+******* DB for uni vourse availability info
+       - if the set contains a course ID, then the course has free seats left
+       - data is scraped and processed continuously
+******* server for backed sessions (they are often one-time used and never queried by anything other than their primary key)
+******* fast, atomically incremented counters
+******* polling the DB every few seconds
+******* transient data in general
+       - CSRF tokens
+       - handshake data
+******* sharing state between processes (producer + consumer real-time cooperation)
+******* mimic a `tail -f` for system logging
+******* tracking _all_ of the IDs that have been used for records in a system
+******* quickly pick a random item from a set
+******* API rate limiting
+******* A/B testing
+       - realtime user behavior tracking, writing short-lived state and picking random items
+******* inbox method
+       - each user gets a queue and a set to keep track of followers
+       - e.g. fanning out messages (like in Twitter)
+       - pub/sub in general
+       - workers periodically reporting their load average to a sorted set
+        - redistributing load
+         - when issuing a job, grab the 3 least loaded workers from the sorted set and pick one of them at random
+******* multiple GIS indexes
+******* recommendation engine based on relationships
+******* social graphs
+******* reducing impedance mismatch (DB data model can more closely match the one used in the application)
+
+****** Who's online?
+(From [[http://www.lukemelia.com/blog/archives/2010/01/17/redis-in-practice-whos-online/][Redis in practice: Who's online?]])
+
+Redis goes beyond a simple key-value store for the values can be simple strings,
+but also data structures.
+Redis supports lists, sets and ordered sets.
+Redis' implementation of a set has the same properties as an abstract set.
+
+Be able to see which of your friends are online.
+
+The idea is to have one active set per minute.
+During each request that comes in from a logged-in user, we’ll add a user ID to
+the active set.
+When we want to know which user IDs are online, we can union the last 5 sets to
+get a collection of user IDs who have made a request in the last 5 minutes.
+
+{{http://www.lukemelia.com/images/blog/presence-online-users-diagram.png}}
+
+Now, if we have a set of the user’s friend’s IDs, we can intersect that with the
+online users and we’ve got our online friend IDs.
+
+{{http://www.lukemelia.com/images/blog/presence-online-friends-diagram.png}}
+
+#+begin_example
+# Defining the keys
+
+def current_key
+    key(Time.now.strftime("%M"))
+end
+
+def keys_in_last_5_minutes
+    now = Time.now
+    times = (0..5).collect {|n| now - n.minutes }
+    times.collect{ |t| key(t.strftime("%M")) }
+end
+
+def key(minute)
+    "online_users_minute_#{minute}"
+end
+
+# Tracking an Active User
+
+def track_user_id(id)
+    key = current_key
+    redis.sadd(key, id)
+end
+
+# Who's online
+
+def online_user_ids
+    redis.sunion(*keys_in_last_5_minutes)
+end
+
+def online_friend_ids(interested_user_id)
+    redis.sunionstore("online_users", *keys_in_last_5_minutes)
+    redis.sinter("online_users", "user:#{interested_user_id}:friend_ids")
+end
+#+end_example
+
+
+**** [[http://www.slideshare.net/kevinweil/nosql-at-twitter-nosql-eu-2010][NoSQL@Twitter]]
+
+**** What should you be using NoSQL for
+***** General use cases
+*Bigness*
+
+Big data, big numbers of users/computers, big supply chains, big science etc.
+When something becomes so massive that it has to be intensively distributed,
+NoSQL fits the bill.
+Remember though that bigness can be across many different dimensions, not just
+disk space.
+
+*Masive write performance*
+
+Writing large amounts of data (e.g. Facebook's 135 billion messages per month or
+Twitter's 7TB of data per day) has to be distributed over a cluster. That
+implies key-value access, MapReduce, replication, fault tolerance, consistency
+issues etc.
+
+*Fast key-value access*
+
+When low latency is the key, it's hard to beat hashing on a key and reading the
+value in ~1 disk seek.
+
+*Flexible schema / flexible datatypes*
+
+NoSQL offers column-oriented, graph, advanced data structures, document-oriented
+and key-value.
+Complex objects can be easily stored without many mappings.
+NoSQL also mostly uses friendly data types like JSON.
+
+*Schema migration*
+
+Schemas are imposed by the application at run-time.
+Different parts of the application can have a different view of the schema.
+This can also cause some pains when the dynamic schema changes while the
+application is running on production and already has data stored.
+
+*Write availability*
+
+Partitioning, CAP (Consistency-Availability-network Partition tolerance), eventual consistency etc. help with making sure that ~100%
+writes to the database succeed.
+
+*No single point of failure*
+
+High availability with auto load balancing and cluster sizing help to remedy
+fault tolerance issues.
+
+*Generally available parallel computing*
+
+Related to baking in analytical features such as MapReduce.
+
+*Easier maintainability, administration and operations*
+
+Vendors try to make sure that the DBs are as easy to use as possible.
+Also, NoSQL products are made mainly for programmers by programmers.
+They are aimed to be easy to use and compatible with the technologies popular
+with developers.
+
+*Right data for the right problem*
+
+Example: when the domain of your problem is based on a graph, You can use a
+graph database and have native support instead of trying to wedge the graph
+idioms into a relational system.
+
+*Avoid hitting a performance wall*
+
+NoSQL products are highly scalable out-of-the-box.
+
+*Distributed systems support*
+
+NoSQL products are naturally aligned with distributed data-centers and similar
+systems due to their focus on scale.
+They tend to use partitions and avoid heavy strict consistency protocols.
+
+*Tunable CAP tradeoffs*
+
+Relational DBs choose strong consistency which means that they cannot tolerate a
+parition failure.
+NoSQL products actually come with a "slider" for balancing between the CAP
+tradeoffs.
+It depends on what pays best in each specific case, so it's a big advantage.
+
+***** Specific use cases
+****** Managing large streams of non-transactional data: logs, clickstreams etc.
+****** Syncing online/offline data (CouchDB targets this)
+****** Fast, load-independent response times
+****** Avoiding heavy joins. This is the case when complex joins stop performing under load in an RDBMS.
+****** Apps with a variety of different write/read/query/consistency pattern support
+      - there are systems optimized for 50/50, 95% reads or 95% writes
+      - read-only apps needing speed and resiliency, tolerating slightly stale data
+      - apps with moderate perf, r/w access, simple queries, authoritative data
+      - read-only apps with complex query requirements
+****** load balancing for accomodating data and usage concentrations to keep microprocessors busy
+****** real-time inserts, updates and quries
+****** hierarchical daa (threaded discussions, parts explosion)
+****** dynamic table creation
+****** two tier apps with low-latency data made available through a fast NoSQL interface but computed by high-latency Hadoop (or other low priority) apps
+****** sequential data reading (the right underlying model must be selected!)
+****** slicing off parts of service to it's own system for performance/scalability (e.g. user login)
+****** caching (a high perf caching tier)
+****** voting
+****** real-time page view counters
+****** user registration, profile, session data
+****** document, catalog and content mgmt systems, inventory, shopping carts and complex data structures in general, as they can be stored as a whole
+****** archiving, storing a large continual data stream that is still accessible online
+****** analytics - MapReduce, Hive, Pig used to perform analytical queries and scale-out systems with high write load support
+****** heterogenous types of data (e.g. different media types) at a generic level
+****** embedded systems - simplicity and performance are very important due to limited resources
+****** "market" games
+      - when somebody buys a building, the list of bought things should pop up quickly- so you partition the owner column of the building table so the select is single-partitioned
+      - when somebody buys sth from somebody else, you update the owner column along with the price
+****** federal law agencies track ppl in real-time using credit or loyalty cards and travel reservations
+****** real-time fraud detection by comparing transactions to known patterns
+****** helping diagnose the typology of tumors by integrating the history of every patient
+****** in-memory DBs for high update situations e.g. displaying everyone's "last active" time
+****** handling lower-freq multipart queries with materialized views while processing hi-freq streaming data
+****** priority queues
+****** calculations on cached data using a program-friendly interface (without an ORM)
+****** unique a large dataset using simple key-value columns
+****** rolling values up into different time slices for fast queries
+****** computing the intersection of two massive sets, where a join would be too slow
+****** a [[http://highscalability.com/scaling-twitter-making-twitter-10000-percent-faster][timeline a'la Twitter]]
+
+***** Analytics use cases
+These are mainly related to Hadoop and boil down to answering questions in the
+like of the following.
+
+****** How many requests do we serve each day?
+****** What is the average or nth percentile latency?
+****** Grouped by response code: hourly distribution?
+****** How many searches happen each day at Twitter?
+****** Where do they come from?
+****** How many unique queries?
+****** How many unique users?
+****** Geographic distribution?
+****** How does usage differ for mobile users?
+****** How does usage differ for 3rd party desktop client users?
+****** Cohort analysis: all users who signed up on the same day—then see how they differ over time.
+****** Site problems: what goes wrong at the same time?
+****** Which features get users hooked?
+****** Which features do successful users use often?
+****** Search corrections and suggestions (not done now at Twitter, but coming in the feature).
+****** What can web tell about a user from their tweets?
+****** What can we tell about you from the tweets of those you follow?
+****** What can we tell about you from the tweets of your followers?
+****** What can we tell about you from the ratio of your followers/following?
+****** What graph structures lead to successful networks? (Twitter’s graph structure is interesting since it’s not two-way) 
+****** What features get a tweet retweeted?
+****** When a tweet is retweeted, how deep is the corresponding retweet three?
+****** Long-term duplicate detection (short term for abuse and stopping spammers)
+****** Machine learning. About not quite knowing the right questions to ask at first. How do we cluster users?
+****** Language detection (contact mobile providers to get SMS deals for users—focusing on the most popular countries at first).
+****** How can we detect bots and other non-human tweeters?
+
+***** Poor use cases
+These are very important as you should avoid them intensively.
+
+*OLTP*
+
+VoltDB is an exception here, but complex, multi-object transactions are
+generally not supported. Programmers are supposed to denormalize, use documents
+or other coplex strategies like compensating transactions.
+
+*Data integrity*
+
+SQL uses a declarative approach NoSQL systems rely on applications to maintain
+integrity.
+
+*Data independence*
+
+Data outlasts apps.
+But in NoSQL, apps drive everything.
+Relational data might last for the entire enterprise lifetime.
+
+*SQL*
+
+Duh.
+More and more systems are starting to provide SQLish interfaces though.
+
+*Ad-hoc queries*
+Answering real-time, unpredictable questions is still the domain of RDBs.
+
+*Complex relationships*
+
+*Maturity and stability*
+
+People know RDBs, there are also more tools available for them.
+When in doubt, this is the road that will be most likely traveled.
+
+
+** Octave
+*** Tools - Octave
+# %toc
+
+**** Basic operations
+#+begin_example
+octave:6> 6^2
+ans =  36
+octave:7> 1 == 2
+ans = 0
+octave:8> 1 ~= 2
+ans =  1
+octave:10> 1 && 0
+ans = 0
+octave:11> 1 || 0
+ans =  1
+octave:12> xor(1,0)
+ans =  1
+octave:13> xor(1,1)
+ans = 0
+octave:15> PS1('>> ')
+>> 
+>> a = 3
+a =  3
+>> b = 'hi'
+b = hi
+>> b = 'hi';
+>> c = (3>=1);
+>> c
+c =  1
+>> a = pi;
+>> a
+a =  3.1416
+>> disp(a)
+ 3.1416
+>> disp(sprintf('2 decimals: %0.2f',a))
+2 decimals: 3.14
+>> format long
+>> a
+a =  3.14159265358979
+>> format short
+>> a
+a =  3.1416
+>> A = [1 2; 3 4; 5 6]
+A =
+
+   1   2
+   3   4
+   5   6
+>> v = [1 2 3] % 1 by 3
+v =
+
+   1   2   3
+
+>> v = [1; 2; 3] % 3 by 1
+v =
+
+   1
+   2
+   3
+>> v = 1:0.1:2
+v =
+
+ Columns 1 through 8:
+
+    1.0000    1.1000    1.2000    1.3000    1.4000    1.5000    1.6000    1.7000
+
+ Columns 9 through 11:
+
+    1.8000    1.9000    2.0000
+
+
+>> ones(2,3)
+ans =
+
+   1   1   1
+   1   1   1
+
+>> ones(3,2)
+ans =
+
+   1   1
+   1   1
+   1   1
+
+>> c = 2*ones(2,3) % also, `zeros`
+c =
+
+   2   2   2
+   2   2   2
+
+>> w = ones(1,3)
+w =
+
+   1   1   1
+
+>> w = rand(1,3)
+w =
+
+   0.70851   0.94212   0.29808
+
+>> w = rand(3,1)
+w =
+
+   0.602332
+   0.401473
+   0.072355
+
+>> w = rand(3,1)
+w =
+
+   0.68600
+   0.90467
+   0.80151
+
+>> w = rand(3,1)
+w =
+
+   0.35819
+   0.84049
+   0.66920
+
+>> w = randn(1,3) % from Gaussian distr
+w =
+
+   1.577927  -0.097761  -1.136075
+
+>> w = -6 + sqrt(10) * randn(1,10000);
+>> hist(w) % histogram
+>> hist(w,50) % histogram
+>> eye(3)
+ans =
+
+Diagonal Matrix
+
+   1   0   0
+   0   1   0
+   0   0   1
+# % also, use `help {anything}` for built-in help.
+#+end_example
+
+**** Moving data around
+
+#+begin_example
+# % A = [1 2; 3 4; 5 6]
+
+>> size(A)
+ans =
+
+   3   2
+
+>> length(A) % size of the longest dimension
+ans =  3
+>> length([1 2 3 4])
+ans =  4
+>> who
+Variables in the current scope:
+
+A    a    ans  b    c    v    w
+
+>> whos
+Variables in the current scope:
+
+   Attr Name        Size                     Bytes  Class
+   ==== ====        ====                     =====  ===== 
+        A           3x2                         48  double
+        a           1x1                          8  double
+        ans         1x1                          1  logical
+        b           1x2                          2  char
+        c           2x3                         48  double
+        v           1x11                        24  double
+        w           1x10000                  80000  double
+
+Total is 10027 elements using 80131 bytes
+>> v = w(1:10)
+v =
+
+ Columns 1 through 8:
+
+  -1.85036  -4.99490  -5.24149  -5.30683   0.45473  -6.32664  -5.26601  -8.31906
+
+ Columns 9 and 10:
+
+  -7.82427  -3.34916
+
+>> whos
+Variables in the current scope:
+
+   Attr Name        Size                     Bytes  Class
+   ==== ====        ====                     =====  ===== 
+        A           3x2                         48  double
+        a           1x1                          8  double
+        ans         1x1                          1  logical
+        b           1x2                          2  char
+        c           2x3                         48  double
+        v           1x10                        80  double
+        w           1x10000                  80000  double
+
+Total is 10026 elements using 80187 bytes
+
+>> save hello.mat v;
+>> clear v
+>> load hello.mat
+>> who
+Variables in the current scope:
+
+A    a    ans  b    c    v    w
+>> save hello.txt v -ascii % save as ASCII-formatted text
+>> A = rand(4,4)
+A =
+
+   0.319047   0.030859   0.840240   0.174995
+   0.825687   0.157595   0.947932   0.561120
+   0.032448   0.150073   0.082587   0.872453
+   0.333152   0.042347   0.831259   0.336317
+
+>> A(2,:)
+ans =
+
+   0.82569   0.15760   0.94793   0.56112
+
+>> A(:,2)
+ans =
+
+   0.030859
+   0.157595
+   0.150073
+   0.042347
+
+>> A([1 3], :)
+ans =
+
+   0.319047   0.030859   0.840240   0.174995
+   0.032448   0.150073   0.082587   0.872453
+>> A(:,2) = [10; 11; 12; 13]
+A =
+
+    0.319047   10.000000    0.840240    0.174995
+    0.825687   11.000000    0.947932    0.561120
+    0.032448   12.000000    0.082587    0.872453
+    0.333152   13.000000    0.831259    0.336317
+
+>> A = [A, [100; 200; 300; 400]]
+A =
+
+   3.1905e-01   1.0000e+01   8.4024e-01   1.7500e-01   1.0000e+02
+   8.2569e-01   1.1000e+01   9.4793e-01   5.6112e-01   2.0000e+02
+   3.2448e-02   1.2000e+01   8.2587e-02   8.7245e-01   3.0000e+02
+   3.3315e-01   1.3000e+01   8.3126e-01   3.3632e-01   4.0000e+02
+
+>> A(:) % put all elements into a single column vector
+ans =
+
+   3.1905e-01
+   8.2569e-01
+   3.2448e-02
+   3.3315e-01
+   1.0000e+01
+   1.1000e+01
+   1.2000e+01
+   1.3000e+01
+   8.4024e-01
+   9.4793e-01
+   8.2587e-02
+   8.3126e-01
+   1.7500e-01
+   5.6112e-01
+   8.7245e-01
+   3.3632e-01
+   1.0000e+02
+   2.0000e+02
+   3.0000e+02
+   4.0000e+02
+
+>> A = [1 2; 3 4; 5 6]
+A =
+
+   1   2
+   3   4
+   5   6
+
+>> B = [11 12; 13 14; 15 16]
+B =
+
+   11   12
+   13   14
+   15   16
+
+>> C = [A B]
+C =
+
+    1    2   11   12
+    3    4   13   14
+    5    6   15   16
+
+>> C = [A;B]
+C =
+
+    1    2
+    3    4
+    5    6
+   11   12
+   13   14
+   15   16
+
+#+end_example
+
+Also:
+***** `load file.dat`, `load('file.dat')` imports a data file into the scope.
+
+**** Computing data
+#+begin_example
+>> A
+A =
+
+   1   2
+   3   4
+   5   6
+
+>> B
+B =
+
+   11   12
+   13   14
+   15   16
+
+>> C = [1 1; 2 2]
+C =
+
+   1   1
+   2   2
+
+>> A*C
+ans =
+
+    5    5
+   11   11
+   17   17
+
+>> A .* B % take each element of A and multiply it by corresponding element of B
+ans =
+
+   11   24
+   39   56
+   75   96
+
+>> A .^ 2 % element-wise squaring
+ans =
+
+    1    4
+    9   16
+   25   36
+
+>> v = [1; 2; 3]
+v =
+
+   1
+   2
+   3
+
+>> 1 ./ v
+ans =
+
+   1.00000
+   0.50000
+   0.33333
+
+>> 1 ./ A
+ans =
+
+   1.00000   0.50000
+   0.33333   0.25000
+   0.20000   0.16667
+
+>> log(v)
+ans =
+
+   0.00000
+   0.69315
+   1.09861
+
+>> exp(v) % e^v
+ans =
+
+    2.7183
+    7.3891
+   20.0855
+
+>> e.^v
+ans =
+
+    2.7183
+    7.3891
+   20.0855
+
+>> abs(v)
+ans =
+
+   1
+   2
+   3
+
+>> -v
+ans =
+
+  -1
+  -2
+  -3
+
+>> v + ones(length(v),1)
+ans =
+
+   2
+   3
+   4
+
+>> v .+ 1
+ans =
+
+   2
+   3
+   4
+
+>> A'
+ans =
+
+   1   3   5
+   2   4   6
+
+>> (A')'
+ans =
+
+   1   2
+   3   4
+   5   6
+
+>> a = [1 15 2 0.5]
+a =
+
+    1.00000   15.00000    2.00000    0.50000
+
+>> val = max(a)
+val =  15
+>> [val, ind] = max(a)
+val =  15
+ind =  2
+>> max(a)
+ans =  15
+>> max(A) % column-wise maximum
+ans =
+
+   5   6
+
+>> a < 3
+ans =
+
+   1   0   1   1
+
+>> a = [1 15 2 0.5]
+a =
+
+    1.00000   15.00000    2.00000    0.50000
+
+>> find (a < 3)
+ans =
+
+   1   3   4
+
+>> magic(3) % 3x3 magic triangle, convenient for matrix generation
+ans =
+
+   8   1   6
+   3   5   7
+   4   9   2
+>> A = magic(3)
+A =
+
+   8   1   6
+   3   5   7
+   4   9   2
+
+>> [r,c] = find(A >= 7)
+r =
+
+   1
+   3
+   2
+
+c =
+
+   1
+   2
+   3
+
+>> floor(a)
+ans =
+
+    1   15    2    0
+
+>> ceil(a)
+ans =
+
+    1   15    2    1
+
+>> round(a)
+ans =
+
+    1   15    2    1
+
+>> max(rand(3))
+ans =
+
+   0.71836   0.86637   0.70080
+
+>> max(rand(3), rand(3)) % element-wise maximum of the two random matrices
+ans =
+
+   0.53947   0.46529   0.91213
+   0.96463   0.63457   0.61481
+   0.45498   0.40820   0.86916
+>> max(A, [], 1) % max in the first dimension of A (per-column)
+ans =
+
+   8   9   7
+
+>> max(A, [], 2) % max in the second dimension of A (per-row)
+ans =
+
+   8
+   7
+   9
+>> max(max(A)) % max element in A
+ans =  9
+>> max(A(:))
+ans =  9
+>> A = magic(9)
+A =
+
+   47   58   69   80    1   12   23   34   45
+   57   68   79    9   11   22   33   44   46
+   67   78    8   10   21   32   43   54   56
+   77    7   18   20   31   42   53   55   66
+    6   17   19   30   41   52   63   65   76
+   16   27   29   40   51   62   64   75    5
+   26   28   39   50   61   72   74    4   15
+   36   38   49   60   71   73    3   14   25
+   37   48   59   70   81    2   13   24   35
+
+>> sum(A, 1)
+ans =
+
+   369   369   369   369   369   369   369   369   369
+
+>> sum(A,2)
+ans =
+
+   369
+   369
+   369
+   369
+   369
+   369
+   369
+   369
+   369
+
+>> A .* eye(9) % element-wise product
+ans =
+
+   47    0    0    0    0    0    0    0    0
+    0   68    0    0    0    0    0    0    0
+    0    0    8    0    0    0    0    0    0
+    0    0    0   20    0    0    0    0    0
+    0    0    0    0   41    0    0    0    0
+    0    0    0    0    0   62    0    0    0
+    0    0    0    0    0    0   74    0    0
+    0    0    0    0    0    0    0   14    0
+    0    0    0    0    0    0    0    0   35
+
+>> sum(sum(A .* eye(9))) % the sum of the sum of elements in an element-wise product
+ans =  369
+>> sum(sum(A .* flipud(eye(9)))) % sum on the other diagonal
+ans =  369
+>> flipud(eye(9))
+ans =
+
+Permutation Matrix
+
+   0   0   0   0   0   0   0   0   1
+   0   0   0   0   0   0   0   1   0
+   0   0   0   0   0   0   1   0   0
+   0   0   0   0   0   1   0   0   0
+   0   0   0   0   1   0   0   0   0
+   0   0   0   1   0   0   0   0   0
+   0   0   1   0   0   0   0   0   0
+   0   1   0   0   0   0   0   0   0
+   1   0   0   0   0   0   0   0   0
+#+end_example
+
+**** Plotting data
+#+begin_example
+>> t=[0:0.01:0.98];
+>> y1 = sin(2*pi*4*t);
+>> y2 = cos(2*pi*4*t);
+>> plot(t, y2);
+>> hold on
+>> plot(t, y1, 'r');
+>> xlabel('time');
+>> ylabel('value');
+>> legend('sin', 'cos');
+>> title('my plot');
+>> print -dpng 'plot.png';
+>> close
+>> figure(1); plot(t, y1);
+>> figure(2); plot(t, y2); % two separate plot windows
+>> subplot(1,2,1); % Divide plot into a 1x2 grid, access 1st element
+>> plot(t,y1); % goes into the first element
+>> subplot(1,2,2);
+>> plot(t,y2); % goes into the second element
+>> axis([0.5 1 -1 1]) % sets the and y ranges. Also, try `help axis`.
+>> clf; % clear figures
+>> A = magic(5);
+>> imagesc(A) % 5x5 grid of colors, corresponding to values
+>> imagesc(A), colorbar, colormap gray; % grayscale color map with color legend
+#+end_example
+
+**** Control statements
+#+begin_example
+>> v = zeros(10,1)
+>> for i=1:10,
+>   v(i) = 2^il
+>  end;
+>> indices = 1:10;
+>> for i=indices;
+>   disp(i);
+>  end;
+>> i = 1;
+>> while i <= 5,
+>   v(i) = 100;
+>   i = i+1;
+>  end;
+>> while true,
+>   v(i) = 999;
+>   i = i+1;
+>   if i == 6,
+>     breakl
+>   end;
+>  end;
+>> % else, elseif
+#+end_example
+
+***** Function definitions
+#+begin_example
+# % y - output argument
+# % x - input argument
+
+function y = squareThisNumber(x)
+    y = x^2;
+#+end_example
+
+#+begin_example
+# % returning multiple values
+function [y1,y2] = squareAndCubeThisNumber(x)
+    y1 = x^2;
+    y2 = x^3;
+#+end_example
+
+Compute the cost function $J(\Theta)$.
+#+begin_example
+>> theta = [0; 1];
+>> X = [1 1; 1 2; 1 3];
+>> y = [1; 2; 3];
+>> j = costFunctionJ(X,y,theta)
+j = 0
+>> theta = [0;0];
+>> j = costFunctionJ(X,y,theta)
+j = 2.3333
+>> (1^2 + 2^2 + 3^2) / (2*3)
+ans = 2.3333
+
+# % costFunctionJ.m
+function J = costFunctionJ(X, y, theta)
+#     % X - design matrix
+#     % y - class labels
+
+    m = size(X,1);
+    predictions = X*theta % predictions of hypothesis on all `m` examples
+    sqrErrors = (predictions-y).^2;
+    J = 1/(2*m)*sum(sqrErrors);
+#+end_example
+
+Change Octave's search path:
+#+begin_example
+>> addpath('/home/user/scripts')
+#+end_example
+
+**** Vectorization
+
+***** Basic example
+Example: $h_\Theta(x)=\Sum^n_{j=0}{\Theta_jx_j}=\Thets^Tx$
+
+Unvectorized:
+#+begin_example
+prediction = 0.0;
+for j = 1:n+1,
+    prediction = prediction + theta(j) * x(j)
+end;
+#+end_example
+Vectorized:
+#+begin_example
+prediction = theta` *; % uses Octave's highly optimized low-level routines.
+#+end_example
+
+****** In C++
+Unvectorized
+#+begin_example
+double prediction = 0.0;
+for (int j = 0; j <= n; j++)
+    prediction += theta[j] *[j];
+#+end_example
+
+Vectorized
+#+begin_example
+double prediction = theta.transpose() * x;
+#+end_example
+
+***** Gradient descent example
+Example: $\Theta_j := \Theta_j - lpha rac{1}{m}\sum^m_{i=1}(h_\Theta(x^{(i)})-y^{)i)})x_l^{(i)}$
+(for all $j$)
+
+Vectorized implementation:
+
+$\Theta := \Theta - lpha\delta$ where $\delta = rac{1}{m}\sum^m_{i=1}(h_\Theta(x^{(i)})-y^{(i)})x^{(i)}$.
+
+    A vectorized implementation will usually run much faster than a normal loop.
+
+** PostgreSQL
+*** Tools - PostgreSQL
+# %toc
+
+An adequate definition would be an 'SQL standard implementation, kept
+up-to-date'.
+
+**** Feature highlights
+
+***** User-defined data and index types, functional languages
+***** Table inheritance
+***** A sophisticated locking mechanism
+***** Foreign key referential integrity
+***** Views, rules, sub-select
+***** Nested transactions (savepoints)
+***** Multi-version concurrency control
+***** Async replication
+
+**** Roles
+
+Managing roles (case-sensitive, the semicolon also matters):
+#+begin_example
+CREATE ROLE name;
+DROP ROLE name;
+SELECT rolname FROM pg_roles;
+#+end_example
+
+To check existing roles, use `\du`.
+
+***** Role attributes
+
+To be able to login with a role:
+#+begin_example
+CREATE ROLE name LOGIN;
+// equivalent to:
+CREATE USER name;
+#+end_example
+
+*Superuser status*: bypassess all perm checks except the login right.
+Recommendations are similar to those related to being a root user.
+
+#+begin_example
+CREATE ROLE name SUPERUSER;
+#+end_example
+
+*Role creation*, as well as dropping other roles, managing role membership.
+#+begin_example
+CREATE ROLE name CREATEROLE;
+#+end_example
+
+*Initiating replication*: a role allowed to initiate streaming replication must
+ have the `LOGIN` privilege as well.
+
+ #+begin_example
+CREATE ROLE name REPLICATION LOGIN;
+ #+end_example
+
+*Password*: only significant if the client auth requires it for DB connection.
+ DB passwords are separate from OS passwords.
+
+ #+begin_example
+CREATE ROLE name PASSWORD 'secret';
+ #+end_example
+
+Role's attributes can be modified through `ALTER ROLE`.
+#+begin_example
+ALTER ROLE name WITH option
+#+end_example
+
+    *Tip*: It is good practice to create a role that has the `CREATEDB` and `CREATEROLE`
+    privileges, but is not a superuser, and then use this role for all routine
+    management of databases and roles. This approach avoids the dangers of operating
+    as a superuser for tasks that do not really require it.
+
+**** Tablespaces
+Tablespaces define physical locations for database data.
+
+#+begin_example
+CREATE TABLESPACE dvdrental LOCATION 'c:\data\dvdrental';
+// and then...
+ALTER DATABASE dvdrental
+SET TABLESPACE dvdrental;
+#+end_example
+
+**** Examples
+
+All examples are assuming that the `dvdrental` database (available [[http://www.postgresqltutorial.com/?wpdmact=process&did=MS5ob3RsaW5r][here]] is
+imported).
+
+***** SELECT
+
+#+begin_example
+SELECT 
+    first_name,
+    last_name,
+    email
+FROM customer;
+#+end_example
+
+*Distinct*:
+Preparation code:
+#+begin_example
+CREATE TABLE t1 (
+    id serial NOT NULL PRIMARY KEY,
+        bcolor VARCHAR (25),
+        fcolor VARCHAR (25)
+    );
+INSERT INTO t1 (bcolor, fcolor)
+VALUES
+    ('red', 'red'),
+    ('red', 'red'),
+    ('red', NULL),
+    (NULL, 'red'),
+    ('red', 'green'),
+    ('red', 'blue'),
+    ('green', 'red'),
+    ('green', 'blue'),
+    ('green', 'green'),
+    ('blue', 'red'),
+    ('blue', 'green'),
+    ('blue', 'blue');
+#+end_example
+
+Multiple values combined to form distinction:
+#+begin_example
+SELECT DISTINCT
+    bcolor,
+    fcolor
+FROM
+    t1
+ORDER BY
+    bcolor,
+    fcolor;
+#+end_example
+
+Order by bcolor and fcolor and keep the first row for each duplicate group in 
+the result set.
+The column taken to `ON` is the distinction criterion.
+#+begin_example
+SELECT DISTINCT
+    ON (bcolor) bcolor,
+    fcolor
+FROM
+    t1
+ORDER BY
+    bcolor,
+    fcolor;
+#+end_example
+
+***** LIKE
+Works as in MS SQL, pattern matching is worth noting.
+
+#+begin_example
+SELECT
+    first_name,
+        last_name
+FROM
+    customer
+WHERE
+    first_name LIKE 'Jen%';
+#+end_example
+
+#+begin_example
+SELECT
+    first_name,
+        last_name
+FROM
+    customer
+WHERE
+    first_name LIKE '_en__';
+#+end_example
+
+****** `%` maches any sequence of characters
+****** `_` matches any single character
+
+`ILIKE` is a case insensitive variant of `LIKE`.
+One can also use `NOT LIKE` or `NOT ILIKE`.
+
+***** IN
+A sensible use case:
+#+begin_example
+SELECT
+    first_name,
+    last_name
+FROM
+    customer
+WHERE
+    customer_id IN (
+        SELECT
+            customer_id
+        FROM
+            rental
+        WHERE
+            CAST (return_date AS DATE) = '2005-05-27'
+    );
+#+end_example
+
+***** UNION
+Combines result sets of N `SELECT` statements into a single result set.
+
+****** Both queries must return the same number of columns.
+****** The corresponding columns in the queries must have compatible data types.
+
+#+begin_example
+SELECT *
+FROM
+    table1
+UNION
+SELECT *
+FROM
+    table2;
+#+end_example
+
+By default, it removes duplicate rows.
+To avoid that, use `UNION ALL`.
+
+It's important to remember that when using `ORDER BY` for results of `UNION`,
+you can sort each set separately, or sort the whole result set together.
+
+#+begin_example
+SELECT *
+FROM
+    table1
+UNION ALL
+SELECT *
+FROM
+    table2
+ORDER BY
+ column1 ASC,
+ column2 DESC;
+#+end_example
+
+***** JOIN
+`INNER JOIN` takes a common result set from the joined sets. Same as in MS SQL.
+
+#+begin_example
+SELECT
+    customer.customer_id,
+    customer.first_name customer_first_name,
+    customer.last_name customer_last_name,
+    customer.email,
+    staff.first_name staff_first_name,
+    staff.last_name staff_last_name,
+    amount,
+    payment_date
+FROM
+    customer
+INNER JOIN payment ON payment.customer_id = customer.customer_id
+INNER JOIN staff ON payment.staff_id = staff.staff_id;
+#+end_example
+
+`LEFT JOIN` is outer for set A and inner for set B.
+#+begin_example
+SELECT
+    film.film_id,
+    film.title,
+    inventory_id
+FROM
+    film
+LEFT JOIN inventory ON inventory.film_id = film.film_id
+WHERE
+    inventory.film_id IS NULL;
+#+end_example
+
+***** HAVING
+
+Can be used to pass additional conditions after a `GROUP BY`.
+
+#+begin_example
+SELECT
+    customer_id,
+    SUM (amount)
+FROM
+    payment
+GROUP BY
+    customer_id
+HAVING
+    SUM (amount) > 200;
+#+end_example
+
+***** Subquery
+PostgreSQL executes the query that contains a subquery in the following sequence:
+
+****** Executes the subquery.
+****** Gets the result and passes it to the outer query.
+****** Executes the outer query.
+
+#+begin_example
+SELECT
+    film_id,
+    title
+FROM
+    film
+WHERE
+    film_id IN (
+        SELECT
+            inventory.film_id
+        FROM
+            rental
+        INNER JOIN inventory ON inventory.inventory_id = rental.inventory_id
+        WHERE
+            return_date BETWEEN '2005-05-29'
+        AND '2005-05-30'
+    );
+#+end_example
+
+#+begin_example
+SELECT
+    first_name,
+    last_name
+FROM
+    customer
+WHERE
+    EXISTS (
+        SELECT
+            1
+        FROM
+            payment
+        WHERE
+            payment.customer_id = customer.customer_id
+    );
+#+end_example
+
+***** INSERT
+Multiple rows can be added at a time.
+#+begin_example
+INSERT INTO table (column1, column2, …)
+VALUES
+    (value1, value2, …),
+    (value1, value2, …) ,...;
+#+end_example
+
+Also, data from another table can be transferred.
+#+begin_example
+INSERT INTO table(value1,value2,...)
+SELECT column1,column2,...
+FROM another_table
+WHERE condition;
+#+end_example
+
+A value from the last inserted row can be returned.
+#+begin_example
+INSERT INTO link (url, NAME, last_update)
+VALUES('http://www.postgresql.org','PostgreSQL',DEFAULT) 
+RETURNING id;
+#+end_example
+
+***** UPDATE
+An interesting construct is the `UPDATE JOIN`:
+#+begin_example
+UPDATE link_tmp
+SET rel = link.rel,
+ description = link.description,
+ last_update = link.last_update
+FROM
+    link
+WHERE
+    link_tmp.id = link.id;
+#+end_example
+
+***** DELETE
+Another tables can be referenced in a `DELETE`:
+
+#+begin_example
+DELETE FROM table
+USING another_table
+WHERE table.id = another_table.id AND …
+#+end_example
+
+**** Data types
+
+***** Character
+****** A single character: `char`
+****** Fixed-length character strings: `char(n)`. If you insert a string that is shorter than the length of the column, PostgreSQL will pad spaces. If you insert a string that is longer than the length of the column, PostgreSQL will issue an error.
+****** Variable-length character strings: `varchar(n)`. You can store up to n characters with variable-length character strings. PostgreSQL does not pad spaces when the stored string is shorter than the length of the column.
+
+***** Integer
+****** Small integer (`smallint`)  is 2-byte signed integer that has a range of (-32768,32767)
+****** Integer (`int`) is 4-byte integer that has a range of (-214783648, -214783647)
+****** `serial` is the same as integer except that PostgreSQL populate value into the column automatically. This is similar to `AUTO_INCREMENT` attribute in other database management systems.
+
+***** Floating-point number
+****** `float(n)`  is a floating-point number whose precision at least n, up to a maximum of 8 bytes.
+****** `real` or `float8` is a double-precision (8-byte) floating-point number.
+****** `numeric` or `numeric(p,s)` is a real number with p digits with s number after decimal point. The `numeric(p,)` is exact number.
+
+***** Temporal
+****** `date` stores date data
+****** `time` stores time data
+****** `timestamp` stores data and time
+****** `interval` stores the difference in timestamps
+****** `timestamptz` store both timestamp and timezone data. The `timestamptz` is a PostgreSQL’s extension to the temporal data type.
+
+***** Special
+****** `box` - a rectangular box.
+****** `line`  - a set of points.
+****** `point` - a geometric pair of numbers.
+****** `lseg` - a line segment.
+****** `polygon` - a closed geometric.
+****** `inet` - an IP4 address.
+****** `macaddr` - a MAC address.
+
+**** Table mgmt
+***** CREATE TABLE
+Available column constraints:
+****** `NOT NULL` - the value of the column cannot be `NULL`.
+****** `UNIQUE` - the value of the column must be different for each row in the table. However, the column can have many NULL values because PostgreSQL treats each NULL value to be unique. Notice that SQL standard only allows one NULL value in the column that has `UNIQUE` constraint.
+****** `PRIMARY KEY` - this constraint is the combination of `NOT NULL` and `UNIQUE` constraints. You can define one column as `PRIMARY KEY` by using column-level constraint. In case the primary key has multiple columns, you must use the table-level constraint.
+****** `CHECK` - enables to check a condition when you insert or update data.
+****** `REFERENCES` - constrains the value of the column that exists in a column in another table.
+
+All of those, except `NOT NULL`, can also serve as table constraints.
+
+***** ALTER TABLE
+Noteworthy: instead of `exec SP_RENAME`, the following can be used.
+#+begin_example
+ALTER TABLE table_name RENAME COLUMN column_name TO new_column_name;
+#+end_example
+
+This also applies to tables.
+
+***** TRUNCATE TABLE
+This command allows to wipe data from large tables quickly.
+#+begin_example
+TRUNCATE TABLE table_name;
+
+TRUNCATE TABLE table_name RESET IDENTITY;
+
+TRUNCATE TABLE table_name1, table_name2, …
+
+TRUNCATE TABLE table_name CASCADE;  // also removes data related by foreign keys
+#+end_example
+
+**** Database mgmt
+***** Restoring a DB
+#+begin_example
+postgres=# CREATE DATABASE newdvdrental;
+#+end_example
+
+and from Bash:
+#+begin_example
+>pg_restore --dbname=newdvdrental --verbose c:\pgbackup\dvdrental.tar
+#+end_example
+** Riak
+#= Tools - Riak =
+
+Querying
+GET/PUT/DELETE
+MapReduce
+Full-Text Search
+Secondary Indexes (2i)
+
+Client libraries for nearly every platform.
+
+Under the hood
+consistent hashing
+160bit keyspace
+
+replicas
+requests go to fallback neighboring nodes when a node fails
+handoff - data returns when node is back up
+
+and rebalancing
+
+masterless, deployed as a cluster of 5 nodes per cluster
+
+automatic self healing
+repairs divergent, missing or corrupt replicas
+large clusters, long term storage
+
+
+Riak 1.4
+Eventually consistent counters
+*** distributed data type in Riak
+*** PN Counters are capable of being incremented (P) an decremeted (N)
+*** automatic conflict resolution after a network partition
+*** 2i queries are sorted and client can request only first N results
+*** pagination allows queries to begin where n left off to deliver the rest
+*** can also view start, continuation, end value etc.
+
+Riak Control - mgmt studio?
+
+progressbar for handoff
+reduced object storage overhead (not turned on by default- check release notes)
+udpated protocol buffer properties
+overload protection for vnode processes
+cascading real-time writes for riak enterprise multi-datacenter replication
+
+
+when and why?
+enough data to require >1 physical machine (>5 prefereably)
+when availability > consistency (big data, critical data)
+when data can be modeled as keys and values - denormalization
+
+Case studies
+enstratatius - cloud infrastructure mgmt
+George Reese - moving from mysql to riak
+best buy - replatform of e-commerce platform
+copious - registered accts and tokens for FB/twitter logins; lookign to move over more data due to operational simplicity.
+mochi - high availability and low latency
+openX - couchDB + cassandra -> riak and riak core
+voxer - 60 nodes, 100s TBs of data, 400k concurrent users, billions of daily requests
+
+Hybrid solutions
+*** riak with postgres
+*** riak with elastic search
+*** riak with hadoop
+*** secondary analytic clusters (enterprise)
+
+Hosting options
+*** amazon AMIs
+*** Engine Yard
+*** Azure VM depot
+*** SoftLayer
+
+Open Source + commercial (enterprise)
+*** multi datacenter replication
+*** realtime or full-sync
+*** 24/7 support
+1.4 enterprise
+*** faster, more conns bvetween clusters
+*** per connection statistics - better
+*** ssl, nat and full sync scheduling support
+
+Riak Cloud Storage
+*** large object support
+*** S3-compatible API
+-multi-tenancy
+*** reporting on usage
+
+Future Work
+*** tight Solr integration
+*** greater consistency
+-faster data transfer between clusters
+*** dynamic ring resizing
+*** check github
+
+** SVN
+*** Tools - SVN
+
+**** Creating a patch
+To *create* a patch, use `svn diff > ~/path/patch_name.diff`.
+
+To *apply* a patch, use `patch -p0 -i ~/path/patch_name.diff`.
+
+To create a patch from *specific revisions*, use `svn diff -r123:456 > patch_name.diff`.
+** Testing Tools
+# %toc
+
+#= Mailcatcher =
+
+MailCatcher runs a super simple SMTP server which catches any message sent to it
+to display in a web interface. Run mailcatcher, set your favourite app to
+deliver to smtp://127.0.0.1:1025 instead of your default SMTP server, then check
+out http://127.0.0.1:1080 to see the mail that's arrived so far.
+
+https://github.com/sj26/mailcatcher
+
+_This is not strictly a testing tool but it has a good potential of testing
+e-mail based functionalities._
+** Vagrant
+#= Tools - Vagrant =
+
+Test.
+** Vim
+*** Tools - Vim
+# %toc
+
+**** Synchronizing .vim through GitHub
+***** 
+***** Install `pathogen`.
+
+*Adding to source control*
+#+begin_example
+cd ~/.vim
+mkdir ~/.vim/bundle
+git submodule add http://github.com/tpope/vim-fugitive.git bundle/fugitive
+git add .
+git commit -m "Install Fugitive.vim bundle as a submodule."
+#+end_example
+
+*Installing on another machine*
+#+begin_example
+cd ~
+git clone http://github.com/username/dotvim.git ~/.vim
+ln -s ~/.vim/vimrc ~/.vimrc
+ln -s ~/.vim/gvimrc ~/.gvimrc
+cd ~/.vim
+git submodule init
+git submodule update
+}}
+** VoltDB
+*** Tools - VoltDB
+
+An in-memory relational database, radically focused on performance and
+scalability.
+
+http://voltdb.com/
+
+**** Use cases
+***** Financial trade monitoring
+***** Web bot vulnerability scanning (SaaS)
+***** Online gaming leaderboard
+***** Package tracking
+***** Ad content serving
+***** Telephone exchange call detail record mgmt
+***** Airline reservation/ticketing
+
+This section requires followups:
+***** http://highscalability.com/blog/2010/6/28/voltdb-decapitates-six-sql-urban-myths-and-delivers-internet.html
+***** [[http://highscalability.com/blog/2010/12/6/what-the-heck-are-you-actually-using-nosql-for.html][Use cases]]

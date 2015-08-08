@@ -1,0 +1,425 @@
+* Application structure
+
+[[http://blog.safaribooksonline.com/2014/03/27/13-step-guide-angularjs-modularization/][13 step guide to modularization]]
+
+* Deploying to Heroku from angular-fullstack
+
+When deploying for the first time, run:
+
+```
+yo angular-fullstack:deploy heroku
+```
+
+then `cd` into the heroku dir and `git push heroku master`.
+
+After modifying the application, use the `grunt heroku` task.
+After that, `cd` and `push`.
+
+* Libs
+** angular-http-auth
+
+A reliable solution for client-side auth handling.
+
+https://github.com/witoldsz/angular-http-auth
+
+Also, to enable the password manager to store the credentials, an `iframe` has
+to be used alongside a `timeout` function.
+The solution is then somewhat hacky.
+
+#+begin_src xhtml
+<iframe src="sink.html" name="sink"
+        style="display:none"></iframe>
+
+<form name="loginForm"
+      action="sink.html" target="sink" method="post"
+      ng-submit="login(credentials)"
+      novalidate form-autofill-fix>
+  <label for="username">Username:</label>
+  <input type="text" id="username"
+         ng-model="credentials.username">
+  <label for="password">Password:</label>
+  <input type="password" id="password"
+         ng-model="credentials.password">
+  <button type="submit">Login</button>
+</form>
+#+end_src
+
+By providing an action, the browser's regular form-submitting logic will kick
+in, but without a visible action for the user.
+The action is directed to `sink.html`.
+
+To provide autofill, some more hackage is required - due to the fact that most
+browsers do not trigger an event on an autofilled input. Fortunately, the
+[[http://victorblog.com/2014/01/12/fixing-autocomplete-autofill-on-angularjs-form-submit][formAutofillFix]] directive circumvents this issue.
+
+#+begin_src javascript
+.directive('formAutofillFix', function ($timeout) {
+  return function (scope, element, attrs) {
+    element.prop('method', 'post');
+    if (attrs.ngSubmit) {
+      $timeout(function () {
+        element
+          .unbind('submit')
+          .bind('submit', function (event) {
+            event.preventDefault();
+            element
+              .find('input, textarea, select')
+              .trigger('input')
+              .trigger('change')
+              .trigger('keydown');
+            scope.$apply(attrs.ngSubmit);
+          });
+      });
+    }
+  };
+});
+#+end_src
+
+** Hotkeys
+Define htokeys in JS instead of as attributes.
+(attribute hotkeys tend to get tedious and unmaintainable)
+
+http://chieffancypants.github.io/angular-hotkeys/
+
+** angular-classy
+Make the controller syntax more readable and flexible.
+
+http://davej.github.io/angular-classy/
+
+** generator-powder
+Yeoman generator for scaffolding apps based on Express, Mongo, Angular and 
+Bootstrap, powered by gulp, bower and browserify.
+
+https://github.com/yamalight/generator-powder
+
+** jsTags
+Library for using tags (as in content tags, not ctags) in Angular.
+
+http://eranhirs.github.io/jsTag/
+
+* Performance
+** What does slow mean?
+- '$apply` > 25ms
+- click handler > 100ms
+- page load > 1s
+
+** Directives
+- `compile` is called only once within a repeater,
+- `link` and the constructor are called once per iteration
+- try to get as much work done as possible in the compile phasei
+- transclusion allows a directive to `$digest` its own scope withou cousing dirty checks on bindings within the Directives
+
+** `$$digest` and `$$apply`
+- `$apply` = `$rootScope.$digest` + other stuff
+- if you update a child scope `s` only, you can call `s.$digest` to dirty-check only that scope and its descendants
+
+** $watch
+- watcher must be fast. 
+- avoid touching the DOM (or use `debounce`)
+- avoid deep `$watch`
+- `$watchCollection` is a good alternative for deep watch
+- watch only relevant data, strip it as much as possible
+- watch *before* transforming - watch the input for changes rather than the output of the transformation
+
+** `$eval`, `$parse` and `interpolate`
+- call `$parse` once and use the returned function instead of calling `$eval`
+- prefer `$parse` to `$interpolate`
+
+** track by `$index`
+- when using an `ng-repeat track by $index`, Angular will reuse created DOM nodes instead of creating and destroying every one of them when the model changes.
+
+** `ng-if` vs `ng-show`
+- first one does not render the DOM, the second one just hides it.
+
+** `$$postDigest`
+- firest a callback after the digest cycle is complete
+- can be used to update the DOM once after dirty checking is over - not recommended, though (scope is not going to get updated).
+
+** Don't dirty check when it's not needed
+- `fast-bind-on-notify` vs `fast-bind-once` vs `ng-bind`
+- check `fast-bind` by kseamon on github.
+
+** Tooling
+- Batarang -> Performance
+- DevTools Profiler
+- `performance.now()` provides high resolution time
+
+* Tips & Tricks
+** `ngModel`
+*** Writing
+**** Watch out when another directive bound to teh same element as the one using `ngModel` is trying to write to scope.
+    - If the directive using `ngModel` is an `input[type="file"]`, this will cause a DOM Exception 11 if it's not empty.
+    - Work around that by separating the directives, but only if you conclude that this is not a design flaw.
+
+** Hacking core directives
+
+Angular is very hackable due to its modular nature.
+
+As an example: hacking the `ngSrc` directive to apply the `img src` attribute
+only when the `src` components are defined:
+{{{class='brush: javascript'
+angular.module('btford.ng-src', []).
+  config(function ($provide) {
+
+    // given `{{x}} y {{z}}` return `['x', 'z']`
+    function getExpressions (str) {
+      var offset = 0,
+          parts = [],
+          left,
+          right;
+      while ((left = str.indexOf('{{', offset)) > -1 &&
+             (right = str.indexOf('}}', offset)) > -1) {
+        parts.push(str.substr(left+2, right-left-2));
+        offset = right + 1;
+      }
+
+      return parts;
+    }
+
+    $provide.decorator('ngSrcDirective', function ($delegate, $parse) {
+      // `$delegate` is an array of directives registered as `ngSrc`
+      // btw, did you know you can register multiple directives to the same name?
+
+      // the one we want is the first one.
+      var ngSrc = $delegate[0];
+
+      ngSrc.compile = function (element, attrs) {
+        var expressions = getExpressions(attrs.ngSrc);
+        var getters = expressions.map($parse);
+
+        return function(scope, element, attr) {
+          attr.$observe('ngSrc', function(value) {
+            if (getters.every(function (getter) { return getter(scope); })) {
+              attr.$set('src', value);
+            }
+          });
+        };
+      };
+
+      // our compile function above returns a linking function
+      // so we can delete this
+      delete ngSrc.link;
+
+      return $delegate;
+    });
+  });
+#+end_src
+
+Another tip: the low level boilerplate can be abstracted away with the use of
+custom helpers.
+
+{{{class='brush: javascript'
+angular.module('btford.ng-src', []).
+  hackDirective('ngSrc', function ($delegate) {
+    /*
+     * ~ do stuff ~
+     */
+
+    return $delegate;
+  });
+
+// helper definition
+(function () {
+  var originalModule = angular.module;
+  angular.module = function () {
+    var module = originalModule.apply(this, arguments);
+    module.hackDirective = function (name, fn) {
+      module.config(function ($provide) {
+        $provide.decorator(name + 'Directive', fn);
+      });
+    };
+    return module;
+  }
+}());
+#+end_src
+
+** Animating ng-if
+
+To animate `ng-if`ed elements, use the following classes:
+*** `.ng-if.ng-enter` and `.ng-if.ng-enter-active`,
+*** `.ng-if.ng-leave` and `.ng-if.ng-leave-active`,
+
+* Understanding Dependency Injection
+** The provider (`$provide`)
+Providers define services. To define a `provider`, you need to call the `$provider.provide` method:
+
+#+begin_src js
+app.config(function($provide) {
+  $provide.provider('greeting', function() {
+    this.$get = function() {
+      return function(name) {
+        alert("Hello, " + name);
+      };
+    };
+  });
+});
+#+end_src
+
+After doing this, a service called `greeting` can be injected through a variable with the same name. Angular will call the provider's `$get` method underneath.
+
+#+begin_src js
+app.config(function($provide) {
+  $provide.provider('greeting', function() {
+    this.$get = function() {
+      return function(name) {
+        alert("Hello, " + name);
+      };
+    };
+  });
+});
+#+end_src
+
+*** `factory`, `service` and `value`
+These methods are just wrappers on the `$provider.provide`, allowing different ways of definition.
+The equivalent of the `greeting` provider would be:
+
+#+begin_src js
+app.config(function($provide) {
+  $provide.factory('greeting', function() {
+    return function(name) {
+      alert("Hello, " + name);
+    };
+  });
+});
+#+end_src
+
+`value` works the same *if* whatever that's being returned from the factory function *does not change*.
+
+*** `module` shorctut for providing
+AngularJS exposes the `$provider` methods directly on a module object, so the same results can be achieved by typing simply: 
+
+{{{brush="class: js"
+var myMod = angular.module('myModule', []);
+
+myMod.provider("greeting", ...);
+myMod.factory("greeting", ...);
+myMod.value("greeting", ...);
+#+end_src
+
+To summarize, the following do *exactly* the same:
+
+#+begin_src js
+myMod.provider('greeting', function() {
+  this.$get = function() {
+    return function(name) {
+      alert("Hello, " + name);
+    };
+  };
+});
+
+myMod.factory('greeting', function() {
+  return function(name) {
+    alert("Hello, " + name);
+  };
+});
+
+myMod.value('greeting', function(name) {
+  alert("Hello, " + name);
+});
+#+end_src
+
+** The injector (`$injector`)
+The injector creates instances of the services defined by the `$provide` code that has been created.
+To use `$injector`, it has to itself be injected into the parameters of e.g. a controller. Then the following can be used:
+
+#+begin_src js
+var greeting = $injector.get('greeting');
+greeting('Ford Prefect');
+#+end_src
+
+Services can also be injected into functions:
+
+#+begin_src js
+var greeting = $injector.get('greeting');
+greeting('Ford Prefect');
+#+end_src
+
+Services can be injected into *any function that is called with `$injector.invoke`*, including:
+*** controller/directive/filter definition functions,
+*** the `$get` methods of providers.
+
+** Configuring providers
+Providers can be configured to define how a given service is constructed. The configuraiton code can be added into the `config` phase of a module as such:
+
+#+begin_src js
+myMod.config(function(greeting) {
+  // WON'T WORK -- greeting is an *instance* of a service.
+  // Only providers for services can be injected in config blocks.
+});
+
+myMod.config(function(greetingProvider) {
+  // a-ok!
+});
+#+end_src
+
+There is one important exception: `constants`, since they cannot be changed, are allowed to be injected inside `config` blocks (this is how they differ from `value`s). They are accessed by their name alone (no `Provider` suffix necessary).
+
+Example of what can be done with provider configuration:
+
+#+begin_src js
+myMod.provider('greeting', function() {
+  var text = 'Hello, ';
+      
+  this.setText = function(value) {
+    text = value;
+  };
+      
+  this.$get = function() {
+    return function(name) {
+      alert(text + name);
+    };
+  };
+});
+
+myMod.config(function(greetingProvider) {
+  greetingProvider.setText("Howdy there, ");
+});
+
+myMod.run(function(greeting) {
+  greeting('Ford Prefect');
+});
+#+end_src
+
+** Controllers, filters and directives
+Filters and directives work analogously to controllers in this context.
+
+Controllers can be injected into, but cannot be injected themselves - they're created by a built-in Angular `$controller` service. 
+
+When defining a controller:
+
+#+begin_src js
+myMod.controller('MainController', function($scope) {
+  // ...
+});
+#+end_src
+
+What is actually being done is:
+
+#+begin_src js
+myMod.config(function($controllerProvider) {
+  controllerProvider.register('MainController', function($scope) {
+    // ...
+  });
+});
+#+end_src
+
+For instantiating controllers, Angular uses the `$controller` service, which underneath uses the `$injector`.
+
+** Summary
+So, to summarize, any function that gets called with `$injector.invoke` *can be injected into*. This includes, but is not limited to:
+
+*controller
+*directive
+*factory
+*filter
+*provider `$get` (when defining provider as an object)
+*provider function (when defining provider as a constructor function)
+*service
+
+The provider creates new services that *can be injected into things*. This includes:
+
+*constant
+*factory
+*provider
+*service
+*value

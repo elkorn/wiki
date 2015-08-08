@@ -1,0 +1,65 @@
+#+FILETAGS: :vimwiki:
+
+* Substitution-related
+** Substitution-related
+
+*** Substitution
+
+Substitution in Scala by default is done as follows:
+**** Pick the left-most operation.
+**** Evaluate its operands.
+**** Apply the operator to the operand values.
+
+The process of stepwise simplification of expressions is called _reduction_.
+
+A function also plays the role of an operator.
+
+Precondition for the following sections:
+
+#+begin_example
+scala> def square(x: Double) = x * x
+square: (Double)Double
+
+scala> def sumOfSquares(x: Double, y: Double) = square(x) + square(y)
+sumOfSquares: (Double,Double)Double
+#+end_example
+
+*** Call-by-value
+
+This is a standard way of doing reduction by the interpreter.
+**** The arguments of a function are evaluated (LTR).
+**** Function application is replaced by the function's RHS.
+**** All formal parameters of the function are replaced by their corresponding actual arguments.
+
+#+begin_example
+  sumOfSquares(3, 2+2)
+→ sumOfSquares(3, 4)
+→ square(3) + square(4)
+→ 3 * 3 + square(4)
+→ 9 + square(4)
+→ 9 + 4 * 4
+→ 9 + 16
+→ 25
+#+end_example
+
+*** Call-by-name
+
+An alternative way of doing reduction
+**** Function application is replaced by the function's RHS.
+**** The arguments of a function are evaluated (LTR).
+**** All formal parameters of the function are replaced by their corresponding actual arguments.
+
+#+begin_example
+  sumOfSquares(3, 2+2)
+→ square(3) + square(2+2)
+→ 3 * 3 + square(2+2)
+→ 9 + square(2+2)
+→ 9 + (2+2) * (2+2)
+→ 9 + 4 * (2+2)
+→ 9 + 4 * 4
+→ 9 + 16
+→ 25
+#+end_example
+
+Scala uses call-by-value by default, but it switches to call-by-name evaluation
+if the parameter type is preceded by `=>`.

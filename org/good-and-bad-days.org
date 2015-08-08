@@ -1,0 +1,19 @@
+* 2015
+** March
+
+*** <2015-03-16 Mon> GOOD
+    + ScalaZ 0
+    + Stanford 4
+    + Energetic, motivated
+*** <2015-03-17 Tue> OK
+    + ScalaZ chapter
+    + Stanford 5 videos
+    - Stanford 5 exercises
+    - procrastinated
+    - doubting the sense of chosen study topics
+*** <2015-03-18 Wed> BAD
+    + put notes into diary
+    - tired
+    - sad and angry
+    - late on Stanford 5 
+    - angry at work

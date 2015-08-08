@@ -1,0 +1,6 @@
+#+FILETAGS: :vimwiki:
+
+* 2014-11-12
+#= Nice quote =
+
+I hear and I forget, I see and I remember, I do and I understand.

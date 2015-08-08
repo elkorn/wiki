@@ -1,0 +1,22 @@
+(Via http://www.drmaciver.com/2015/04/revising-some-thoughts-on-test-driven-development/)
+
+Good testing is *adversarial* - it means that you need to think where the functionality being implemented and tested should break.
+TDD is flawed in that regard, since writing tests immediately before writing the functionality code causes you to encode the same set of assumptions in both.
+
+*Using tests to drive the design*, however, is a different matter.
+It provides you with a tool of thought that forces you to think in terms of how the functionality will be used.
+
+The proposed workflow is as follows:
+
+- Start from code. All types and functions that you expect to need for this stage should be defined, and each of them should raise some error. The error should represent a fatal condition you could reasonably expect to happen when calling that function. If there is no possible way a function could raise an error, return some default value.
+- Write lots of tests - for all the cases there those functions should be failing. Most of these tests should pass at this point - they are asserting that your function raises an error when a fatal case occurs. As of now, the function just considers _every_ case to be fatal, so the test is ok.
+- For any tests for error conditions that do not pass, modify the code to make them green. This step may require some fleshing out of the types to have actual data.
+- Now write tests that _should_ pass. Cover a reasonable range of cases. The goal is to sketch out example uses of the created functionality.
+- Develop until those tests pass. Any edge cases you spot along the way should immediately get their own test.
+- Take a good look at the tests for which bits of the functionality usage are clunky. Improve the code until it is no longer embarrassing. This probably will require you to revise the earlier stages.
+- (Optional) run coverage and add more tests to reach 100%. This may require you to change the functionality and go back to step 5.
+
+Apply this to each stage in turn, and at the and apply 6. and 7. to the whole thing.
+
+Starting from a point of "Where should this break?" forces you to think about the edge cases up front, like a QA.
+This acts as a counterbalance to thinking in terms of the happy path and missing bugs that linger slightly off of it by doing so.

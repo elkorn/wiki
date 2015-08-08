@@ -1,0 +1,120 @@
+#+FILETAGS: :vimwiki:
+
+* 2014-08-01
+** JUG 36 - Akka persistence, cluster, plugins
+
+DDDing with Akka persistence, the same pres as on slideshare.
+
+Commands - imperative statements, a priori.
+*** prone to repetition
+
+Events - facts, past tense, a posteriori.
+*** validate, then maybe oersist
+*** state as a series of applies instead of a mutable entity.
+
+
+Killing and reviving various actors is the standard way of achieving a clean slate in cases of errors.
+
+Akka is deliver-at-most-once.
+
+`Processor` / `Eventsourced Processor` is now the `PersistentActor`.
+
+`State` pattern
+
+#+begin_example
+case class Wallet(coins: Int) {
+   def updated(diff: Int) = Wallet(coins + diff)
+}
+#+end_example
+
+Appen-oriented databases are best suited as the persistence layer.
+
+Slwoer but safer `ActorRef` replacements - `ActorSelection`s.
+They are given by path, think as in log.
+
+`persist(e){e => }` - strong guarantee. Commands are handled in order, Events are processed in order
+`persistAsync(e){e => }` - weaker guarantee. We don't wait for responses and write in batches.
+
+For extrmeely high perf requiorements, separate `ThreadPool`s can be created just for that purpose. (follow up on this)
+
+Snapshots are used to reduce the amount of events used in a replay.
+
+#+begin_example
+def receiverRecover = {
+    dacse SnapshotOffer(meta, snapsjot: Wallet) =>
+        this.state = snapshot
+
+def receiveCommand = {
+    case command: Command =>
+        saveSnapshot(State)
+}
+}
+#+end_example
+
+Kafka allows fully reactive views, based on push.
+
+Views are `ReactiveStream`s. (PR by krasserm)
+Back-pressure handling through persisting the read pointer of data e.g. if the consumer can handle only 100 items at a time.
+In such a case, every request causes 100 items to be queried from the DB.
+After that, info about the position the next batch should be read from is persisted in the producer.
+
+*** Cluster
+
+Antipattern: cluster singleton
+
+**** trying to guarantee that only one instance of something exists (singleton)
+**** a stupid approach is to deploy all of the singletons in one cluster.
+**** in case it goes to shit, all of them would have to be started on a different server
+       - keep in mind that instantiating and starting these is very expensive, slow etc.
+**** The right wayt is to deploy each singleton in a separate cluster
+
+Consistent hash ring is one way of optimizing cluster usage and handling failures.
+
+Coordinator node serves as the single source of truth in the hashing ring.
+This is due to the fact that repartioning (e.g. due to more actors coming to the system) can be done while a regin node tries to find something.
+A coordinator can carefully tell a region node that is touched by this situation to kill its actors (passivate).
+
+Messaging with the Coordinator is mailboxed. Persistence is being utilized.
+Heartbeats are an exception, they need to have priority for when the system is slaughtered by userspace msgs.
+It wwould cause HBs to wait too long in queues and effectively the nodes to sto pseeing each other.
+
+Akka Cluster does note enforce id extraction and shard resoliution policies, traits or classes.
+Such approach allows extensibility.
+Example: use a shard resolver based on geographical regions (post codes?) in relation to where a command came from.
+
+#+begin_example
+ClusterSharding(system).start(
+    typeName = BlogPost.shardName,
+    entryProps = Some(BlogPost.props()),
+    idExtractor = BlogPost.idExtractor,
+    shardResolver = BlogPost.shardResolver)
+
+val blogPostRegion: ActorRef = ClusterSharding(context.system).shardRegion(BlogPost.shardNaem)
+val postId = UUID
+blogPostRegion ! BlogPost.AddPost(postId, author, title)
+#+end_example
+
+The sharding is goign on behind the scenes. The transparency is quite awesome.
+
+*** Redelivery
+
+There is a `trait` for that.
+At-leat-once delivery -> duplicates and out of order!
+
+Spray will become Akka HTTP. (Reactive streams underneath)
+
+Nice pattern of usage, thanks to transparency:
+#+begin_example
+// Set context timeout
+
+override def receiveCommand: Receive =
+    handleCommand orElse handleTimeout
+#+end_example
+
+And timeouts are handled automatically.
+
+`sbt addComandAlias` -> create simpler commands for starting HttpServer and cleaning dist.
+
+github: hseeberger/akkamazing
+
+typesafe.com/activator -> akka-sample-persistence-scala
