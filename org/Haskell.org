@@ -1,0 +1,15 @@
+* QuickCheck
+** Implementing an Arbitrary instance for custom data types
+
+#+begin_src haskell
+type Name = Int
+data Form = Prop Name
+          | Neg  Form
+          | Cnj [Form]
+          | Dsj [Form]
+          | Impl Form Form
+          | Equiv Form Form
+          deriving Eq
+
+answer = oneof [Prop <$> arbitrary, Neg <$> arbitrary, Cnj <$> arbitrary, Dsj <$> arbitrary, Impl <$> arbitrary <*> arbitrary, Equiv <$> arbitrary <*> arbitrary]
+#+end_src
