@@ -21,6 +21,7 @@ NOTE
 ** Notes
 *** TODO Haskell image processing
 
+
 * CQRS e-commerce API
 *Language*:  Haskell
 
@@ -51,4 +52,15 @@ Re-implement the seedling of this project that you've made a few years back.
 - Use user-defined labels.
 - Allow predefining criteria.
 - Use a persistence mechanism.
+- Package as a Chrome extension.
 
+
+* Raft implementation
+
+*Language*:  Haskell
+
+** Resources
+- http://thesecretlivesofdata.com/raft/
+
+** Notes
+- Use cloud Haskell
