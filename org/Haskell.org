@@ -11,5 +11,11 @@ data Form = Prop Name
           | Equiv Form Form
           deriving Eq
 
-answer = oneof [Prop <$> arbitrary, Neg <$> arbitrary, Cnj <$> arbitrary, Dsj <$> arbitrary, Impl <$> arbitrary <*> arbitrary, Equiv <$> arbitrary <*> arbitrary]
+answer = oneof [
+Prop <$> arbitrary, 
+Neg <$> arbitrary, 
+Cnj <$> arbitrary, 
+Dsj <$> arbitrary, 
+Impl <$> arbitrary <*> arbitrary, 
+Equiv <$> arbitrary <*> arbitrary]
 #+end_src
