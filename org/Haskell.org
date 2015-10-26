@@ -19,3 +19,91 @@ Dsj <$> arbitrary,
 Impl <$> arbitrary <*> arbitrary, 
 Equiv <$> arbitrary <*> arbitrary]
 #+end_src
+
+* Testing IO
+
+The example is of testing an HTTP request library.
+
+The request function is as follows.
+
+#+begin_src haskell
+httpLbs :: Request -> Manager -> IO (Response ByteString)
+#+end_src
+
+The server is just an entity responding with data, thus it can be modelled as a =Reader= monad.
+Defining the server as a monad transformer allows combining it with other monads.
+
+#+begin_src haskell
+newtype MockServer m a = MockServer
+  { server :: ReaderT (Response BL.ByteString) m a }
+  deriving (Applicative, Functor, Monad, MonadTrans)
+#+end_src
+
+Since this is a mock, the main idea is to be able to run it so that it responds with a particular message:
+
+#+begin_src haskell
+runMockServer
+  :: MockServer m a
+  -> Response BL.ByteString
+  -> m a
+runMockServer (MockServer s) = runReaderT s
+#+end_src
+
+The problem is that the library code needs to check with both a real server (=IO=) as well as the mock server (=MockServer s=).
+Instead of having to take the =httpLbs= function as a parameter, we can create a typeclass:
+
+#+begin_src haskell
+class Monad m => MonadHTTP m where
+  httpLbs :: Request -> Manager -> m (Response BL.ByteString)
+
+-- And the two instances we need:
+
+instance MonadHTTP IO where
+  -- The regular function from the http-client library
+  httpLbs = HTTP.Client.httpLbs
+
+instance Monad m => MonadHTTP (MockServer m) where
+  -- ask environment from the reader monad;
+  -- i.e. what you "run" it with
+  httpLbs _ _ = ask
+#+end_src
+
+
+Additional benefits:
+
+- =MonadHTTP= may serve as a base for HTTP-requesting stuff, something like =MonadTime= might be used for things that
+  get time values.
+- easier to swap implementations - you're passing an interface-like construct to functions.
+
+Testing (with `hspec`): 
+
+Define the mocked response
+#+begin_src haskell
+succeededResponse :: Response BL.ByteString
+succeededResponse = Response
+  { responseStatus = mkStatus 200 "success"
+  , responseVersion = http11
+  , responseHeaders = []
+  , responseBody = "{"data":"some body"}"
+  , responseCookieJar = createCookieJar []
+  , responseClose' = ResponseClose (return () :: IO ())
+  }
+#+end_src
+
+And the test itself
+#+begin_src haskell
+test :: Spec
+test =
+  describe "HTTP.get" $ do
+    it "returns the body when the request is 200" $
+      withConnManager $ \mngr ->
+        runMockServer
+          (get mngr "http://example.com/path" [])
+          succeededResponse
+        `shouldBe`
+          (Right $
+            A.Object $
+              HM.singleton "data" (A.String "some body"))
+#+end_src
+
+*Note:* The Reader monad is all right for simple mocks i.e. when you don't need to keep any intermediate state.
