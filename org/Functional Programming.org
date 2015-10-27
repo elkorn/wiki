@@ -343,31 +343,9 @@ half x = do
 #+end_src
 
 To extract values from the Writer, use =runWriter=:
-
-* Terminology
-
-*Normal form* - a fully evaluated expression.
 #+begin_src haskell
 runWriter $ half 8
 -- => (4, "I just halved 8!")
-After evaluating, the expression itself is replaced in memory with an indirect reference to the value of its result.
-
-*Weak head normal form* - a partially evaluated expression, whose first constructor has been evaluated, but whose members
-are yet undecided. An example of weak head normal form:
-
-#+begin_src ghci
-Prelude> let x = 1 + 2 :: Int
-Prelude> let z = (x,x)
-Prelude> :sprint z
-z = _
-Prelude> seq z () -- evaluates the first argument and returns the second one.
-Prelude> :sprint z
-z = (_,_) -- WHNF
-Prelude> import Data.Tuple
-Prelude Data.Tuple> let z = swap (x,x+1)
-Prelude> :sprint z
-z = (_,_) -- WHNF
-#+end_src
 runWriter $ half 8 >>= half
 -- => (2, "I just halved 8!I just halved 4!")
 #+end_src
@@ -397,4 +375,26 @@ A Reader is defined as follows.
 
 #+begin_src haskell
 data Reader r a = Reader {  runReader :: r -> a }
+#+end_src
+
+* Terminology
+
+*Normal form* - a fully evaluated expression.
+After evaluating, the expression itself is replaced in memory with an indirect reference to the value of its result.
+
+*Weak head normal form* - a partially evaluated expression, whose first constructor has been evaluated, but whose members
+are yet undecided. An example of weak head normal form:
+
+#+begin_src ghci
+Prelude> let x = 1 + 2 :: Int
+Prelude> let z = (x,x)
+Prelude> :sprint z
+z = _
+Prelude> seq z () -- evaluates the first argument and returns the second one.
+Prelude> :sprint z
+z = (_,_) -- WHNF
+Prelude> import Data.Tuple
+Prelude Data.Tuple> let z = swap (x,x+1)
+Prelude> :sprint z
+z = (_,_) -- WHNF
 #+end_src
