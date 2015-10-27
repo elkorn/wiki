@@ -381,3 +381,20 @@ return val = Writer(val, "")
 #+end_src
 
 Note that Writer allows using any Monoid as the log.
+
+** Reader
+
+The Reader allows passing values to functions 'behind the scenes'.
+
+#+begin_src haskell
+greeter :: Reader String String
+greeter = do
+    name <- ask
+    return ("hello, " ++ name ++ "!")
+#+end_src
+
+A Reader is defined as follows.
+
+#+begin_src haskell
+data Reader r a = Reader {  runReader :: r -> a }
+#+end_src
