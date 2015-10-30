@@ -92,3 +92,32 @@ front servers on the same network.
 Keep in mind that vendor lock-in is not a good place to be.
 If you have to stick to a specific cloud provider - make the business people in
 charge understand the benefits, costs and consequences related to that choice.
+
+* Designing for scalability
+** Reads vs writes
+Most applications are read-heavy.
+Scaling such systems is easier than write-heavy ones b/c it can be achieved with caching.
+
+A common caching problem is that a web page is not changed (should be cached), although some part of it is personalized for a specific user.
+The solution here is to serve the cached page and then make use of an AJAX call and modify it exclusively on the client machine.
+
+It is often required to implement multiple levels of caching, using technologies like query caching, Varnish, Squid, Memcached, memoization etc.
+
+With traffic increase, DB/network writes will become a bottleneck.
+Also, cache/hit ratio will decrease because only a small part of the cached data is often retrieved by clients.
+
+There are a few strategies to help here:
+- denormalize to avoid data contention
+- shard data in silos
+- write and flush the cache when the store is available and not overwhelmed.
+  
+** Asynchronous processing
+
+Instead of directly writing to a data store or a backend, put incoming messages into a queue which is serviced by a pool of workers
+operating on the messages one after another.
+
+The advantage here is that the number of workers is controllable and thus you have control over the maximum amount of concurrent writes
+to the data store.
+The queue can also be processed before working on it, e.g. deduped.
+More workers can be assigned to specific message types that are more important.
+
