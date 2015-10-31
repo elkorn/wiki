@@ -15,3 +15,80 @@ It enables more efficient use of virtualization technology.
 
 E.g. adding CPUs or memory to a machine, expanding the number of processes for
 Apache.
+
+
+* Causality of scaling
+
+The core concept of scaling causality is that you change a piece of the 
+architecture to handle more traffic, but this part affects other parts.
+This entails more changes- affecting most likely the whole architecture.
+
+*Making a system scalable needs to have a well defined cause and an expected effect.*
+Otherwise, it's a waste.
+
+*Making a system scale is hard and has some drastic effects that are not always
+obvious.*
+
+*Be really careful about consequences and costs involved with trying to scale.*
+Be sure that it is really worth it and you have a plan - measurable goals are a must.
+
+Also, *don't try to scale to infinity.*
+
+A very simple case of a problem (and probably the most popular one) is the 
+digg/slashdot/reddit effect in which a website experiences a sudden growth in 
+popularity to the point of not being able to keep up with the traffic.
+E-commerce applications may suffer this on Christmas, Black Friday and similar
+occasions.
+
+The *causality* of wanting this solution to scale is that you want to scale to be 
+able to sell more and keep your customers happy.
+The *effect* is that the system has to be more complex i.e. one application server
+with a single database instance is not enough.
+
+The first step is to identify the bottleneck.
+The answer might not be completely straightforward - e.g. the number of requests 
+might not have exceeded the amount you used for load testing, but the usage 
+pattern may have been different.
+
+If the code is slow, you should check the underlying cause:
+- is the DB interaction slowing it down?
+- are you doing something inherently complex?
+- are you using solutions that are known to not support concurrency very well?
+
+If the DB or data processing is the problem - think about adding a cache.
+If the code is as fast as it can be, you might add more application servers or make
+some processes asynchronous.
+This will require you to change the topology of the system, deployment and traffic
+routing strategies (load balancing etc.).
+Adding more processing power will in turn increase the load on the database, 
+possibly making it the bottleneck.
+Also, async means race possibilities.
+
+From the business perspective it is wise to evaluate the causality of scaling
+after and beyond a certain point.
+Most applications do not have to scale.
+You then have to weigh the cost of not scaling with the cost of accomodating the
+probability of scaling and decide based on that.
+
+** Using AWS
+Amazon Web Services is a very good solution in a lot of cases, but there are a few
+scenarios where it is not a good solution.
+
+One such example is *write-heavy, low-latency high traffic sites*.
+AWS is problematic for high traffic sites, because they need reliable, low-latency
+and highly available IO (network connection + disk access, mainly db writes).
+You will most likely be IO bound and while working with AWS should prepare your
+system to work with zero or limited IO.
+Additional redundancy is also required, because you will be losing nodes at random.
+
+Migrating to AWS might not be helpful if you are not prepared to react to bad IO.
+
+You can overcome this in many ways, e.g. maintain high redundancy, keep data in
+memory and flush to disk when available, tolerating some data loss.
+(See [[http://highscalability.com/blog/2010/2/8/how-farmville-scales-to-harvest-75-million-players-a-month.html][Zynga]] case study)
+Another way to tackle this would be to use dedicated hardware for IO and cloud 
+front servers on the same network.
+
+Keep in mind that vendor lock-in is not a good place to be.
+If you have to stick to a specific cloud provider - make the business people in
+charge understand the benefits, costs and consequences related to that choice.
