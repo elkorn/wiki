@@ -231,6 +231,35 @@ Reliance on proprietary protocols is not advised, as integration of those is har
 It's better to use standard, open technologies that are widely recognized and accepted.
 The most notable of course are XML, Web Services, HTTP, JSON.
 
+** Principles
+Key principles influencing the design of large-scale web systems:
+
+- *Availability*
+  Uptime is critical - downtime equals lost money. High availability requires careful consideration of redundancy for key components, rapid recovery in case
+  of partial failures and graceful degradation.
+- *Performance*
+  Fast responses and low latency are important because they correspond to user satisfaction and search engine rankings.
+  That means discoverability and throughput which equate to revenue.
+- *Reliability*
+  A request for data should always return the same data unless the data is explicitly changed by a permissible action.
+  Users need to know that if something is persisted into the system, it can be retrieved in the future.
+- *Scalability*
+  Size is just one facet of scalablility.
+  One also needs to think about capacity to handle greater amounts of load.
+  There are many aspects to scalability e.g.
+  - how much additional traffic can be handled,
+  - how easily storage capacity can be added,
+  - how many more transactions can be processed
+- *Manageability*
+  Ease of operating the system is important because it equates to scalability of maintenance and updates.
+  Simplicity of operations, diagnostic capabilities, additional information provided, deployment automation all fall into the category of manageability.
+- *Cost*
+  Hardware and software costs are obvious, but there are also other things which may not be as glaring, e.g.:
+  - the amount of developer time the system takes to build,
+  - the amount of operational effort required to run it,
+  - the amount of training required to operate or use it.
+  The cost of the system is the total cost of its ownership.
+
 ** Distributed system checklist
 
 The following list gives a better idea of what should be considered when designing a distributed system.
@@ -271,7 +300,7 @@ The following list gives a better idea of what should be considered when designi
 **** Does the system make use of work batching?
 **** Have you profiled the sustem? Is it possible to profile on site?
 **** Can you load test the system? How do you catch performance regressions?
-** Distributed computing - harvest and yield
+** Harvest and yield
 
 Any distributed system will experience enough faults that it will have to make a choice between reducing yield (i.e. stop answering requests) and reducing harvest (i.e. giving answers based on incomplete data) - such decisions should be based on business requirements.
 
@@ -303,3 +332,4 @@ However, it is more useful in practice - it maps directly to user experience.
 Yield correctly reflects the fact that not all esconds have equal value.
 A second of downtime during a period when no queries are being made has no impact on yield.
 That same second of downtime during peak and off-peak times generates the same uptime but a vastly different yield value.
+
