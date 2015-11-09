@@ -34,3 +34,68 @@ Apply this to each stage in turn, and at the and apply 6. and 7. to the whole th
 
 Starting from a point of "Where should this break?" forces you to think about the edge cases up front, like a QA.
 This acts as a counterbalance to thinking in terms of the happy path and missing bugs that linger slightly off of it by doing so.
+** Common sense engineering
+*** Initial planning analysis
+    
+To maximize success potential, an initial planning analysis must be the first 
+phase of any new project or task.
+Project failure is not a binary measure - it results when any planned aspect of
+the project is not met.
+
+A critical element of the initial planning analysis is understanding the goal of
+the project / task / effort, however trivial it may sound.
+There must be a limiting constraint to everything that is eventually planned and
+designed for this endeavour.
+There is no real way of moving forward when a project is presented as an 
+open-ended undertaking.
+Trying to scale to infinity is not a good idea in any aspect of the project. 
+It is OK to define some processes in terms of possible future additions, but
+those too have to be based on solid definitions and constraints.
+An example of such extensibility points might be protocol support and loading 
+data from different sources.
+Not having a strictly defined project scope also welcomes *feature creep* which 
+can easily lead to failure.
+
+*The software trade-off triangle* has three constituent parts:
+
+- Schedule: estimated time it will take to complete the project successfully
+- Cost: budget + resources allocated to the project
+- Product: features desired in the product and quality assumed
+  
+They must be kept in balance throughout the lifetime of the project.
+Otherwise, an agreement must be made between developers and users on how to 
+re-balance it.
+
+The important thing to keep in mind is that the user can control only two of the
+aspects, leaving the third one to the development team.
+
+*Example 1*: the user wants to control the Cost and the Product -> the dev team 
+controls the Schedule.
+
+*Example 2*: the user maintains control over only the Product aspect -> the dev 
+team can provide Schedule/Cost combinations, from which the user might choose 
+one that is the most beneficial to their needs.
+
+If a user wants full control on all aspects, the team should inform them that it
+is most likely that the project would be impossible to complete successfully.
+
+**** Estimates
+It is not true that developers can provide an accurate estimate target date for 
+delivery.
+The core problem with estimates is that they are just educated guesses based on 
+generalities provided in planning meetings.
+Early planning estimates are often held tenable by inexperienced managers, what
+may make them look good in a short term, but is very prone to failure when the 
+scale of the project increases.
+Relying on those might lead to overtime further down the road.
+
+To circumvent problems with inaccurate, unsupported estimates, the dev team 
+should take the initiative to avoid providing them.
+The best way to respond would be to provide an initial estimate package upon 
+proper analysis of the initial requirements.
+It must be noted that:
+
+1. This package is only an initial estimate based on what is
+known about the project so far.
+2. As planning proceeds, the estimates will be shrinking.
+
