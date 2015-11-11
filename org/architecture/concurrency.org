@@ -33,3 +33,13 @@ It basically boils down to lockgin an operation of a transation if it may cause 
 
 *** Semi-optimistic concurrency control
 A hybrid approach, block operation in some situations where they might violate rules. In other cases do not block, delaying the rule checking to the end of the transaction.
+** Optimizing workload balance
+When parallelizing code, avoid partitioning the work into a small, fixed number
+of chunks:
+
+- In practice the chunks rarely contain the same amount of work.
+  There will be imbalance resulting in less-then-optimal speedups from 
+  parallelism.
+- Achievable parallelism is limited by the number of chunks.
+  Even if the workloads are even between the chunks, the speedup will never be
+  greater than the number of them.
