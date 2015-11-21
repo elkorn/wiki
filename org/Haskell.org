@@ -107,3 +107,46 @@ test =
 #+end_src
 
 *Note:* The Reader monad is all right for simple mocks i.e. when you don't need to keep any intermediate state.
+* Language extensions
+** FlexibleInstances
+=FlexibleInstances= gives you more granular control over types for which 
+typeclass instances are being defined.
+
+Example:
+
+#+begin_src haskell
+ class Something a where
+  doSomething :: a -> Integer
+
+instance Something Integer where
+  doSomething x = 1
+
+instance Something Char where
+  doSomething x = 2
+
+instance Something [Char] where
+  doSomething x = 3
+#+end_src
+
+without =FlexibleInstances= this would give you the following compile-time 
+error:
+
+#+begin_src ghci
+Illegal instance declaration for `Something [Char]'
+  (All instance types must be of the form (T a1 ... an)
+  where a1 ... an are type *variables*,
+  and each type variable appears at most once in the instance head.
+  Use -XFlexibleInstances if you want to disable this.)
+In the instance declaration for `Something [Char]'
+#+end_src
+
+which essentially means that you must use a type variable like =a= as the list
+element:
+
+#+begin_src haskell
+instance Something [a] where
+  doSomething x = 3
+#+end_src
+
+However, adding ={-# LANGUAGE FlexibleInstances #-}= on top of the file allows 
+the compiler to differentiate between lists of concretely typed elements.
