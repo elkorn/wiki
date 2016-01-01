@@ -150,3 +150,62 @@ instance Something [a] where
 
 However, adding ={-# LANGUAGE FlexibleInstances #-}= on top of the file allows 
 the compiler to differentiate between lists of concretely typed elements.
+* Terminology
+The logic behind names of =fmap=, =liftM= and =lift=:
+- =fmap= elevates a pure function to the level of functors.
+- =liftM= elevates a pure function to the level of monads.
+- =lift= elevates a monadic action from one level beneath in a transformer 
+  stack to the current one.
+* Monad transformers
+** When is explicit lifting necessary?
+Normally, when we implement a monad stack, we let `mtl` to do the work for 
+us, which leads to cleaner code.
+#+BEGIN_SRC haskell
+type App = ReaderT AppConfig (StateT AppState IO)
+
+implicitGet1 :: App AppState
+implicitGet1 = get
+
+-- Explicitly lifting `get` from StateT into ReaderT.
+explicitGet2 :: App AppState
+explicitGet2 = lift get
+#+END_SRC
+
+=lift= must be used explicitly  when we create a monad stack in which 
+instances of the same typeclass appear at multiple levels.
+
+#+BEGIN_SRC haskell
+type Foo = StateT Int (State String)
+
+outerPut :: Int -> Foo ()
+outerPut = put
+
+innerPut :: Int -> Foo ()
+innerPut = lift . put
+#+END_SRC
+
+The instance we will get by using =outerPut= is of =StateT Int=, because it
+is at the top of the stack.
+The =put= in =innerPut= is forcibly lifted, providing access to the 
+underlying =State= monad.
+
+Explicit =lift= composition needs to be used also in situations when we 
+need to access a monad more than one level down the stack.
+In this sense, =lift= allows 'traversing' the monad stack.
+
+#+BEGIN_SRC haskell
+type Bar = ReaderT Bool Foo
+
+barPut :: String -> Bar ()
+barPut = lift . lift . put
+#+END_SRC
+
+In this example, =barPut= allows putting a value inside the =State String=
+instance contained in =Foo=.
+
+When having to lift explicitly, it is considered a good practice to create
+wrapper functions with this responsibility - it keeps the code much cleaner
+compared to using =lift=s throughout the codebase.
+Also, using wrapper functions abstracts the monad stack structure away, 
+simplifying subsequent modifications to it.
+
