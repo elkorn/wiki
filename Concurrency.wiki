@@ -1,2 +1,0 @@
-= Architecture - Concurrency =
-[[Optimistic vs pessimistic concurrency control]]

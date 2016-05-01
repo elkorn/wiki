@@ -1,7 +1,0 @@
-= Distributed computing =
-
-[[DistributedComputingFallacies]]
-
-[[DistributedSystemChecklist]]
-
-[[HarvestAndYield]]

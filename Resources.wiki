@@ -1,6 +1,0 @@
-= Resources =
-
-[[Web App Performance]]
-
-[[ModernRIAPrinciples]]
-

@@ -1,5 +1,0 @@
-= Life =
-
-[[Health]]
-
-[[AvoidingMistakesInBigDecisions]]

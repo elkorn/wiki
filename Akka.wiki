@@ -1,4 +1,0 @@
-= Akka =
-
-- [[Persistence API]]
-- [[Futures]]

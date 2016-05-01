@@ -1,6 +1,0 @@
-This is an $O(1.2738^k + kn)$-time polynomial-space parameterized algorithm.
-
-Given a graph $G$ and a parameter $k$, decied if $G$ has a vertex cover of at
-most $k$ vertices.
-
-I'll come back to this after reading the basics (kernelization).

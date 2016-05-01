@@ -1,4 +1,0 @@
-Pluseaudio too silent
-
-Check `pavucontrol` or `ponymix` whether PA is not silenced.
-If not, run `alsamixer -c 0` and see if the card is not silenced in ALSA before hitting PA.

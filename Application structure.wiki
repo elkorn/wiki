@@ -1,4 +1,0 @@
-= AngularJS - application structure =
-
-[[http://blog.safaribooksonline.com/2014/03/27/13-step-guide-angularjs-modularization/|13 step guide to modularization]]
-

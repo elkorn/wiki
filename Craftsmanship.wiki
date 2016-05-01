@@ -1,9 +1,0 @@
-[[Code smells and heuristics]]
-
-[[Estimation]]
-
-[[SOLID]]
-
-[[AlternativeApproachToTesting]]
-
-

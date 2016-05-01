@@ -1,3 +1,0 @@
-= Tools - NGINX =
-
-Optimization article (FOLLOW UP!): http://www.softwareprojects.com/resources/programming/t-optimizing-nginx-and-php-fpm-for-high-traffic-sites-2081.html

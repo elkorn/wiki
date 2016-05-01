@@ -1,6 +1,0 @@
-= UNIX - Size of a directory =
-
-- `du -h` – formats sizes according to kilo, mega, and gigabytes.
-- `du -hc` – produces a line with the word total at the end
-- `du -hcs` – skips displaying size for sub-directories.
-
