@@ -1,0 +1,23 @@
+{
+  "title": "House",
+  "id": 1,
+  "formatVersion": 2,
+  "ideas": {
+    "1": {
+      "title": "Wood",
+      "id": 2,
+      "ideas": {
+        "1": {
+          "title": "Bauer Holz http://www.bauer-holz.de/startseite.html",
+          "id": 3,
+          "ideas": {
+            "1": {
+              "title": "Catalog https://issuu.com/kaisergd/docs/bauer_2015",
+              "id": 4
+            }
+          }
+        }
+      }
+    }
+  }
+}
