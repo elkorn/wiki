@@ -28,7 +28,12 @@
                 "1": {
                   "title": "Mo-Fr 7-16 Uhr\nSa bis 10 Uhr\n+49 15904255714",
                   "id": 11,
-                  "ideas": {}
+                  "ideas": {},
+                  "attr": {
+                    "style": {
+                      "background": "#ff9900"
+                    }
+                  }
                 },
                 "2": {
                   "title": "Mein Deutsch ist nicht so gut, also bitte Geduld mit mir.\n",
@@ -58,8 +63,22 @@
                   "id": 19
                 }
               }
+            },
+            "2": {
+              "title": "Pallet ABC http://www.palettendienst-goering.de/abc.html",
+              "id": 24
             }
           }
+        }
+      }
+    },
+    "2": {
+      "title": "Craft",
+      "id": 22,
+      "ideas": {
+        "1": {
+          "title": "Learn about saw cutouts",
+          "id": 23
         }
       }
     },
@@ -69,11 +88,29 @@
       "ideas": {
         "1": {
           "title": "Holzbock https://www.bauhaus.info/moebelsysteme/holzklappbock-professionell-/p/22107604",
-          "id": 6
+          "id": 6,
+          "attr": {
+            "style": {
+              "background": "#99cc00"
+            }
+          }
         },
         "2": {
           "title": "Chisels",
-          "id": 7
+          "id": 7,
+          "attr": {
+            "style": {
+              "background": "#99cc00"
+            }
+          }
+        },
+        "3": {
+          "title": "Ryoba saw",
+          "id": 20
+        },
+        "4": {
+          "title": "Miter box",
+          "id": 21
         }
       }
     }
