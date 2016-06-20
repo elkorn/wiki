@@ -43,7 +43,7 @@
                   }
                 },
                 "3": {
-                  "title": "Ich möchte Ihnen ein paar Fragen in Bezug auf den Paletten zu fragen.",
+                  "title": "Ich mÃ¶chte Ihnen ein paar Fragen in Bezug auf den Paletten zu fragen.",
                   "id": 15
                 },
                 "4": {
@@ -51,15 +51,15 @@
                   "id": 16
                 },
                 "5": {
-                  "title": "Sind sie für die Verwendung in Innenräumen sicher? ",
+                  "title": "Sind sie fÃ¼r die Verwendung in InnenrÃ¤umen sicher? ",
                   "id": 17
                 },
                 "6": {
-                  "title": "Könnten Sie mir die Markierungen auf ihnen sagen?",
+                  "title": "KÃ¶nnten Sie mir die Markierungen auf ihnen sagen?",
                   "id": 18
                 },
                 "7": {
-                  "title": "Wie viel würde es kosten sie 12 km zu transportieren? ",
+                  "title": "Wie viel wÃ¼rde es kosten sie 12 km zu transportieren? ",
                   "id": 19
                 }
               }
@@ -70,6 +70,10 @@
             }
           }
         }
+      },
+      "attr": {
+        "collapsed": true,
+        "style": {}
       }
     },
     "2": {
@@ -80,6 +84,10 @@
           "title": "Learn about saw cutouts",
           "id": 23
         }
+      },
+      "attr": {
+        "collapsed": true,
+        "style": {}
       }
     },
     "-1": {
@@ -111,6 +119,22 @@
         "4": {
           "title": "Miter box",
           "id": 21
+        }
+      }
+    },
+    "-2": {
+      "title": "Furniture",
+      "id": 25,
+      "ideas": {
+        "1": {
+          "title": "Hacked",
+          "id": 26,
+          "ideas": {
+            "1": {
+              "title": "http://www.ikeahackers.net/2011/04/expedit-standing-desk.html",
+              "id": 27
+            }
+          }
         }
       }
     }
