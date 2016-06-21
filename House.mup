@@ -62,17 +62,24 @@
                   "title": "Wie viel würde es kosten sie 12 km zu transportieren? ",
                   "id": 19
                 }
+              },
+              "attr": {
+                "collapsed": true,
+                "style": {}
               }
             },
             "2": {
               "title": "Pallet ABC http://www.palettendienst-goering.de/abc.html",
               "id": 24
+            },
+            "1.5": {
+              "title": "Wittenau http://paletten-wittenau.de/",
+              "id": 37
             }
           }
         }
       },
       "attr": {
-        "collapsed": true,
         "style": {}
       }
     },
