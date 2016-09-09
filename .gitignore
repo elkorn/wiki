@@ -3,3 +3,7 @@ org/agenda.org.conky
 org/weekly.org
 org/*.agenda.org
 org:AGENDA
+agenda
+agenda.org
+todo.org
+private

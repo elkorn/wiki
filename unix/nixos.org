@@ -1,0 +1,3 @@
+* NixOS
+** Problems with Xorg session hanging
+*** <kmicu> The procedure is the same as on Arch: check ‘journalctl -u display-manager -xe’ or ~/.xsession-errors or /var/log/X.* for errors. Probably, it’s a graphics driver issue.

@@ -1,0 +1,11 @@
+* Woodwork
+** Workbench
+*** TODO Bench itself
+SCHEDULED: <2016-08-21 Sun>
+- [[https://paulsellers.com/2012/06/making-your-workbench/][Paul Sellers workbench]]
+**** Dimensions
+- TBD
+*** Vise
+- [[https://paulsellers.com/2016/06/on-vises-part-i/][installation idea]]
+- [[https://paulsellers.com/2012/06/making-the-workbench-15/][instructions from making the workbench]]
+- [[https://paulsellers.com/2012/06/making-the-workbench-16/][vise pads and dogs]]
