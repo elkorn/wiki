@@ -1,0 +1,405 @@
+* Continuations
+  Callbacks represent a concept of /continuations/.
+  The main problem with callbacks is that they do not compose - that causes to lose insight into the program flow.
+
+** Functors
+# *** Future
+  In Scala, for example, continuation-passing style can be executed by means of *Futures*.
+  An example implementation of a Future in JS can look like so:
+  
+  #+begin_src javascript
+class Future {
+    constructor() {
+        this.slots = [];
+        this.completed = false;
+    }
+
+    // ready :: Future a -> (a -> b) -> ()
+    ready(fn) {
+        if(this.completed) {
+            fn(this.value);
+        } else {
+            this.slots.push(fn);
+        }
+    }
+
+    // complete :: Future a -> a -> ()
+    complete(val) {
+        if(this.completed) {
+            throw new Error('Cannot complete an already completed Future!');
+        }
+
+        this.value = val;
+        this.completed = true;
+        this.slots.forEach(fn => fn(this.value));
+        // Release the slots from memory.
+        this.slots = null;
+    }
+
+    // map :: Future a -> (b -> c) -> Future c
+    map(fn) {
+        const future = new Future();
+        this.ready(val => future.complete(fn(val)));
+        return future;
+    }
+
+    // unit :: a -> Future a
+    static unit(val) {
+        const future = new Future();
+        future.complete(val);
+        return future;
+    }
+
+    // delay :: a -> Int -> Future a
+    static delay(val, millis) {
+        const future = new Future();
+        setTimeout(()=>{
+            future.complete(val);
+        }, millis);
+        return future;
+    }
+
+}
+  #+end_src
+
+  Having such a tool, we can compose our asynchronous computations with different aspects.
+  
+  #+begin_src javascript
+// logF :: Future a -> ()
+function logF(f) {
+    f.ready(::console.log);
+    return f;
+}
+  #+end_src
+
+  An important thing about the Future and the concept it represents is that it always denotes an immutable value.
+  The completion values cannot be changed.
+
+  An example of lifting the =fs.readFile= function into Future:
+  
+#+begin_src javascript
+// readFileF :: String -> Object -> Future String
+function readFileF(file, options) {
+    const f = new Future();
+    fs.readFile(file, options, function(err, data){
+        if(err) throw err;
+        f.complete(data);
+    });
+
+    return f;
+}
+#+end_src
+
+  A very useful function on Future is =map=, which allows to compose a value transformation onto a Future instance.
+  Note that, for example, Array also can be =map= ped over.
+
+  Generally, if you are able to =map= over something, it means that it is a *Functor*.
+  The name comes from the fact that a Functor takes a function, applies it to the contained value and returns another instance representing the transformation result.
+
+*** Lifting
+    We can extract the lift operation (as what was done to the =fs.readFile= function) as a first-class citizen.
+    Let's take an example of measuring the length of the result of a Future.
+    
+    #+begin_src javascript
+// lengthF :: Future a -> Future Int
+function lengthF(f) {
+    const resultF = new Future();
+    f.ready(val => resultF.complete(val.length));
+    return resultF;
+}
+    #+end_src
+
+    Now we see some duplication - a sign that some deeper laws are at work here.
+
+#+begin_src javascript
+// lift1 :: (a -> b) -> Future a -> Future b
+Future.lift1 = fn => fut => fut.map(fn);
+
+let lengthF = Future.lift1(result => result.length);
+#+end_src
+
+    The name =lift1= corresponds to the arity of the function taken as input.
+
+** Monads
+
+   Does Future constitute the same meaning for all types that reside within it?
+   What about =Future Future=?
+
+   An example that will be worked on here is that of inspecting a directory and then reading the content of the first file within it.
+   
+#+begin_src javascript
+import fs from 'fs';
+
+// readDirF :: String -> Future [String]
+function readDirF(path) {
+    const future = new Future();
+    fs.readdir(path, (err, files) => {
+        if(err) throw err;
+        future.complete(files);
+    });
+
+    return future;
+}
+#+end_src
+
+   We can see that trying to just map over the first future with another one, trying to get the length does not work.
+   
+#+begin_src javascript
+logF(readDirF('foo')
+     .map(files => ReadFileF(files[0])));
+// {slots []}
+#+end_src
+
+   It just returns the second Future.
+   We need to /respect/ the fact that the first Future has to do what it needs to before we can transform its result.
+   The function to watch for this looks thusly:
+   
+#+begin_src javascript
+// flatten :: Future Future a -> Future a
+Future.prototype.flatten = () => {
+    const future1 = new Future();
+    this.ready(future2 => future2.ready(val => future1.complete(val)));
+    return future1;
+};
+#+end_src
+
+   Having this, we can achieve our original goal, albeit the result is a bit clunky:
+   
+   #+begin_src javascript
+const result = readDirF("testdir")
+               .fmap( files => readFileF(files[0], {encoding: 'utf8'}));
+
+logF( result.flatten() )
+   #+end_src
+
+   Conceptually, we have just /sequenced/ two asynchronous computations.
+   This is a very powerful concepts and one of the core features of a *Monad*.
+   It should also be expressed as a first-class citizen.
+
+   
+   #+begin_src javascript
+// flatMap :: Future a -> (a -> Future b) -> Future b
+Future.prototype.flatMap = function(fn) {
+    return this.map(fn).flatten();
+};
+   #+end_src
+
+   The idiomatic way to fulfill the example's goal is:
+   
+#+begin_src javascript
+logF(readDirF("testdir")
+     .flatMap(files => readFileF(files[0], {
+         encoding: 'utf8'
+     })));
+#+end_src
+
+   What a type needs to fulfill the Monad interface is:
+   - A way to lift normal values to Monadic ones such as =Future.unit=.
+   - A way of chaining (sequencing) 2 consecutive Monadic operations - each monad can have its own chaining logic.
+     Here, the logic is handled with =flatMap= which waits for a Future to complete.
+
+*** Lifting functions with arity > 1
+
+    Naively, one could implement lifting functions for different arities.
+    
+#+begin_src javascript
+// lift2 :: (a->b->c) -> (Future a -> Future b -> Future c)
+Future.lift2 = function(fn) {
+    return (f1, f2) =>
+        f1.flatMap(value1 =>
+            f2.flatMap(value2 =>
+                Future.unit(fn(value1, value2))
+            )
+        );
+};
+
+// and so on...
+#+end_src
+
+    Note that the first operation doesn't really do anything - it just provides a scope for the result of the first Future.
+    An interesting property becomes visible if we put this into action:
+    
+#+begin_src javascript
+var concat2F = Future.lift2( (str1, str2) => str1+' '+str2 );
+var text1F = readFileF('test1.txt', {encoding: 'utf8'});
+var text2F = readFileF('test2.txt', {encoding: 'utf8'});
+log( concat2F(text1F, text2F) );
+#+end_src
+
+    Note that the multi-argument function does not depend on the order of completion of its inputs or on their interdependence.
+    It can be stated that
+
+    #+BEGIN_QUOTE
+    *If* =map= denotes a single operation
+    *and* =flatMap= denotes sequential operations
+    *then* multi-argument lifted functions denote /parallel/ operations.
+    #+END_QUOTE
+
+    Practically - we run all Futures at once and wait for their completion.
+    A variadic lifting function looks like so.
+    
+    #+begin_src javascript
+// MISSING TYPE DECLARATION!
+Future.lift = fn => {
+    return (...args) => {
+        let bindArg = (index, values) => {
+            return args[index].flatMap(val => {
+                values = values.concat(val);
+                if (index < args.length - 1) {
+                    return bindArg(index + 1, values);
+                }
+
+                return Future.unit(fn.apply(this, values));
+            });
+        };
+
+        return bindArg(0, []);
+    };
+};
+    #+end_src
+
+    N-ary lifting can also be implemented via an Applicative Functor.
+    
+**** TODO How to express variadic functions correctly in HM notation?
+*** Error handling
+     Instead of throwing the error in =readFileF= and =readDirF=, the Future could be augmented with means of expressing failure.
+     Note that the failure handling logic has to be implemented in all primitive combinators.
+     
+#+begin_src javascript
+class Future {
+    constructor() {
+        this.completeSlots = [];
+        this.failSlots = [];
+        this.completed = false;
+        this.failed = false;
+    }
+
+    /* ... */
+
+    failed(fn) {
+        if (this.failed) {
+            fn(this.error);
+        } else {
+            this.failSlots.push(fn);
+        }
+    }
+
+    fail(err) {
+        if(this.completed || this.failed) {
+            throw new Error('Cannot fail an already settled Future!');
+        }
+
+        this.failed = true;
+        this.error = err;
+        this.failSlots.forEach(fn => fn(err));
+        this.failSlots = null;
+        this.slots = null;
+    }
+
+    map(fn) {
+        const future = new Future();
+        this.ready(val => {
+            try {
+                future.complete(fn(val));
+            } catch(err) {
+                future.fail(err);
+            }
+        });
+
+        this.failed(err => future.fail(err));
+        return future;
+    }
+
+    flatten() {
+        const future1 = new Future();
+
+        // If outer fails, we don't care about the result of inner.
+        this.failed(err => future1.fail(err));
+
+        // If inner fails, we need to fail the result.
+        this.ready(future2 => future2.failed(err => future1.fail(err)));
+
+        // Happy case.
+        this.ready(future2 => future2.ready(val => future1.complete(val)));
+
+        return future1;
+    }
+}
+#+end_src
+
+     What can we do with a failed Future?
+     There is actually only one thing - we can /catch/ the errors and try to recover from them.
+
+#+begin_src javascript
+// recover :: Future a|Error -> (Error -> b|Error) -> Future b|Error
+Future.prototype.recover = fn => {
+    const future = new Future();
+
+    this.ready(val => future.complete(val));
+
+    this.failed(err => {
+        try {
+            future.complete(fn(err));
+        } catch(err) {
+            future.fail(err);
+        }
+    });
+
+    return future;
+};
+#+end_src
+
+     To be able to use the recovery functionality in monadic sequences, we need to defined a =flatMap= variant as well.
+
+#+begin_src javascript
+// flatMapRecover :: Future a|Error -> (Error -> Future b|Error) -> Future b|Error
+Future.prototype.flatMapRecover = fn => {
+    return this.recover(fn).flatten();
+};
+#+end_src
+*** Side effects
+     When computations finish, that's the time to update the UI, save to DB, log to the console etc. - generally, perform IO.
+     The problem is that if we want to be purely functional,  we need to return something as a result of this IO operation.
+     Another issue is that we may need to wait for the side effect operation to complete and we often need its result.
+     These problems point to an obvious solution - IO should be /monadic/ as well.
+
+     
+#+begin_src javascript
+class IO {
+    constructor(io) {
+        this.io = io;
+    }
+
+    // map :: IO a -> (a -> b) -> IO b
+    map(fn) {
+        return new IO(() => fn(this.io()));
+    }
+
+    // map :: IO a -> (a -> IO b) -> IO b
+    flatMap() {
+        return new IO(() => fn(this.io()).run());
+    }
+
+    // map :: IO a -> a 
+    run() {
+        this.io();
+    }
+
+    // unit :: a -> IO a
+    static unit(val) {
+        return new IO(() => val);
+    }
+}
+#+end_src
+
+*** Aside: promises
+    Promises look similar to Futures - one would just have to merge all the ready/error handling methods into one.
+    The clue of the difference lies in the semantics.
+    The Promise specification describes /operational/ semantics (i.e. how exactly a Promise implementation should behave) whereas the Future presents a /denotational/ semantics (focusing more on the overall result).
+    Promises can be thought of in a more functional context - functions can be lifted into their domain to reduce complexity and provide more referential transparency.
+
+*** TODO Applicative Functors
+    
+* Followups
+** DONE https://medium.com/@yelouafi/from-callback-to-future-functor-monad-6c86d9c16cb5
+** TODO https://medium.com/@yelouafi/futures-and-monoids-7e9f4574bd88

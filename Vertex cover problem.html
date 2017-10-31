@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-10-31 Tue 15:05 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title></title>
+<meta name="generator" content="Org mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/org"> HOME </a>
+</div><div id="content">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgcb5261c">1. Vertex cover problem</a>
+<ul>
+<li><a href="#org50c0be1">1.1. MSc - Vertex cover problem</a>
+<ul>
+<li><a href="#org41dd2b7">1.1.1. What is a graph?</a>
+<ul>
+<li><a href="#org8f5075f">1.1.1.1. vertices \(V(G)\)</a></li>
+<li><a href="#org291ffd7">1.1.1.2. edges \(E(G)\)</a></li>
+<li><a href="#org3674cb8">1.1.1.3. relations \(E(G)ightarrow V(G)\)</a></li>
+<li><a href="#orgb1b8a5d">1.1.1.4. loop</a></li>
+<li><a href="#org81aa51d">1.1.1.5. finite/infinite graph</a></li>
+<li><a href="#org491796b">1.1.1.6. complete graph</a></li>
+</ul>
+</li>
+<li><a href="#org55d3db3">1.1.2. Isomorphism</a></li>
+<li><a href="#orgd0b3f99">1.1.3. Acyclic graph</a></li>
+<li><a href="#orgb7594ce">1.1.4. Bipartite graph</a></li>
+<li><a href="#orgba23f83">1.1.5. Vertex cover</a></li>
+<li><a href="#org4d1ef98">1.1.6. Independence/stability number</a>
+<ul>
+<li><a href="#org2e0be5f">1.1.6.1. Relations between \(\left| MVC(G) ight|\) and \(lpha(G)\):</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgcb5261c" class="outline-2">
+<h2 id="orgcb5261c"><span class="section-number-2">1</span> Vertex cover problem</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-org50c0be1" class="outline-3">
+<h3 id="org50c0be1"><span class="section-number-3">1.1</span> MSc - Vertex cover problem</h3>
+<div class="outline-text-3" id="text-1-1">
+</div><div id="outline-container-org41dd2b7" class="outline-4">
+<h4 id="org41dd2b7"><span class="section-number-4">1.1.1</span> What is a graph?</h4>
+<div class="outline-text-4" id="text-1-1-1">
+<p>
+A triple set:
+</p>
+</div>
+<div id="outline-container-org8f5075f" class="outline-5">
+<h5 id="org8f5075f"><span class="section-number-5">1.1.1.1</span> vertices \(V(G)\)</h5>
+</div>
+<div id="outline-container-org291ffd7" class="outline-5">
+<h5 id="org291ffd7"><span class="section-number-5">1.1.1.2</span> edges \(E(G)\)</h5>
+</div>
+<div id="outline-container-org3674cb8" class="outline-5">
+<h5 id="org3674cb8"><span class="section-number-5">1.1.1.3</span> relations \(E(G)ightarrow V(G)\)</h5>
+<div class="outline-text-5" id="text-1-1-1-3">
+<p>
+Possibilities:
+</p>
+</div>
+</div>
+<div id="outline-container-orgb1b8a5d" class="outline-5">
+<h5 id="orgb1b8a5d"><span class="section-number-5">1.1.1.4</span> loop</h5>
+</div>
+<div id="outline-container-org81aa51d" class="outline-5">
+<h5 id="org81aa51d"><span class="section-number-5">1.1.1.5</span> finite/infinite graph</h5>
+</div>
+<div id="outline-container-org491796b" class="outline-5">
+<h5 id="org491796b"><span class="section-number-5">1.1.1.6</span> complete graph</h5>
+<div class="outline-text-5" id="text-1-1-1-6">
+<ul class="org-ul">
+<li>for each pair of vertices there is an edge</li>
+<li>\(K_n\) for \(n\) vertices</li>
+<li>for \(\left|V(G)ight|=n\) vertices</li>
+</ul>
+<p>
+there are \(egin{pmatrix} n\2 nd{pmatrix}\) edges possible
+</p>
+
+<p>
+\(H\) is a subgraph of \(G\): \(V(H) \subseteq V(G), E(H) \subseteq E(G)\), the
+endpoints in \(H\) are assigned the same as in \(G\). (This is really intuitive - 
+consider the name <b>subgraph</b>)
+</p>
+
+<p>
+\(H\) is an induced subgraph of \(G\) on \(S\), where \(S \subseteq V(G)\): 
+\(V(H) = S\) and \(E(H)\) is the set of edges of \(G\) such that both the endpoints 
+belong to \(S\).
+</p>
+
+<p>
+(If an edge of the selected subgraph does not exist in the original graph, you
+draw it anyway - this is an induced subgraph.)
+</p>
+
+<p>
+A graph is <b>connected</b> if each of its vertices belongs to a path.
+A <b>path</b> connects any vertex with a selected one.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org55d3db3" class="outline-4">
+<h4 id="org55d3db3"><span class="section-number-4">1.1.2</span> Isomorphism</h4>
+<div class="outline-text-4" id="text-1-1-2">
+<p>
+An Isomorphism from a simple graph \(G\) to a simple graph \(H\) is a bijection
+\(f: V(G) ightarrow V(H)\) such that \((u, v) \in E(G)\) if and only if
+\((f(u), f(v)) \in E(H)\)
+</p>
+
+<p>
+What it means that vertices of one graph can be mapped to vertices of another
+one, based on how they are connected.
+(example - two identical graphs, but drawn differently)
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd0b3f99" class="outline-4">
+<h4 id="orgd0b3f99"><span class="section-number-4">1.1.3</span> Acyclic graph</h4>
+<div class="outline-text-4" id="text-1-1-3">
+<p>
+A graph without any cycles is an <b>acyclic</b> graph.
+</p>
+
+<p>
+A <b>tree</b> is an acyclic connected graph.
+</p>
+
+<p>
+A <b>forest</b> is an acyclic disconnected graph.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb7594ce" class="outline-4">
+<h4 id="orgb7594ce"><span class="section-number-4">1.1.4</span> Bipartite graph</h4>
+<div class="outline-text-4" id="text-1-1-4">
+<p>
+Graph \(g\) is <b>bipartite</b> if \(V(G)\) is the union of two disjoint (possibly empty)
+independent sets called <b>partite sets</b> of \(G\).
+</p>
+
+<p>
+A subset \(S \in V(G)\) is an independent set if the included subgraph on \(S\)
+contains no edges. That means a subset of vertices that are not directly
+connected.
+</p>
+
+<p>
+If a graph is cyclic, it can be a bipartite graph only if the cycle is even
+(includes an even number of vertices).
+</p>
+
+<p>
+A tree is a bipartite graph.
+</p>
+
+<p>
+A complete graph can be bipartite - it is denoted as \(K_{n,m}\) where \(n,m\) are
+the number of vertices in each partite set.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgba23f83" class="outline-4">
+<h4 id="orgba23f83"><span class="section-number-4">1.1.5</span> Vertex cover</h4>
+<div class="outline-text-4" id="text-1-1-5">
+<p>
+A set \(S \subseteq V(G)\) is a vertex cover of \(G\) (of the edges in \(G\)) if every
+edge of \(G\) is incident with a vertex in \(S\).
+</p>
+
+<p>
+A vertex cover of the minimum cardinality is called a <b>minimum vertex cover</b>,
+denoted as \(MVC(G)\).
+</p>
+
+<p>
+What it means is that every edge touches at least one of the vertices belonging
+to the cover.
+</p>
+
+<p>
+<b>Q:</b> What is the cardinality of MVC in the complete graph \(K_n\)?
+</p>
+
+<p>
+\(n-1\)
+</p>
+
+<p>
+<b>Q:</b> What is the cardinality of MVC in the complete bipartite graph \(K_{m,n}\)?
+</p>
+
+<p>
+\(min(m,n)\). If it would be possible to do it with less than that, there would
+have to exist a vertex that is not a part of the cover.
+</p>
+
+<p>
+<b>Q:</b> What is the cardinality of MVC in an odd cycle \(C_n\)?
+</p>
+
+<p>
+\(\lceilrac{n}{2}ceil\). It's not possible to do with less, because the degree
+of every vertex is 2.
+</p>
+
+<p>
+<b>Q:</b> What is the cardinality of MVC in an even cycle \(C_n\)?
+</p>
+
+<p>
+\(rac{n}{2}\). It's not possible to do with less, because the degree of every
+vertex is 2.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org4d1ef98" class="outline-4">
+<h4 id="org4d1ef98"><span class="section-number-4">1.1.6</span> Independence/stability number</h4>
+<div class="outline-text-4" id="text-1-1-6">
+<p>
+An <b>independent set</b> or <b>stable set</b> is a set of vertices in a graph, no two of
+which are adjacent.
+</p>
+
+<p>
+The cardinality of a biggest independent set in \(G\) is called the independence
+number (or a stability number) of \(G\) and is denoted by \(lpha(G)\).
+</p>
+
+<p>
+\(lpha(K_n)=1\)
+</p>
+
+<p>
+\(lpha(K_{m,n})=max(m,n)\)
+</p>
+
+<p>
+For an odd cycle: \(lpha(C_n)=\left\lfloorrac{n}{2}ightfloor\)
+</p>
+
+<p>
+For an even cycle: \(lpha(C_n)=rac{n}{2}\)
+</p>
+</div>
+
+<div id="outline-container-org2e0be5f" class="outline-5">
+<h5 id="org2e0be5f"><span class="section-number-5">1.1.6.1</span> Relations between \(\left| MVC(G) ight|\) and \(lpha(G)\):</h5>
+<div class="outline-text-5" id="text-1-1-6-1">
+<p>
+Removing a vertex cover from \(G\), the rest is an independent set.
+</p>
+
+<p>
+If we remove \(MVC\) from \(G\), the rest, i.e. \(V-MVC\) is an independent set.
+</p>
+
+<p>
+So, \(lpha(G) \ge n - \left| MVC(G) ight|\).
+Thus, \(\left| MVC(G) ight| \ge n - lpha(G)\).
+</p>
+
+<p>
+Similarly, if we remove any independent set from \(G\), the rest is a vertex
+cover, and so \(\left|MVC(G)ight|\le n-lpha(G)\).
+</p>
+
+<p>
+Thus, we get \(\left|MVC(G)ight|=n-lpha(G)\).
+</p>
+
+<p>
+If we denote \(-MVC(G)\) as \(eta(G)\), then we have \(eta(G)+lpha(G)=n\).
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author:  (<a href="mailto:elkorn@arch">elkorn@arch</a>)</p>
+<p class="date">Date: </p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.0.3)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

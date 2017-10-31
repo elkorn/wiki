@@ -1,0 +1,2013 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-10-31 Tue 15:05 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title></title>
+<meta name="generator" content="Org mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/org"> HOME </a>
+</div><div id="content">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org89089f3">1. Scala</a>
+<ul>
+<li><a href="#org18eb6a7">1.1. Akka</a>
+<ul>
+<li><a href="#orgaeab28c">1.1.1. </a>
+<ul>
+<li><a href="#org1071cee">1.1.1.1. Persistence API</a></li>
+</ul>
+</li>
+<li><a href="#orgdb815ea">1.1.2. </a>
+<ul>
+<li><a href="#org642c3e1">1.1.2.1. Futures</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org7ef499b">1.2. Asynchronous processing</a>
+<ul>
+<li><a href="#org609990a">1.2.1. Asynchronous processing</a>
+<ul>
+<li><a href="#orgc1ab5e0">1.2.1.1. Futures vs Promises</a></li>
+<li><a href="#orgcffbd1f">1.2.1.2. Retrying</a></li>
+<li><a href="#orga3911ce">1.2.1.3. Timeouts</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgdceb144">1.3. Implicits</a>
+<ul>
+<li><a href="#orgfa28151">1.3.1. Scala - Implicits</a>
+<ul>
+<li><a href="#org1b53bb7">1.3.1.1. Implicit conversion</a></li>
+<li><a href="#org3ac22bb">1.3.1.2. Implicit parameters</a></li>
+<li><a href="#org1fd0c6d">1.3.1.3. View bounds</a></li>
+<li><a href="#org7c812ab">1.3.1.4. Context Bounds</a></li>
+<li><a href="#orgefa8933">1.3.1.5. Order of precedence for implicits</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org8604eb5">1.4. Play</a>
+<ul>
+<li><a href="#orgf5ec1ea">1.4.1. Play</a>
+<ul>
+<li><a href="#org4ef440a">1.4.1.1. Architecture</a></li>
+<li><a href="#org9757081">1.4.1.2. Jobs</a></li>
+<li><a href="#org5aacfc7">1.4.1.3. Modularization</a></li>
+<li><a href="#org03219ec">1.4.1.4. HTTP API design</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org527774d">1.5. ScalaTest</a>
+<ul>
+<li><a href="#org4d84591">1.5.1. lens</a></li>
+</ul>
+</li>
+<li><a href="#org8ec6497">1.6. Substitution-related</a>
+<ul>
+<li><a href="#org52655d3">1.6.1. Substitution-related</a>
+<ul>
+<li><a href="#org35020dd">1.6.1.1. Substitution</a></li>
+<li><a href="#orgfa1e0f5">1.6.1.2. Call-by-value</a></li>
+<li><a href="#org3d51ee4">1.6.1.3. Call-by-name</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org1397616">1.7. Traits</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org89089f3" class="outline-2">
+<h2 id="org89089f3"><span class="section-number-2">1</span> Scala</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+#= Scala =
+</p>
+
+<p>
+<a href="#org18eb6a7">1.1</a>
+</p>
+
+<p>
+<a href="#org7ef499b">1.2</a>
+</p>
+
+<p>
+<a href="#orgdceb144">1.3</a>
+</p>
+
+<p>
+<a href="#org8604eb5">1.4</a>
+</p>
+
+<p>
+<a href="#org527774d">1.5</a>
+</p>
+
+<p>
+<a href="#org8ec6497">1.6</a>
+</p>
+
+<p>
+<a href="#org1397616">1.7</a>
+</p>
+</div>
+<div id="outline-container-org18eb6a7" class="outline-3">
+<h3 id="org18eb6a7"><span class="section-number-3">1.1</span> Akka</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+#= Akka =
+</p>
+</div>
+
+<div id="outline-container-orgaeab28c" class="outline-4">
+<h4 id="orgaeab28c"><span class="section-number-4">1.1.1</span> <a href="#org1071cee">1.1.1.1</a></h4>
+<div class="outline-text-4" id="text-1-1-1">
+</div><div id="outline-container-org1071cee" class="outline-5">
+<h5 id="org1071cee"><span class="section-number-5">1.1.1.1</span> Persistence API</h5>
+<div class="outline-text-5" id="text-1-1-1-1">
+</div><ol class="org-ol"><li><a id="org24ac3bd"></a>Akka persistence<br  /><ol class="org-ol"><li><a id="org5da55ad"></a>Recover app state after a crash<br  /></li>
+<li><a id="org236fa90"></a>opt-in at-least-once delivery<br  /></li>
+<li><a id="org6ac7e04"></a>semantics between actors<br  /><div class="outline-text-7" id="text-1-1-1-1-1-3">
+<p>
+To add as a dependency:
+</p>
+<pre class="example">
+"com.typesafe.akka" %% "akka-persistence-experimental" % "2.3.0"
+</pre>
+
+<p>
+It's a complete rewrite of the <a href="https://github.com/eligosource/eventsourced">Eventsourced</a> library, a migration is possible.
+</p>
+</div></li>
+
+<li><a id="orgff62366"></a>Storing state transitions<br  /><div class="outline-text-7" id="text-1-1-1-1-1-4">
+<p>
+Instead of storing state, transitions are being recorded.
+E.g.
+</p>
+<pre class="example">
+Cart created =&gt; Added 2 socks =&gt; Added 2 shirts =&gt; Shipping info Added
+</pre>
+
+<p>
+The events can be replayed and they are immutable (a parallel with DB migration
+incremental scripts?).
+This is called <span class="underline">event sourcing</span>.
+</p>
+</div></li>
+
+<li><a id="org5bc06f3"></a>Domain events<br  /><ol class="org-ol"><li><a id="org8bd8083"></a>things that have completed, <span class="underline">facts</span><br  /></li>
+<li><a id="orgf44b268"></a>immutable<br  /></li>
+<li><a id="orge361a98"></a>verbs in past tense<br  /><div class="outline-text-8" id="text-1-1-1-1-1-5-3">
+<ul class="org-ul">
+<li>`CustomerRelocated`</li>
+<li>`CargoShipped`</li>
+<li>`InvoiceSent`</li>
+</ul>
+</div></li>
+<li><a id="orgff15f1c"></a>essential building block in DDD, representing the domain state transition.<br  /><div class="outline-text-8" id="text-1-1-1-1-1-5-4">
+<p>
+<b>Benefits</b>:
+</p>
+</div></li>
+<li><a id="orgd4e62f9"></a>Bulletproof auditing and historical tracing.<br  /><div class="outline-text-8" id="text-1-1-1-1-1-5-5">
+<ul class="org-ul">
+<li>Think in terms of the history of transactions that caused a specific bank account balance to occur.</li>
+</ul>
+</div></li>
+<li><a id="org28c4269"></a>Support future ways of looking at data.<br  /><div class="outline-text-8" id="text-1-1-1-1-1-5-6">
+<ul class="org-ul">
+<li>After adding new features, it is possible to recreate the past data in the new form.</li>
+<li>Useful when creating an initial release and then, after discussing with the business, having to add new features and emulate the same state.</li>
+</ul>
+</div></li>
+<li><a id="org5466e93"></a>Performance and scalability<br  /><div class="outline-text-8" id="text-1-1-1-1-1-5-7">
+<ul class="org-ul">
+<li>Streams can be scaled.</li>
+</ul>
+</div></li>
+<li><a id="org568c610"></a>Testability<br  /><div class="outline-text-8" id="text-1-1-1-1-1-5-8">
+<ul class="org-ul">
+<li>Define a sequence of events as a scenario - it makes expected actions very clear.</li>
+</ul>
+</div></li>
+<li><a id="orgd02e470"></a>Reconstruct production scenarios<br  /></li>
+<li><a id="orgc39e406"></a>No object-relational impedance mismatch<br  /><div class="outline-text-8" id="text-1-1-1-1-1-5-10">
+<ul class="org-ul">
+<li>No complex data structures are stored, no ORMs needed.</li>
+</ul>
+</div></li>
+<li><a id="orgece20b1"></a>Nice fit with actors<br  /><div class="outline-text-8" id="text-1-1-1-1-1-5-11">
+<ul class="org-ul">
+<li>It does not mean that it should be used everywhere alongside Akka.</li>
+<li>It's not good for ad-hoc queries.</li>
+</ul>
+</div></li></ol></li>
+
+<li><a id="org97ecdb2"></a>Different approaches<br  /><div class="outline-text-7" id="text-1-1-1-1-1-6">
+<p>
+<b>Command sourcing</b>:
+</p>
+</div>
+<ol class="org-ol"><li><a id="org84e2a56"></a>write-ahead-log<br  /></li>
+<li><a id="orgfe96665"></a>same behavior during recovery as normal operation<br  /><div class="outline-text-8" id="text-1-1-1-1-1-6-2">
+<ul class="org-ul">
+<li>external interaction can be problematic</li>
+<li>changing the command logic will cause retro steps to work as the new cmds</li>
+</ul>
+</div></li>
+<li><a id="orgbb0e763"></a>persisted before validation<br  /></li>
+<li><a id="orgf58f105"></a>allows retroactive changes to the business logic<br  /></li>
+<li><a id="org7504c65"></a>naming: represent intent, imperative<br  /><div class="outline-text-8" id="text-1-1-1-1-1-6-5">
+<p>
+<b>Event sourcing:</b>
+</p>
+</div></li>
+<li><a id="org6dd630e"></a>derive events from a Command<br  /></li>
+<li><a id="org7687faa"></a>only state-changing behavior during recovery<br  /></li>
+<li><a id="org8916041"></a>events cannot fail<br  /></li>
+<li><a id="org3a964f1"></a>fixing the business logic will not affect persisted models<br  /></li>
+<li><a id="org780cbda"></a>naming: things that have completed, verbs in the past tense<br  /></li></ol></li>
+
+<li><a id="orgdcaf23e"></a>Consistency boundary<br  /><ol class="org-ol"><li><a id="orgd6f8907"></a>An actor is a consistency boundary<br  /><div class="outline-text-8" id="text-1-1-1-1-1-7-1">
+<ul class="org-ul">
+<li>corresponds to a DDD Aggregate</li>
+</ul>
+</div></li>
+<li><a id="org774867d"></a>No distributed transactions<br  /><div class="outline-text-8" id="text-1-1-1-1-1-7-2">
+<ul class="org-ul">
+<li>eventually consistent</li>
+<li>compensating actions instead of transactional mechanisms</li>
+</ul>
+</div></li></ol></li>
+
+<li><a id="orgeb3d878"></a>Building blocks<br  /><ol class="org-ol"><li><a id="org91f465c"></a>Processor<br  /><ol class="org-ol"><li><a id="orge598303"></a>Automatic recovery on start and restart<br  /></li>
+<li><a id="orgf33976f"></a>Stashing until recovery completed<br  /></li>
+<li><a id="org3fc3901"></a>Failure handling with the supervisor strategy<br  /></li>
+<li><a id="orgf1000f1"></a>Might want to delete erroneous messages<br  /><div class="outline-text-9" id="text-1-1-1-1-1-8-1-4">
+<p>
+Minimal processor example
+</p>
+<pre class="example">
+import akka.persistence.{ Persistent, Processor }
+class MyProcessor extends Processor {
+    def receive = {
+        case Persistent(payload, sequenceNr) =&gt;
+            // msg successfully written to Journal
+        case other =&gt; // msg not written to journal
+    }
+}
+
+val processor = context.actorOf(Props[MyProcessor], name = "myProcessor")
+
+processor ! Persistent("foo")   // journaled
+processor ! "bar"               // not journaled
+</pre>
+
+<p>
+Real-world example:
+</p>
+<pre class="example">
+class InvoiceService extends Processor {
+    var invoices = Map.empty[String, Invoice]
+
+    def receive: Receive = {
+        case Persistent(CreateInvoice(id), _) =&gt;
+            invoices = invoices.updated(id, Invoice(id))
+        case Persistent(AddInvoiceItem(id, item), _) =&gt;
+            invoices.get(id) match {
+                case Some(inv) =&gt;
+                    invoices = invoices.updated(id, inv.addItem(item))
+                case None =&gt; // TODO recovery
+            }
+        case GetInvoice(id) =&gt;
+            sender() ! invoices.getOrElse(id, "not found: " + id) ===
+
+        case Persistent(SendInvoiceTo(id, address), _) =&gt;
+            // TODO send to the invoice printing service.
+    }
+}
+</pre>
+
+<p>
+Invoice context code:
+</p>
+<pre class="example">
+case class CreateInvoice(invoiceId: String)
+case class AddInvoiceItem(invoiceId: String, invoiceItem: InvoiceItem)
+case class SendInvoiceTo(invoiceId: String, to: InvoiceAddress)
+case class GetInvoice(invoiceId: String)
+
+case class Invoice(id: String, items: IndexedSeq[InvoiceItem] = Vector.empty) {
+    def addItem(item: InvoiceItem): Invoice = copy(items = items :+ item)
+}
+
+case class InvoiceItem(description: String, count: Int, amount: BigDecimal)
+case class InvoiceAddress(name: String, street: String, city: String)
+</pre>
+
+<p>
+Processor identifier - the default identifier is the path of the actor:
+`/user/top/myProcessor`.
+</p>
+
+<p>
+Anonymous processors should not be used as the names may change on system
+startup.
+</p>
+<pre class="example">
+override def processorId = "my-stable-processor-id"
+</pre>
+</div></li>
+
+<li><a id="orgcb11582"></a>Processor with Channel<br  /><div class="outline-text-9" id="text-1-1-1-1-1-8-1-5">
+<p>
+Handshaking - sending delivery and confirmation messages.
+</p>
+<pre class="example">
+val printingChannel = context.actorOf(Channel.props(), name = "printingChannel")
+val printingDestination = context.system / "printingService"
+// 'printingService' probably should be 'printingChannel'.
+
+def receive: Receive = {
+    case p @ Persistent(SendInvoiceTo(id, address), _) =&gt; 
+        // send to the invoice printing machine
+        invoices.get(id) match {
+            case Some(inv) =&gt;
+                printingChannel ! Deliver(p.withPayload(
+                    PrintingOrder(inv, address), printingDestination)
+                invoices -= inv.id
+            case None =&gt; TODO
+        }
+}
+
+class PrintingService extends Actor {
+    def receive = {
+        case p @ ConfirmablePersistent(payload, sequenceNr, redeliveries) =&gt;
+            // ...
+            p.confirm()
+    }
+}
+</pre>
+</div></li></ol></li>
+
+<li><a id="orgb837299"></a>Eventsourced processor<br  /><div class="outline-text-8" id="text-1-1-1-1-1-8-2">
+<p>
+Incoming messages (commands) are not persisted.
+</p>
+
+<p>
+Steps:
+</p>
+</div>
+<ol class="org-ol"><li><a id="orgda550c2"></a>Validate Command<br  /></li>
+<li><a id="org8e19c45"></a>Create domain event and explicitly persist it<br  /></li>
+<li><a id="org214d154"></a>Update internal state by <b>applying the event</b><br  /></li>
+<li><a id="org38ec26f"></a>External side effects<br  /><div class="outline-text-9" id="text-1-1-1-1-1-8-2-4">
+<p>
+During recovery the internal state is updated by applying the events, which
+prevents any external side effects.
+</p>
+
+<p>
+Example:
+</p>
+<pre class="example">
+class BlogPost extends EventsourcedProcessor {
+    import BlogPost._
+    override def receiveCommand: Receive = ???
+    override def receiveRecover: Receive = ???
+
+    private var state = State("","","",false)
+
+    override def receiveCommand: Receive = {
+        case AddPost(author, title) =&gt;
+            // The difference between command and event approaches is clear here
+            if(state.body == "" &amp;&amp; author != "" &amp;&amp; title != "") {
+                persist(PostAdded(author, title)) { evt =&gt;
+                    state = state.updated(evt)
+                }
+            }
+
+        case ChangeBody(body) =&gt;
+            if(!state.published) {
+                persist(BodyChanged(body)) { evt =&gt;
+                    state = state.updated(evt)
+                }
+            }
+
+        case Publish =&gt;
+            if(!state.published) {
+                persist(PostPublished) { evt =&gt;
+                    state = state.updated(evt)
+                    // call the external web content service...
+                }
+            }
+    }
+
+    override def receiveRecover: Receive = {
+        case evt: Event =&gt; state = state.updated(evt)
+    }
+}
+
+object BlogPost {
+    import BlogPost._
+    case class AddPost(athor: String, title: String) // domain command
+
+    // this is the proposed way:
+    sealed trait Event
+    case class PostAdded(author: String, title: String) extends Event
+    case class BodyChanged(body: String) extends Event
+    case object PostPublished extends Event
+
+    private class State(author: String, title: String, body: String,
+                        published: Boolean) {
+        def updated(evt: Event): State = evt match {
+            case PostAdded(author, title)   =&gt; copy(author, title)
+            case BodyChanged(b)             =&gt; copy(body = b)
+            case PostPublished              =&gt; copy(published = true)
+        }
+    }
+}
+</pre>
+
+<p>
+Additional functionality: support for snapshots.
+</p>
+
+<pre class="example">
+class MyProcessor extends Processor {
+    var state: Any = _
+
+    def receive = {
+        case "snap"                                   =&gt; saveSnapshot(state)
+        case SaveSnapshotSuccess(metadata)            =&gt; // ...
+        case SaveSnapshotFailure(metadata, reason)    =&gt; // ...
+
+        case SnapshotOffer(metadata, offeredSnapshot) =&gt; state = offeredSnapshot
+        case Persistent(payload, _)                   =&gt; // ...
+    }
+}
+</pre>
+</div></li></ol></li>
+
+<li><a id="org122115d"></a>View<br  /><div class="outline-text-8" id="text-1-1-1-1-1-8-3">
+<p>
+Replays persistent messages from a Processor's journal.
+Serves as the query side of CQRS.
+</p>
+
+<p>
+Features:
+</p>
+</div>
+<ol class="org-ol"><li><a id="org003b77c"></a>auto-update interval,<br  /></li>
+<li><a id="orgfbb9ea0"></a>update message,<br  /></li>
+<li><a id="org2230da6"></a>limit,<br  /></li>
+<li><a id="orgec2bd11"></a>may store its own snapshots.<br  /><div class="outline-text-9" id="text-1-1-1-1-1-8-3-4">
+<p>
+Example:
+</p>
+<pre class="example">
+class InvoiceCounter extends View {
+    import InvoiceCounter._
+    override def processorId: String = "/user/InvoiceService"
+    override def autoUpdateInterval = 10 seconds
+
+    var count = 0L
+
+    def receive: Actor.Receive = {
+        case Persistent(payload: SendInvoiceTo, _) =&gt; count += 1
+        case _: Persistent =&gt;
+        case GetInvoiceCount =&gt; sender ! InvoiceCount(count)
+    }
+}
+
+object InvoiceCounter {
+    case object GetInvoiceCount
+    case class InvoiceCount(count: Long)
+}
+</pre>
+</div></li></ol></li>
+
+<li><a id="org234ff91"></a>Persistent Channel<br  /><div class="outline-text-8" id="text-1-1-1-1-1-8-4">
+<p>
+Used for at-least-once delivery.
+</p>
+
+<p>
+A message might be dropped.
+To be sure that a message has arrived, an acknowledgment from the receiver.
+The acknowledgment delivery may also fail - in that case the message must be
+resent.
+This is the <span class="underline">at-least-once</span> delivery mode.
+</p>
+
+<p>
+Channels re-deliver messages until confirmed.
+The confirmation is on application level.
+Different semantics:
+</p>
+</div>
+<ol class="org-ol"><li><a id="orgf047b37"></a>duplicates received<br  /></li>
+<li><a id="orgb7da5e7"></a>message order not retained<br  /></li>
+<li><a id="org2c4dd61"></a>after a creash and restart messages are still delivered<br  /><div class="outline-text-9" id="text-1-1-1-1-1-8-4-3">
+<p>
+Recommendation: use one destination per channel.
+The exception is when replies are being sent via the channel.
+</p>
+
+<p>
+Where a Channel is meant to be used from within a Processor and resides within
+memory, the PersistentChannel is to be used standalone.
+</p>
+
+<p>
+It is conceptually a processor + a channel.
+It persists messages before delivering, replies `ack` when persisted and allows
+more advanced delivery flow control.
+</p>
+
+<p>
+Example:
+</p>
+<pre class="example">
+class MyProcessor extends Processor {
+    val channel = context.actorOf(Channel.props(), name = "myChannel")
+
+    def receive = {
+        case p @ Persistent(payload, _) =&gt;
+            val destination = context.system / "myDestination"
+            channel ! Deliver(p.withPayload("output msg"), destination)
+    }
+}
+
+class MyDestination extends Actor {
+    def receive = {
+        case p @ ConfirmablePersistent(payload, sequenceNr, redeliveries) =&gt;
+            // ...
+            p.confirm()
+    }
+}
+
+class Endpoint extends Actor {
+    val channel = context.actorOf(
+            PersistentChannel.props(PersistentChannelSettings(
+                    redeliverInterval = 3 seconds,
+                    redeliverMax = 10,
+                    replyPersistent = true)
+            ),
+            name = "myChannel")
+    val destination = context.system / "jobManager"
+
+    import context.dispatcher
+    implicit val timeout = Timeout(5 seconds)
+
+    def receive = {
+        case job: Job =&gt;
+            (channel ? Deliver(Persistent(job), destination)) map {
+                // send the acknowledgment
+                case _: Persistent =&gt; "OK: " + job.id
+            } recover {
+                case e =&gt; "FAILED: " + job.id
+            } pipeTo sender()
+    }
+}
+</pre>
+</div></li></ol></li>
+
+<li><a id="orgf77deac"></a>Serialization<br  /><ol class="org-ol"><li><a id="org2f63500"></a>Pluggable, Akka serialization<br  /></li>
+<li><a id="orgd7a1880"></a>app life-cycle, versioning<br  /></li>
+<li><a id="orge69042b"></a>don't use default Java serialization<br  /></li>
+
+<li><a id="org9dc5762"></a>Journal<br  /><ol class="org-ol"><li><a id="org8c09267"></a>Pluggable<br  /></li>
+<li><a id="org50e41ca"></a>LevelDB shipped with Akka - local files<br  /></li>
+<li><a id="org90bdb61"></a><a href="http://akka.io/community/">Community journals</a> can be used<br  /></li></ol></li></ol></li>
+
+<li><a id="orgc7f0c47"></a>Cluster<br  /><ol class="org-ol"><li><a id="org4238477"></a>simple way of migrating/moving stateful actors in a cluster<br  /></li>
+<li><a id="org1c66c48"></a>distributed journal<br  /><div class="outline-text-9" id="text-1-1-1-1-1-8-6-2">
+<ul class="org-ul">
+<li>shared LevelDB journal for testing</li>
+<li>try the Cassandra alternative</li>
+</ul>
+</div></li>
+<li><a id="org74b517e"></a>single write per event stream<br  /></li>
+
+<li><a id="org75f7191"></a>Cluster singleton<br  /><div class="outline-text-9" id="text-1-1-1-1-1-8-6-4">
+<p>
+Follow-up&#x2026;
+</p>
+</div></li>
+
+<li><a id="org1b5427c"></a>Cluster sharding<br  /><div class="outline-text-9" id="text-1-1-1-1-1-8-6-5">
+<p>
+Follow-up&#x2026;
+</p>
+
+<p>
+Send the recipient identifier with a message to a cluster sharding region.
+</p>
+
+<p>
+A routing coordinator is required.
+</p>
+
+<pre class="example">
+val idExtractor: ShardRegion.IdExtractor = {
+    case cmd: Command =&gt; (cmd.postId, cmd)
+}
+
+val shardResolver: ShardRegion.ShardResolver = msg =&gt; msg match {
+    case cmd: Command =&gt; (math.abs(cmd.postId.hashCode) % 100).toString
+}
+
+ClusterSharding(system).start(
+    typeName = BlogPost.shardName,
+    entryProps = Some(BlogPost.props()),
+    idExtractor = BlogPost.idExtractor,
+    shardResolver = BlogPost.ShardResolver)
+
+val postRegion: ActorRef =
+    ClusterSharding(context.system).shardRegion(BlogPost.shardName)
+
+val postId = UUID.randomUUID().toString
+postRegion ! BlogPost.AddPost(postId, author, title)
+</pre>
+</div></li></ol></li></ol></li></ol></li></ol>
+</div>
+</div>
+<div id="outline-container-orgdb815ea" class="outline-4">
+<h4 id="orgdb815ea"><span class="section-number-4">1.1.2</span> <a href="#org642c3e1">1.1.2.1</a></h4>
+<div class="outline-text-4" id="text-1-1-2">
+</div><div id="outline-container-org642c3e1" class="outline-5">
+<h5 id="org642c3e1"><span class="section-number-5">1.1.2.1</span> Futures</h5>
+<div class="outline-text-5" id="text-1-1-2-1">
+<p>
+#= Akka - Futures =
+Notes from "Composable Futures with Akka" will go here.
+</p>
+
+<p>
+Code examples:
+</p>
+</div>
+<ol class="org-ol"><li><a id="org093cefb"></a><a href="https://bitbucket.org/mslinn/akkafutures">https://bitbucket.org/mslinn/akkafutures</a><br  /></li></ol>
+</div>
+</div>
+</div>
+<div id="outline-container-org7ef499b" class="outline-3">
+<h3 id="org7ef499b"><span class="section-number-3">1.2</span> Asynchronous processing</h3>
+<div class="outline-text-3" id="text-1-2">
+</div><div id="outline-container-org609990a" class="outline-4">
+<h4 id="org609990a"><span class="section-number-4">1.2.1</span> Asynchronous processing</h4>
+<div class="outline-text-4" id="text-1-2-1">
+</div><div id="outline-container-orgc1ab5e0" class="outline-5">
+<h5 id="orgc1ab5e0"><span class="section-number-5">1.2.1.1</span> Futures vs Promises</h5>
+<div class="outline-text-5" id="text-1-2-1-1">
+<p>
+Futures and Promises implement the same concept, but Promises are read-write
+(i.e. you can do side effects with them).
+</p>
+
+<p>
+Futures are just read-only handles to computations that are going to finish in
+some time.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgcffbd1f" class="outline-5">
+<h5 id="orgcffbd1f"><span class="section-number-5">1.2.1.2</span> Retrying</h5>
+<div class="outline-text-5" id="text-1-2-1-2">
+<p>
+The problem:
+</p>
+
+<pre class="example">
+def toss(probability: Int) {
+    if(rand.nextInt % probability == 0)
+        throw new RuntimeException("Boom");
+}
+
+Await.result(future(toss(2)), 50 millis)
+Await.result(future(toss(2)), 50 millis)
+// reflection of a non-deterministic behavior concept
+</pre>
+
+<p>
+We want a method kinda like this:
+</p>
+
+<pre class="example">
+// f should run for at most n+1 times.
+def retry[T](n: Int)(f: =&gt; T): Future[T] =
+    future { f } recoverWith {
+        case e if n &gt; 0 =&gt; retry(n - 1)(f)
+    }
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orga3911ce" class="outline-5">
+<h5 id="orga3911ce"><span class="section-number-5">1.2.1.3</span> Timeouts</h5>
+<div class="outline-text-5" id="text-1-2-1-3">
+<p>
+The problem:
+</p>
+
+<pre class="example">
+def aBlockingSlowCall: String = {
+    Thread.sleep(1000)
+    "foo"
+}
+
+future { aBlockingSlowCall }
+res: s.c.Future[String] = ...
+
+Await.result(res, 500 millis)
+// j.u.c.TimeoutException: Futures timed out after [500 ms]
+</pre>
+
+<p>
+The problem is that the timeout is only known at the `Await` level.
+It sucks due to the fact that `Await`s are generally put at the web controller
+level.
+</p>
+
+<p>
+What we really want is for each component to know about its related timeouts.
+</p>
+
+<p>
+Enter `com.twitter.util.Future`:
+</p>
+
+<pre class="example">
+def within(timeout: Duration)(implicit timer: Timer): Future[A]
+
+val pool = FuturePool.unboundedPool
+
+pool { aBlockingSlowCall }
+    within (100 millis)
+
+res: c.t.u.Future[String] = ???
+
+Await.result(res)
+// c.t.u.TimeoutException: 100.milliseconds
+</pre>
+
+<p>
+<a href="https://github.com/wix/future-perfect">Future perfect</a> from Wix provides an abstraction over c.t.u.Futures.
+</p>
+
+<pre class="example">
+object App extends FuturePerfect { // FP is a trait
+    val executorService = Executors.newScheduledThreadPool(10)
+
+    val future = execution(
+        name = "foo",
+        timeout = 100 millis,
+        retryPolicy = RetryPolicy(retries = 1)) {
+            // some blocking call
+            // partial function can be defined for specific exception cases
+        })
+}
+
+val result = Await.result(future)
+</pre>
+
+<p>
+The problem with future perfect is that you get a Twitter future back, not a
+Scala future.
+To convert between the two:
+</p>
+
+<pre class="example">
+import com.twitter.{util =&gt; tw} // import util as tw
+
+implicit def twf2scf[T](tf: tw.Future[T]):
+    Future[T] = {
+        val p = Promise[T]
+        tf respond {
+            case tw.Return(r) =&gt; p success r
+            case tw.Throw(e) =&gt; p failure e
+        }
+
+        p.future
+    }
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-orgdceb144" class="outline-3">
+<h3 id="orgdceb144"><span class="section-number-3">1.3</span> Implicits</h3>
+<div class="outline-text-3" id="text-1-3">
+</div><div id="outline-container-orgfa28151" class="outline-4">
+<h4 id="orgfa28151"><span class="section-number-4">1.3.1</span> Scala - Implicits</h4>
+<div class="outline-text-4" id="text-1-3-1">
+<p>
+An implicit could be an "ambient" value for some scope or a conversion which can be applied automatically (implicitly :)).
+</p>
+</div>
+
+<div id="outline-container-org1b53bb7" class="outline-5">
+<h5 id="org1b53bb7"><span class="section-number-5">1.3.1.1</span> Implicit conversion</h5>
+<div class="outline-text-5" id="text-1-3-1-1">
+<p>
+Example:
+</p>
+
+<pre class="example">
+"abc".map(_.toString)
+</pre>
+
+<p>
+`String` does not support a `map` operation, but `StringOps` does - and if there exists a conversion from `String` to `StringOps`, then the example code will compile and work as expected.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3ac22bb" class="outline-5">
+<h5 id="org3ac22bb"><span class="section-number-5">1.3.1.2</span> Implicit parameters</h5>
+<div class="outline-text-5" id="text-1-3-1-2">
+<p>
+Implicit parameters work just like normal ones, except for that the compiler tries to fill them in automatically - if it cannot, it will throw an error.
+</p>
+
+<p>
+Example:
+</p>
+<pre class="example">
+def foo[T](t: T)(implicit integral: Integral[T]) {println(integral)}
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org1fd0c6d" class="outline-5">
+<h5 id="org1fd0c6d"><span class="section-number-5">1.3.1.3</span> View bounds</h5>
+<div class="outline-text-5" id="text-1-3-1-3">
+<p>
+In the following example, an implicit value acts both as an implicit conversion and an implicit parameter:
+</p>
+
+<pre class="example">
+def getIndex[T, CC](seq: CC, value: T)(implicit conv: CC =&gt; Seq[T]) = seq.indexOf(value)
+
+getIndex("abc", 'a')
+</pre>
+
+<p>
+This function can receive any objects as `seq` and `value` as long as an appropriate conversion exists.
+</p>
+
+<p>
+This pattern is <b>very useful</b>, to the point of having syntactic sugar of <b>view bounds</b> for it:
+</p>
+
+<pre class="example">
+def getIndex[T, CC &lt;% Seq[T]](seq: CC, value: T) = seq.indexOf(value)
+</pre>
+
+<p>
+There is a kinship between the view bound and the upper bound (`CC &lt;: Seq[Int]`) or the lower bound (`T &gt;: Null`).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7c812ab" class="outline-5">
+<h5 id="org7c812ab"><span class="section-number-5">1.3.1.4</span> Context Bounds</h5>
+<div class="outline-text-5" id="text-1-3-1-4">
+<p>
+Context bounds pose syntactic sugar for having to provide an implicit parameter.
+This technique is useful when achieving ad-hoc polymorphism through typeclasses, enabling common interface provisioning to classes which did not declare them.
+Typeclasses can be used as bridges as well as adapters.
+</p>
+
+<p>
+Example:
+</p>
+<pre class="example">
+// without a context bound
+def sum[T](list: List[T])(implicit integral: Integral[T]): T = {
+    import integral._
+    list.foldLeft(integral.zero)(_ + _)
+}
+
+// with a context bound
+def sum[T: Integral](list: List[T]): T = {
+    // You have to refer the implicit.
+    val integral = implicitly[Integral[T]]
+    import integral._
+    list.foldLeft(integral.zero)(_ + _)
+}
+</pre>
+
+<p>
+Context bounds are more useful when you just pass them to other methods which use them.
+Example: the `sorted` method on `Seq` needs an implicit `Ordering`.
+To create a `reverseSort` method, one could write:
+</p>
+<pre class="example">
+def reverseSort[T: Ordering](seq: Seq[T]) = seq.sorted.reverse
+</pre>
+
+<p>
+The `Ordering[T]` was implicitly passed using a context bound, it can be as well passed implicitly to `sorted`.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgefa8933" class="outline-5">
+<h5 id="orgefa8933"><span class="section-number-5">1.3.1.5</span> Order of precedence for implicits</h5>
+<div class="outline-text-5" id="text-1-3-1-5">
+<p>
+Primary search locations:
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="org082b740"></a>Implicits defined in current scope<br  /><div class="outline-text-6" id="text-1-3-1-5-1">
+<pre class="example">
+implicit val n: Int = 5
+def add(x: Int)(implicit y: Int) = x+y
+add(5) // 10
+</pre>
+</div></li>
+
+<li><a id="orgb8cd74e"></a>explicit imports<br  /><div class="outline-text-6" id="text-1-3-1-5-2">
+<pre class="example">
+import scala.collection.JavaConversions.mapAsScalaMap
+def env = System.getenv() // Java map
+val term = env("TERM") // implicit Java map -&gt; Scala map conversion
+</pre>
+</div></li>
+
+<li><a id="orgd4773ed"></a>wildcard imports (see the context bound example)<br  /><div class="outline-text-6" id="text-1-3-1-5-3">
+<p>
+Secondary search locations:
+</p>
+</div></li>
+
+<li><a id="org3cc633a"></a>companion objects of a type<br  /><div class="outline-text-6" id="text-1-3-1-5-4">
+<ul class="org-ul">
+<li>first, the companion object for the "source" type is looked into. E.g. inside the `object Option` there is an implicit conversion to `Iterable`, so one can call its methods on `Option` or pass `Option` as `Iterable`</li>
+</ul>
+<pre class="example">
+for {
+    x &lt;- List(1, 2, 3)
+    y &lt;- Some('x')
+} yield (x, y)
+// Which desugars into
+List(1,2,3).flatMap(x =&gt; Some('x').map(y =&gt; (x, y)))
+</pre>
+<ul class="org-ul">
+<li>`List.flatMap`, however, requires a `TraversableOnce`, which `Option` is not. The compiler then looks for it in the `Option`'s companion object and finds the conversion to `Iterable`.</li>
+</ul>
+<ul class="org-ul">
+<li>second, companion object of the expected type
+<ul class="org-ul">
+<li>the method `sorted` takes an implicit `Ordering`. In case of `List(1,2,3).sorted`, the compiler looks inside the `object Ordering` and finds an implicit `Ordering[Int]`.</li>
+</ul></li>
+<li>companion objects of superclasses are also looked into.</li>
+</ul>
+</div></li>
+<li><a id="orgb2d459f"></a>implicit scopes of an argument's type<br  /><div class="outline-text-6" id="text-1-3-1-5-5">
+<ul class="org-ul">
+<li>by 'implicit scope' it's meant that all the given rules will be applied to the argument type (its companion object will be searched and so on.).</li>
+</ul>
+</div></li>
+<li><a id="orgdfefca1"></a>implicit scope of type arguments<br  /><div class="outline-text-6" id="text-1-3-1-5-6">
+<ul class="org-ul">
+<li>the implicit scope is now the type arguments for given function</li>
+</ul>
+</div></li>
+<li><a id="org5282a6e"></a>outer objects for nested types<br  /><div class="outline-text-6" id="text-1-3-1-5-7">
+<pre class="example">
+class A(val n: Int) {
+    class B(val m: Int) { require(m &lt; n) }
+}
+
+object A {
+    implicit def bToString(b: A#B) = "B: %d" format b.m
+}
+
+val a = new A(5)
+val b = new a.B(3)
+val s: String = b // s == "B: 3"
+</pre>
+</div></li></ol>
+</div>
+</div>
+</div>
+<div id="outline-container-org8604eb5" class="outline-3">
+<h3 id="org8604eb5"><span class="section-number-3">1.4</span> Play</h3>
+<div class="outline-text-3" id="text-1-4">
+</div><div id="outline-container-orgf5ec1ea" class="outline-4">
+<h4 id="orgf5ec1ea"><span class="section-number-4">1.4.1</span> Play</h4>
+<div class="outline-text-4" id="text-1-4-1">
+<p>
+Using the `play` command, one can call the framework's functions (e.g.
+`views.html.hello.render("Scala")` without having to run the server.
+There is testability potential here, don't know yet how it all is wired up
+though.
+</p>
+</div>
+
+<div id="outline-container-org4ef440a" class="outline-5">
+<h5 id="org4ef440a"><span class="section-number-5">1.4.1.1</span> Architecture</h5>
+<div class="outline-text-5" id="text-1-4-1-1">
+<p>
+Based on the MVC model.
+Play runs o JBoss Netty server (a non-blocking Java <span class="underline">New I/O</span> -type server).
+Play apps can satisfy the constraints of a REST-style architecture.
+Resources can be identified by URLs (through routes) and manipulated by HTTP
+methods.
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="org9b927f5"></a>Ways of app design<br  /><ol class="org-ol"><li><a id="org2aa5dd2"></a><b>Database-centric</b>, where you start by defining the domain model with database entities and relations<br  /><div class="outline-text-7" id="text-1-4-1-1-1-1">
+<ul class="org-ul">
+<li>A common approach in enterprise environments, which often view the data model as a fundamental representation of a business domain that will outlive any single software application.</li>
+</ul>
+</div></li>
+<li><a id="org326d5fc"></a><b>URL-centric</b>, where you start by defining the application's HTTP interface.<br  /><div class="outline-text-7" id="text-1-4-1-1-1-2">
+<ul class="org-ul">
+<li>Once you have a solid design, you can add a user-interface layer on top of this HTTP interface, and add a model that backs the HTTP resources.</li>
+<li>You can create a consistent public API for your application that’s more stable than either the physical data model represented by its model classes, or the user interface generated by its view templates.</li>
+<li>Focus is applied to <span class="underline">resource-oriented architecture</span>.</li>
+</ul>
+</div></li>
+<li><a id="org2b74335"></a><b>UI-centric</b>, where you start by defining ways in which the user will interact with the application through its GUI.<br  /><div class="outline-text-7" id="text-1-4-1-1-1-3">
+<ul class="org-ul">
+<li>Mockups play a driving role.</li>
+</ul>
+</div></li></ol></li>
+
+<li><a id="org8cbb007"></a>Configuration<br  /><div class="outline-text-6" id="text-1-4-1-1-2">
+<p>
+Play uses the <a href="https://github.com/typesafehub/config">Typesafe config library</a>.
+It is possible to modularize the config through using multiple `.conf` files.
+Create a `db-default.conf`, containing your default DB connection information
+and then use `include "db-default.conf"` in your main `application.conf` file.
+</p>
+
+<p>
+"Overwriting" a JSON object in the `application.conf` will effectively merge its
+properties with the original one, instead of truly overwriting it.
+</p>
+
+<p>
+The configuration file format is specified by the
+<a href="https://github.com/typesafehub/config/blob/master/HOCON.md">Human-Optimized Config Object Notation</a>.
+</p>
+
+<p>
+Configuration can be overriden from the CLI by using `run -Ddb.default.url=xxx`
+for single values or `run -Dconfig.file=xxx/xxx` for the whole config file.
+A relative path can be used for configs residing within the project, an absolute
+one has to be provided for external configuration files.
+</p>
+
+<p>
+The `play.api.Configuration` class provides the API for accessing config
+options.
+</p>
+
+<p>
+The `play.api.Application.configuration` is the configuration instance
+for the current application.
+</p>
+
+<p>
+Example:
+</p>
+
+<pre class="example">
+import play.api.Play.current
+current.configuration.getString("db.default.url").map {
+    databaseUrl =&gt; Logger.info(databaseUrl)
+}
+
+// You can also use getBoolean, getInt etc. - it's type-safe.
+</pre>
+
+<p>
+Configuration is structured hierarchically:
+</p>
+
+<pre class="example">
+// Returns an Option[Configuration] object.
+current.configuration.getConfig("db.default").map {
+    databaseConfiguration =&gt;
+        databaseConfiguration.getString("driver").map(Logger.info(_))
+        databaseConfiguration.getString("url").map(Logger.info(_))
+}
+</pre>
+
+<p>
+Using custom entries (e.g. `application.revision`):
+</p>
+
+<pre class="example">
+@import play.api.Play.current
+&lt;footer&gt;
+    Revision @current.configuration.getString("application.revision")
+&lt;/footer&gt;
+</pre>
+</div></li>
+
+<li><a id="org6d576aa"></a>Controller<br  /><div class="outline-text-6" id="text-1-4-1-1-3">
+<p>
+Handles incoming HTTP requests and uses the model and view to build and return a
+response.
+</p>
+
+<p>
+Controller methods are called _actions_— Play’s architecture is in fact an MVC
+variant called _action-based MVC_— so you can also think of a controller class
+as a collection of action methods.
+</p>
+
+<p>
+Group controllers by entity.
+</p>
+
+<p>
+Don't define `var`s in controllers.
+They should be stateless.
+</p>
+
+<p>
+Each `Action` in Scala is a `Request[A] =&gt; Result` function, where `A` is the
+request body type.
+</p>
+
+<p>
+<b>Only import stuff from the</b> `play.api` <b>package</b>.
+</p>
+</div>
+
+
+<ol class="org-ol"><li><a id="org0e0c840"></a>`play.api.mvc.Cookie`— An HTTP cookie: a small amount of data stored on the client and sent with subsequent requests.<br  /></li>
+<li><a id="org6443eba"></a>`play.api.mvc.Request`— An HTTP request: HTTP method, URL, headers, body, and cookies<br  /></li>
+<li><a id="org5a77c81"></a>`play.api.mvc.RequestHeader`— Request metadata: a name-value pair<br  /></li>
+<li><a id="orgf596f7c"></a>`play.api.mvc.Response`— An HTTP response, with headers and a body; wraps a Play Result<br  /></li>
+<li><a id="org6d8a28c"></a>`play.api.mvc.ResponseHeader`—Response metadata: a name-value pair<br  /></li>
+
+
+<li><a id="org5923da1"></a>`play.api.mvc.Action`—A function that processes a client Request and returns a Result<br  /></li>
+<li><a id="org2c667e7"></a>`play.api.mvc.Call`—An HTTP request: the combination of an HTTP method and a URL<br  /></li>
+<li><a id="org253bc78"></a>`play.api.mvc.Content`—An HTTP response body with a particular content type<br  /></li>
+<li><a id="org43148fb"></a>`play.api.mvc.Controller`—A generator for Action functions<br  /></li>
+<li><a id="orgce80106"></a>`play.api.mvc.Flash`—A short-lived HTTP data scope used to set data for the next request<br  /></li>
+<li><a id="orgc91d96e"></a>`play.api.mvc.Result`—The result of calling an Action to process a Request,<br  /></li>
+<li><a id="org0b4ca7d"></a>`play.api.mvc.Session`—A set of string keys and values, stored in an HTTP used to generate an HTTP response cookie<br  /></li>
+
+<li><a id="org24d50f8"></a>Action composition<br  /><div class="outline-text-7" id="text-1-4-1-1-3-13">
+<p>
+To avoid code duplication, actions can be composed, since they are just
+functions.
+It's a decorator pattern.
+</p>
+
+<p>
+Example:
+</p>
+<pre class="example">
+def list =
+    Authenticated {
+        Cached {
+            Action {
+                // Process request...
+            }
+        }
+    }
+</pre>
+
+<p>
+`Authenticated` action is being passed to `Cached` as a parameter, which in turn
+is being passed to the main `Action` that is to constitute the actual work to be
+done.
+</p>
+</div></li>
+
+
+<li><a id="org1922656"></a>Parameter Binding<br  /><div class="outline-text-7" id="text-1-4-1-1-3-14">
+<p>
+Play uses binding concepts similar to those in ASP .NET MVC.
+</p>
+
+<p>
+Will be discussed in chapter 7.
+</p>
+</div></li></ol></li>
+
+<li><a id="org8f03bd7"></a>View<br  /><div class="outline-text-6" id="text-1-4-1-1-4">
+<p>
+Combines dynamic model data with view templates.
+</p>
+
+<p>
+If you have high performance requirements for serving static content, the best
+approach is probably to use a cache or load balancer in front of Play,
+instead of avoiding serving the files using Play in the first place.
+</p>
+</div></li>
+
+
+<li><a id="org65c2ea8"></a>Model<br  /><div class="outline-text-6" id="text-1-4-1-1-5">
+<p>
+The application's domain-specific data and logic.
+Communicates with storage through <span class="underline">Persistence API</span>.
+</p>
+
+<p>
+It is beneficial to represent the model with Scala case classes.
+They can be serialized by the Persistence API.
+</p>
+
+<p>
+Play uses the the <a href="http://workwithplay.com/blog/2013/05/08/persist-data-with-anorm/">Anorm</a> persistence library, but it's not a requirement.
+Other ones, such as <a href="http://www.scalatra.org/2.2/guides/persistence/slick.html">Slick</a>, can be used.
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="org86ebb29"></a>Slick<br  /><div class="outline-text-7" id="text-1-4-1-1-5-1">
+<p>
+<a href="http://www.scalatra.org/2.2/guides/persistence/slick.html">Slick</a> is intended as the go-to Scala persistence API for relational DB access.
+It acts as a kind of ORM by using built-in Scala language features.
+</p>
+
+<p>
+Examples:
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="orga4b98f2"></a>Mapping a database table to a `Product` DAO:<br  /><div class="outline-text-8" id="text-1-4-1-1-5-1-1">
+<pre class="example">
+object Product extends Table[(Long, String, String)]("products") {
+    def ean = column[Long]("ean", O.PrimaryKey)
+    def name = column[String]("name")
+    def description = column[String]("description")
+
+    // The projection that defines the columns in the "Table" definition.
+    def * = ean ~ name ~ description
+}
+</pre>
+</div></li>
+<li><a id="org795196a"></a>defining a query on a `Product` object:<br  /><div class="outline-text-8" id="text-1-4-1-1-5-1-2">
+<pre class="example">
+val products = for {
+    product &lt;- Product.sortBy(product =&gt; product.name.asc)
+} yield (product)
+</pre>
+<p>
+To execute the query, you can use the query to generate a list of products in a
+database session:
+</p>
+<pre class="example">
+val url = "jdbc:postgresql://localhost/slick?user=slick&amp;password=slick"
+Database.forURL(url, driver = "org.postgresql.Driver") withSession {
+    val productList = products.list
+}
+</pre>
+</div></li></ol></li></ol></li></ol>
+</div>
+
+<div id="outline-container-org9757081" class="outline-5">
+<h5 id="org9757081"><span class="section-number-5">1.4.1.2</span> Jobs</h5>
+<div class="outline-text-5" id="text-1-4-1-2">
+<p>
+Akka is integrated, so long-running jobs can be scheduled for `Actor`s to
+perform.
+See the `simple-app` example for code.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5aacfc7" class="outline-5">
+<h5 id="org5aacfc7"><span class="section-number-5">1.4.1.3</span> Modularization</h5>
+<div class="outline-text-5" id="text-1-4-1-3">
+<p>
+Play is modular - there are core modules, custom modules and 3rd party modules.
+</p>
+
+<p>
+Examples of 3rd party modules:
+</p>
+</div>
+<ol class="org-ol"><li><a id="org876a8c5"></a><span class="underline">Deadbolt</span> - role-based authorization<br  /></li>
+<li><a id="orga17f327"></a><span class="underline">Groovy templates</span> - Alternative to Scala templates<br  /></li>
+<li><a id="org0a62002"></a><span class="underline">PDF</span> - PDF output based on HTML templates<br  /></li>
+<li><a id="org973bb62"></a><span class="underline">Redis</span> - Redis cache implementation<br  /></li>
+<li><a id="org55cdac9"></a><span class="underline">Sass</span> - Sass compilation support<br  /><div class="outline-text-6" id="text-1-4-1-3-5">
+<p>
+The main Play application should be oriented on the domain model and business
+logic.
+Everything else should be extracted to custom modules. (for SRP, testability,
+maintainability etc.)
+i
+<b>Example: adding commenting functionality to an application for managing product stocks in a warehouse network.</b>
+This functionality (as well as the related data) is somewhat independent from
+the domain and has a public interface (UI / API) that's separate from the rest
+of the app.
+</p>
+
+<p>
+Related features:
+</p>
+</div></li>
+<li><a id="org6243c9e"></a>Persistent model classes for comment storage<br  /></li>
+<li><a id="org8e0ead8"></a>A UI on the products page for CRUDing comments<br  /></li>
+<li><a id="org27c28cf"></a>A controller, providing an HTTP API for adding and viewing comments<br  /><div class="outline-text-6" id="text-1-4-1-3-8">
+<p>
+For that, you'd create a new, separate `comments` module, add it as an app
+dependency and finally move the relevant code to the module. This assumes that
+you have already coded up the comments in the main app and want to refactor.
+You can also go module-first, always creating separate modules for different
+functionalities and adding to the main application only when absolutely
+necessary.
+</p>
+</div></li>
+
+<li><a id="org208c021"></a>How to connect modules to the domain<br  /><div class="outline-text-6" id="text-1-4-1-3-9">
+<p>
+E.g. the obvious model design for product comments includes a direct reference
+from a comment to a product it relates to.
+Such a design would of course make the comments module dependent on the domain
+model, a trait you strive to avoid.
+The solution is to make a weaker link from comments to products, using the app's
+HTTP API. Instead of linking comments directly to the products model, you can
+link comments to an arbitrary application URL, such as a product's details page
+URL.
+</p>
+
+<p>
+As long as you identify products by clean, stateless URLs for their details
+pages, it's enough to comment on a page instead of a product.
+</p>
+
+<p>
+A similar issue arises in the controller layer when you want to acquire the
+comments for a given product to render them inline within the view template.
+The solution here is to load them separately via AJAX. This AJAX request would
+call the comments controller and receive a JSON response.
+</p>
+
+<p>
+A good rule of thumb is that you can use a separate module whenever possible
+for functionality that’s orthogonal to your application’s model.
+Code that doesn’t depend on your model can usually be extracted to a
+separate independent module, but code that uses your model shouldn’t be in a
+module because then that module would depend on your application and not be
+reusable.
+</p>
+
+<p>
+If you want to extract functionality that appears to depend on the model,
+consider whether there’s a way to avoid this dependency, or make it a loose
+coupling by using an external reference like the page URL rather than a model
+reference like a product ID.
+</p>
+
+<p>
+A module can also include a plugin, which is a class that extends
+`play.api.Plugin` in order to intercept application startup and shutdown events.
+Plugins aren’t specific to modules—a Play application can also include a plugin—
+but they’re especially useful for modules that enhance Play.
+</p>
+</div></li></ol>
+</div>
+
+<div id="outline-container-org03219ec" class="outline-5">
+<h5 id="org03219ec"><span class="section-number-5">1.4.1.4</span> HTTP API design</h5>
+<div class="outline-text-5" id="text-1-4-1-4">
+</div><ol class="org-ol"><li><a id="org2d5c4cf"></a>Routing<br  /><div class="outline-text-6" id="text-1-4-1-4-1">
+<p>
+`GET /products controllers.Products.list(page: Int ?= 1)` syntax is used for
+optional parameters.
+</p>
+
+<p>
+`GET /products controllers.Products.list(page: Int = 1)` syntax is used for
+fixed parameter values that are not specified in the URL.
+</p>
+
+<p>
+<b>To support slashes in URL parameters</b>, use:
+`GET /photo/*file controllers.Media.photo(file: String)` (notice the asterisk).
+</p>
+
+<p>
+<b>To alias routes</b>, use:
+</p>
+<pre class="example">
+GET /product/$ean&lt;\d{13}&gt; controllers.Products.details(ean: Long)
+GET /product/:alias controllers.Products.alias(alias: String)
+</pre>
+
+<p>
+<b>Reverse routing</b> is nothing more than having Scala objects built based on the
+ route configuration file.
+They serve to provide maintainable URL references that reflect any changes in
+the configuration.
+Each URL of your application shoul optimally occur only once - in the route
+config file.
+</p>
+
+<p>
+Reverse controllers are available in the `controllers.routes` class, generated
+by Play.
+</p>
+</div></li>
+
+<li><a id="orgde4e6fd"></a>Response handling<br  /><div class="outline-text-6" id="text-1-4-1-4-2">
+<p>
+You can add custom headers to the response.
+</p>
+
+<p>
+Example:
+</p>
+<pre class="example">
+val url = routes.Products.details(product.ean).url
+// /HTTP 201 wuth a 'Location' header
+Created.withHeaders(LOCATION -&gt; url)
+</pre>
+
+<p>
+Response types can be overriden, using values from the
+`play.api.http.ContentTypes` trait, which `Controller` extends.
+</p>
+
+<p>
+Example:
+</p>
+<pre class="example">
+Ok("""{ "status": "success" }""").as(JSON)
+</pre>
+</div>
+
+<ol class="org-ol"><li><a id="org6268e85"></a>JSON<br  /><div class="outline-text-7" id="text-1-4-1-4-2-1">
+<p>
+JSON responses are created from `Map` objects.
+</p>
+
+<p>
+Example:
+</p>
+<pre class="example">
+def json = Action {
+    import play.api.libs.json.Json
+    val success = Map("status" -&gt; "success")
+    val json = Json.toJson(success)
+    Ok(json)
+}
+</pre>
+</div></li>
+
+<li><a id="org53c0b8f"></a>Binary data<br  /><div class="outline-text-7" id="text-1-4-1-4-2-2">
+<p>
+Creating a binary response is similar to JSON or XML - you just need to add the
+content type yourself.
+</p>
+</div></li>
+
+<li><a id="orgcdbff34"></a>Session<br  /><div class="outline-text-7" id="text-1-4-1-4-2-3">
+<p>
+Session data is a `Map[String,String]` which is implemented as an HTTP cookie.
+</p>
+
+<p>
+<b>Important note:</b> 
+The canonical use case for session cookies is to identify the currently
+authenticated user. In fact, it’s reasonable to argue that if you can 
+identify the current user using a session cookie, then that should be the
+only thing you use cookies for, because you can load user-specific data from 
+a Persistent data model instead.
+</p>
+
+<p>
+Example usage:
+</p>
+<pre class="example">
+Ok(results).withSession(
+    request.session + ("search.previous" -&gt; query)
+)
+
+// Then for another request...
+val search = request.session.get("search.previous")
+
+// Clearing a session value
+Ok(results).withSession(
+    request.session - "search.previous"
+)
+</pre>
+</div></li>
+
+<li><a id="orgd143133"></a>Flash data<br  /><div class="outline-text-7" id="text-1-4-1-4-2-4">
+<p>
+A specific, transient session use case.
+Flash data can be used e.g. to display success/error messages.
+</p>
+
+<p>
+To use the <span class="underline">flash scope</span> provided by Play:
+</p>
+<pre class="example">
+// set the flash data
+Redirect(routes.Products.flash()).flashing(
+    "info" -&gt; "Product deleted!"
+)
+
+// (somewhere else) acquire the data
+val message = request.flash("info")
+</pre>
+
+<p>
+An `(implicit flash: Flash)` parameter can also be used in a view template to
+have implicit access to the <span class="underline">flash scope</span>.
+</p>
+</div></li></ol></li></ol>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-org527774d" class="outline-3">
+<h3 id="org527774d"><span class="section-number-3">1.5</span> ScalaTest</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+#= ScalaTest =
+</p>
+
+<p>
+Read the [ScalaDoc](<a href="http://www.scalatest.org/scaladoc">http://www.scalatest.org/scaladoc</a>) for ScalaTest - there is a lot of info there, much of it not covered in the main guide.
+</p>
+
+<p>
+`trait Checkpoints` aggregates assertion errors, allowing you to have all the erro messages instead of failing the spec on the first faield test.
+</p>
+
+<p>
+During the presentation (JUG), the followign opinion was voiced again:
+</p>
+
+<p>
+&gt; If you're writing Scala and have to use mocks, that's a code smell.
+</p>
+
+<p>
+This pertains to maintaing purity in tested functions.
+</p>
+
+<p>
+`scalatest.fixtures` allows to create data fictures for test which are then injected into `in` blocks.
+You need to extend `fixtures.FlatSpec` instead of just `scalatest.FlatSpec`.
+</p>
+<pre class="example">
+type FixtureParam = yourtype
+def withFixture(test: someTestType): Outcome
+</pre>
+
+<p>
+`trait PatienceConfiguration` allows defining the `timeout` and `interval` values for asynchronous code executed within tests.
+This is useful whenutilizing the `whenReady` function (similar to `Await` but async).
+Another use case is the `eventually { &#x2026; }` construct, which tries to execute the code block every `interval` ms until `timeout` value has been reached.
+</p>
+
+<p>
+Test tagging:
+</p>
+<pre class="example">
+it should "do something" taggedAs IntegrationTest in {
+    ...
+}
+</pre>
+
+<p>
+This allows running only a specifiedset of tests - can be used through test configurations.
+</p>
+
+<p>
+Object property checking:
+</p>
+<pre class="example">
+person should have (
+    'id(123),
+    'name("test"),
+    ...
+)
+</pre>
+
+<p>
+This was compared to a <a href="#org4d84591">1.5.1</a>.
+</p>
+</div>
+
+
+<div id="outline-container-org4d84591" class="outline-4">
+<h4 id="org4d84591"><span class="section-number-4">1.5.1</span> lens</h4>
+<div class="outline-text-4" id="text-1-5-1">
+<p>
+#= Lens =
+</p>
+
+<p>
+This topic should be followed up on when you're more qualified to reason about these topics.
+</p>
+
+<p>
+SPJ presentation:
+<a href="https://pdlvimeocdn-a.akamaihd.net/11073/941/195814777.mp4?token2=1426025400_f1ce041424a36f8be91eb40b5a56dbca&amp;aksessionid=6464f9f872ab29c5">https://pdlvimeocdn-a.akamaihd.net/11073/941/195814777.mp4?token2=1426025400_f1ce041424a36f8be91eb40b5a56dbca&amp;aksessionid=6464f9f872ab29c5</a>
+</p>
+
+<p>
+Lenses in Scalaz:
+<a href="http://eed3si9n.com/learning-scalaz/Lens.html">http://eed3si9n.com/learning-scalaz/Lens.html</a>
+</p>
+
+
+<p>
+In functional programming, lenses are a construct that allow functional, composable access to data structures.
+They were called "jQuery for data types".
+A simple example of a lens would be a function giving you access to the `minutes` portion of a `DateTime` structure.
+</p>
+
+<p>
+A lens is a first-class value with a type of `Lens' s a`, where `s` is the container type and `a` is the <b>focus</b> type.
+</p>
+
+<p>
+Lens composition:
+</p>
+<pre class="example">
+composeL :: Lens' s1 s2
+         -&gt; Lens' s2 a
+         -&gt; Lens' s1 a
+</pre>
+
+<p>
+Haskell already supports a similar concept through nested records, but the code for that is quite cumbersome.
+</p>
+
+<p>
+More concrete example:
+</p>
+<pre class="example">
+data Person = P { name :: String
+                , addr :: Address
+                , salary :: Int }
+data Address = A { road :: String
+                 , city :: String
+                 , postcode :: String }
+
+setPostcode :: String -&gt; Person -&gt; Person
+setPostcode pc p =
+    set (laddr `composeL` lpostcode) pc p
+}
+</pre>
+
+<p>
+We want to have a lens for each field:
+</p>
+<pre class="example">
+data Person = P { name :: String
+                , addr :: Address
+                , salary :: Int }
+lname :: Lens' Person String
+laddr :: Lens' Person Address
+lsalary :: Lens' Person Int
+</pre>
+
+<p>
+as well as means to use it for getting or updating values:
+</p>
+<pre class="example">
+view :: Lens' s a -&gt; s -&gt; a
+view :: Lens' s a -&gt; a -&gt; s -&gt; s
+</pre>
+
+<p>
+and the aforementioned way of composing them:
+</p>
+
+<pre class="example">
+somposeL :: Lens' s1 s2 -&gt; Lens' s2 a -&gt; Lens' s1 a
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org8ec6497" class="outline-3">
+<h3 id="org8ec6497"><span class="section-number-3">1.6</span> Substitution-related</h3>
+<div class="outline-text-3" id="text-1-6">
+</div><div id="outline-container-org52655d3" class="outline-4">
+<h4 id="org52655d3"><span class="section-number-4">1.6.1</span> Substitution-related</h4>
+<div class="outline-text-4" id="text-1-6-1">
+</div><div id="outline-container-org35020dd" class="outline-5">
+<h5 id="org35020dd"><span class="section-number-5">1.6.1.1</span> Substitution</h5>
+<div class="outline-text-5" id="text-1-6-1-1">
+<p>
+Substitution in Scala by default is done as follows:
+</p>
+</div>
+<ol class="org-ol"><li><a id="org5be3082"></a>Pick the left-most operation.<br  /></li>
+<li><a id="orga36efd4"></a>Evaluate its operands.<br  /></li>
+<li><a id="org405414a"></a>Apply the operator to the operand values.<br  /><div class="outline-text-6" id="text-1-6-1-1-3">
+<p>
+The process of stepwise simplification of expressions is called <span class="underline">reduction</span>.
+</p>
+
+<p>
+A function also plays the role of an operator.
+</p>
+
+<p>
+Precondition for the following sections:
+</p>
+
+<pre class="example">
+scala&gt; def square(x: Double) = x * x
+square: (Double)Double
+
+scala&gt; def sumOfSquares(x: Double, y: Double) = square(x) + square(y)
+sumOfSquares: (Double,Double)Double
+</pre>
+</div></li></ol>
+</div>
+
+<div id="outline-container-orgfa1e0f5" class="outline-5">
+<h5 id="orgfa1e0f5"><span class="section-number-5">1.6.1.2</span> Call-by-value</h5>
+<div class="outline-text-5" id="text-1-6-1-2">
+<p>
+This is a standard way of doing reduction by the interpreter.
+</p>
+</div>
+<ol class="org-ol"><li><a id="org99a9a9a"></a>The arguments of a function are evaluated (LTR).<br  /></li>
+<li><a id="orgc8c8f83"></a>Function application is replaced by the function's RHS.<br  /></li>
+<li><a id="orgadeb6c6"></a>All formal parameters of the function are replaced by their corresponding actual arguments.<br  /><div class="outline-text-6" id="text-1-6-1-2-3">
+<pre class="example">
+  sumOfSquares(3, 2+2)
+→ sumOfSquares(3, 4)
+→ square(3) + square(4)
+→ 3 * 3 + square(4)
+→ 9 + square(4)
+→ 9 + 4 * 4
+→ 9 + 16
+→ 25
+</pre>
+</div></li></ol>
+</div>
+
+<div id="outline-container-org3d51ee4" class="outline-5">
+<h5 id="org3d51ee4"><span class="section-number-5">1.6.1.3</span> Call-by-name</h5>
+<div class="outline-text-5" id="text-1-6-1-3">
+<p>
+An alternative way of doing reduction
+</p>
+</div>
+<ol class="org-ol"><li><a id="org8fc8511"></a>Function application is replaced by the function's RHS.<br  /></li>
+<li><a id="org085583c"></a>The arguments of a function are evaluated (LTR).<br  /></li>
+<li><a id="orgbca5fcd"></a>All formal parameters of the function are replaced by their corresponding actual arguments.<br  /><div class="outline-text-6" id="text-1-6-1-3-3">
+<pre class="example">
+  sumOfSquares(3, 2+2)
+→ square(3) + square(2+2)
+→ 3 * 3 + square(2+2)
+→ 9 + square(2+2)
+→ 9 + (2+2) * (2+2)
+→ 9 + 4 * (2+2)
+→ 9 + 4 * 4
+→ 9 + 16
+→ 25
+</pre>
+
+<p>
+Scala uses call-by-value by default, but it switches to call-by-name evaluation
+if the parameter type is preceded by `=&gt;`.
+</p>
+</div></li></ol>
+</div>
+</div>
+</div>
+<div id="outline-container-org1397616" class="outline-3">
+<h3 id="org1397616"><span class="section-number-3">1.7</span> Traits</h3>
+<div class="outline-text-3" id="text-1-7">
+<p>
+#= Scala - traits =
+</p>
+
+<p>
+Instead of abstract class one also often uses the keyword `trait` in Scala.
+Traits are abstract classes that are meant to be added to some other class.
+This might be because a trait adds some methods or fields to an unknown parent
+class.
+For instance, a trait Bordered might be used to add a border to a various
+graphical components.
+Another usage scenario is where the trait collects signatures of some 
+functionality provided by different classes, much in the way a Java interface 
+would work.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author:  (<a href="mailto:elkorn@arch">elkorn@arch</a>)</p>
+<p class="date">Date: </p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.0.3)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

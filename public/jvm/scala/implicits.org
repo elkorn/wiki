@@ -1,0 +1,129 @@
+* Implicits
+
+An implicit could be an "ambient" value for some scope or a conversion which can be applied automatically (implicitly :)).
+
+** Implicit conversion
+
+Example:
+
+#+begin_example
+"abc".map(_.toString)
+#+end_example
+
+`String` does not support a `map` operation, but `StringOps` does - and if there exists a conversion from `String` to `StringOps`, then the example code will compile and work as expected.
+
+** Implicit parameters
+
+Implicit parameters work just like normal ones, except for that the compiler tries to fill them in automatically - if it cannot, it will throw an error.
+
+Example:
+#+begin_example
+def foo[T](t: T)(implicit integral: Integral[T]) {println(integral)}
+#+end_example
+
+** View bounds
+
+In the following example, an implicit value acts both as an implicit conversion and an implicit parameter:
+
+#+begin_example
+def getIndex[T, CC](seq: CC, value: T)(implicit conv: CC => Seq[T]) = seq.indexOf(value)
+
+getIndex("abc", 'a')
+#+end_example
+
+This function can receive any objects as `seq` and `value` as long as an appropriate conversion exists.
+
+This pattern is *very useful*, to the point of having syntactic sugar of *view bounds* for it:
+
+#+begin_example
+def getIndex[T, CC <% Seq[T]](seq: CC, value: T) = seq.indexOf(value)
+#+end_example
+
+There is a kinship between the view bound and the upper bound (`CC <: Seq[Int]`) or the lower bound (`T >: Null`).
+
+** Context Bounds
+
+Context bounds pose syntactic sugar for having to provide an implicit parameter.
+This technique is useful when achieving ad-hoc polymorphism through typeclasses, enabling common interface provisioning to classes which did not declare them.
+Typeclasses can be used as bridges as well as adapters.
+
+Example:
+#+begin_example
+// without a context bound
+def sum[T](list: List[T])(implicit integral: Integral[T]): T = {
+    import integral._
+    list.foldLeft(integral.zero)(_ + _)
+}
+
+// with a context bound
+def sum[T: Integral](list: List[T]): T = {
+    // You have to refer the implicit.
+    val integral = implicitly[Integral[T]]
+    import integral._
+    list.foldLeft(integral.zero)(_ + _)
+}
+#+end_example
+
+Context bounds are more useful when you just pass them to other methods which use them.
+Example: the `sorted` method on `Seq` needs an implicit `Ordering`.
+To create a `reverseSort` method, one could write:
+#+begin_example
+def reverseSort[T: Ordering](seq: Seq[T]) = seq.sorted.reverse
+#+end_example
+
+The `Ordering[T]` was implicitly passed using a context bound, it can be as well passed implicitly to `sorted`.
+
+** Order of precedence for implicits
+
+Primary search locations:
+
+- Implicits defined in current scope
+#+begin_example
+implicit val n: Int = 5
+def add(x: Int)(implicit y: Int) = x+y
+add(5) // 10
+#+end_example
+
+- explicit imports
+#+begin_example
+import scala.collection.JavaConversions.mapAsScalaMap
+def env = System.getenv() // Java map
+val term = env("TERM") // implicit Java map -> Scala map conversion 
+#+end_example
+
+- wildcard imports (see the context bound example)
+
+Secondary search locations:
+
+- companion objects of a type
+       - first, the companion object for the "source" type is looked into. E.g. inside the `object Option` there is an implicit conversion to `Iterable`, so one can call its methods on `Option` or pass `Option` as `Iterable`
+#+begin_example
+for {
+    x <- List(1, 2, 3)
+    y <- Some('x')
+} yield (x, y)
+// Which desugars into
+List(1,2,3).flatMap(x => Some('x').map(y => (x, y)))
+#+end_example
+           - `List.flatMap`, however, requires a `TraversableOnce`, which `Option` is not. The compiler then looks for it in the `Option`'s companion object and finds the conversion to `Iterable`.
+       - second, companion object of the expected type
+           - the method `sorted` takes an implicit `Ordering`. In case of `List(1,2,3).sorted`, the compiler looks inside the `object Ordering` and finds an implicit `Ordering[Int]`.
+       - companion objects of superclasses are also looked into.
+- implicit scopes of an argument's type
+      - by 'implicit scope' it's meant that all the given rules will be applied to the argument type (its companion object will be searched and so on.).   
+- implicit scope of type arguments
+      - the implicit scope is now the type arguments for given function
+- outer objects for nested types
+#+begin_example
+class A(val n: Int) {
+    class B(val m: Int) { require(m < n) }
+}
+
+object A {
+    implicit def bToString(b: A#B) = "B: %d" format b.m
+}
+
+val a = new A(5)
+val b = new a.B(3)
+val s: String = b // s == "B: 3"
+#+end_example

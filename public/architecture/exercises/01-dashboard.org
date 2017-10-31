@@ -1,0 +1,16 @@
+* Dashboard
+** Requirements
+- Scalability
+- Low latency
+- Millions of updates per second
+** Data to display
+For each day:
+- city name
+- total trips in that city for that day
+- total fare it could collect in that city on that day
+- fare collected from old clients
+- fare collected from new clients (having the first Uber ride after registration)
+*** Input formats
+- Strings s1, s2
+- format of s1: `trip_id`, `client_id`, `city`, `datetime`
+- format of s2: `trip_id`, `fare`

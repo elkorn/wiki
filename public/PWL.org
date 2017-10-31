@@ -1,0 +1,6 @@
+* TODO Send a message to @mtalaska
+<2015-03-21 Sat>
+* TODO Read the CRDT paper
+<2015-03-21 Sat>
+* TODO Set up the meetup
+<2015-03-22 Sun>

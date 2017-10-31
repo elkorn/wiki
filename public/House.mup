@@ -1,0 +1,149 @@
+{
+  "title": "House",
+  "id": 1,
+  "formatVersion": 2,
+  "ideas": {
+    "1": {
+      "title": "Wood",
+      "id": 2,
+      "ideas": {
+        "1": {
+          "title": "Bauer Holz http://www.bauer-holz.de/startseite.html",
+          "id": 3,
+          "ideas": {
+            "1": {
+              "title": "Catalog https://issuu.com/kaisergd/docs/bauer_2015",
+              "id": 4
+            }
+          }
+        },
+        "2": {
+          "title": "Pallets",
+          "id": 8,
+          "ideas": {
+            "1": {
+              "title": "Reinickendorf https://www.ebay-kleinanzeigen.de/s-anzeige/europaletten-einwegpaletten-entsorgung-hochbeet-aufsatzrahmen/478428662-84-3452",
+              "id": 9,
+              "ideas": {
+                "1": {
+                  "title": "Mo-Fr 7-16 Uhr\nSa bis 10 Uhr\n+49 15904255714",
+                  "id": 11,
+                  "ideas": {},
+                  "attr": {
+                    "style": {
+                      "background": "#ff9900"
+                    }
+                  }
+                },
+                "2": {
+                  "title": "Mein Deutsch ist nicht so gut, also bitte Geduld mit mir.\n",
+                  "id": 14,
+                  "attr": {
+                    "style": {}
+                  }
+                },
+                "3": {
+                  "title": "Ich möchte Ihnen ein paar Fragen in Bezug auf den Paletten zu fragen.",
+                  "id": 15
+                },
+                "4": {
+                  "title": "Waren die mit Chemikalien oder Methylbromid behandelt Paletten? ",
+                  "id": 16
+                },
+                "5": {
+                  "title": "Sind sie für die Verwendung in Innenräumen sicher? ",
+                  "id": 17
+                },
+                "6": {
+                  "title": "Könnten Sie mir die Markierungen auf ihnen sagen?",
+                  "id": 18
+                },
+                "7": {
+                  "title": "Wie viel würde es kosten sie 12 km zu transportieren? ",
+                  "id": 19
+                }
+              },
+              "attr": {
+                "collapsed": true,
+                "style": {}
+              }
+            },
+            "2": {
+              "title": "Pallet ABC http://www.palettendienst-goering.de/abc.html",
+              "id": 24
+            },
+            "1.5": {
+              "title": "Wittenau http://paletten-wittenau.de/",
+              "id": 37
+            }
+          }
+        }
+      },
+      "attr": {
+        "style": {}
+      }
+    },
+    "2": {
+      "title": "Craft",
+      "id": 22,
+      "ideas": {
+        "1": {
+          "title": "Learn about saw cutouts",
+          "id": 23
+        }
+      },
+      "attr": {
+        "collapsed": true,
+        "style": {}
+      }
+    },
+    "-1": {
+      "title": "Tools",
+      "id": 5,
+      "ideas": {
+        "1": {
+          "title": "Holzbock https://www.bauhaus.info/moebelsysteme/holzklappbock-professionell-/p/22107604",
+          "id": 6,
+          "attr": {
+            "style": {
+              "background": "#99cc00"
+            }
+          }
+        },
+        "2": {
+          "title": "Chisels",
+          "id": 7,
+          "attr": {
+            "style": {
+              "background": "#99cc00"
+            }
+          }
+        },
+        "3": {
+          "title": "Ryoba saw",
+          "id": 20
+        },
+        "4": {
+          "title": "Miter box",
+          "id": 21
+        }
+      }
+    },
+    "-2": {
+      "title": "Furniture",
+      "id": 25,
+      "ideas": {
+        "1": {
+          "title": "Hacked",
+          "id": 26,
+          "ideas": {
+            "1": {
+              "title": "http://www.ikeahackers.net/2011/04/expedit-standing-desk.html",
+              "id": 27
+            }
+          }
+        }
+      }
+    }
+  }
+}

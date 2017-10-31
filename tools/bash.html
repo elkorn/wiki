@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-10-31 Tue 15:01 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title></title>
+<meta name="generator" content="Org mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/org"> HOME </a>
+</div><div id="content">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgebbe297">1. Downloading</a>
+<ul>
+<li><a href="#orgececf8f">1.1. Download a whole webpage</a></li>
+<li><a href="#org431f4e0">1.2. Download all files from an Apache listing</a></li>
+</ul>
+</li>
+<li><a href="#org7e0d629">2. Parameter expansion</a>
+<ul>
+<li><a href="#org412e38e">2.1. Substring</a></li>
+<li><a href="#orgd5ea9f9">2.2. Replace a string</a></li>
+<li><a href="#orgbc3c824">2.3. Change case</a></li>
+<li><a href="#org527ee82">2.4. Parameters</a></li>
+<li><a href="#org637d8db">2.5. Filenames</a></li>
+</ul>
+</li>
+<li><a href="#org452973d">3. Replace text in files</a></li>
+<li><a href="#orga813438">4. Using tput</a>
+<ul>
+<li><a href="#org95b3fcc">4.1. Color capabilities</a>
+<ul>
+<li><a href="#org84e1721">4.1.1. `tput setab [1-7]` – Set a background color using ANSI escape</a></li>
+<li><a href="#org030c8ae">4.1.2. `tput setb [1-7]` – Set a background color</a></li>
+<li><a href="#org7ac1eb4">4.1.3. `tput setaf [1-7]` – Set a foreground color using ANSI escape</a></li>
+<li><a href="#org61a1d3a">4.1.4. `tput setf [1-7]` – Set a foreground Color</a></li>
+</ul>
+</li>
+<li><a href="#org100c7a8">4.2. Text capabilities</a>
+<ul>
+<li><a href="#org058de5b">4.2.1. `tput bold` – Set bold mode</a></li>
+<li><a href="#org1d8fc88">4.2.2. `tput dim` – turn on half-bright mode</a></li>
+<li><a href="#orgf7aa878">4.2.3. `tput smul` – begin underline mode</a></li>
+<li><a href="#orgf5809c7">4.2.4. `tput rmul` – exit underline mode</a></li>
+<li><a href="#org0611bce">4.2.5. `tput rev` – Turn on reverse mode</a></li>
+<li><a href="#org96151d0">4.2.6. `tput smso` – Enter standout mode (bold on rxvt)</a></li>
+<li><a href="#org727fb78">4.2.7. `tput rmso` – Exit standout mode</a></li>
+<li><a href="#org5d13c1e">4.2.8. `tput sgr0` – Turn off all attributes</a></li>
+</ul>
+</li>
+<li><a href="#orgfbcd1e2">4.3. Color codes</a>
+<ul>
+<li><a href="#orgc6e6019">4.3.1. `0` – Black</a></li>
+<li><a href="#orge432112">4.3.2. `1` – Red</a></li>
+<li><a href="#orgc402e1b">4.3.3. `2` – Green</a></li>
+<li><a href="#org15acbf4">4.3.4. `3` – Yellow</a></li>
+<li><a href="#org477f7dd">4.3.5. `4` – Blue</a></li>
+<li><a href="#org8e89506">4.3.6. `5` – Magenta</a></li>
+<li><a href="#org3a19be1">4.3.7. `6` – Cyan</a></li>
+<li><a href="#org979659b">4.3.8. `7` – White</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgebbe297" class="outline-2">
+<h2 id="orgebbe297"><span class="section-number-2">1</span> Downloading</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-orgececf8f" class="outline-3">
+<h3 id="orgececf8f"><span class="section-number-3">1.1</span> Download a whole webpage</h3>
+<div class="outline-text-3" id="text-1-1">
+<pre class="example">
+wget --mirror -p --convert-links -P TARGET_PATH http://foobar.com
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org431f4e0" class="outline-3">
+<h3 id="org431f4e0"><span class="section-number-3">1.2</span> Download all files from an Apache listing</h3>
+<div class="outline-text-3" id="text-1-2">
+<pre class="example">
+wget -r -N --no-parent --reject '*index.html*' -nH --cut-dirs=1 http://foobar.com
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7e0d629" class="outline-2">
+<h2 id="org7e0d629"><span class="section-number-2">2</span> Parameter expansion</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-org412e38e" class="outline-3">
+<h3 id="org412e38e"><span class="section-number-3">2.1</span> Substring</h3>
+<div class="outline-text-3" id="text-2-1">
+<pre class="example">
+var="abcdef"
+echo ${var:1:3} # bcd
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgd5ea9f9" class="outline-3">
+<h3 id="orgd5ea9f9"><span class="section-number-3">2.2</span> Replace a string</h3>
+<div class="outline-text-3" id="text-2-2">
+<pre class="example">
+var="apples and cherries"
+echo ${var/apples/cherries} # cherries and cherries
+</pre>
+
+<p>
+<b>Global substitution</b>
+</p>
+<pre class="example">
+var="apples and apples and cherries"
+echo ${var//apples/cherries} # cherries and cherries and cherries
+</pre>
+
+<p>
+<b>Remove substring</b>
+</p>
+<pre class="example">
+var="apples and cherries"
+echo ${var/apples/} #  and cherries
+</pre>
+
+<p>
+<b>Remove pattern from end of a string</b>
+</p>
+<pre class="example">
+var="apples and cherries"
+echo${car%cherries} # apples and
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgbc3c824" class="outline-3">
+<h3 id="orgbc3c824"><span class="section-number-3">2.3</span> Change case</h3>
+<div class="outline-text-3" id="text-2-3">
+<pre class="example">
+var="abcdef"
+echo ${var^^} # ABCDEF
+</pre>
+<pre class="example">
+var="ABCDEF"
+echo ${var,,} # abcdef
+</pre>
+<p>
+<b>Lowercase all filenames</b>
+</p>
+<pre class="example">
+for i in *.JPG; do
+  mv "$i" "${i,,}"
+done
+</pre>
+</div>
+</div>
+<div id="outline-container-org527ee82" class="outline-3">
+<h3 id="org527ee82"><span class="section-number-3">2.4</span> Parameters</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+<b>Access given parameter</b>
+</p>
+<pre class="example">
+echo ${@:3} # prints the 3rd parameter provided to the script
+</pre>
+</div>
+</div>
+<div id="outline-container-org637d8db" class="outline-3">
+<h3 id="org637d8db"><span class="section-number-3">2.5</span> Filenames</h3>
+<div class="outline-text-3" id="text-2-5">
+<p>
+<b>Print a filename without the extension</b>
+</p>
+<pre class="example">
+var=file.txt
+echo ${var%.*}
+</pre>
+
+<p>
+<b>Print only an extension</b>
+</p>
+<pre class="example">
+var=file.txt
+echo ${var#*.}
+</pre>
+
+<p>
+<b>Print last segments of a path</b>
+</p>
+<pre class="example">
+var="/usr/bin/emacs"
+echo ${var##*/} # emacs
+</pre>
+
+<p>
+<b>Print the preceding segments of a path</b>
+</p>
+<pre class="example">
+var="/usr/bin/emacs"
+echo${var%/*} # /usr/bin
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org452973d" class="outline-2">
+<h2 id="org452973d"><span class="section-number-2">3</span> Replace text in files</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+To replace some text in specified files:
+</p>
+<pre class="example">
+grep -nl "foo"  *.go | xargs sed -i 's/foo/bar/g'
+</pre>
+
+<p>
+recursively:
+</p>
+<pre class="example">
+grep -rl "foo"  *.go | xargs sed -i 's/foo/bar/g'
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orga813438" class="outline-2">
+<h2 id="orga813438"><span class="section-number-2">4</span> Using tput</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-org95b3fcc" class="outline-3">
+<h3 id="org95b3fcc"><span class="section-number-3">4.1</span> Color capabilities</h3>
+<div class="outline-text-3" id="text-4-1">
+</div><div id="outline-container-org84e1721" class="outline-4">
+<h4 id="org84e1721"><span class="section-number-4">4.1.1</span> `tput setab [1-7]` – Set a background color using ANSI escape</h4>
+</div>
+<div id="outline-container-org030c8ae" class="outline-4">
+<h4 id="org030c8ae"><span class="section-number-4">4.1.2</span> `tput setb [1-7]` – Set a background color</h4>
+</div>
+<div id="outline-container-org7ac1eb4" class="outline-4">
+<h4 id="org7ac1eb4"><span class="section-number-4">4.1.3</span> `tput setaf [1-7]` – Set a foreground color using ANSI escape</h4>
+</div>
+<div id="outline-container-org61a1d3a" class="outline-4">
+<h4 id="org61a1d3a"><span class="section-number-4">4.1.4</span> `tput setf [1-7]` – Set a foreground Color</h4>
+</div>
+</div>
+
+<div id="outline-container-org100c7a8" class="outline-3">
+<h3 id="org100c7a8"><span class="section-number-3">4.2</span> Text capabilities</h3>
+<div class="outline-text-3" id="text-4-2">
+</div><div id="outline-container-org058de5b" class="outline-4">
+<h4 id="org058de5b"><span class="section-number-4">4.2.1</span> `tput bold` – Set bold mode</h4>
+</div>
+<div id="outline-container-org1d8fc88" class="outline-4">
+<h4 id="org1d8fc88"><span class="section-number-4">4.2.2</span> `tput dim` – turn on half-bright mode</h4>
+</div>
+<div id="outline-container-orgf7aa878" class="outline-4">
+<h4 id="orgf7aa878"><span class="section-number-4">4.2.3</span> `tput smul` – begin underline mode</h4>
+</div>
+<div id="outline-container-orgf5809c7" class="outline-4">
+<h4 id="orgf5809c7"><span class="section-number-4">4.2.4</span> `tput rmul` – exit underline mode</h4>
+</div>
+<div id="outline-container-org0611bce" class="outline-4">
+<h4 id="org0611bce"><span class="section-number-4">4.2.5</span> `tput rev` – Turn on reverse mode</h4>
+</div>
+<div id="outline-container-org96151d0" class="outline-4">
+<h4 id="org96151d0"><span class="section-number-4">4.2.6</span> `tput smso` – Enter standout mode (bold on rxvt)</h4>
+</div>
+<div id="outline-container-org727fb78" class="outline-4">
+<h4 id="org727fb78"><span class="section-number-4">4.2.7</span> `tput rmso` – Exit standout mode</h4>
+</div>
+<div id="outline-container-org5d13c1e" class="outline-4">
+<h4 id="org5d13c1e"><span class="section-number-4">4.2.8</span> `tput sgr0` – Turn off all attributes</h4>
+</div>
+</div>
+
+<div id="outline-container-orgfbcd1e2" class="outline-3">
+<h3 id="orgfbcd1e2"><span class="section-number-3">4.3</span> Color codes</h3>
+<div class="outline-text-3" id="text-4-3">
+</div><div id="outline-container-orgc6e6019" class="outline-4">
+<h4 id="orgc6e6019"><span class="section-number-4">4.3.1</span> `0` – Black</h4>
+</div>
+<div id="outline-container-orge432112" class="outline-4">
+<h4 id="orge432112"><span class="section-number-4">4.3.2</span> `1` – Red</h4>
+</div>
+<div id="outline-container-orgc402e1b" class="outline-4">
+<h4 id="orgc402e1b"><span class="section-number-4">4.3.3</span> `2` – Green</h4>
+</div>
+<div id="outline-container-org15acbf4" class="outline-4">
+<h4 id="org15acbf4"><span class="section-number-4">4.3.4</span> `3` – Yellow</h4>
+</div>
+<div id="outline-container-org477f7dd" class="outline-4">
+<h4 id="org477f7dd"><span class="section-number-4">4.3.5</span> `4` – Blue</h4>
+</div>
+<div id="outline-container-org8e89506" class="outline-4">
+<h4 id="org8e89506"><span class="section-number-4">4.3.6</span> `5` – Magenta</h4>
+</div>
+<div id="outline-container-org3a19be1" class="outline-4">
+<h4 id="org3a19be1"><span class="section-number-4">4.3.7</span> `6` – Cyan</h4>
+</div>
+<div id="outline-container-org979659b" class="outline-4">
+<h4 id="org979659b"><span class="section-number-4">4.3.8</span> `7` – White</h4>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author:  (<a href="mailto:elkorn@arch">elkorn@arch</a>)</p>
+<p class="date">Date: </p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.0.3)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

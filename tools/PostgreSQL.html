@@ -1,0 +1,915 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-10-31 Tue 15:01 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title></title>
+<meta name="generator" content="Org mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/org"> HOME </a>
+</div><div id="content">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgf5f7188">1. PostgreSQL</a>
+<ul>
+<li><a href="#orga2cd2ce">1.1. Tools - PostgreSQL</a>
+<ul>
+<li><a href="#orgaf1041f">1.1.1. Feature highlights</a>
+<ul>
+<li><a href="#org494c2e9">1.1.1.1. User-defined data and index types, functional languages</a></li>
+<li><a href="#org574ffeb">1.1.1.2. Table inheritance</a></li>
+<li><a href="#org7dfec6f">1.1.1.3. A sophisticated locking mechanism</a></li>
+<li><a href="#org2cba3f3">1.1.1.4. Foreign key referential integrity</a></li>
+<li><a href="#org7fdd5d9">1.1.1.5. Views, rules, sub-select</a></li>
+<li><a href="#org5c15066">1.1.1.6. Nested transactions (savepoints)</a></li>
+<li><a href="#org681504b">1.1.1.7. Multi-version concurrency control</a></li>
+<li><a href="#org76c3b09">1.1.1.8. Async replication</a></li>
+</ul>
+</li>
+<li><a href="#org651acf3">1.1.2. Roles</a>
+<ul>
+<li><a href="#org79b8143">1.1.2.1. Role attributes</a></li>
+</ul>
+</li>
+<li><a href="#orgfdfcc66">1.1.3. Tablespaces</a></li>
+<li><a href="#org0237a02">1.1.4. Examples</a>
+<ul>
+<li><a href="#org765acb4">1.1.4.1. SELECT</a></li>
+<li><a href="#orga845ddf">1.1.4.2. LIKE</a></li>
+<li><a href="#orgbd99b8c">1.1.4.3. IN</a></li>
+<li><a href="#org4458d18">1.1.4.4. UNION</a></li>
+<li><a href="#org8689b33">1.1.4.5. JOIN</a></li>
+<li><a href="#orgf254378">1.1.4.6. HAVING</a></li>
+<li><a href="#org4a68019">1.1.4.7. Subquery</a></li>
+<li><a href="#org05a8f90">1.1.4.8. INSERT</a></li>
+<li><a href="#org06bbd6b">1.1.4.9. UPDATE</a></li>
+<li><a href="#org0298207">1.1.4.10. DELETE</a></li>
+</ul>
+</li>
+<li><a href="#org5839d1a">1.1.5. Data types</a>
+<ul>
+<li><a href="#org01cfde7">1.1.5.1. Character</a></li>
+<li><a href="#org5a955de">1.1.5.2. Integer</a></li>
+<li><a href="#org8045240">1.1.5.3. Floating-point number</a></li>
+<li><a href="#org2c511ad">1.1.5.4. Temporal</a></li>
+<li><a href="#org7ad6ef5">1.1.5.5. Special</a></li>
+</ul>
+</li>
+<li><a href="#org513e818">1.1.6. Table mgmt</a>
+<ul>
+<li><a href="#org0caddf4">1.1.6.1. CREATE TABLE</a></li>
+<li><a href="#orgcc0b9b8">1.1.6.2. ALTER TABLE</a></li>
+<li><a href="#orgf58eebb">1.1.6.3. TRUNCATE TABLE</a></li>
+</ul>
+</li>
+<li><a href="#org0ad1ab6">1.1.7. Database mgmt</a>
+<ul>
+<li><a href="#org4c12956">1.1.7.1. Restoring a DB</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgf5f7188" class="outline-2">
+<h2 id="orgf5f7188"><span class="section-number-2">1</span> PostgreSQL</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-orga2cd2ce" class="outline-3">
+<h3 id="orga2cd2ce"><span class="section-number-3">1.1</span> Tools - PostgreSQL</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+An adequate definition would be an 'SQL standard implementation, kept
+up-to-date'.
+</p>
+</div>
+
+<div id="outline-container-orgaf1041f" class="outline-4">
+<h4 id="orgaf1041f"><span class="section-number-4">1.1.1</span> Feature highlights</h4>
+<div class="outline-text-4" id="text-1-1-1">
+</div><div id="outline-container-org494c2e9" class="outline-5">
+<h5 id="org494c2e9"><span class="section-number-5">1.1.1.1</span> User-defined data and index types, functional languages</h5>
+</div>
+<div id="outline-container-org574ffeb" class="outline-5">
+<h5 id="org574ffeb"><span class="section-number-5">1.1.1.2</span> Table inheritance</h5>
+</div>
+<div id="outline-container-org7dfec6f" class="outline-5">
+<h5 id="org7dfec6f"><span class="section-number-5">1.1.1.3</span> A sophisticated locking mechanism</h5>
+</div>
+<div id="outline-container-org2cba3f3" class="outline-5">
+<h5 id="org2cba3f3"><span class="section-number-5">1.1.1.4</span> Foreign key referential integrity</h5>
+</div>
+<div id="outline-container-org7fdd5d9" class="outline-5">
+<h5 id="org7fdd5d9"><span class="section-number-5">1.1.1.5</span> Views, rules, sub-select</h5>
+</div>
+<div id="outline-container-org5c15066" class="outline-5">
+<h5 id="org5c15066"><span class="section-number-5">1.1.1.6</span> Nested transactions (savepoints)</h5>
+</div>
+<div id="outline-container-org681504b" class="outline-5">
+<h5 id="org681504b"><span class="section-number-5">1.1.1.7</span> Multi-version concurrency control</h5>
+</div>
+<div id="outline-container-org76c3b09" class="outline-5">
+<h5 id="org76c3b09"><span class="section-number-5">1.1.1.8</span> Async replication</h5>
+</div>
+</div>
+
+<div id="outline-container-org651acf3" class="outline-4">
+<h4 id="org651acf3"><span class="section-number-4">1.1.2</span> Roles</h4>
+<div class="outline-text-4" id="text-1-1-2">
+<p>
+Managing roles (case-sensitive, the semicolon also matters):
+</p>
+<pre class="example">
+CREATE ROLE name;
+DROP ROLE name;
+SELECT rolname FROM pg_roles;
+</pre>
+
+<p>
+To check existing roles, use `\du`.
+</p>
+</div>
+
+<div id="outline-container-org79b8143" class="outline-5">
+<h5 id="org79b8143"><span class="section-number-5">1.1.2.1</span> Role attributes</h5>
+<div class="outline-text-5" id="text-1-1-2-1">
+<p>
+To be able to login with a role:
+</p>
+<pre class="example">
+CREATE ROLE name LOGIN;
+// equivalent to:
+CREATE USER name;
+</pre>
+
+<p>
+<b>Superuser status</b>: bypassess all perm checks except the login right.
+Recommendations are similar to those related to being a root user.
+</p>
+
+<pre class="example">
+CREATE ROLE name SUPERUSER;
+</pre>
+
+<p>
+<b>Role creation</b>, as well as dropping other roles, managing role membership.
+</p>
+<pre class="example">
+CREATE ROLE name CREATEROLE;
+</pre>
+
+<p>
+<b>Initiating replication</b>: a role allowed to initiate streaming replication must
+ have the `LOGIN` privilege as well.
+</p>
+
+<pre class="example">
+CREATE ROLE name REPLICATION LOGIN;
+</pre>
+
+<p>
+<b>Password</b>: only significant if the client auth requires it for DB connection.
+ DB passwords are separate from OS passwords.
+</p>
+
+<pre class="example">
+CREATE ROLE name PASSWORD 'secret';
+</pre>
+
+<p>
+Role's attributes can be modified through `ALTER ROLE`.
+</p>
+<pre class="example">
+ALTER ROLE name WITH option
+</pre>
+
+<p>
+<b>Tip</b>: It is good practice to create a role that has the `CREATEDB` and `CREATEROLE`
+privileges, but is not a superuser, and then use this role for all routine
+management of databases and roles. This approach avoids the dangers of operating
+as a superuser for tasks that do not really require it.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgfdfcc66" class="outline-4">
+<h4 id="orgfdfcc66"><span class="section-number-4">1.1.3</span> Tablespaces</h4>
+<div class="outline-text-4" id="text-1-1-3">
+<p>
+Tablespaces define physical locations for database data.
+</p>
+
+<pre class="example">
+CREATE TABLESPACE dvdrental LOCATION 'c:\data\dvdrental';
+// and then...
+ALTER DATABASE dvdrental
+SET TABLESPACE dvdrental;
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org0237a02" class="outline-4">
+<h4 id="org0237a02"><span class="section-number-4">1.1.4</span> Examples</h4>
+<div class="outline-text-4" id="text-1-1-4">
+<p>
+All examples are assuming that the `dvdrental` database (available <a href="http://www.postgresqltutorial.com/?wpdmact=process&amp;did=MS5ob3RsaW5r">here</a> is
+imported).
+</p>
+</div>
+
+<div id="outline-container-org765acb4" class="outline-5">
+<h5 id="org765acb4"><span class="section-number-5">1.1.4.1</span> SELECT</h5>
+<div class="outline-text-5" id="text-1-1-4-1">
+<pre class="example">
+SELECT 
+    first_name,
+    last_name,
+    email
+FROM customer;
+</pre>
+
+<p>
+<b>Distinct</b>:
+Preparation code:
+</p>
+<pre class="example">
+CREATE TABLE t1 (
+    id serial NOT NULL PRIMARY KEY,
+        bcolor VARCHAR (25),
+        fcolor VARCHAR (25)
+    );
+INSERT INTO t1 (bcolor, fcolor)
+VALUES
+    ('red', 'red'),
+    ('red', 'red'),
+    ('red', NULL),
+    (NULL, 'red'),
+    ('red', 'green'),
+    ('red', 'blue'),
+    ('green', 'red'),
+    ('green', 'blue'),
+    ('green', 'green'),
+    ('blue', 'red'),
+    ('blue', 'green'),
+    ('blue', 'blue');
+</pre>
+
+<p>
+Multiple values combined to form distinction:
+</p>
+<pre class="example">
+SELECT DISTINCT
+    bcolor,
+    fcolor
+FROM
+    t1
+ORDER BY
+    bcolor,
+    fcolor;
+</pre>
+
+<p>
+Order by bcolor and fcolor and keep the first row for each duplicate group in 
+the result set.
+The column taken to `ON` is the distinction criterion.
+</p>
+<pre class="example">
+SELECT DISTINCT
+    ON (bcolor) bcolor,
+    fcolor
+FROM
+    t1
+ORDER BY
+    bcolor,
+    fcolor;
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orga845ddf" class="outline-5">
+<h5 id="orga845ddf"><span class="section-number-5">1.1.4.2</span> LIKE</h5>
+<div class="outline-text-5" id="text-1-1-4-2">
+<p>
+Works as in MS SQL, pattern matching is worth noting.
+</p>
+
+<pre class="example">
+SELECT
+    first_name,
+        last_name
+FROM
+    customer
+WHERE
+    first_name LIKE 'Jen%';
+</pre>
+
+<pre class="example">
+SELECT
+    first_name,
+        last_name
+FROM
+    customer
+WHERE
+    first_name LIKE '_en__';
+</pre>
+</div>
+
+<ol class="org-ol"><li><a id="orgc9f8b75"></a>`%` maches any sequence of characters<br  /></li>
+<li><a id="orgbe7d692"></a>`_` matches any single character<br  /><div class="outline-text-6" id="text-1-1-4-2-2">
+<p>
+`ILIKE` is a case insensitive variant of `LIKE`.
+One can also use `NOT LIKE` or `NOT ILIKE`.
+</p>
+</div></li></ol>
+</div>
+
+<div id="outline-container-orgbd99b8c" class="outline-5">
+<h5 id="orgbd99b8c"><span class="section-number-5">1.1.4.3</span> IN</h5>
+<div class="outline-text-5" id="text-1-1-4-3">
+<p>
+A sensible use case:
+</p>
+<pre class="example">
+SELECT
+    first_name,
+    last_name
+FROM
+    customer
+WHERE
+    customer_id IN (
+        SELECT
+            customer_id
+        FROM
+            rental
+        WHERE
+            CAST (return_date AS DATE) = '2005-05-27'
+    );
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org4458d18" class="outline-5">
+<h5 id="org4458d18"><span class="section-number-5">1.1.4.4</span> UNION</h5>
+<div class="outline-text-5" id="text-1-1-4-4">
+<p>
+Combines result sets of N `SELECT` statements into a single result set.
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="org91bfaf3"></a>Both queries must return the same number of columns.<br  /></li>
+<li><a id="orgb1956cb"></a>The corresponding columns in the queries must have compatible data types.<br  /><div class="outline-text-6" id="text-1-1-4-4-2">
+<pre class="example">
+SELECT *
+FROM
+    table1
+UNION
+SELECT *
+FROM
+    table2;
+</pre>
+
+<p>
+By default, it removes duplicate rows.
+To avoid that, use `UNION ALL`.
+</p>
+
+<p>
+It's important to remember that when using `ORDER BY` for results of `UNION`,
+you can sort each set separately, or sort the whole result set together.
+</p>
+
+<pre class="example">
+SELECT *
+FROM
+    table1
+UNION ALL
+SELECT *
+FROM
+    table2
+ORDER BY
+ column1 ASC,
+ column2 DESC;
+</pre>
+</div></li></ol>
+</div>
+
+<div id="outline-container-org8689b33" class="outline-5">
+<h5 id="org8689b33"><span class="section-number-5">1.1.4.5</span> JOIN</h5>
+<div class="outline-text-5" id="text-1-1-4-5">
+<p>
+`INNER JOIN` takes a common result set from the joined sets. Same as in MS SQL.
+</p>
+
+<pre class="example">
+SELECT
+    customer.customer_id,
+    customer.first_name customer_first_name,
+    customer.last_name customer_last_name,
+    customer.email,
+    staff.first_name staff_first_name,
+    staff.last_name staff_last_name,
+    amount,
+    payment_date
+FROM
+    customer
+INNER JOIN payment ON payment.customer_id = customer.customer_id
+INNER JOIN staff ON payment.staff_id = staff.staff_id;
+</pre>
+
+<p>
+`LEFT JOIN` is outer for set A and inner for set B.
+</p>
+<pre class="example">
+SELECT
+    film.film_id,
+    film.title,
+    inventory_id
+FROM
+    film
+LEFT JOIN inventory ON inventory.film_id = film.film_id
+WHERE
+    inventory.film_id IS NULL;
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgf254378" class="outline-5">
+<h5 id="orgf254378"><span class="section-number-5">1.1.4.6</span> HAVING</h5>
+<div class="outline-text-5" id="text-1-1-4-6">
+<p>
+Can be used to pass additional conditions after a `GROUP BY`.
+</p>
+
+<pre class="example">
+SELECT
+    customer_id,
+    SUM (amount)
+FROM
+    payment
+GROUP BY
+    customer_id
+HAVING
+    SUM (amount) &gt; 200;
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org4a68019" class="outline-5">
+<h5 id="org4a68019"><span class="section-number-5">1.1.4.7</span> Subquery</h5>
+<div class="outline-text-5" id="text-1-1-4-7">
+<p>
+PostgreSQL executes the query that contains a subquery in the following sequence:
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="orga5c2d98"></a>Executes the subquery.<br  /></li>
+<li><a id="orgec8e948"></a>Gets the result and passes it to the outer query.<br  /></li>
+<li><a id="org2c84c08"></a>Executes the outer query.<br  /><div class="outline-text-6" id="text-1-1-4-7-3">
+<pre class="example">
+SELECT
+    film_id,
+    title
+FROM
+    film
+WHERE
+    film_id IN (
+        SELECT
+            inventory.film_id
+        FROM
+            rental
+        INNER JOIN inventory ON inventory.inventory_id = rental.inventory_id
+        WHERE
+            return_date BETWEEN '2005-05-29'
+        AND '2005-05-30'
+    );
+</pre>
+
+<pre class="example">
+SELECT
+    first_name,
+    last_name
+FROM
+    customer
+WHERE
+    EXISTS (
+        SELECT
+            1
+        FROM
+            payment
+        WHERE
+            payment.customer_id = customer.customer_id
+    );
+</pre>
+</div></li></ol>
+</div>
+
+<div id="outline-container-org05a8f90" class="outline-5">
+<h5 id="org05a8f90"><span class="section-number-5">1.1.4.8</span> INSERT</h5>
+<div class="outline-text-5" id="text-1-1-4-8">
+<p>
+Multiple rows can be added at a time.
+</p>
+<pre class="example">
+INSERT INTO table (column1, column2, …)
+VALUES
+    (value1, value2, …),
+    (value1, value2, …) ,...;
+</pre>
+
+<p>
+Also, data from another table can be transferred.
+</p>
+<pre class="example">
+INSERT INTO table(value1,value2,...)
+SELECT column1,column2,...
+FROM another_table
+WHERE condition;
+</pre>
+
+<p>
+A value from the last inserted row can be returned.
+</p>
+<pre class="example">
+INSERT INTO link (url, NAME, last_update)
+VALUES('http://www.postgresql.org','PostgreSQL',DEFAULT) 
+RETURNING id;
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org06bbd6b" class="outline-5">
+<h5 id="org06bbd6b"><span class="section-number-5">1.1.4.9</span> UPDATE</h5>
+<div class="outline-text-5" id="text-1-1-4-9">
+<p>
+An interesting construct is the `UPDATE JOIN`:
+</p>
+<pre class="example">
+UPDATE link_tmp
+SET rel = link.rel,
+ description = link.description,
+ last_update = link.last_update
+FROM
+    link
+WHERE
+    link_tmp.id = link.id;
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org0298207" class="outline-5">
+<h5 id="org0298207"><span class="section-number-5">1.1.4.10</span> DELETE</h5>
+<div class="outline-text-5" id="text-1-1-4-10">
+<p>
+Another tables can be referenced in a `DELETE`:
+</p>
+
+<pre class="example">
+DELETE FROM table
+USING another_table
+WHERE table.id = another_table.id AND …
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5839d1a" class="outline-4">
+<h4 id="org5839d1a"><span class="section-number-4">1.1.5</span> Data types</h4>
+<div class="outline-text-4" id="text-1-1-5">
+</div><div id="outline-container-org01cfde7" class="outline-5">
+<h5 id="org01cfde7"><span class="section-number-5">1.1.5.1</span> Character</h5>
+<div class="outline-text-5" id="text-1-1-5-1">
+</div><ol class="org-ol"><li><a id="org41866b7"></a>A single character: `char`<br  /></li>
+<li><a id="orgb3f8725"></a>Fixed-length character strings: `char(n)`. If you insert a string that is shorter than the length of the column, PostgreSQL will pad spaces. If you insert a string that is longer than the length of the column, PostgreSQL will issue an error.<br  /></li>
+<li><a id="org583fde5"></a>Variable-length character strings: `varchar(n)`. You can store up to n characters with variable-length character strings. PostgreSQL does not pad spaces when the stored string is shorter than the length of the column.<br  /></li></ol>
+</div>
+
+<div id="outline-container-org5a955de" class="outline-5">
+<h5 id="org5a955de"><span class="section-number-5">1.1.5.2</span> Integer</h5>
+<div class="outline-text-5" id="text-1-1-5-2">
+</div><ol class="org-ol"><li><a id="orgce7fd69"></a>Small integer (`smallint`)  is 2-byte signed integer that has a range of (-32768,32767)<br  /></li>
+<li><a id="org252994e"></a>Integer (`int`) is 4-byte integer that has a range of (-214783648, -214783647)<br  /></li>
+<li><a id="orga9e5503"></a>`serial` is the same as integer except that PostgreSQL populate value into the column automatically. This is similar to `AUTO<sub>INCREMENT</sub>` attribute in other database management systems.<br  /></li></ol>
+</div>
+
+<div id="outline-container-org8045240" class="outline-5">
+<h5 id="org8045240"><span class="section-number-5">1.1.5.3</span> Floating-point number</h5>
+<div class="outline-text-5" id="text-1-1-5-3">
+</div><ol class="org-ol"><li><a id="org5f96a07"></a>`float(n)`  is a floating-point number whose precision at least n, up to a maximum of 8 bytes.<br  /></li>
+<li><a id="org55b34ec"></a>`real` or `float8` is a double-precision (8-byte) floating-point number.<br  /></li>
+<li><a id="orgb252c09"></a>`numeric` or `numeric(p,s)` is a real number with p digits with s number after decimal point. The `numeric(p,)` is exact number.<br  /></li></ol>
+</div>
+
+<div id="outline-container-org2c511ad" class="outline-5">
+<h5 id="org2c511ad"><span class="section-number-5">1.1.5.4</span> Temporal</h5>
+<div class="outline-text-5" id="text-1-1-5-4">
+</div><ol class="org-ol"><li><a id="org89ff35b"></a>`date` stores date data<br  /></li>
+<li><a id="org52d9b95"></a>`time` stores time data<br  /></li>
+<li><a id="org97795bb"></a>`timestamp` stores data and time<br  /></li>
+<li><a id="orgc4f8fc7"></a>`interval` stores the difference in timestamps<br  /></li>
+<li><a id="org57ac772"></a>`timestamptz` store both timestamp and timezone data. The `timestamptz` is a PostgreSQL’s extension to the temporal data type.<br  /></li></ol>
+</div>
+
+<div id="outline-container-org7ad6ef5" class="outline-5">
+<h5 id="org7ad6ef5"><span class="section-number-5">1.1.5.5</span> Special</h5>
+<div class="outline-text-5" id="text-1-1-5-5">
+</div><ol class="org-ol"><li><a id="org9b22f4a"></a>`box` - a rectangular box.<br  /></li>
+<li><a id="orga7307e3"></a>`line`  - a set of points.<br  /></li>
+<li><a id="orgf6eb231"></a>`point` - a geometric pair of numbers.<br  /></li>
+<li><a id="org471e1e4"></a>`lseg` - a line segment.<br  /></li>
+<li><a id="org5c180c9"></a>`polygon` - a closed geometric.<br  /></li>
+<li><a id="org2533add"></a>`inet` - an IP4 address.<br  /></li>
+<li><a id="orgb7d272d"></a>`macaddr` - a MAC address.<br  /></li></ol>
+</div>
+</div>
+
+<div id="outline-container-org513e818" class="outline-4">
+<h4 id="org513e818"><span class="section-number-4">1.1.6</span> Table mgmt</h4>
+<div class="outline-text-4" id="text-1-1-6">
+</div><div id="outline-container-org0caddf4" class="outline-5">
+<h5 id="org0caddf4"><span class="section-number-5">1.1.6.1</span> CREATE TABLE</h5>
+<div class="outline-text-5" id="text-1-1-6-1">
+<p>
+Available column constraints:
+</p>
+</div>
+<ol class="org-ol"><li><a id="orgc8a5281"></a>`NOT NULL` - the value of the column cannot be `NULL`.<br  /></li>
+<li><a id="org64b1b1c"></a>`UNIQUE` - the value of the column must be different for each row in the table. However, the column can have many NULL values because PostgreSQL treats each NULL value to be unique. Notice that SQL standard only allows one NULL value in the column that has `UNIQUE` constraint.<br  /></li>
+<li><a id="orge95d1b4"></a>`PRIMARY KEY` - this constraint is the combination of `NOT NULL` and `UNIQUE` constraints. You can define one column as `PRIMARY KEY` by using column-level constraint. In case the primary key has multiple columns, you must use the table-level constraint.<br  /></li>
+<li><a id="orgeb44c98"></a>`CHECK` - enables to check a condition when you insert or update data.<br  /></li>
+<li><a id="org0bec763"></a>`REFERENCES` - constrains the value of the column that exists in a column in another table.<br  /><div class="outline-text-6" id="text-1-1-6-1-5">
+<p>
+All of those, except `NOT NULL`, can also serve as table constraints.
+</p>
+</div></li></ol>
+</div>
+
+<div id="outline-container-orgcc0b9b8" class="outline-5">
+<h5 id="orgcc0b9b8"><span class="section-number-5">1.1.6.2</span> ALTER TABLE</h5>
+<div class="outline-text-5" id="text-1-1-6-2">
+<p>
+Noteworthy: instead of `exec SP<sub>RENAME</sub>`, the following can be used.
+</p>
+<pre class="example">
+ALTER TABLE table_name RENAME COLUMN column_name TO new_column_name;
+</pre>
+
+<p>
+This also applies to tables.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf58eebb" class="outline-5">
+<h5 id="orgf58eebb"><span class="section-number-5">1.1.6.3</span> TRUNCATE TABLE</h5>
+<div class="outline-text-5" id="text-1-1-6-3">
+<p>
+This command allows to wipe data from large tables quickly.
+</p>
+<pre class="example">
+TRUNCATE TABLE table_name;
+
+TRUNCATE TABLE table_name RESET IDENTITY;
+
+TRUNCATE TABLE table_name1, table_name2, …
+
+TRUNCATE TABLE table_name CASCADE;  // also removes data related by foreign keys
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0ad1ab6" class="outline-4">
+<h4 id="org0ad1ab6"><span class="section-number-4">1.1.7</span> Database mgmt</h4>
+<div class="outline-text-4" id="text-1-1-7">
+</div><div id="outline-container-org4c12956" class="outline-5">
+<h5 id="org4c12956"><span class="section-number-5">1.1.7.1</span> Restoring a DB</h5>
+<div class="outline-text-5" id="text-1-1-7-1">
+<pre class="example">
+postgres=# CREATE DATABASE newdvdrental;
+</pre>
+
+<p>
+and from Bash:
+</p>
+<pre class="example">
+&gt;pg_restore --dbname=newdvdrental --verbose c:\pgbackup\dvdrental.tar
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author:  (<a href="mailto:elkorn@arch">elkorn@arch</a>)</p>
+<p class="date">Date: </p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.0.3)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

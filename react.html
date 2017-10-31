@@ -1,0 +1,877 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-10-31 Tue 15:05 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title></title>
+<meta name="generator" content="Org mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/org"> HOME </a>
+</div><div id="content">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgc419143">1. React</a>
+<ul>
+<li><a href="#orgf4bf3aa">1.1. Flux</a>
+<ul>
+<li><a href="#orgba07274">1.1.1. <span class="todo TODO">TODO</span> Basic architecture</a></li>
+<li><a href="#orgb45695b">1.1.2. Evolution</a>
+<ul>
+<li><a href="#org573da41">1.1.2.1. Flux tradeoff examples</a></li>
+<li><a href="#orgb347211">1.1.2.2. Key developments</a></li>
+</ul>
+</li>
+<li><a href="#org3733392">1.1.3. Notable variants</a></li>
+</ul>
+</li>
+<li><a href="#org529f7e8">1.2. Este.js</a>
+<ul>
+<li><a href="#orgc47c616">1.2.1. <span class="done DONE">DONE</span> App structure</a>
+<ul>
+<li><a href="#org131e867">1.2.1.1. main.js</a></li>
+<li><a href="#orge349d14">1.2.1.2. routes.js</a></li>
+<li><a href="#orgaef86fd">1.2.1.3. App</a></li>
+<li><a href="#orge183bcb">1.2.1.4. Pages</a></li>
+<li><a href="#org25eca4c">1.2.1.5. Components</a></li>
+<li><a href="#orgbfd8c02">1.2.1.6. Actions</a></li>
+<li><a href="#orge644fd3">1.2.1.7. Stores</a></li>
+</ul>
+</li>
+<li><a href="#org060c51a">1.2.2. <span class="done DONE">DONE</span> State</a>
+<ul>
+<li><a href="#org01fdf02">1.2.2.1. <span class="done DONE">DONE</span> Pending actions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgb3d27ac">1.3. Concepts</a>
+<ul>
+<li><a href="#org396f016">1.3.1. <span class="done DONE">DONE</span> Immutable data structures</a>
+<ul>
+<li><a href="#orgf10a21b">1.3.1.1. Optimizations</a></li>
+<li><a href="#org24bec02">1.3.1.2. API</a></li>
+</ul>
+</li>
+<li><a href="#org9d18eee">1.3.2. <span class="done DONE">DONE</span> PropTypes</a></li>
+<li><a href="#org35c881c">1.3.3. <span class="todo TODO">TODO</span> Higher order components </a>
+<ul>
+<li><a href="#org1e391bf">1.3.3.1. Mixins</a></li>
+<li><a href="#org27a6c29">1.3.3.2. Higher-order components</a></li>
+</ul>
+</li>
+<li><a href="#orgc93bac6">1.3.4. <span class="done DONE">DONE</span> Routing</a>
+<ul>
+<li><a href="#org9c96943">1.3.4.1. <span class="todo TODO">TODO</span> Followup: </a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org98f94e2">2. <span class="todo TODO">TODO</span> Webpack</a></li>
+<li><a href="#orge9a6ddf">3. Followups</a>
+<ul>
+<li><a href="#org0c687b8">3.1. <span class="todo TODO">TODO</span> </a></li>
+<li><a href="#org3b34470">3.2. <span class="todo TODO">TODO</span> </a></li>
+<li><a href="#org83e63da">3.3. <span class="todo TODO">TODO</span> </a></li>
+<li><a href="#orgf2636b8">3.4. <span class="todo TODO">TODO</span> </a></li>
+<li><a href="#org28d53ea">3.5. <span class="todo TODO">TODO</span> </a></li>
+<li><a href="#org25a4fb2">3.6. <span class="todo TODO">TODO</span> cursors e.g. </a></li>
+<li><a href="#org7d94406">3.7. <span class="todo TODO">TODO</span> watch </a></li>
+<li><a href="#org3f83947">3.8. <span class="todo TODO">TODO</span> watch React Europe </a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgc419143" class="outline-2">
+<h2 id="orgc419143"><span class="section-number-2">1</span> React</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-orgf4bf3aa" class="outline-3">
+<h3 id="orgf4bf3aa"><span class="section-number-3">1.1</span> Flux</h3>
+<div class="outline-text-3" id="text-1-1">
+</div><div id="outline-container-orgba07274" class="outline-4">
+<h4 id="orgba07274"><span class="section-number-4">1.1.1</span> <span class="todo TODO">TODO</span> Basic architecture</h4>
+</div>
+<div id="outline-container-orgb45695b" class="outline-4">
+<h4 id="orgb45695b"><span class="section-number-4">1.1.2</span> Evolution</h4>
+<div class="outline-text-4" id="text-1-1-2">
+</div><div id="outline-container-org573da41" class="outline-5">
+<h5 id="org573da41"><span class="section-number-5">1.1.2.1</span> Flux tradeoff examples</h5>
+<div class="outline-text-5" id="text-1-1-2-1">
+<ul class="org-ul">
+<li>If actions aren't objects, it is harder to replay them for debugging purposes.</li>
+<li>Having no type constants makes it harder to typecheck actions with Flow.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgb347211" class="outline-5">
+<h5 id="orgb347211"><span class="section-number-5">1.1.2.2</span> Key developments</h5>
+<div class="outline-text-5" id="text-1-1-2-2">
+<p>
+The first thing is action creators returning dispatched actions. The evolution is from 
+</p>
+<div class="org-src-container">
+<pre class="src src-javascript"><span style="color: #b5bd68;">export</span> <span style="color: #b5bd68;">function</span> addTodo<span style="color: #c5c8c6;">(</span><span style="color: #f0c674;">text</span><span style="color: #c5c8c6;">)</span> <span style="color: #c5c8c6;">{</span>
+  AppDispatcher.dispatch<span style="color: #8abeb7;">(</span><span style="color: #f0c674;">{</span>
+    type: ActionTypes.ADD_TODO,
+    text: text
+  <span style="color: #f0c674;">}</span><span style="color: #8abeb7;">)</span>;
+<span style="color: #c5c8c6;">}</span>
+</pre>
+</div>
+
+<p>
+to
+</p>
+
+<div class="org-src-container">
+<pre class="src src-javascript"><span style="color: #b5bd68;">export</span> <span style="color: #b5bd68;">function</span> addTodo<span style="color: #c5c8c6;">(</span><span style="color: #f0c674;">text</span><span style="color: #c5c8c6;">)</span> <span style="color: #c5c8c6;">{</span>
+  <span style="color: #b5bd68;">return</span> <span style="color: #8abeb7;">{</span>
+    type: ActionTypes.ADD_TODO,
+    text: text
+  <span style="color: #8abeb7;">}</span>;
+<span style="color: #c5c8c6;">}</span>
+</pre>
+</div>
+
+<p>
+Obviously, the actions become decoupled from the dispatcher - IoC kicks in.
+The consequence here is that action creators cannot be called directly.
+Practically, you'd wrap them anyway (or use a library) for server side rendering.
+</p>
+
+<p>
+Async action creators would work as follows:
+</p>
+<div class="org-src-container">
+<pre class="src src-javascript"><span style="color: #b5bd68;">export</span> <span style="color: #b5bd68;">function</span> addTodo<span style="color: #c5c8c6;">(</span><span style="color: #f0c674;">text</span><span style="color: #c5c8c6;">)</span> <span style="color: #c5c8c6;">{</span>
+  <span style="color: #b5bd68;">return</span> dispatch =&gt; <span style="color: #8abeb7;">(</span><span style="color: #f0c674;">{</span>
+    dispatch<span style="color: #b5bd68;">(</span><span style="color: #81a2be;">{</span>
+      type: ActionTypes.ADD_TODO,
+      text: text
+    <span style="color: #81a2be;">}</span><span style="color: #b5bd68;">)</span>;
+    API.addTodo<span style="color: #b5bd68;">(</span>text<span style="color: #b5bd68;">)</span>.then<span style="color: #b5bd68;">(</span>
+        <span style="color: #81a2be;">()</span> =&gt; dispatch<span style="color: #81a2be;">(</span><span style="color: #c5c8c6;">{</span>
+        type: ActionTypes.ADD_TODO_SUCCESS,
+        text: text
+        <span style="color: #c5c8c6;">}</span><span style="color: #81a2be;">)</span>,
+        <span style="color: #81a2be;">()</span> =&gt; dispatch<span style="color: #81a2be;">(</span><span style="color: #c5c8c6;">{</span>
+        type: ActionTypes.ADD_TODO_FAILURE,
+        text: text
+        <span style="color: #c5c8c6;">}</span><span style="color: #81a2be;">)</span>
+    <span style="color: #b5bd68;">)</span>;
+  <span style="color: #f0c674;">}</span><span style="color: #8abeb7;">)</span>;
+<span style="color: #c5c8c6;">}</span>
+</pre>
+</div>
+
+<p>
+The second thing is thanks to that the Stores can be made stateless.
+An inherent features of Stores is that they <b>managed</b>, not <b>own</b> state.
+A 'default' implementation of a store would look somewhat like this:
+</p>
+<div class="org-src-container">
+<pre class="src src-javascript"><span style="color: #b5bd68;">let</span> <span style="color: #f0c674;">_todos</span> = <span style="color: #c5c8c6;">[]</span>;
+<span style="color: #b5bd68;">const</span> <span style="color: #f0c674;">TodoStore</span> = Object.assign<span style="color: #c5c8c6;">(</span><span style="color: #b5bd68;">new</span> <span style="color: #81a2be;">EventEmitter</span><span style="color: #8abeb7;">()</span>, <span style="color: #8abeb7;">{</span>
+  getTodos<span style="color: #f0c674;">()</span> <span style="color: #f0c674;">{</span>
+    <span style="color: #b5bd68;">return</span> _todos;
+  <span style="color: #f0c674;">}</span>
+<span style="color: #8abeb7;">}</span><span style="color: #c5c8c6;">)</span>;
+AppDispatcher.register<span style="color: #c5c8c6;">(</span><span style="color: #b5bd68;">function</span> <span style="color: #8abeb7;">(</span><span style="color: #f0c674;">action</span><span style="color: #8abeb7;">)</span> <span style="color: #8abeb7;">{</span>
+  <span style="color: #b5bd68;">switch</span> <span style="color: #f0c674;">(</span>action.type<span style="color: #f0c674;">)</span> <span style="color: #f0c674;">{</span>
+  <span style="color: #b5bd68;">case</span> ActionTypes.ADD_TODO:
+    _todos = _todos.concat<span style="color: #b5bd68;">(</span><span style="color: #81a2be;">[</span>action.text<span style="color: #81a2be;">]</span><span style="color: #b5bd68;">)</span>;
+    TodoStore.emitChange<span style="color: #b5bd68;">()</span>;
+    <span style="color: #b5bd68;">break</span>;
+  <span style="color: #f0c674;">}</span>
+<span style="color: #8abeb7;">}</span><span style="color: #c5c8c6;">)</span>;
+<span style="color: #b5bd68;">export</span> <span style="color: #b5bd68;">default</span> TodoStore;
+</pre>
+</div>
+
+<p>
+can be turned into:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-javascript"><span style="color: #b5bd68;">const</span> <span style="color: #f0c674;">initialState</span> = <span style="color: #c5c8c6;">{</span> todos: <span style="color: #8abeb7;">[]</span> <span style="color: #c5c8c6;">}</span>;
+<span style="color: #b5bd68;">export</span> <span style="color: #b5bd68;">default</span> <span style="color: #b5bd68;">function</span> TodoStore<span style="color: #c5c8c6;">(</span><span style="color: #f0c674;">state</span> = <span style="color: #f0c674;">initialState</span>, <span style="color: #f0c674;">action</span><span style="color: #c5c8c6;">)</span> <span style="color: #c5c8c6;">{</span>
+  <span style="color: #b5bd68;">switch</span> <span style="color: #8abeb7;">(</span>action.type<span style="color: #8abeb7;">)</span> <span style="color: #8abeb7;">{</span>
+  <span style="color: #b5bd68;">case</span> ActionTypes.ADD_TODO:
+    <span style="color: #b5bd68;">return</span> <span style="color: #f0c674;">{</span> todos: state.todos.concat<span style="color: #b5bd68;">(</span><span style="color: #81a2be;">[</span>action.text<span style="color: #81a2be;">]</span><span style="color: #b5bd68;">)</span> <span style="color: #f0c674;">}</span>;
+  <span style="color: #b5bd68;">default</span>:
+    <span style="color: #b5bd68;">return</span> state;
+<span style="color: #8abeb7;">}</span>
+</pre>
+</div>
+
+<p>
+So the state of a Store is a function of its initial state and the actions that have been performed on it.
+</p>
+
+<p>
+Benefits of those advancements:
+</p>
+<ul class="org-ul">
+<li>Testability in isolation</li>
+<li>Hot reloading (done in <a href="https://github.com/gaearon/redux">redux</a>)</li>
+<li>The dispatcher owns the state and can revert the application to any previous state without serialization.
+This means transactionality out of the box, allowing for stuff like <a href="https://github.com/gaearon/redux-devtools">https://github.com/gaearon/redux-devtools</a>.</li>
+<li>No need to <code>waitFor()</code> - the dispatcher controls when changes are emitted.</li>
+<li>Change updates can be subscribed to, but the dispatcher may also expose a cursor-like functionality.</li>
+<li>Declarative style - focus on <b>what</b> instead of <b>how</b>.</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3733392" class="outline-4">
+<h4 id="org3733392"><span class="section-number-4">1.1.3</span> Notable variants</h4>
+<div class="outline-text-4" id="text-1-1-3">
+<ul class="org-ul">
+<li><a href="https://github.com/gaearon/redux">Redux</a></li>
+
+<li><a href="https://acdlite.github.io/flummox">Flummox</a></li>
+<li><a href="https://github.com/spoike/refluxjs">Reflux</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org529f7e8" class="outline-3">
+<h3 id="org529f7e8"><span class="section-number-3">1.2</span> Este.js</h3>
+<div class="outline-text-3" id="text-1-2">
+</div><div id="outline-container-orgc47c616" class="outline-4">
+<h4 id="orgc47c616"><span class="section-number-4">1.2.1</span> <span class="done DONE">DONE</span> App structure</h4>
+<div class="outline-text-4" id="text-1-2-1">
+<p>
+This is a top-down overview of an Este.js app structure.
+</p>
+</div>
+<div id="outline-container-org131e867" class="outline-5">
+<h5 id="org131e867"><span class="section-number-5">1.2.1.1</span> main.js</h5>
+<div class="outline-text-5" id="text-1-2-1-1">
+<ul class="org-ul">
+<li>Imports routes.</li>
+<li>Bootstraps the application: renders the Router component in the given DOM root.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orge349d14" class="outline-5">
+<h5 id="orge349d14"><span class="section-number-5">1.2.1.2</span> routes.js</h5>
+<div class="outline-text-5" id="text-1-2-1-2">
+<ul class="org-ul">
+<li>Imports top-level components for all pages.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgaef86fd" class="outline-5">
+<h5 id="orgaef86fd"><span class="section-number-5">1.2.1.3</span> App</h5>
+<div class="outline-text-5" id="text-1-2-1-3">
+<ul class="org-ul">
+<li>Imports all stores.</li>
+<li>Renders the main layout.</li>
+<li><code>RouteHandler</code> is rendered within the main layout.</li>
+<li>Owns the global app state.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orge183bcb" class="outline-5">
+<h5 id="orge183bcb"><span class="section-number-5">1.2.1.4</span> Pages</h5>
+<div class="outline-text-5" id="text-1-2-1-4">
+<ul class="org-ul">
+<li>Top-level components for app areas.</li>
+<li>Composition roots for all functionalities related to the specific area.</li>
+<li>Additionally taking care of setting page titles, rendering headers, etc.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org25eca4c" class="outline-5">
+<h5 id="org25eca4c"><span class="section-number-5">1.2.1.5</span> Components</h5>
+<div class="outline-text-5" id="text-1-2-1-5">
+<ul class="org-ul">
+<li>Define the way of displaying data in the UI.</li>
+<li>Provide connection points (event handlers etc.) for invoking actions.</li>
+<li>Data is passed through props.</li>
+<li>State should be kept as high up as possible (optimally in the App), state owners have to be clearly defined.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgbfd8c02" class="outline-5">
+<h5 id="orgbfd8c02"><span class="section-number-5">1.2.1.6</span> Actions</h5>
+<div class="outline-text-5" id="text-1-2-1-6">
+<ul class="org-ul">
+<li>Each logical part of the app has its own <code>actions.js</code> file, exposing action creator functions.
+They perform logical validation and call the dispatcher to actually dispatch the created actions.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orge644fd3" class="outline-5">
+<h5 id="orge644fd3"><span class="section-number-5">1.2.1.7</span> Stores</h5>
+<div class="outline-text-5" id="text-1-2-1-7">
+<ul class="org-ul">
+<li>Stores react to dispatched actions and update the global application state.</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org060c51a" class="outline-4">
+<h4 id="org060c51a"><span class="section-number-4">1.2.2</span> <span class="done DONE">DONE</span> State</h4>
+<div class="outline-text-4" id="text-1-2-2">
+<ul class="org-ul">
+<li><code>lib/state.js</code> implements a state representation.</li>
+<li>Based on immutable data structures.</li>
+<li>Emits change events (previous state is kept for diffing while debugging).</li>
+<li>It can be <b>revived</b> provided a <code>storesReviver</code> function.
+<ul class="org-ul">
+<li>The <code>storesReviver</code> delegates to data-specific revivers.</li>
+<li><code>state.js</code> imports all revivers.</li>
+<li>Instantiating the <code>State</code> class causes the state to be loaded from a server file or from <code>window._appState</code>.</li>
+<li>Loading state uses a data-specific reviver as a custom transform function for the `Immutable.fromJS` method.</li>
+</ul></li>
+</ul>
+</div>
+<div id="outline-container-org01fdf02" class="outline-5">
+<h5 id="org01fdf02"><span class="section-number-5">1.2.2.1</span> <span class="done DONE">DONE</span> Pending actions</h5>
+<div class="outline-text-5" id="text-1-2-2-1">
+<ul class="org-ul">
+<li>Whenever any action is dispatched, the dispatcher implementation uses a cursor on a pending actions hashmap (which can be hydrated from the server).</li>
+<li>The action key (acquired from overriding <code>.toString()</code> by <code>setToString</code>) is set to <code>true</code> before the actual action promise dispatch and to <code>false</code> after its resolution.</li>
+<li>This is useful when a loader needs to be displayed or as a logical action debouncing.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb3d27ac" class="outline-3">
+<h3 id="orgb3d27ac"><span class="section-number-3">1.3</span> Concepts</h3>
+<div class="outline-text-3" id="text-1-3">
+</div><div id="outline-container-org396f016" class="outline-4">
+<h4 id="org396f016"><span class="section-number-4">1.3.1</span> <span class="done DONE">DONE</span> Immutable data structures</h4>
+<div class="outline-text-4" id="text-1-3-1">
+<p>
+One of the more popular immutable data structure libs for JS is immutable.js.
+Immutability reduces complexity due to not having to handle changes to a on object as in mutable data structures.
+A whole class of bugs is eliminated thusly.
+On top of that, immutable data structures allow a host of optimizations due to their nature.
+</p>
+</div>
+<div id="outline-container-orgf10a21b" class="outline-5">
+<h5 id="orgf10a21b"><span class="section-number-5">1.3.1.1</span> Optimizations</h5>
+<div class="outline-text-5" id="text-1-3-1-1">
+<ul class="org-ul">
+<li>Thanks to structural sharing (i.e. reusing parts of data structures that were extended), the memory footprint is lesser than with e.g. copy-on-write data structures.
+Speed is also improved.</li>
+<li>immutable.js uses <code>===</code> for equality checks and tries to return the existing collection when an operation would result in an identical collection.
+This is useful in memoization when running a deeper equality check could be more costly than re-running the memoized function.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org24bec02" class="outline-5">
+<h5 id="org24bec02"><span class="section-number-5">1.3.1.2</span> API</h5>
+<div class="outline-text-5" id="text-1-3-1-2">
+<ul class="org-ul">
+<li><code>Map</code>, <code>OrderedMap</code>, <code>List</code>, <code>Seq</code></li>
+<li>Accept raw objects, arrays etc. as input</li>
+<li>Can be converted back to raw objects: shallowly with <code>.toArray()</code> or <code>.toObject()</code> and deeply with <code>.toJS()</code>.</li>
+<li>All immutable iterables implement <code>toJSON()</code> which means that they can be passed directly to <code>JSON.stringify</code>.</li>
+<li>The structures are intended to be nested.
+Lens methods are provided on <code>List</code>, <code>Map</code> and <code>OrderedMap</code>: <code>getIn</code>, <code>setIn</code>, <code>updateIn</code> as well as a <code>mergeDeep</code> method.</li>
+<li><code>Seq</code> is lazy.
+It has functor-like methods <code>map</code>, <code>filter</code> etc. - but only unfolds when needed.
+This allows to operate on them like in Haskell, create infinite ranges etc.</li>
+<li>Equality is based on values, not references.</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-javascript"><span style="color: #b5bd68;">var</span> <span style="color: #f0c674;">map1</span> = Immutable.Map<span style="color: #c5c8c6;">(</span><span style="color: #8abeb7;">{</span>a:<span style="color: #81a2be;">1</span>, b:<span style="color: #81a2be;">1</span>, c:<span style="color: #81a2be;">1</span><span style="color: #8abeb7;">}</span><span style="color: #c5c8c6;">)</span>;
+<span style="color: #b5bd68;">var</span> <span style="color: #f0c674;">map2</span> = Immutable.Map<span style="color: #c5c8c6;">(</span><span style="color: #8abeb7;">{</span>a:<span style="color: #81a2be;">1</span>, b:<span style="color: #81a2be;">1</span>, c:<span style="color: #81a2be;">1</span><span style="color: #8abeb7;">}</span><span style="color: #c5c8c6;">)</span>;
+assert<span style="color: #c5c8c6;">(</span>map1 !== map2<span style="color: #c5c8c6;">)</span>; <span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">two different instances</span>
+assert<span style="color: #c5c8c6;">(</span>Immutable.is<span style="color: #8abeb7;">(</span>map1, map2<span style="color: #8abeb7;">)</span><span style="color: #c5c8c6;">)</span>; <span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">have equivalent values</span>
+assert<span style="color: #c5c8c6;">(</span>map1.equals<span style="color: #8abeb7;">(</span>map2<span style="color: #8abeb7;">)</span><span style="color: #c5c8c6;">)</span>; <span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">alternatively use the equals method</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-org9d18eee" class="outline-4">
+<h4 id="org9d18eee"><span class="section-number-4">1.3.2</span> <span class="done DONE">DONE</span> PropTypes</h4>
+<div class="outline-text-4" id="text-1-3-2">
+<ul class="org-ul">
+<li>A mechanism provided by React itself.</li>
+<li>Allow defining constraints on what the component expect to get passed as props.</li>
+<li>Violating the contract established by <code>PropTypes</code> will cause a <code>console.warn</code> to be issued.</li>
+<li>A <code>getDefaultProps</code> function can be implemented to provide a default set of properties. 
+It is called as soon as <code>React.createClass</code> is called on the component, so no instance-specific references can be used within it.
+Default values should be provided only for properties that are not required (i.e. their <code>propType</code> doesn't have <code>.isRequired</code> specified).</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-javascript"><span style="color: #b5bd68;">var</span> <span style="color: #f0c674;">SurveyTableRow</span> = React.createClass<span style="color: #c5c8c6;">(</span><span style="color: #8abeb7;">{</span>
+    propTypes: <span style="color: #f0c674;">{</span>
+        survey: React.PropTypes.shape<span style="color: #b5bd68;">(</span><span style="color: #81a2be;">{</span>
+            id: React.PropTypes.number.isRequired
+        <span style="color: #81a2be;">}</span><span style="color: #b5bd68;">)</span>.isRequired,
+        onClick: React.PropTypes.func
+    <span style="color: #f0c674;">}</span>,
+<span style="color: #8abeb7;">}</span><span style="color: #c5c8c6;">)</span>;
+
+<span style="color: #b5bd68;">var</span> <span style="color: #f0c674;">SurveyTable</span> = React.createClass<span style="color: #c5c8c6;">(</span><span style="color: #8abeb7;">{</span>
+    <span style="color: #de935f;">getDefaultProps</span>: <span style="color: #b5bd68;">function</span> <span style="color: #f0c674;">()</span> <span style="color: #f0c674;">{</span>
+        <span style="color: #b5bd68;">return</span> <span style="color: #b5bd68;">{</span>
+            surveys: <span style="color: #81a2be;">[]</span>
+            <span style="color: #b5bd68;">}</span>;
+    <span style="color: #f0c674;">}</span>
+<span style="color: #8abeb7;">}</span><span style="color: #c5c8c6;">)</span>;
+</pre>
+</div>
+
+<p>
+Create the getDefaultProps function on your component to provide a default set of
+properties. This should only be done for props that aren’t required.
+It’s important to note that getDefaultProps is not called during component in-
+stantiation, but as soon as React.createClass is called to cache the value. This
+means you can’t use any instance specific data in the getDefaultProps method.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org35c881c" class="outline-4">
+<h4 id="org35c881c"><span class="section-number-4">1.3.3</span> <span class="todo TODO">TODO</span> Higher order components <a href="https://medium.com/@dan_abramov/mixins-are-dead-long-live-higher-order-components-94a0d2f9e750">https://medium.com/@dan_abramov/mixins-are-dead-long-live-higher-order-components-94a0d2f9e750</a></h4>
+<div class="outline-text-4" id="text-1-3-3">
+</div><div id="outline-container-org1e391bf" class="outline-5">
+<h5 id="org1e391bf"><span class="section-number-5">1.3.3.1</span> Mixins</h5>
+<div class="outline-text-5" id="text-1-3-3-1">
+<p>
+There are three main use cases for React mixins: utility functions, lifecycle hooks and state providers.
+Mixins are on their way out starting from 0.13 though. 
+If you use mixins for utility functions, extract them to modules.
+They were more useful though when used for the other cases.
+This is due to React "merging" lifecycle hooks - if both the component and its mixins have defined a lifecycle hook (i.e. <code>componentDidMount</code>), then React will merge them.
+The same applies to <code>getInitialState</code>.
+This is useful - mixins can subscribe components to Flux stores or work with their DOM nodes after being updated.
+There are drawbacks to mixins though:
+</p>
+<ul class="org-ul">
+<li>The mixin &lt;-&gt; component contract is implicit.</li>
+<li>Use too many mixins and they will start to clash.
+React will throw exceptions if you use two different instances of the same mixin even with different parameters.</li>
+<li>They tend to add more state to components.</li>
+<li>They complicate performance optimizations.
+If you implement the <code>shouldComponentUpdate</code> method in your component, different mixins might need their own implementations.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org27a6c29" class="outline-5">
+<h5 id="org27a6c29"><span class="section-number-5">1.3.3.2</span> Higher-order components</h5>
+<div class="outline-text-5" id="text-1-3-3-2">
+<p>
+This is one of the proposed ways to replace mixins with composition.
+Using ES6 classes, it boils down to inheritance.
+Taking the Flux Store connection mixin as an example, this is how you would implement it in the old way:
+</p>
+<div class="org-src-container">
+<pre class="src src-javascript"><span style="color: #b5bd68;">function</span> <span style="color: #de935f;">StoreMixin</span><span style="color: #c5c8c6;">(</span>...stores<span style="color: #c5c8c6;">)</span> <span style="color: #c5c8c6;">{</span>
+  <span style="color: #b5bd68;">const</span> <span style="color: #f0c674;">Mixin</span> = <span style="color: #8abeb7;">{</span>
+    getInitialState<span style="color: #f0c674;">()</span> <span style="color: #f0c674;">{</span>
+      <span style="color: #b5bd68;">return</span> <span style="color: #81a2be;">this</span>.getStateFromStores<span style="color: #b5bd68;">(</span><span style="color: #81a2be;">this</span>.props<span style="color: #b5bd68;">)</span>;
+    <span style="color: #f0c674;">}</span>,
+    componentDidMount<span style="color: #f0c674;">()</span> <span style="color: #f0c674;">{</span>
+      stores.forEach<span style="color: #b5bd68;">(</span>store =&gt; store.addChangeListener<span style="color: #81a2be;">(</span><span style="color: #81a2be;">this</span>.handleStoresChanged<span style="color: #81a2be;">)</span><span style="color: #b5bd68;">)</span>;
+    <span style="color: #f0c674;">}</span>,
+    componentWillUnmount<span style="color: #f0c674;">()</span> <span style="color: #f0c674;">{</span>
+      stores.forEach<span style="color: #b5bd68;">(</span>store =&gt; store.removeChangeListener<span style="color: #81a2be;">(</span><span style="color: #81a2be;">this</span>.handleStoresChanged<span style="color: #81a2be;">)</span><span style="color: #b5bd68;">)</span>;
+    <span style="color: #f0c674;">}</span>,
+    handleStoresChanged<span style="color: #f0c674;">()</span> <span style="color: #f0c674;">{</span>
+      <span style="color: #b5bd68;">if</span><span style="color: #b5bd68;">(</span><span style="color: #81a2be;">this</span>.isMounted<span style="color: #81a2be;">()</span><span style="color: #b5bd68;">)</span> <span style="color: #b5bd68;">{</span>
+        <span style="color: #81a2be;">this</span>.setState<span style="color: #81a2be;">(</span><span style="color: #81a2be;">this</span>.getStateFromStores<span style="color: #c5c8c6;">(</span><span style="color: #81a2be;">this</span>.props<span style="color: #c5c8c6;">)</span><span style="color: #81a2be;">)</span>;
+      <span style="color: #b5bd68;">}</span>
+    <span style="color: #f0c674;">}</span>
+  <span style="color: #8abeb7;">}</span>;
+
+  <span style="color: #b5bd68;">return</span> Mixin;
+<span style="color: #c5c8c6;">}</span>
+
+<span style="color: #b5bd68;">const</span> <span style="color: #f0c674;">UserProfilePage</span> = React.createClass<span style="color: #c5c8c6;">(</span><span style="color: #8abeb7;">{</span>
+  mixins: <span style="color: #f0c674;">[</span>StoreMixin<span style="color: #b5bd68;">(</span>UserStore<span style="color: #b5bd68;">)</span><span style="color: #f0c674;">]</span>,
+  propTypes: <span style="color: #f0c674;">{</span>
+    userId: PropTypes.number.isRequired
+  <span style="color: #f0c674;">}</span>,
+  getStateFromStores<span style="color: #f0c674;">(</span>props<span style="color: #f0c674;">)</span> <span style="color: #f0c674;">{</span>
+    <span style="color: #b5bd68;">return</span> <span style="color: #b5bd68;">{</span>
+      user: UserStore.get<span style="color: #81a2be;">(</span>props.userId<span style="color: #81a2be;">)</span>
+    <span style="color: #b5bd68;">}</span>;
+  <span style="color: #f0c674;">}</span>,
+  render<span style="color: #f0c674;">()</span> <span style="color: #f0c674;">{</span>
+    <span style="color: #b5bd68;">const</span> <span style="color: #b5bd68;">{</span>user<span style="color: #b5bd68;">}</span> = <span style="color: #81a2be;">this</span>.state;
+    <span style="color: #b5bd68;">return</span> <span style="color: #b5bd68;">(</span>
+        &lt;div&gt;
+        <span style="color: #81a2be;">{</span>user ? user.name : <span style="color: #8abeb7;">'Loading'</span><span style="color: #81a2be;">}</span>
+        &lt;/div&gt;
+    <span style="color: #b5bd68;">)</span>;
+  <span style="color: #f0c674;">}</span>
+<span style="color: #8abeb7;">}</span><span style="color: #c5c8c6;">)</span>;
+</pre>
+</div>
+<p>
+With the higher-order component approach it would look thusly.
+</p>
+<div class="org-src-container">
+<pre class="src src-javascript"><span style="color: #b5bd68;">const</span> <span style="color: #f0c674;">connectToStores</span> = <span style="color: #c5c8c6;">(</span>ComposedComponent, stores, getStateFromStores<span style="color: #c5c8c6;">)</span> =&gt; <span style="color: #c5c8c6;">{</span>
+    <span style="color: #b5bd68;">return</span> <span style="color: #b5bd68;">class</span> <span style="color: #b5bd68;">extends</span> React.Component <span style="color: #8abeb7;">{</span>
+        getInitialState<span style="color: #f0c674;">()</span> <span style="color: #f0c674;">{</span>
+            <span style="color: #b5bd68;">return</span> getStateFromStores<span style="color: #b5bd68;">(</span><span style="color: #81a2be;">this</span>.props<span style="color: #b5bd68;">)</span>;
+        <span style="color: #f0c674;">}</span>
+
+        componentDidMount<span style="color: #f0c674;">()</span> <span style="color: #f0c674;">{</span>
+            stores.forEach<span style="color: #b5bd68;">(</span>store =&gt; store.addChangeListener<span style="color: #81a2be;">(</span><span style="color: #81a2be;">this</span>.handleStoresChanged<span style="color: #81a2be;">)</span><span style="color: #b5bd68;">)</span>;
+        <span style="color: #f0c674;">}</span>
+
+        componentWillUnmount<span style="color: #f0c674;">()</span> <span style="color: #f0c674;">{</span>
+            stores.forEach<span style="color: #b5bd68;">(</span>store =&gt; store.removeChangeListener<span style="color: #81a2be;">(</span><span style="color: #81a2be;">this</span>.handleStoresChanged<span style="color: #81a2be;">)</span><span style="color: #b5bd68;">)</span>;
+        <span style="color: #f0c674;">}</span>
+
+        handleStoresChanged<span style="color: #f0c674;">()</span> <span style="color: #f0c674;">{</span>
+            <span style="color: #b5bd68;">if</span><span style="color: #b5bd68;">(</span><span style="color: #81a2be;">this</span>.isMounted<span style="color: #81a2be;">()</span><span style="color: #b5bd68;">)</span> <span style="color: #b5bd68;">{</span>
+            <span style="color: #81a2be;">this</span>.setState<span style="color: #81a2be;">(</span>getStateFromStores<span style="color: #c5c8c6;">(</span><span style="color: #81a2be;">this</span>.props<span style="color: #c5c8c6;">)</span><span style="color: #81a2be;">)</span>;
+            <span style="color: #b5bd68;">}</span>
+        <span style="color: #f0c674;">}</span>
+
+        render<span style="color: #f0c674;">()</span> <span style="color: #f0c674;">{</span>
+            <span style="color: #b5bd68;">return</span> <span style="color: #b5bd68;">(</span>&lt;ComposedComponent <span style="color: #81a2be;">{</span>...<span style="color: #81a2be;">this</span>.props<span style="color: #81a2be;">}</span> <span style="color: #81a2be;">{</span>...<span style="color: #81a2be;">this</span>.state<span style="color: #81a2be;">}</span> /&gt;<span style="color: #b5bd68;">)</span>;
+        <span style="color: #f0c674;">}</span>
+        <span style="color: #8abeb7;">}</span>;
+
+        <span style="color: #b5bd68;">class</span> ProfilePage <span style="color: #b5bd68;">extends</span> React.Component <span style="color: #8abeb7;">{</span>
+        <span style="color: #b5bd68;">static</span> propTypes = <span style="color: #f0c674;">{</span>
+            userId: PropTypes.number.isRequired,
+            user: PropTypes.object <span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">user becomes a prop</span>
+        <span style="color: #f0c674;">}</span>;
+
+        render<span style="color: #f0c674;">()</span> <span style="color: #f0c674;">{</span>
+            <span style="color: #b5bd68;">var</span> <span style="color: #b5bd68;">{</span> user <span style="color: #b5bd68;">}</span> = <span style="color: #81a2be;">this</span>.props;
+            <span style="color: #b5bd68;">return</span> <span style="color: #b5bd68;">(</span>
+                &lt;div&gt;
+                <span style="color: #81a2be;">{</span>user ? user.name: <span style="color: #8abeb7;">'Loading'</span><span style="color: #81a2be;">}</span>
+            &lt;/div&gt;
+            <span style="color: #b5bd68;">)</span>;
+        <span style="color: #f0c674;">}</span>
+    <span style="color: #8abeb7;">}</span>
+<span style="color: #c5c8c6;">}</span>
+
+<span style="color: #b5bd68;">export</span>
+<span style="color: #b5bd68;">default</span> connectToStores<span style="color: #c5c8c6;">(</span>
+    ProfilePage, <span style="color: #8abeb7;">[</span>UserStore<span style="color: #8abeb7;">]</span>, props =&gt; <span style="color: #8abeb7;">(</span><span style="color: #f0c674;">{</span>
+        user: UserStore.get<span style="color: #b5bd68;">(</span>props.userId<span style="color: #b5bd68;">)</span>
+    <span style="color: #f0c674;">}</span><span style="color: #8abeb7;">)</span><span style="color: #c5c8c6;">)</span>;
+</pre>
+</div>
+<p>
+Key benefits of this approach:
+</p>
+<ul class="org-ul">
+<li>Wrapping the component and passing additional props to it instead of managing state.</li>
+<li>Wrapper's lifecycle hooks work without any special merging, just by virtue of composition.</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc93bac6" class="outline-4">
+<h4 id="orgc93bac6"><span class="section-number-4">1.3.4</span> <span class="done DONE">DONE</span> Routing</h4>
+<div class="outline-text-4" id="text-1-3-4">
+<p>
+Routing hierarchy (e.g. in <code>routes.js</code>):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-javascript"><span style="color: #b5bd68;">var</span> <span style="color: #f0c674;">Router</span> = require<span style="color: #c5c8c6;">(</span><span style="color: #8abeb7;">'react-router'</span><span style="color: #c5c8c6;">)</span>;
+<span style="color: #b5bd68;">var</span> <span style="color: #f0c674;">Route</span> = Router.Route;
+
+<span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">declare routes and their hierarchy</span>
+<span style="color: #b5bd68;">var</span> <span style="color: #f0c674;">routes</span> = <span style="color: #c5c8c6;">(</span>
+&lt;Route handler=<span style="color: #8abeb7;">{</span>App<span style="color: #8abeb7;">}</span>&gt;
+    &lt;DefaultRoute handler=<span style="color: #8abeb7;">{</span>Home<span style="color: #8abeb7;">}</span>/&gt;
+    &lt;NotFoundRoute handler=<span style="color: #8abeb7;">{</span>NotFound<span style="color: #8abeb7;">}</span> name=<span style="color: #8abeb7;">"not-found"</span> /&gt;
+    &lt;Route path=<span style="color: #8abeb7;">"about"</span> handler=<span style="color: #8abeb7;">{</span>About<span style="color: #8abeb7;">}</span>/&gt;
+    &lt;Route path=<span style="color: #8abeb7;">"inbox"</span> handler=<span style="color: #8abeb7;">{</span>Inbox<span style="color: #8abeb7;">}</span>&gt;
+    &lt;Route path=<span style="color: #8abeb7;">"messages/:id"</span> handler=<span style="color: #8abeb7;">{</span>Message<span style="color: #8abeb7;">}</span>/&gt;
+    &lt;/Route&gt;
+&lt;/Route&gt;
+<span style="color: #c5c8c6;">)</span>;
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>The value of <code>:id</code> in <code>inbox/messages/:id</code> will be assigned to <code>this.props.params.id</code> in the <code>Message</code> component.</li>
+<li>When the url is <code>/</code>, the handler from <code>DefaultRoute</code> will be activated - here, the <code>&lt;RouteHandler /&gt;</code> in <code>App</code> will be <code>Home</code>.</li>
+<li>The <code>NotFoundRoute</code>'s handler is activated when the beginning of its parent's path matches the URL, but none of the siblings match the rest of it.</li>
+</ul>
+
+<p>
+Route handler (in <code>app.react.js</code>):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-javascript"><span style="color: #b5bd68;">var</span> <span style="color: #f0c674;">RouteHandler</span> = Router.RouteHandler;
+
+<span style="color: #b5bd68;">var</span> <span style="color: #f0c674;">App</span> = React.createClass<span style="color: #c5c8c6;">(</span><span style="color: #8abeb7;">{</span>
+  render <span style="color: #f0c674;">()</span> <span style="color: #f0c674;">{</span>
+    <span style="color: #b5bd68;">return</span> <span style="color: #b5bd68;">(</span>
+      &lt;div&gt;
+        &lt;h1&gt;App&lt;/h1&gt;
+        &lt;RouteHandler/&gt;
+      &lt;/div&gt;
+    <span style="color: #b5bd68;">)</span>
+  <span style="color: #f0c674;">}</span>
+<span style="color: #8abeb7;">}</span><span style="color: #c5c8c6;">)</span>;
+</pre>
+</div>
+
+<p>
+Bootstrap code (in <code>main.js</code>):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-javascript">Router.run<span style="color: #c5c8c6;">(</span>routes, Router.HashLocation, <span style="color: #8abeb7;">(</span>Root<span style="color: #8abeb7;">)</span> =&gt; <span style="color: #8abeb7;">{</span>
+  React.render<span style="color: #f0c674;">(</span>&lt;Root/&gt;, document.body<span style="color: #f0c674;">)</span>;
+<span style="color: #8abeb7;">}</span><span style="color: #c5c8c6;">)</span>;
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org9c96943" class="outline-5">
+<h5 id="org9c96943"><span class="section-number-5">1.3.4.1</span> <span class="todo TODO">TODO</span> Followup: <a href="https://github.com/acdlite/flummox/blob/v3.5.1/docs/docs/guides/why-flux-component-is-better-than-flux-mixin.md">https://github.com/acdlite/flummox/blob/v3.5.1/docs/docs/guides/why-flux-component-is-better-than-flux-mixin.md</a></h5>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org98f94e2" class="outline-2">
+<h2 id="org98f94e2"><span class="section-number-2">2</span> <span class="todo TODO">TODO</span> Webpack</h2>
+</div>
+
+<div id="outline-container-orge9a6ddf" class="outline-2">
+<h2 id="orge9a6ddf"><span class="section-number-2">3</span> Followups</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-org0c687b8" class="outline-3">
+<h3 id="org0c687b8"><span class="section-number-3">3.1</span> <span class="todo TODO">TODO</span> <a href="https://medium.com/@nextminds/replaying-bugs-with-flux-52f6bd8c8307">https://medium.com/@nextminds/replaying-bugs-with-flux-52f6bd8c8307</a></h3>
+</div>
+<div id="outline-container-org3b34470" class="outline-3">
+<h3 id="org3b34470"><span class="section-number-3">3.2</span> <span class="todo TODO">TODO</span> <a href="https://github.com/nextminds/FluxRecorder">https://github.com/nextminds/FluxRecorder</a></h3>
+</div>
+<div id="outline-container-org83e63da" class="outline-3">
+<h3 id="org83e63da"><span class="section-number-3">3.3</span> <span class="todo TODO">TODO</span> <a href="http://cycle.js.org/">http://cycle.js.org/</a></h3>
+</div>
+<div id="outline-container-orgf2636b8" class="outline-3">
+<h3 id="orgf2636b8"><span class="section-number-3">3.4</span> <span class="todo TODO">TODO</span> <a href="https://facebook.github.io/react/blog/2015/02/20/introducing-relay-and-graphql.html">https://facebook.github.io/react/blog/2015/02/20/introducing-relay-and-graphql.html</a></h3>
+</div>
+<div id="outline-container-org28d53ea" class="outline-3">
+<h3 id="org28d53ea"><span class="section-number-3">3.5</span> <span class="todo TODO">TODO</span> <a href="https://github.com/omcljs/om">https://github.com/omcljs/om</a></h3>
+</div>
+<div id="outline-container-org25a4fb2" class="outline-3">
+<h3 id="org25a4fb2"><span class="section-number-3">3.6</span> <span class="todo TODO">TODO</span> cursors e.g. <a href="https://github.com/dustingetz/react-cursor">https://github.com/dustingetz/react-cursor</a></h3>
+</div>
+<div id="outline-container-org7d94406" class="outline-3">
+<h3 id="org7d94406"><span class="section-number-3">3.7</span> <span class="todo TODO">TODO</span> watch <a href="https://www.youtube.com/watch?v=xsSnOQynTHs">https://www.youtube.com/watch?v=xsSnOQynTHs</a></h3>
+</div>
+<div id="outline-container-org3f83947" class="outline-3">
+<h3 id="org3f83947"><span class="section-number-3">3.8</span> <span class="todo TODO">TODO</span> watch React Europe <a href="https://www.youtube.com/channel/UCorlLn2oZfgOJ-FUcF2eZ1A">https://www.youtube.com/channel/UCorlLn2oZfgOJ-FUcF2eZ1A</a></h3>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author:  (<a href="mailto:elkorn@arch">elkorn@arch</a>)</p>
+<p class="date">Date: </p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.0.3)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

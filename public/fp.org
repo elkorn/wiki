@@ -1,0 +1,98 @@
+* Plan for learning Functional Programming 
+** Actions
+*** DONE ScalaZ 0
+    [[http://eed3si9n.com/learning-scalaz/day0.html][link]]
+    <2015-03-16 Mon>
+*** DONE ScalaZ 1
+    [[http://eed3si9n.com/learning-scalaz/day1.html][link]]
+    <2015-03-17 Tue>
+*** TODO ScalaZ 2
+    [[http://eed3si9n.com/learning-scalaz/day2.html][link]]
+    <2015-03-18 Wed>
+*** DONE finish writing the FP plan.
+    <2015-03-17 Tue>
+
+** Theory 
+*** TODO Milewski [0%]
+    - [ ] [[http://bartoszmilewski.com/2014/12/23/kleisli-categories/][Kleisli categories]]
+    - [ ] [[http://bartoszmilewski.com/2015/01/07/products-and-coproducts/][Products and coproducts]] 
+    - [ ] [[http://bartoszmilewski.com/2015/01/13/simple-algebraic-data-types/][Simple ADTs]]
+    - [ ] [[http://bartoszmilewski.com/2015/01/20/functors/][Functors]]
+    - [ ] [[http://bartoszmilewski.com/2015/02/03/functoriality/][Functoriality]] 
+    - [ ] [[http://bartoszmilewski.com/2015/03/13/function-types/][Function types]]
+
+*** Monadic Web Patterns [25%]
+    - [X] [[http://channel9.msdn.com/Series/C9-Lectures-Greg-Meredith-Monadic-Design-Patterns-for-the-Web/C9-Lectures-Greg-Meredith-Monadic-Design-Patterns-for-the-Web-Introduction-to-Monads][Introduction to Monads (Part 1)]]
+    - [ ] [[http://channel9.msdn.com/Series/C9-Lectures-Greg-Meredith-Monadic-Design-Patterns-for-the-Web/C9-Lectures-Greg-Meredith-Monadic-Design-Patterns-for-the-Web-2-of-n][Part 2]]
+    - [ ] [[http://channel9.msdn.com/Series/C9-Lectures-Greg-Meredith-Monadic-Design-Patterns-for-the-Web/C9-Lectures-Greg-Meredith-Monadic-Design-Patterns-for-the-Web-3-of-n][Part 3]]
+          Classical point of view in logic, intuitionistic logic for
+          functional programming.
+    - [ ] [[http://channel9.msdn.com/Series/C9-Lectures-Greg-Meredith-Monadic-Design-Patterns-for-the-Web/C9-Lectures-Greg-Meredith-Monadic-Design-Patterns-for-the-Web-4-of-n][Part 4]]
+*** Stateless state [0%]
+    - [ ] [[http://channel9.msdn.com/Shows/Going+Deep/Brian-Beckman-The-Zen-of-Expressing-State-The-State-Monad?wt.mc_id=player][Part 1]]
+    - [ ] [[http://channel9.msdn.com/Shows/Going+Deep/Brian-Beckman-The-Zen-of-Stateless-State-The-State-Monad-Part-2?wt.mc_id=EntriesInArea][Part 2]]
+** Scala 
+*** Monadic Web Patterns in Scala [10%]
+    - [X] Chapter 1
+    - [ ] Chapter 2
+    - [ ] Chapter 3
+    - [ ] Chapter 4
+    - [ ] Chapter 5
+    - [ ] Chapter 6
+    - [ ] Chapter 7
+    - [ ] Chapter 8
+    - [ ] Chapter 9
+    - [ ] Chapter 10
+*** ScalaZ [8%]
+    - [X] [[http://eed3si9n.com/learning-scalaz/day0.html][Day 0]]
+    - [X] [[http://eed3si9n.com/learning-scalaz/day1.html][Day 1]]
+    - [ ] [[http://eed3si9n.com/learning-scalaz/day2.html][Day 2]]
+    - [ ] [[http://eed3si9n.com/learning-scalaz/day3.html][Day 3]]
+    - [ ] [[http://eed3si9n.com/learning-scalaz/day4.html][Day 4]]
+    - [ ] [[http://eed3si9n.com/learning-scalaz/day5.html][Day 5]]
+    - [ ] [[http://eed3si9n.com/learning-scalaz/day6.html][Day 6]]
+    - [ ] [[http://eed3si9n.com/learning-scalaz/day7.html][Day 7]]
+    - [ ] [[http://eed3si9n.com/learning-scalaz/day8.html][Day 8]]
+    - [ ] [[http://eed3si9n.com/learning-scalaz/day9.html][Day 9]]
+    - [ ] [[http://eed3si9n.com/learning-scalaz/day10.html][Day 10]]
+    - [ ] [[http://eed3si9n.com/learning-scalaz/day11.html][Day 11]]
+    - [ ] [[http://eed3si9n.com/learning-scalaz/day12.html][Day 12]]
+    - [ ] [[http://eed3si9n.com/learning-scalaz/day13.html][Day 13]]
+    - [ ] [[http://eed3si9n.com/learning-scalaz/day14.html][Day 14]]
+    - [ ] [[http://eed3si9n.com/learning-scalaz/day15.html][Day 15]]
+    - [ ] [[http://eed3si9n.com/learning-scalaz/day16.html][Day 16]]
+    - [ ] [[http://eed3si9n.com/learning-scalaz/day17.html][Day 17]]
+    - [ ] [[http://eed3si9n.com/learning-scalaz/day18.html][Day 18]]
+    - [ ] [[http://eed3si9n.com/learning-scalaz/day19.html][Day 19]]
+    - [ ] [[http://eed3si9n.com/learning-scalaz/day20.html][Day 20]]
+    - [ ] [[http://eed3si9n.com/learning-scalaz/day21.html][Day 21]]
+** Neophyte's Guide to Scala [0%]
+   - [ ] Chapter 1
+   - [ ] Chapter 2
+   - [ ] Chapter 3
+   - [ ] Chapter 4
+   - [ ] Chapter 5
+   - [ ] Chapter 6
+   - [ ] Chapter 7
+   - [ ] Chapter 8
+   - [ ] Chapter 9
+   - [ ] Chapter 10
+   - [ ] Chapter 11
+   - [ ] Chapter 12
+   - [ ] Chapter 13
+   - [ ] Chapter 14
+   - [ ] Chapter 15
+   - [ ] Chapter 16
+
+** BoldRadius blog [[http://boldradius.com/archive?obj=blog&tag=video&utm_campaign=Blog&utm_content=13156838][link]]
+** Clojure / Scheme
+   - [ ] The Joy Of Clojure
+   - [ ] [[http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/][MIT 6.001: SICP]] 
+   - [ ] Define further resources.
+** Haskell
+   - [ ] [[https://www.seas.upenn.edu/~cis194/][CIS194: Introduction to Haskell]]
+   - [ ] [[https://github.com/NICTA/course][NICTA FP]]
+   - [ ] Lenses
+   - [ ] Watch SPJ lectures
+   - [ ] Define further resources.
+

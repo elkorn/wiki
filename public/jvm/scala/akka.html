@@ -1,0 +1,798 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-10-31 Tue 13:49 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title></title>
+<meta name="generator" content="Org mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/org"> HOME </a>
+</div><div id="content">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgfdb9195">1. </a>
+<ul>
+<li><a href="#org3c9683b">1.1. Persistence API</a>
+<ul>
+<li><a href="#org3528db1">1.1.1. Akka persistence</a>
+<ul>
+<li><a href="#org907b59b">1.1.1.1. Recover app state after a crash</a></li>
+<li><a href="#orgaaa0f44">1.1.1.2. opt-in at-least-once delivery</a></li>
+<li><a href="#orgf34ba5d">1.1.1.3. semantics between actors</a></li>
+<li><a href="#orgd49c2c6">1.1.1.4. Storing state transitions</a></li>
+<li><a href="#org46b0ba8">1.1.1.5. Domain events</a></li>
+<li><a href="#org4c47882">1.1.1.6. Different approaches</a></li>
+<li><a href="#org768c9d3">1.1.1.7. Consistency boundary</a></li>
+<li><a href="#org9bb1679">1.1.1.8. Building blocks</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org9a192c7">2. </a>
+<ul>
+<li><a href="#org0d66ea5">2.1. Futures</a>
+<ul>
+<li><a href="#orgefaa85e">2.1.1. </a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgfdb9195" class="outline-2">
+<h2 id="orgfdb9195"><span class="section-number-2">1</span> <a href="#org3c9683b">1.1</a></h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-org3c9683b" class="outline-3">
+<h3 id="org3c9683b"><span class="section-number-3">1.1</span> Persistence API</h3>
+<div class="outline-text-3" id="text-1-1">
+</div><div id="outline-container-org3528db1" class="outline-4">
+<h4 id="org3528db1"><span class="section-number-4">1.1.1</span> Akka persistence</h4>
+<div class="outline-text-4" id="text-1-1-1">
+</div><div id="outline-container-org907b59b" class="outline-5">
+<h5 id="org907b59b"><span class="section-number-5">1.1.1.1</span> Recover app state after a crash</h5>
+</div>
+<div id="outline-container-orgaaa0f44" class="outline-5">
+<h5 id="orgaaa0f44"><span class="section-number-5">1.1.1.2</span> opt-in at-least-once delivery</h5>
+</div>
+<div id="outline-container-orgf34ba5d" class="outline-5">
+<h5 id="orgf34ba5d"><span class="section-number-5">1.1.1.3</span> semantics between actors</h5>
+<div class="outline-text-5" id="text-1-1-1-3">
+<p>
+To add as a dependency:
+</p>
+<pre class="example">
+"com.typesafe.akka" %% "akka-persistence-experimental" % "2.3.0"
+</pre>
+
+<p>
+It's a complete rewrite of the <a href="https://github.com/eligosource/eventsourced">Eventsourced</a> library, a migration is possible.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd49c2c6" class="outline-5">
+<h5 id="orgd49c2c6"><span class="section-number-5">1.1.1.4</span> Storing state transitions</h5>
+<div class="outline-text-5" id="text-1-1-1-4">
+<p>
+Instead of storing state, transitions are being recorded.
+E.g.
+</p>
+<pre class="example">
+Cart created =&gt; Added 2 socks =&gt; Added 2 shirts =&gt; Shipping info Added
+</pre>
+
+<p>
+The events can be replayed and they are immutable (a parallel with DB migration
+incremental scripts?).
+This is called <span class="underline">event sourcing</span>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org46b0ba8" class="outline-5">
+<h5 id="org46b0ba8"><span class="section-number-5">1.1.1.5</span> Domain events</h5>
+<div class="outline-text-5" id="text-1-1-1-5">
+</div><ol class="org-ol"><li><a id="org25ae456"></a>things that have completed, <span class="underline">facts</span><br  /></li>
+<li><a id="org0729d09"></a>immutable<br  /></li>
+<li><a id="org11ec8f9"></a>verbs in past tense<br  /><div class="outline-text-6" id="text-1-1-1-5-3">
+<ul class="org-ul">
+<li>`CustomerRelocated`</li>
+<li>`CargoShipped`</li>
+<li>`InvoiceSent`</li>
+</ul>
+</div></li>
+<li><a id="org5c54376"></a>essential building block in DDD, representing the domain state transition.<br  /><div class="outline-text-6" id="text-1-1-1-5-4">
+<p>
+<b>Benefits</b>:
+</p>
+</div></li>
+<li><a id="org753056c"></a>Bulletproof auditing and historical tracing.<br  /><div class="outline-text-6" id="text-1-1-1-5-5">
+<ul class="org-ul">
+<li>Think in terms of the history of transactions that caused a specific bank account balance to occur.</li>
+</ul>
+</div></li>
+<li><a id="org9f965f5"></a>Support future ways of looking at data.<br  /><div class="outline-text-6" id="text-1-1-1-5-6">
+<ul class="org-ul">
+<li>After adding new features, it is possible to recreate the past data in the new form.</li>
+<li>Useful when creating an initial release and then, after discussing with the business, having to add new features and emulate the same state.</li>
+</ul>
+</div></li>
+<li><a id="orgbfe293a"></a>Performance and scalability<br  /><div class="outline-text-6" id="text-1-1-1-5-7">
+<ul class="org-ul">
+<li>Streams can be scaled.</li>
+</ul>
+</div></li>
+<li><a id="org651da90"></a>Testability<br  /><div class="outline-text-6" id="text-1-1-1-5-8">
+<ul class="org-ul">
+<li>Define a sequence of events as a scenario - it makes expected actions very clear.</li>
+</ul>
+</div></li>
+<li><a id="org5c0eefc"></a>Reconstruct production scenarios<br  /></li>
+<li><a id="orgfcd2eee"></a>No object-relational impedance mismatch<br  /><div class="outline-text-6" id="text-1-1-1-5-10">
+<ul class="org-ul">
+<li>No complex data structures are stored, no ORMs needed.</li>
+</ul>
+</div></li>
+<li><a id="org4b7e6ed"></a>Nice fit with actors<br  /><div class="outline-text-6" id="text-1-1-1-5-11">
+<ul class="org-ul">
+<li>It does not mean that it should be used everywhere alongside Akka.</li>
+<li>It's not good for ad-hoc queries.</li>
+</ul>
+</div></li></ol>
+</div>
+
+<div id="outline-container-org4c47882" class="outline-5">
+<h5 id="org4c47882"><span class="section-number-5">1.1.1.6</span> Different approaches</h5>
+<div class="outline-text-5" id="text-1-1-1-6">
+<p>
+<b>Command sourcing</b>:
+</p>
+</div>
+<ol class="org-ol"><li><a id="org7c9adb5"></a>write-ahead-log<br  /></li>
+<li><a id="org610783f"></a>same behavior during recovery as normal operation<br  /><div class="outline-text-6" id="text-1-1-1-6-2">
+<ul class="org-ul">
+<li>external interaction can be problematic</li>
+<li>changing the command logic will cause retro steps to work as the new cmds</li>
+</ul>
+</div></li>
+<li><a id="orgd7e6e38"></a>persisted before validation<br  /></li>
+<li><a id="orgb426672"></a>allows retroactive changes to the business logic<br  /></li>
+<li><a id="orgb2db3b8"></a>naming: represent intent, imperative<br  /><div class="outline-text-6" id="text-1-1-1-6-5">
+<p>
+<b>Event sourcing:</b>
+</p>
+</div></li>
+<li><a id="orge9cbad4"></a>derive events from a Command<br  /></li>
+<li><a id="orgce84c83"></a>only state-changing behavior during recovery<br  /></li>
+<li><a id="orga0e1e9d"></a>events cannot fail<br  /></li>
+<li><a id="org7b5f2ab"></a>fixing the business logic will not affect persisted models<br  /></li>
+<li><a id="orgd292972"></a>naming: things that have completed, verbs in the past tense<br  /></li></ol>
+</div>
+
+<div id="outline-container-org768c9d3" class="outline-5">
+<h5 id="org768c9d3"><span class="section-number-5">1.1.1.7</span> Consistency boundary</h5>
+<div class="outline-text-5" id="text-1-1-1-7">
+</div><ol class="org-ol"><li><a id="orgc91236a"></a>An actor is a consistency boundary<br  /><div class="outline-text-6" id="text-1-1-1-7-1">
+<ul class="org-ul">
+<li>corresponds to a DDD Aggregate</li>
+</ul>
+</div></li>
+<li><a id="org65ca400"></a>No distributed transactions<br  /><div class="outline-text-6" id="text-1-1-1-7-2">
+<ul class="org-ul">
+<li>eventually consistent</li>
+<li>compensating actions instead of transactional mechanisms</li>
+</ul>
+</div></li></ol>
+</div>
+
+<div id="outline-container-org9bb1679" class="outline-5">
+<h5 id="org9bb1679"><span class="section-number-5">1.1.1.8</span> Building blocks</h5>
+<div class="outline-text-5" id="text-1-1-1-8">
+</div><ol class="org-ol"><li><a id="orgc396f66"></a>Processor<br  /><ol class="org-ol"><li><a id="orga3e41f2"></a>Automatic recovery on start and restart<br  /></li>
+<li><a id="orgc23bd52"></a>Stashing until recovery completed<br  /></li>
+<li><a id="org5ec6b4e"></a>Failure handling with the supervisor strategy<br  /></li>
+<li><a id="orga8686f8"></a>Might want to delete erroneous messages<br  /><div class="outline-text-7" id="text-1-1-1-8-1-4">
+<p>
+Minimal processor example
+</p>
+<pre class="example">
+import akka.persistence.{ Persistent, Processor }
+class MyProcessor extends Processor {
+    def receive = {
+        case Persistent(payload, sequenceNr) =&gt;
+            // msg successfully written to Journal
+        case other =&gt; // msg not written to journal
+    }
+}
+
+val processor = context.actorOf(Props[MyProcessor], name = "myProcessor")
+
+processor ! Persistent("foo")   // journaled
+processor ! "bar"               // not journaled
+</pre>
+
+<p>
+Real-world example:
+</p>
+<pre class="example">
+class InvoiceService extends Processor {
+    var invoices = Map.empty[String, Invoice]
+
+    def receive: Receive = {
+        case Persistent(CreateInvoice(id), _) =&gt;
+            invoices = invoices.updated(id, Invoice(id))
+        case Persistent(AddInvoiceItem(id, item), _) =&gt;
+            invoices.get(id) match {
+                case Some(inv) =&gt;
+                    invoices = invoices.updated(id, inv.addItem(item))
+                case None =&gt; // TODO recovery
+            }
+        case GetInvoice(id) =&gt;
+            sender() ! invoices.getOrElse(id, "not found: " + id) ===
+
+        case Persistent(SendInvoiceTo(id, address), _) =&gt;
+            // TODO send to the invoice printing service.
+    }
+}
+</pre>
+
+<p>
+Invoice context code:
+</p>
+<pre class="example">
+case class CreateInvoice(invoiceId: String)
+case class AddInvoiceItem(invoiceId: String, invoiceItem: InvoiceItem)
+case class SendInvoiceTo(invoiceId: String, to: InvoiceAddress)
+case class GetInvoice(invoiceId: String)
+
+case class Invoice(id: String, items: IndexedSeq[InvoiceItem] = Vector.empty) {
+    def addItem(item: InvoiceItem): Invoice = copy(items = items :+ item)
+}
+
+case class InvoiceItem(description: String, count: Int, amount: BigDecimal)
+case class InvoiceAddress(name: String, street: String, city: String)
+</pre>
+
+<p>
+Processor identifier - the default identifier is the path of the actor:
+`/user/top/myProcessor`.
+</p>
+
+<p>
+Anonymous processors should not be used as the names may change on system
+startup.
+</p>
+<pre class="example">
+override def processorId = "my-stable-processor-id"
+</pre>
+</div></li>
+
+<li><a id="orgd4ad5ea"></a>Processor with Channel<br  /><div class="outline-text-7" id="text-1-1-1-8-1-5">
+<p>
+Handshaking - sending delivery and confirmation messages.
+</p>
+<pre class="example">
+val printingChannel = context.actorOf(Channel.props(), name = "printingChannel")
+val printingDestination = context.system / "printingService"
+// 'printingService' probably should be 'printingChannel'.
+
+def receive: Receive = {
+    case p @ Persistent(SendInvoiceTo(id, address), _) =&gt; 
+        // send to the invoice printing machine
+        invoices.get(id) match {
+            case Some(inv) =&gt;
+                printingChannel ! Deliver(p.withPayload(
+                    PrintingOrder(inv, address), printingDestination)
+                invoices -= inv.id
+            case None =&gt; TODO
+        }
+}
+
+class PrintingService extends Actor {
+    def receive = {
+        case p @ ConfirmablePersistent(payload, sequenceNr, redeliveries) =&gt;
+            // ...
+            p.confirm()
+    }
+}
+</pre>
+</div></li></ol></li>
+
+<li><a id="org997efc8"></a>Eventsourced processor<br  /><div class="outline-text-6" id="text-1-1-1-8-2">
+<p>
+Incoming messages (commands) are not persisted.
+</p>
+
+<p>
+Steps:
+</p>
+</div>
+<ol class="org-ol"><li><a id="org2d475a6"></a>Validate Command<br  /></li>
+<li><a id="org427b772"></a>Create domain event and explicitly persist it<br  /></li>
+<li><a id="orgd3571a7"></a>Update internal state by <b>applying the event</b><br  /></li>
+<li><a id="orgb4e6f0f"></a>External side effects<br  /><div class="outline-text-7" id="text-1-1-1-8-2-4">
+<p>
+During recovery the internal state is updated by applying the events, which
+prevents any external side effects.
+</p>
+
+<p>
+Example:
+</p>
+<pre class="example">
+class BlogPost extends EventsourcedProcessor {
+    import BlogPost._
+    override def receiveCommand: Receive = ???
+    override def receiveRecover: Receive = ???
+
+    private var state = State("","","",false)
+
+    override def receiveCommand: Receive = {
+        case AddPost(author, title) =&gt;
+            // The difference between command and event approaches is clear here
+            if(state.body == "" &amp;&amp; author != "" &amp;&amp; title != "") {
+                persist(PostAdded(author, title)) { evt =&gt;
+                    state = state.updated(evt)
+                }
+            }
+
+        case ChangeBody(body) =&gt;
+            if(!state.published) {
+                persist(BodyChanged(body)) { evt =&gt;
+                    state = state.updated(evt)
+                }
+            }
+
+        case Publish =&gt;
+            if(!state.published) {
+                persist(PostPublished) { evt =&gt;
+                    state = state.updated(evt)
+                    // call the external web content service...
+                }
+            }
+    }
+
+    override def receiveRecover: Receive = {
+        case evt: Event =&gt; state = state.updated(evt)
+    }
+}
+
+object BlogPost {
+    import BlogPost._
+    case class AddPost(athor: String, title: String) // domain command
+
+    // this is the proposed way:
+    sealed trait Event
+    case class PostAdded(author: String, title: String) extends Event
+    case class BodyChanged(body: String) extends Event
+    case object PostPublished extends Event
+
+    private class State(author: String, title: String, body: String,
+                        published: Boolean) {
+        def updated(evt: Event): State = evt match {
+            case PostAdded(author, title)   =&gt; copy(author, title)
+            case BodyChanged(b)             =&gt; copy(body = b)
+            case PostPublished              =&gt; copy(published = true)
+        }
+    }
+}
+</pre>
+
+<p>
+Additional functionality: support for snapshots.
+</p>
+
+<pre class="example">
+class MyProcessor extends Processor {
+    var state: Any = _
+
+    def receive = {
+        case "snap"                                   =&gt; saveSnapshot(state)
+        case SaveSnapshotSuccess(metadata)            =&gt; // ...
+        case SaveSnapshotFailure(metadata, reason)    =&gt; // ...
+
+        case SnapshotOffer(metadata, offeredSnapshot) =&gt; state = offeredSnapshot
+        case Persistent(payload, _)                   =&gt; // ...
+    }
+}
+</pre>
+</div></li></ol></li>
+
+<li><a id="orga0dea47"></a>View<br  /><div class="outline-text-6" id="text-1-1-1-8-3">
+<p>
+Replays persistent messages from a Processor's journal.
+Serves as the query side of CQRS.
+</p>
+
+<p>
+Features:
+</p>
+</div>
+<ol class="org-ol"><li><a id="org6a20954"></a>auto-update interval,<br  /></li>
+<li><a id="orgf48d9fa"></a>update message,<br  /></li>
+<li><a id="org5c407ba"></a>limit,<br  /></li>
+<li><a id="orgc83b162"></a>may store its own snapshots.<br  /><div class="outline-text-7" id="text-1-1-1-8-3-4">
+<p>
+Example:
+</p>
+<pre class="example">
+class InvoiceCounter extends View {
+    import InvoiceCounter._
+    override def processorId: String = "/user/InvoiceService"
+    override def autoUpdateInterval = 10 seconds
+
+    var count = 0L
+
+    def receive: Actor.Receive = {
+        case Persistent(payload: SendInvoiceTo, _) =&gt; count += 1
+        case _: Persistent =&gt;
+        case GetInvoiceCount =&gt; sender ! InvoiceCount(count)
+    }
+}
+
+object InvoiceCounter {
+    case object GetInvoiceCount
+    case class InvoiceCount(count: Long)
+}
+</pre>
+</div></li></ol></li>
+
+<li><a id="org4bcfffa"></a>Persistent Channel<br  /><div class="outline-text-6" id="text-1-1-1-8-4">
+<p>
+Used for at-least-once delivery.
+</p>
+
+<p>
+A message might be dropped.
+To be sure that a message has arrived, an acknowledgment from the receiver.
+The acknowledgment delivery may also fail - in that case the message must be
+resent.
+This is the <span class="underline">at-least-once</span> delivery mode.
+</p>
+
+<p>
+Channels re-deliver messages until confirmed.
+The confirmation is on application level.
+Different semantics:
+</p>
+</div>
+<ol class="org-ol"><li><a id="org25d966f"></a>duplicates received<br  /></li>
+<li><a id="orgf0992d3"></a>message order not retained<br  /></li>
+<li><a id="org85b942d"></a>after a creash and restart messages are still delivered<br  /><div class="outline-text-7" id="text-1-1-1-8-4-3">
+<p>
+Recommendation: use one destination per channel.
+The exception is when replies are being sent via the channel.
+</p>
+
+<p>
+Where a Channel is meant to be used from within a Processor and resides within
+memory, the PersistentChannel is to be used standalone.
+</p>
+
+<p>
+It is conceptually a processor + a channel.
+It persists messages before delivering, replies `ack` when persisted and allows
+more advanced delivery flow control.
+</p>
+
+<p>
+Example:
+</p>
+<pre class="example">
+class MyProcessor extends Processor {
+    val channel = context.actorOf(Channel.props(), name = "myChannel")
+
+    def receive = {
+        case p @ Persistent(payload, _) =&gt;
+            val destination = context.system / "myDestination"
+            channel ! Deliver(p.withPayload("output msg"), destination)
+    }
+}
+
+class MyDestination extends Actor {
+    def receive = {
+        case p @ ConfirmablePersistent(payload, sequenceNr, redeliveries) =&gt;
+            // ...
+            p.confirm()
+    }
+}
+
+class Endpoint extends Actor {
+    val channel = context.actorOf(
+            PersistentChannel.props(PersistentChannelSettings(
+                    redeliverInterval = 3 seconds,
+                    redeliverMax = 10,
+                    replyPersistent = true)
+            ),
+            name = "myChannel")
+    val destination = context.system / "jobManager"
+
+    import context.dispatcher
+    implicit val timeout = Timeout(5 seconds)
+
+    def receive = {
+        case job: Job =&gt;
+            (channel ? Deliver(Persistent(job), destination)) map {
+                // send the acknowledgment
+                case _: Persistent =&gt; "OK: " + job.id
+            } recover {
+                case e =&gt; "FAILED: " + job.id
+            } pipeTo sender()
+    }
+}
+</pre>
+</div></li></ol></li>
+
+<li><a id="org20856db"></a>Serialization<br  /><ol class="org-ol"><li><a id="org1507931"></a>Pluggable, Akka serialization<br  /></li>
+<li><a id="org8a7c642"></a>app life-cycle, versioning<br  /></li>
+<li><a id="org2015a16"></a>don't use default Java serialization<br  /></li>
+
+<li><a id="org054ec80"></a>Journal<br  /><ol class="org-ol"><li><a id="org32702a8"></a>Pluggable<br  /></li>
+<li><a id="orgae6e5ca"></a>LevelDB shipped with Akka - local files<br  /></li>
+<li><a id="orgff64bf3"></a><a href="http://akka.io/community/">Community journals</a> can be used<br  /></li></ol></li></ol></li>
+
+<li><a id="orgc088626"></a>Cluster<br  /><ol class="org-ol"><li><a id="orgfafd843"></a>simple way of migrating/moving stateful actors in a cluster<br  /></li>
+<li><a id="org7206f74"></a>distributed journal<br  /><div class="outline-text-7" id="text-1-1-1-8-6-2">
+<ul class="org-ul">
+<li>shared LevelDB journal for testing</li>
+<li>try the Cassandra alternative</li>
+</ul>
+</div></li>
+<li><a id="orgd68bd19"></a>single write per event stream<br  /></li>
+
+<li><a id="orge44b6d6"></a>Cluster singleton<br  /><div class="outline-text-7" id="text-1-1-1-8-6-4">
+<p>
+Follow-up&#x2026;
+</p>
+</div></li>
+
+<li><a id="org54fd03c"></a>Cluster sharding<br  /><div class="outline-text-7" id="text-1-1-1-8-6-5">
+<p>
+Follow-up&#x2026;
+</p>
+
+<p>
+Send the recipient identifier with a message to a cluster sharding region.
+</p>
+
+<p>
+A routing coordinator is required.
+</p>
+
+<pre class="example">
+val idExtractor: ShardRegion.IdExtractor = {
+    case cmd: Command =&gt; (cmd.postId, cmd)
+}
+
+val shardResolver: ShardRegion.ShardResolver = msg =&gt; msg match {
+    case cmd: Command =&gt; (math.abs(cmd.postId.hashCode) % 100).toString
+}
+
+ClusterSharding(system).start(
+    typeName = BlogPost.shardName,
+    entryProps = Some(BlogPost.props()),
+    idExtractor = BlogPost.idExtractor,
+    shardResolver = BlogPost.ShardResolver)
+
+val postRegion: ActorRef =
+    ClusterSharding(context.system).shardRegion(BlogPost.shardName)
+
+val postId = UUID.randomUUID().toString
+postRegion ! BlogPost.AddPost(postId, author, title)
+</pre>
+</div></li></ol></li></ol>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org9a192c7" class="outline-2">
+<h2 id="org9a192c7"><span class="section-number-2">2</span> <a href="#org0d66ea5">2.1</a></h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-org0d66ea5" class="outline-3">
+<h3 id="org0d66ea5"><span class="section-number-3">2.1</span> Futures</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+#= Akka - Futures =
+Notes from "Composable Futures with Akka" will go here.
+</p>
+
+<p>
+Code examples:
+</p>
+</div>
+<div id="outline-container-orgefaa85e" class="outline-4">
+<h4 id="orgefaa85e"><span class="section-number-4">2.1.1</span> <a href="https://bitbucket.org/mslinn/akkafutures">https://bitbucket.org/mslinn/akkafutures</a></h4>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author:  (<a href="mailto:elkorn@arch">elkorn@arch</a>)</p>
+<p class="date">Date: </p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.0.3)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

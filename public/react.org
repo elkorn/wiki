@@ -1,0 +1,395 @@
+* React
+** Flux
+*** TODO Basic architecture
+*** Evolution
+**** Flux tradeoff examples
+- If actions aren't objects, it is harder to replay them for debugging purposes.
+- Having no type constants makes it harder to typecheck actions with Flow.
+
+**** Key developments
+The first thing is action creators returning dispatched actions. The evolution is from 
+#+begin_src javascript
+export function addTodo(text) {
+  AppDispatcher.dispatch({
+    type: ActionTypes.ADD_TODO,
+    text: text
+  });
+}
+#+end_src
+
+to
+
+#+begin_src javascript
+export function addTodo(text) {
+  return {
+    type: ActionTypes.ADD_TODO,
+    text: text
+  };
+}
+#+end_src
+
+Obviously, the actions become decoupled from the dispatcher - IoC kicks in.
+The consequence here is that action creators cannot be called directly.
+Practically, you'd wrap them anyway (or use a library) for server side rendering.
+
+Async action creators would work as follows:
+#+begin_src javascript
+export function addTodo(text) {
+  return dispatch => ({
+    dispatch({
+      type: ActionTypes.ADD_TODO,
+      text: text
+    });
+    API.addTodo(text).then(
+        () => dispatch({
+        type: ActionTypes.ADD_TODO_SUCCESS,
+        text: text
+        }),
+        () => dispatch({
+        type: ActionTypes.ADD_TODO_FAILURE,
+        text: text
+        })
+    );
+  });
+}
+#+end_src
+
+The second thing is thanks to that the Stores can be made stateless.
+An inherent features of Stores is that they *managed*, not *own* state.
+A 'default' implementation of a store would look somewhat like this:
+#+begin_src javascript
+let _todos = [];
+const TodoStore = Object.assign(new EventEmitter(), {
+  getTodos() {
+    return _todos;
+  }
+});
+AppDispatcher.register(function (action) {
+  switch (action.type) {
+  case ActionTypes.ADD_TODO:
+    _todos = _todos.concat([action.text]);
+    TodoStore.emitChange();
+    break;
+  }
+});
+export default TodoStore;
+#+end_src
+
+can be turned into:
+
+#+begin_src javascript
+const initialState = { todos: [] };
+export default function TodoStore(state = initialState, action) {
+  switch (action.type) {
+  case ActionTypes.ADD_TODO:
+    return { todos: state.todos.concat([action.text]) };
+  default:
+    return state;
+}
+#+end_src
+
+So the state of a Store is a function of its initial state and the actions that have been performed on it.
+
+Benefits of those advancements:
+- Testability in isolation
+- Hot reloading (done in [[https://github.com/gaearon/redux][redux]])
+- The dispatcher owns the state and can revert the application to any previous state without serialization.
+  This means transactionality out of the box, allowing for stuff like https://github.com/gaearon/redux-devtools.
+- No need to =waitFor()= - the dispatcher controls when changes are emitted.
+- Change updates can be subscribed to, but the dispatcher may also expose a cursor-like functionality.
+- Declarative style - focus on *what* instead of *how*.
+  
+*** Notable variants
+    - [[https://github.com/gaearon/redux][Redux]] 
+
+    - [[https://acdlite.github.io/flummox][Flummox]]
+    - [[https://github.com/spoike/refluxjs][Reflux]]
+     
+** Este.js
+*** DONE App structure
+    This is a top-down overview of an Este.js app structure.
+**** main.js
+    - Imports routes.
+    - Bootstraps the application: renders the Router component in the given DOM root.
+**** routes.js
+    - Imports top-level components for all pages.
+**** App
+     - Imports all stores.
+     - Renders the main layout.
+     - =RouteHandler= is rendered within the main layout.
+     - Owns the global app state.
+**** Pages
+     - Top-level components for app areas.
+     - Composition roots for all functionalities related to the specific area.
+     - Additionally taking care of setting page titles, rendering headers, etc.
+**** Components
+     - Define the way of displaying data in the UI.
+     - Provide connection points (event handlers etc.) for invoking actions.
+     - Data is passed through props.
+     - State should be kept as high up as possible (optimally in the App), state owners have to be clearly defined.
+
+**** Actions
+     - Each logical part of the app has its own =actions.js= file, exposing action creator functions.
+       They perform logical validation and call the dispatcher to actually dispatch the created actions.
+**** Stores
+     - Stores react to dispatched actions and update the global application state.
+
+
+*** DONE State
+    - =lib/state.js= implements a state representation.
+    - Based on immutable data structures.
+    - Emits change events (previous state is kept for diffing while debugging).
+    - It can be *revived* provided a =storesReviver= function.
+      - The =storesReviver= delegates to data-specific revivers.
+      - =state.js= imports all revivers.
+      - Instantiating the =State= class causes the state to be loaded from a server file or from =window._appState=.
+      - Loading state uses a data-specific reviver as a custom transform function for the `Immutable.fromJS` method.
+**** DONE Pending actions
+     - Whenever any action is dispatched, the dispatcher implementation uses a cursor on a pending actions hashmap (which can be hydrated from the server).
+     - The action key (acquired from overriding =.toString()= by =setToString=) is set to =true= before the actual action promise dispatch and to =false= after its resolution.
+     - This is useful when a loader needs to be displayed or as a logical action debouncing.
+** Concepts
+*** DONE Immutable data structures
+    One of the more popular immutable data structure libs for JS is immutable.js.
+    Immutability reduces complexity due to not having to handle changes to a on object as in mutable data structures.
+    A whole class of bugs is eliminated thusly.
+    On top of that, immutable data structures allow a host of optimizations due to their nature.
+**** Optimizations
+    - Thanks to structural sharing (i.e. reusing parts of data structures that were extended), the memory footprint is lesser than with e.g. copy-on-write data structures.
+      Speed is also improved.
+    - immutable.js uses ===== for equality checks and tries to return the existing collection when an operation would result in an identical collection.
+      This is useful in memoization when running a deeper equality check could be more costly than re-running the memoized function.
+**** API
+    - =Map=, =OrderedMap=, =List=, =Seq=
+    - Accept raw objects, arrays etc. as input
+    - Can be converted back to raw objects: shallowly with =.toArray()= or =.toObject()= and deeply with =.toJS()=.
+    - All immutable iterables implement =toJSON()= which means that they can be passed directly to =JSON.stringify=.
+    - The structures are intended to be nested.
+      Lens methods are provided on =List=, =Map= and =OrderedMap=: =getIn=, =setIn=, =updateIn= as well as a =mergeDeep= method.
+    - =Seq= is lazy.
+      It has functor-like methods =map=, =filter= etc. - but only unfolds when needed.
+      This allows to operate on them like in Haskell, create infinite ranges etc.  
+    - Equality is based on values, not references.
+#+begin_src javascript
+var map1 = Immutable.Map({a:1, b:1, c:1});
+var map2 = Immutable.Map({a:1, b:1, c:1});
+assert(map1 !== map2); // two different instances
+assert(Immutable.is(map1, map2)); // have equivalent values
+assert(map1.equals(map2)); // alternatively use the equals method
+#+end_src
+
+
+
+*** DONE PropTypes
+    - A mechanism provided by React itself.
+    - Allow defining constraints on what the component expect to get passed as props.
+    - Violating the contract established by =PropTypes= will cause a =console.warn= to be issued.
+    - A =getDefaultProps= function can be implemented to provide a default set of properties. 
+      It is called as soon as =React.createClass= is called on the component, so no instance-specific references can be used within it.
+      Default values should be provided only for properties that are not required (i.e. their =propType= doesn't have =.isRequired= specified).
+      
+#+begin_src javascript
+var SurveyTableRow = React.createClass({
+    propTypes: {
+        survey: React.PropTypes.shape({
+            id: React.PropTypes.number.isRequired
+        }).isRequired,
+        onClick: React.PropTypes.func
+    },
+});
+
+var SurveyTable = React.createClass({
+    getDefaultProps: function () {
+        return {
+            surveys: []
+            };
+    }
+});
+#+end_src
+
+Create the getDefaultProps function on your component to provide a default set of
+properties. This should only be done for props that aren’t required.
+It’s important to note that getDefaultProps is not called during component in-
+stantiation, but as soon as React.createClass is called to cache the value. This
+means you can’t use any instance specific data in the getDefaultProps method.
+
+*** TODO Higher order components https://medium.com/@dan_abramov/mixins-are-dead-long-live-higher-order-components-94a0d2f9e750
+**** Mixins
+     There are three main use cases for React mixins: utility functions, lifecycle hooks and state providers.
+     Mixins are on their way out starting from 0.13 though. 
+     If you use mixins for utility functions, extract them to modules.
+     They were more useful though when used for the other cases.
+     This is due to React "merging" lifecycle hooks - if both the component and its mixins have defined a lifecycle hook (i.e. =componentDidMount=), then React will merge them.
+     The same applies to =getInitialState=.
+     This is useful - mixins can subscribe components to Flux stores or work with their DOM nodes after being updated.
+     There are drawbacks to mixins though:
+     - The mixin <-> component contract is implicit.
+     - Use too many mixins and they will start to clash.
+       React will throw exceptions if you use two different instances of the same mixin even with different parameters.
+     - They tend to add more state to components.
+     - They complicate performance optimizations.
+       If you implement the =shouldComponentUpdate= method in your component, different mixins might need their own implementations.
+
+**** Higher-order components
+     This is one of the proposed ways to replace mixins with composition.
+     Using ES6 classes, it boils down to inheritance.
+     Taking the Flux Store connection mixin as an example, this is how you would implement it in the old way:
+#+begin_src javascript
+function StoreMixin(...stores) {
+  const Mixin = {
+    getInitialState() {
+      return this.getStateFromStores(this.props);
+    },
+    componentDidMount() {
+      stores.forEach(store => store.addChangeListener(this.handleStoresChanged));
+    },
+    componentWillUnmount() {
+      stores.forEach(store => store.removeChangeListener(this.handleStoresChanged));
+    },
+    handleStoresChanged() {
+      if(this.isMounted()) {
+        this.setState(this.getStateFromStores(this.props));
+      }
+    }
+  };
+
+  return Mixin;
+}
+
+const UserProfilePage = React.createClass({
+  mixins: [StoreMixin(UserStore)],
+  propTypes: {
+    userId: PropTypes.number.isRequired
+  },
+  getStateFromStores(props) {
+    return {
+      user: UserStore.get(props.userId)
+    };
+  },
+  render() {
+    const {user} = this.state;
+    return (
+        <div>
+        {user ? user.name : 'Loading'}
+        </div>
+    );
+  }
+});
+#+end_src
+     With the higher-order component approach it would look thusly.
+#+begin_src javascript
+const connectToStores = (ComposedComponent, stores, getStateFromStores) => {
+    return class extends React.Component {
+        getInitialState() {
+            return getStateFromStores(this.props);
+        }
+
+        componentDidMount() {
+            stores.forEach(store => store.addChangeListener(this.handleStoresChanged));
+        }
+
+        componentWillUnmount() {
+            stores.forEach(store => store.removeChangeListener(this.handleStoresChanged));
+        }
+
+        handleStoresChanged() {
+            if(this.isMounted()) {
+            this.setState(getStateFromStores(this.props));
+            }
+        }
+
+        render() {
+            return (<ComposedComponent {...this.props} {...this.state} />);
+        }
+        };
+
+        class ProfilePage extends React.Component {
+        static propTypes = {
+            userId: PropTypes.number.isRequired,
+            user: PropTypes.object // user becomes a prop
+        };
+
+        render() {
+            var { user } = this.props;
+            return (
+                <div>
+                {user ? user.name: 'Loading'}
+            </div>
+            );
+        }
+    }
+}
+
+export
+default connectToStores(
+    ProfilePage, [UserStore], props => ({
+        user: UserStore.get(props.userId)
+    }));
+#+end_src
+     Key benefits of this approach:
+     - Wrapping the component and passing additional props to it instead of managing state.
+     - Wrapper's lifecycle hooks work without any special merging, just by virtue of composition.
+
+*** DONE Routing
+
+    Routing hierarchy (e.g. in =routes.js=):
+
+    #+begin_src javascript
+    var Router = require('react-router');
+    var Route = Router.Route;
+
+    // declare routes and their hierarchy
+    var routes = (
+    <Route handler={App}>
+        <DefaultRoute handler={Home}/>
+        <NotFoundRoute handler={NotFound} name="not-found" />
+        <Route path="about" handler={About}/>
+        <Route path="inbox" handler={Inbox}>
+        <Route path="messages/:id" handler={Message}/>
+        </Route>
+    </Route>
+    );
+    #+end_src
+
+- The value of =:id= in =inbox/messages/:id= will be assigned to =this.props.params.id= in the =Message= component.
+- When the url is =/=, the handler from =DefaultRoute= will be activated - here, the =<RouteHandler />= in =App= will be =Home=.
+- The =NotFoundRoute='s handler is activated when the beginning of its parent's path matches the URL, but none of the siblings match the rest of it.
+
+Route handler (in =app.react.js=):
+
+#+begin_src javascript
+var RouteHandler = Router.RouteHandler;
+
+var App = React.createClass({
+  render () {
+    return (
+      <div>
+        <h1>App</h1>
+        <RouteHandler/>
+      </div>
+    )
+  }
+});
+#+end_src
+
+Bootstrap code (in =main.js=):
+
+#+begin_src javascript
+Router.run(routes, Router.HashLocation, (Root) => {
+  React.render(<Root/>, document.body);
+});
+#+end_src
+
+**** TODO Followup: https://github.com/acdlite/flummox/blob/v3.5.1/docs/docs/guides/why-flux-component-is-better-than-flux-mixin.md
+
+* TODO Webpack
+
+* Followups
+** TODO https://medium.com/@nextminds/replaying-bugs-with-flux-52f6bd8c8307
+** TODO https://github.com/nextminds/FluxRecorder
+** TODO http://cycle.js.org/
+** TODO https://facebook.github.io/react/blog/2015/02/20/introducing-relay-and-graphql.html
+** TODO https://github.com/omcljs/om
+** TODO cursors e.g. https://github.com/dustingetz/react-cursor
+** TODO watch https://www.youtube.com/watch?v=xsSnOQynTHs
+** TODO watch React Europe https://www.youtube.com/channel/UCorlLn2oZfgOJ-FUcF2eZ1A

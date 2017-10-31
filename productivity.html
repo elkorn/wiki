@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-10-31 Tue 15:05 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title></title>
+<meta name="generator" content="Org mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/org"> HOME </a>
+</div><div id="content">
+<p>
+Work doesn’t have to suck.
+For many people, words like stressful, hectic, or even chaotic might best describe their typical day.
+The good news is, you can take small actions every day to improve how you work. This way you not only feel better, but you’re also able to focus on your work.
+Instead of thinking about all the things that could go wrong today, focus on everything in your power that can contribute to a meaningful day.
+</p>
+<ol class="org-ol">
+<li>Get moving the minute you wake up</li>
+</ol>
+<p>
+Your morning sets the tone for the rest of your day. Committing to a short gym routine and improve over time. Try workout apps if you can’t travel to a gym every morning at the moment. Many of them have dozens of exercises and workouts routines you can customize.
+</p>
+<ol class="org-ol">
+<li>Put down your phone and kill the notifications</li>
+</ol>
+<p>
+Your phone distracts you way more than you realize, and it’s hurting your productivity. Notifications prompt task-irrelevant thoughts and can disrupt attention performance even if you don’t interact with the device.
+</p>
+<ol class="org-ol">
+<li>Check emails at specific times</li>
+</ol>
+<p>
+The average person checks email 77 times a day, sends and receives more than 122 email messages a day, and spends 28 percent or more of their workweek managing a constant influx of email.
+Jocelyn K. Glei, author of “Unsubscribe: How to Kill Email Anxiety, Avoid Distractions, and Get Real Work Done” says that while checking emails throughout the day may make you feel productive, the opposite is true.
+In an interview with The Telegraph, Jocelyn said, “…keep work emails short, simple and if something can’t be resolved quickly on email, suggest a meeting or simply walk to your colleague’s desk to confirm a plan. You’ll be rescuing yourself and others from those annoying email threads that drag on for a whole afternoon, interrupting everyone involved.”
+I use the action approach to clear my inbox:
+When I open an email, I make a quick decision: delete/archive, act now (if it takes a minute or two) and then reply/archive, send a quick reply (and then archive) or add to my todo list to do later at a specific time. I keep emails insanely short. Keeping them short means it’s quick to reply.
+Most people tend to check their emails every 5–10 minutes. But if you add up all of the minutes that it takes to continually check your inbox and then reply, it’s easy to see why it’s such a time waster.
+</p>
+<ol class="org-ol">
+<li>Focus on importance and suppress urgency</li>
+</ol>
+<p>
+Resist the tyranny of the urgent. Urgency wrecks productivity. Your ability to distinguish urgent and important tasks has a lot to do with your success.
+Urgent tasks are tasks that have to be dealt with immediately. Important tasks are things that contribute to your long-term mission, values, and goals.
+Your ability to distinguish urgent and important tasks has a lot to do with your success.
+</p>
+<ol class="org-ol">
+<li>Organise your day according to your energy ebbs and flows</li>
+</ol>
+<p>
+You are most productive in the morning, according to science. Make the most of your peak times. Tackle your most important tasks in the morning.
+Your morning sets the tone for the rest of your day. Use them to achieve your goals and accomplish some pretty amazing things. If you win most of your days, the years will take care of themselves.
+</p>
+<ol class="org-ol">
+<li>Your daily tasks should contribute to a meaningful and greater goal</li>
+</ol>
+<p>
+If you can’t find a reason why your work matters, the probability of leaving tasks undone until next week will be very high.
+According to Charles Duhigg, author of Smarter Faster Better, reminding ourselves of how a small action fits into a bigger objective makes it easier to link our small efforts to more meaningful aspirations.
+</p>
+<ol class="org-ol">
+<li>Focus on high-value activities in the morning</li>
+</ol>
+<p>
+Many successful people spend the first hours of each day alone, to reflect, think, meditate, create or read. Find something that motivates you and look forward to it every morning.
+Time management starts right from the minute you wake up from bed. You are most active and productive in the morning, hence the need to do everything in your power to make the first few hours count.
+</p>
+<ol class="org-ol">
+<li>Write it down</li>
+</ol>
+<p>
+If you want to get one thing done at work today, get it on paper. Better still, write it on a sticky note and place it where you can see it, to remind you of the task.
+David Allen, author of “Getting Things Done”, recommends doing what he calls a “core dump”. This involves writing down every task, activity, and project you need to address.
+</p>
+<ol class="org-ol">
+<li>Say no to extra commitments</li>
+</ol>
+<p>
+Your time is your most valuable asset. Put a value on your time. Learn to say no and give yourself more time to do the things that make you smarter, better and happier. Don’t take on more than you can accomplish.
+Identify what’s important to you every day or week, along with the “perfect day”. Once you know what to focus on to be productive, you need to start saying “No” to things that aren’t on your important list, and that are standing in the way of the perfect day. Saying no is hard, but it pays.
+</p>
+<ol class="org-ol">
+<li>Focus on one thing at a time</li>
+</ol>
+<p>
+Start your day by tackling high-value tasks you can complete in the morning. This will keep you motivated to get the next task done in time.
+In his book, “The One Thing: The Surprisingly Simple Truth Behind Extraordinary Results” Gary Keller said, “Success demands singleness of purpose. You need to be doing fewer things for more effect instead of doing more things with side effects. It is those who concentrate on but one thing at a time who advance in this world.”
+</p>
+<ol class="org-ol">
+<li>Use MIT to your advantage</li>
+</ol>
+<p>
+Give purpose to your day by determining the three “Most Important Things” (MIT) you can do with your day, and making those a priority. Your MIT is the task you most want or need to get done today.
+Once you begin each of the tasks, stick with it until it’s 100% complete. Don’t switch tasks in the middle. When distractions come up, jot them down to be dealt with later.
+Another key: do your MITs first thing in the morning.
+</p>
+<ol class="org-ol">
+<li>Cross it off your list</li>
+</ol>
+<p>
+Write your MIT’s down. Cross them off your list of things to do when you get them done. Seeing progress can make you more productive.
+Charles Dickens once said “I never could have done what I have done without the habits of punctuality, order, and diligence, without the determination to concentrate myself on one subject at a time.”
+</p>
+<ol class="org-ol">
+<li>Measurement can improve how you work</li>
+</ol>
+<p>
+Take time to analyze how you work and how productive your strategies have been over the week. Can you do better in fewer hours? What is not working and why is it not working?
+What are you doing wrong? Do more of what works and less of what steals your time. Reward yourself when you achieve your task as scheduled.
+</p>
+<ol class="org-ol">
+<li>Keep meetings lean</li>
+</ol>
+<p>
+Meetings can be vital for discussing goals and establishing a forward vision. Left unchecked, they become bloated affairs, eating up hours (or in extreme cases, even days ) of your time without anything important being decided.
+</p>
+<ol class="org-ol">
+<li>Clear your desk</li>
+</ol>
+<p>
+From stray papers to books you don’t even read, clutter can make you lose focus and curb productivity. Declutter your immediate environment and you may feel more organized and better able to concentrate on the task at hand.
+</p>
+<ol class="org-ol">
+<li>Listen to great music</li>
+</ol>
+<p>
+Several studies have found that listening to music can help lower blood pressure, reduce stress, and boost mood. The right music has the power to change your attitude. So create an amazing playlist that will make you focus when you’re working.
+Piano pieces are my best options. As long as you don’t blast it (bad for your hearing), this is a safe, healthy way to make your day more enjoyable.
+</p>
+<ol class="org-ol">
+<li>Take a break for greater concentration</li>
+</ol>
+
+<p>
+All the little tasks and decisions you have to make every day as you work gradually deplete your psychological resources. Taking a break (even for 15 to 20 minutes) is a proven way to sustain concentration and energy levels throughout the day.
+</p>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author:  (<a href="mailto:elkorn@arch">elkorn@arch</a>)</p>
+<p class="date">Date: </p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.0.3)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

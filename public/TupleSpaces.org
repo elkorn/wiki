@@ -1,0 +1,56 @@
+#+FILETAGS: :vimwiki:
+
+* TupleSpaces
+#= Architecture - tuple spaces =
+A tuple space is an implementation of the associative memory paradigm for parallel/distributed computing. It provides a repository of tuples that can be accessed concurrently. As an illustrative example, consider that there are a group of processors that produce pieces of data and a group of processors that use the data. Producers post their data as tuples in the space, and the consumers then retrieve data from the space that match a certain pattern. This is also known as the blackboard metaphor ([[BlackboardSystem]]). Tuple space may be thought as a form of distributed shared memory.
+
+Example (JavaSpaces):
+#+begin_example
+// An Entry class
+public class SpaceEntry implements Entry {
+     public final String message = "Hello World!";
+     public Integer count = 0;
+ 
+     public String service() {
+         ++count;
+         return message;
+     }
+ 
+     public String toString() {
+         return "Count: " + count;
+     }
+}
+// Hello World! server
+public class Server {
+     public static void main(String[] args) throws Exception {
+         SpaceEntry entry = new SpaceEntry();            // Create the Entry object
+         JavaSpace space = (JavaSpace)space();           // Create an Object Space
+         // Register and write the Entry into the Space
+         space.write(entry, null, Lease.FOREVER);        
+         // Pause for 10 seconds and then retrieve the Entry and check its state.
+         Thread.sleep(10 * 1000);
+         SpaceEntry e = space.read(entry, null, Long.MAX_VALUE);
+         System.out.println(e);
+     }
+}
+// Client
+public class Client {
+     public static void main(String[] args) throws Exception {
+         JavaSpace space = (JavaSpace) space();
+         SpaceEntry e = space.take(new SpaceEntry(), null, Long.MAX_VALUE);
+         System.out.println(e.service());
+         space.write(e, null, Lease.FOREVER);
+     }
+}
+#+end_example
+** BlackboardSystem
+#= Architecture - blackboard system =
+
+A blackboard system is an artificial intelligence application based on the blackboard architectural model, where a common knowledge base, the "blackboard", is iteratively updated by a diverse group of specialist knowledge sources, starting with a problem specification and ending with a solution. Each knowledge source updates the blackboard with a partial solution when its internal constraints match the blackboard state. In this way, the specialists work together to solve the problem. The blackboard model was originally designed as a way to handle complex, ill-defined problems, where the solution is the sum of its parts.
+
+
+The following scenario provides a simple metaphor that gives some insight into how a blackboard functions:
+
+A group of specialists are seated in a room with a large blackboard. They work as a team to brainstorm a solution to a problem, using the blackboard as the workplace for cooperatively developing the solution.
+
+The session begins when the problem specifications are written onto the blackboard. The specialists all watch the blackboard, looking for an opportunity to apply their expertise to the developing solution. When someone writes something on the blackboard that allows another specialist to apply their expertise, the second specialist records their contribution on the blackboard, hopefully enabling other specialists to then apply their expertise. This process of adding contributions to the blackboard continues until the problem has been solved.

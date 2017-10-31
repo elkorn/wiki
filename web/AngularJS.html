@@ -1,0 +1,993 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-10-31 Tue 15:01 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title></title>
+<meta name="generator" content="Org mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/org"> HOME </a>
+</div><div id="content">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org86bb17c">1. Application structure</a></li>
+<li><a href="#org0f460a0">2. Deploying to Heroku from angular-fullstack</a></li>
+<li><a href="#org3b987b9">3. Libs</a>
+<ul>
+<li><a href="#org19a0e72">3.1. angular-http-auth</a></li>
+<li><a href="#org7b541df">3.2. Hotkeys</a></li>
+<li><a href="#orgb663abb">3.3. angular-classy</a></li>
+<li><a href="#orgdbbbeb1">3.4. generator-powder</a></li>
+<li><a href="#org80b53a4">3.5. jsTags</a></li>
+</ul>
+</li>
+<li><a href="#org2c71d14">4. Performance</a>
+<ul>
+<li><a href="#org4cc4f3a">4.1. What does slow mean?</a></li>
+<li><a href="#orgf99e461">4.2. Directives</a></li>
+<li><a href="#orgf40dfbe">4.3. `\[digest` and `\]apply`</a></li>
+<li><a href="#org9e63f7f">4.4. $watch</a></li>
+<li><a href="#org35d2c8d">4.5. `$eval`, `$parse` and `interpolate`</a></li>
+<li><a href="#org10948be">4.6. track by `$index`</a></li>
+<li><a href="#orgbf67436">4.7. `ng-if` vs `ng-show`</a></li>
+<li><a href="#orgc36a625">4.8. `$$postDigest`</a></li>
+<li><a href="#org81326c6">4.9. Don't dirty check when it's not needed</a></li>
+<li><a href="#org2636695">4.10. Tooling</a></li>
+</ul>
+</li>
+<li><a href="#org9db67b2">5. Tips &amp; Tricks</a>
+<ul>
+<li><a href="#org1882424">5.1. `ngModel`</a>
+<ul>
+<li><a href="#org4d30fa4">5.1.1. Writing</a>
+<ul>
+<li><a href="#orgbe35504">5.1.1.1. Watch out when another directive bound to teh same element as the one using `ngModel` is trying to write to scope.</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org7afbae9">5.2. Hacking core directives</a></li>
+<li><a href="#orgc5453df">5.3. Animating ng-if</a>
+<ul>
+<li><a href="#org6b1435d">5.3.1. `.ng-if.ng-enter` and `.ng-if.ng-enter-active`,</a></li>
+<li><a href="#orga9cfe8a">5.3.2. `.ng-if.ng-leave` and `.ng-if.ng-leave-active`,</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgf8b542f">6. Understanding Dependency Injection</a>
+<ul>
+<li><a href="#orgad1a39f">6.1. The provider (`$provide`)</a>
+<ul>
+<li><a href="#orgbd07644">6.1.1. `factory`, `service` and `value`</a></li>
+<li><a href="#orge25c416">6.1.2. `module` shorctut for providing</a></li>
+</ul>
+</li>
+<li><a href="#org3ffc64e">6.2. The injector (`$injector`)</a>
+<ul>
+<li><a href="#orgb4d2a88">6.2.1. controller/directive/filter definition functions,</a></li>
+<li><a href="#org9c2184a">6.2.2. the `$get` methods of providers.</a></li>
+</ul>
+</li>
+<li><a href="#org2b6fd65">6.3. Configuring providers</a></li>
+<li><a href="#orgb2edb84">6.4. Controllers, filters and directives</a></li>
+<li><a href="#org1ab8a44">6.5. Summary</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org86bb17c" class="outline-2">
+<h2 id="org86bb17c"><span class="section-number-2">1</span> Application structure</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+<a href="http://blog.safaribooksonline.com/2014/03/27/13-step-guide-angularjs-modularization/">13 step guide to modularization</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0f460a0" class="outline-2">
+<h2 id="org0f460a0"><span class="section-number-2">2</span> Deploying to Heroku from angular-fullstack</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+When deploying for the first time, run:
+</p>
+
+<p>
+```
+yo angular-fullstack:deploy heroku
+```
+</p>
+
+<p>
+then `cd` into the heroku dir and `git push heroku master`.
+</p>
+
+<p>
+After modifying the application, use the `grunt heroku` task.
+After that, `cd` and `push`.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3b987b9" class="outline-2">
+<h2 id="org3b987b9"><span class="section-number-2">3</span> Libs</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-org19a0e72" class="outline-3">
+<h3 id="org19a0e72"><span class="section-number-3">3.1</span> angular-http-auth</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+A reliable solution for client-side auth handling.
+</p>
+
+<p>
+<a href="https://github.com/witoldsz/angular-http-auth">https://github.com/witoldsz/angular-http-auth</a>
+</p>
+
+<p>
+Also, to enable the password manager to store the credentials, an `iframe` has
+to be used alongside a `timeout` function.
+The solution is then somewhat hacky.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xhtml">&lt;iframe src="sink.html" name="sink"
+        style="display:none"&gt;&lt;/iframe&gt;
+
+&lt;form name="loginForm"
+      action="sink.html" target="sink" method="post"
+      ng-submit="login(credentials)"
+      novalidate form-autofill-fix&gt;
+  &lt;label for="username"&gt;Username:&lt;/label&gt;
+  &lt;input type="text" id="username"
+         ng-model="credentials.username"&gt;
+  &lt;label for="password"&gt;Password:&lt;/label&gt;
+  &lt;input type="password" id="password"
+         ng-model="credentials.password"&gt;
+  &lt;button type="submit"&gt;Login&lt;/button&gt;
+&lt;/form&gt;
+</pre>
+</div>
+
+<p>
+By providing an action, the browser's regular form-submitting logic will kick
+in, but without a visible action for the user.
+The action is directed to `sink.html`.
+</p>
+
+<p>
+To provide autofill, some more hackage is required - due to the fact that most
+browsers do not trigger an event on an autofilled input. Fortunately, the
+<a href="http://victorblog.com/2014/01/12/fixing-autocomplete-autofill-on-angularjs-form-submit">formAutofillFix</a> directive circumvents this issue.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-javascript">.directive<span style="color: #c5c8c6;">(</span><span style="color: #8abeb7;">'formAutofillFix'</span>, <span style="color: #b5bd68;">function</span> <span style="color: #8abeb7;">(</span><span style="color: #f0c674;">$timeout</span><span style="color: #8abeb7;">)</span> <span style="color: #8abeb7;">{</span>
+  <span style="color: #b5bd68;">return</span> <span style="color: #b5bd68;">function</span> <span style="color: #f0c674;">(</span><span style="color: #f0c674;">scope</span>, <span style="color: #f0c674;">element</span>, <span style="color: #f0c674;">attrs</span><span style="color: #f0c674;">)</span> <span style="color: #f0c674;">{</span>
+    element.prop<span style="color: #b5bd68;">(</span><span style="color: #8abeb7;">'method'</span>, <span style="color: #8abeb7;">'post'</span><span style="color: #b5bd68;">)</span>;
+    <span style="color: #b5bd68;">if</span> <span style="color: #b5bd68;">(</span>attrs.ngSubmit<span style="color: #b5bd68;">)</span> <span style="color: #b5bd68;">{</span>
+      $timeout<span style="color: #81a2be;">(</span><span style="color: #b5bd68;">function</span> <span style="color: #c5c8c6;">()</span> <span style="color: #c5c8c6;">{</span>
+        element
+          .unbind<span style="color: #8abeb7;">(</span><span style="color: #8abeb7;">'submit'</span><span style="color: #8abeb7;">)</span>
+          .bind<span style="color: #8abeb7;">(</span><span style="color: #8abeb7;">'submit'</span>, <span style="color: #b5bd68;">function</span> <span style="color: #f0c674;">(</span><span style="color: #f0c674;">event</span><span style="color: #f0c674;">)</span> <span style="color: #f0c674;">{</span>
+            event.preventDefault<span style="color: #b5bd68;">()</span>;
+            element
+              .find<span style="color: #b5bd68;">(</span><span style="color: #8abeb7;">'input, textarea, select'</span><span style="color: #b5bd68;">)</span>
+              .trigger<span style="color: #b5bd68;">(</span><span style="color: #8abeb7;">'input'</span><span style="color: #b5bd68;">)</span>
+              .trigger<span style="color: #b5bd68;">(</span><span style="color: #8abeb7;">'change'</span><span style="color: #b5bd68;">)</span>
+              .trigger<span style="color: #b5bd68;">(</span><span style="color: #8abeb7;">'keydown'</span><span style="color: #b5bd68;">)</span>;
+            scope.$apply<span style="color: #b5bd68;">(</span>attrs.ngSubmit<span style="color: #b5bd68;">)</span>;
+          <span style="color: #f0c674;">}</span><span style="color: #8abeb7;">)</span>;
+      <span style="color: #c5c8c6;">}</span><span style="color: #81a2be;">)</span>;
+    <span style="color: #b5bd68;">}</span>
+  <span style="color: #f0c674;">}</span>;
+<span style="color: #8abeb7;">}</span><span style="color: #c5c8c6;">)</span>;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7b541df" class="outline-3">
+<h3 id="org7b541df"><span class="section-number-3">3.2</span> Hotkeys</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+Define htokeys in JS instead of as attributes.
+(attribute hotkeys tend to get tedious and unmaintainable)
+</p>
+
+<p>
+<a href="http://chieffancypants.github.io/angular-hotkeys/">http://chieffancypants.github.io/angular-hotkeys/</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb663abb" class="outline-3">
+<h3 id="orgb663abb"><span class="section-number-3">3.3</span> angular-classy</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+Make the controller syntax more readable and flexible.
+</p>
+
+<p>
+<a href="http://davej.github.io/angular-classy/">http://davej.github.io/angular-classy/</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgdbbbeb1" class="outline-3">
+<h3 id="orgdbbbeb1"><span class="section-number-3">3.4</span> generator-powder</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+Yeoman generator for scaffolding apps based on Express, Mongo, Angular and 
+Bootstrap, powered by gulp, bower and browserify.
+</p>
+
+<p>
+<a href="https://github.com/yamalight/generator-powder">https://github.com/yamalight/generator-powder</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org80b53a4" class="outline-3">
+<h3 id="org80b53a4"><span class="section-number-3">3.5</span> jsTags</h3>
+<div class="outline-text-3" id="text-3-5">
+<p>
+Library for using tags (as in content tags, not ctags) in Angular.
+</p>
+
+<p>
+<a href="http://eranhirs.github.io/jsTag/">http://eranhirs.github.io/jsTag/</a>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2c71d14" class="outline-2">
+<h2 id="org2c71d14"><span class="section-number-2">4</span> Performance</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-org4cc4f3a" class="outline-3">
+<h3 id="org4cc4f3a"><span class="section-number-3">4.1</span> What does slow mean?</h3>
+<div class="outline-text-3" id="text-4-1">
+<ul class="org-ul">
+<li>'$apply` &gt; 25ms</li>
+<li>click handler &gt; 100ms</li>
+<li>page load &gt; 1s</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgf99e461" class="outline-3">
+<h3 id="orgf99e461"><span class="section-number-3">4.2</span> Directives</h3>
+<div class="outline-text-3" id="text-4-2">
+<ul class="org-ul">
+<li>`compile` is called only once within a repeater,</li>
+<li>`link` and the constructor are called once per iteration</li>
+<li>try to get as much work done as possible in the compile phasei</li>
+<li>transclusion allows a directive to `$digest` its own scope withou cousing dirty checks on bindings within the Directives</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgf40dfbe" class="outline-3">
+<h3 id="orgf40dfbe"><span class="section-number-3">4.3</span> `\[digest` and `\]apply`</h3>
+<div class="outline-text-3" id="text-4-3">
+<ul class="org-ul">
+<li>`$apply` = `$rootScope.$digest` + other stuff</li>
+<li>if you update a child scope `s` only, you can call `s.$digest` to dirty-check only that scope and its descendants</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org9e63f7f" class="outline-3">
+<h3 id="org9e63f7f"><span class="section-number-3">4.4</span> $watch</h3>
+<div class="outline-text-3" id="text-4-4">
+<ul class="org-ul">
+<li>watcher must be fast.</li>
+<li>avoid touching the DOM (or use `debounce`)</li>
+<li>avoid deep `$watch`</li>
+<li>`$watchCollection` is a good alternative for deep watch</li>
+<li>watch only relevant data, strip it as much as possible</li>
+<li>watch <b>before</b> transforming - watch the input for changes rather than the output of the transformation</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org35d2c8d" class="outline-3">
+<h3 id="org35d2c8d"><span class="section-number-3">4.5</span> `$eval`, `$parse` and `interpolate`</h3>
+<div class="outline-text-3" id="text-4-5">
+<ul class="org-ul">
+<li>call `$parse` once and use the returned function instead of calling `$eval`</li>
+<li>prefer `$parse` to `$interpolate`</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org10948be" class="outline-3">
+<h3 id="org10948be"><span class="section-number-3">4.6</span> track by `$index`</h3>
+<div class="outline-text-3" id="text-4-6">
+<ul class="org-ul">
+<li>when using an `ng-repeat track by $index`, Angular will reuse created DOM nodes instead of creating and destroying every one of them when the model changes.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgbf67436" class="outline-3">
+<h3 id="orgbf67436"><span class="section-number-3">4.7</span> `ng-if` vs `ng-show`</h3>
+<div class="outline-text-3" id="text-4-7">
+<ul class="org-ul">
+<li>first one does not render the DOM, the second one just hides it.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgc36a625" class="outline-3">
+<h3 id="orgc36a625"><span class="section-number-3">4.8</span> `$$postDigest`</h3>
+<div class="outline-text-3" id="text-4-8">
+<ul class="org-ul">
+<li>firest a callback after the digest cycle is complete</li>
+<li>can be used to update the DOM once after dirty checking is over - not recommended, though (scope is not going to get updated).</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org81326c6" class="outline-3">
+<h3 id="org81326c6"><span class="section-number-3">4.9</span> Don't dirty check when it's not needed</h3>
+<div class="outline-text-3" id="text-4-9">
+<ul class="org-ul">
+<li>`fast-bind-on-notify` vs `fast-bind-once` vs `ng-bind`</li>
+<li>check `fast-bind` by kseamon on github.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org2636695" class="outline-3">
+<h3 id="org2636695"><span class="section-number-3">4.10</span> Tooling</h3>
+<div class="outline-text-3" id="text-4-10">
+<ul class="org-ul">
+<li>Batarang -&gt; Performance</li>
+<li>DevTools Profiler</li>
+<li>`performance.now()` provides high resolution time</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9db67b2" class="outline-2">
+<h2 id="org9db67b2"><span class="section-number-2">5</span> Tips &amp; Tricks</h2>
+<div class="outline-text-2" id="text-5">
+</div><div id="outline-container-org1882424" class="outline-3">
+<h3 id="org1882424"><span class="section-number-3">5.1</span> `ngModel`</h3>
+<div class="outline-text-3" id="text-5-1">
+</div><div id="outline-container-org4d30fa4" class="outline-4">
+<h4 id="org4d30fa4"><span class="section-number-4">5.1.1</span> Writing</h4>
+<div class="outline-text-4" id="text-5-1-1">
+</div><div id="outline-container-orgbe35504" class="outline-5">
+<h5 id="orgbe35504"><span class="section-number-5">5.1.1.1</span> Watch out when another directive bound to teh same element as the one using `ngModel` is trying to write to scope.</h5>
+<div class="outline-text-5" id="text-5-1-1-1">
+<ul class="org-ul">
+<li>If the directive using `ngModel` is an `input[type="file"]`, this will cause a DOM Exception 11 if it's not empty.</li>
+<li>Work around that by separating the directives, but only if you conclude that this is not a design flaw.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7afbae9" class="outline-3">
+<h3 id="org7afbae9"><span class="section-number-3">5.2</span> Hacking core directives</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+Angular is very hackable due to its modular nature.
+</p>
+
+<p>
+As an example: hacking the `ngSrc` directive to apply the `img src` attribute
+only when the `src` components are defined:
+{{{class='brush: javascript'
+angular.module('btford.ng-src', []).
+  config(function ($provide) {
+</p>
+
+<p>
+// given `{{x}} y {{z}}` return `['x', 'z']`
+function getExpressions (str) {
+  var offset = 0,
+      parts = [],
+      left,
+      right;
+  while ((left = str.indexOf('{{', offset)) &gt; -1 &amp;&amp;
+         (right = str.indexOf('}}', offset)) &gt; -1) {
+    parts.push(str.substr(left+2, right-left-2));
+    offset = right + 1;
+  }
+</p>
+
+<p>
+  return parts;
+}
+</p>
+
+<p>
+$provide.decorator('ngSrcDirective', function ($delegate, $parse) {
+  <i>/ `$delegate` is an array of directives registered as `ngSrc`
+  /</i> btw, did you know you can register multiple directives to the same name?
+</p>
+
+<p>
+// the one we want is the first one.
+var ngSrc = $delegate[0];
+</p>
+
+<p>
+ngSrc.compile = function (element, attrs) {
+  var expressions = getExpressions(attrs.ngSrc);
+  var getters = expressions.map($parse);
+</p>
+
+<p>
+  return function(scope, element, attr) {
+    attr.$observe('ngSrc', function(value) {
+      if (getters.every(function (getter) { return getter(scope); })) {
+        attr.$set('src', value);
+      }
+    });
+  };
+};
+</p>
+
+<p>
+<i>/ our compile function above returns a linking function
+/</i> so we can delete this
+delete ngSrc.link;
+</p>
+
+<p>
+    return $delegate;
+  });
+});
+#+end<sub>src</sub>
+</p>
+
+<p>
+Another tip: the low level boilerplate can be abstracted away with the use of
+custom helpers.
+</p>
+
+<p>
+{{{class='brush: javascript'
+angular.module('btford.ng-src', []).
+  hackDirective('ngSrc', function ($delegate) {
+    /*
+</p>
+<ul class="org-ul">
+<li>~ do stuff ~</li>
+</ul>
+<p>
+*/
+</p>
+
+<p>
+  return $delegate;
+});
+</p>
+
+<p>
+// helper definition
+(function () {
+  var originalModule = angular.module;
+  angular.module = function () {
+    var module = originalModule.apply(this, arguments);
+    module.hackDirective = function (name, fn) {
+      module.config(function ($provide) {
+        $provide.decorator(name + 'Directive', fn);
+      });
+    };
+    return module;
+  }
+}());
+#+end<sub>src</sub>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgc5453df" class="outline-3">
+<h3 id="orgc5453df"><span class="section-number-3">5.3</span> Animating ng-if</h3>
+<div class="outline-text-3" id="text-5-3">
+<p>
+To animate `ng-if`ed elements, use the following classes:
+</p>
+</div>
+<div id="outline-container-org6b1435d" class="outline-4">
+<h4 id="org6b1435d"><span class="section-number-4">5.3.1</span> `.ng-if.ng-enter` and `.ng-if.ng-enter-active`,</h4>
+</div>
+<div id="outline-container-orga9cfe8a" class="outline-4">
+<h4 id="orga9cfe8a"><span class="section-number-4">5.3.2</span> `.ng-if.ng-leave` and `.ng-if.ng-leave-active`,</h4>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf8b542f" class="outline-2">
+<h2 id="orgf8b542f"><span class="section-number-2">6</span> Understanding Dependency Injection</h2>
+<div class="outline-text-2" id="text-6">
+</div><div id="outline-container-orgad1a39f" class="outline-3">
+<h3 id="orgad1a39f"><span class="section-number-3">6.1</span> The provider (`$provide`)</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+Providers define services. To define a `provider`, you need to call the `$provider.provide` method:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-js">app.config<span style="color: #c5c8c6;">(</span><span style="color: #b5bd68;">function</span><span style="color: #8abeb7;">(</span><span style="color: #f0c674;">$provide</span><span style="color: #8abeb7;">)</span> <span style="color: #8abeb7;">{</span>
+  $provide.provider<span style="color: #f0c674;">(</span><span style="color: #8abeb7;">'greeting'</span>, <span style="color: #b5bd68;">function</span><span style="color: #b5bd68;">()</span> <span style="color: #b5bd68;">{</span>
+    <span style="color: #81a2be;">this</span>.$get = <span style="color: #b5bd68;">function</span><span style="color: #81a2be;">()</span> <span style="color: #81a2be;">{</span>
+      <span style="color: #b5bd68;">return</span> <span style="color: #b5bd68;">function</span><span style="color: #c5c8c6;">(</span><span style="color: #f0c674;">name</span><span style="color: #c5c8c6;">)</span> <span style="color: #c5c8c6;">{</span>
+        alert<span style="color: #8abeb7;">(</span><span style="color: #8abeb7;">"Hello, "</span> + name<span style="color: #8abeb7;">)</span>;
+      <span style="color: #c5c8c6;">}</span>;
+    <span style="color: #81a2be;">}</span>;
+  <span style="color: #b5bd68;">}</span><span style="color: #f0c674;">)</span>;
+<span style="color: #8abeb7;">}</span><span style="color: #c5c8c6;">)</span>;
+</pre>
+</div>
+
+<p>
+After doing this, a service called `greeting` can be injected through a variable with the same name. Angular will call the provider's `$get` method underneath.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-js">app.config<span style="color: #c5c8c6;">(</span><span style="color: #b5bd68;">function</span><span style="color: #8abeb7;">(</span><span style="color: #f0c674;">$provide</span><span style="color: #8abeb7;">)</span> <span style="color: #8abeb7;">{</span>
+  $provide.provider<span style="color: #f0c674;">(</span><span style="color: #8abeb7;">'greeting'</span>, <span style="color: #b5bd68;">function</span><span style="color: #b5bd68;">()</span> <span style="color: #b5bd68;">{</span>
+    <span style="color: #81a2be;">this</span>.$get = <span style="color: #b5bd68;">function</span><span style="color: #81a2be;">()</span> <span style="color: #81a2be;">{</span>
+      <span style="color: #b5bd68;">return</span> <span style="color: #b5bd68;">function</span><span style="color: #c5c8c6;">(</span><span style="color: #f0c674;">name</span><span style="color: #c5c8c6;">)</span> <span style="color: #c5c8c6;">{</span>
+        alert<span style="color: #8abeb7;">(</span><span style="color: #8abeb7;">"Hello, "</span> + name<span style="color: #8abeb7;">)</span>;
+      <span style="color: #c5c8c6;">}</span>;
+    <span style="color: #81a2be;">}</span>;
+  <span style="color: #b5bd68;">}</span><span style="color: #f0c674;">)</span>;
+<span style="color: #8abeb7;">}</span><span style="color: #c5c8c6;">)</span>;
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgbd07644" class="outline-4">
+<h4 id="orgbd07644"><span class="section-number-4">6.1.1</span> `factory`, `service` and `value`</h4>
+<div class="outline-text-4" id="text-6-1-1">
+<p>
+These methods are just wrappers on the `$provider.provide`, allowing different ways of definition.
+The equivalent of the `greeting` provider would be:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-js">app.config<span style="color: #c5c8c6;">(</span><span style="color: #b5bd68;">function</span><span style="color: #8abeb7;">(</span><span style="color: #f0c674;">$provide</span><span style="color: #8abeb7;">)</span> <span style="color: #8abeb7;">{</span>
+  $provide.factory<span style="color: #f0c674;">(</span><span style="color: #8abeb7;">'greeting'</span>, <span style="color: #b5bd68;">function</span><span style="color: #b5bd68;">()</span> <span style="color: #b5bd68;">{</span>
+    <span style="color: #b5bd68;">return</span> <span style="color: #b5bd68;">function</span><span style="color: #81a2be;">(</span><span style="color: #f0c674;">name</span><span style="color: #81a2be;">)</span> <span style="color: #81a2be;">{</span>
+      alert<span style="color: #c5c8c6;">(</span><span style="color: #8abeb7;">"Hello, "</span> + name<span style="color: #c5c8c6;">)</span>;
+    <span style="color: #81a2be;">}</span>;
+  <span style="color: #b5bd68;">}</span><span style="color: #f0c674;">)</span>;
+<span style="color: #8abeb7;">}</span><span style="color: #c5c8c6;">)</span>;
+</pre>
+</div>
+
+<p>
+`value` works the same <b>if</b> whatever that's being returned from the factory function <b>does not change</b>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge25c416" class="outline-4">
+<h4 id="orge25c416"><span class="section-number-4">6.1.2</span> `module` shorctut for providing</h4>
+<div class="outline-text-4" id="text-6-1-2">
+<p>
+AngularJS exposes the `$provider` methods directly on a module object, so the same results can be achieved by typing simply: 
+</p>
+
+<p>
+{{{brush="class: js"
+var myMod = angular.module('myModule', []);
+</p>
+
+<p>
+myMod.provider("greeting", &#x2026;);
+myMod.factory("greeting", &#x2026;);
+myMod.value("greeting", &#x2026;);
+#+end<sub>src</sub>
+</p>
+
+<p>
+To summarize, the following do <b>exactly</b> the same:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-js">myMod.provider<span style="color: #c5c8c6;">(</span><span style="color: #8abeb7;">'greeting'</span>, <span style="color: #b5bd68;">function</span><span style="color: #8abeb7;">()</span> <span style="color: #8abeb7;">{</span>
+  <span style="color: #81a2be;">this</span>.$get = <span style="color: #b5bd68;">function</span><span style="color: #f0c674;">()</span> <span style="color: #f0c674;">{</span>
+    <span style="color: #b5bd68;">return</span> <span style="color: #b5bd68;">function</span><span style="color: #b5bd68;">(</span><span style="color: #f0c674;">name</span><span style="color: #b5bd68;">)</span> <span style="color: #b5bd68;">{</span>
+      alert<span style="color: #81a2be;">(</span><span style="color: #8abeb7;">"Hello, "</span> + name<span style="color: #81a2be;">)</span>;
+    <span style="color: #b5bd68;">}</span>;
+  <span style="color: #f0c674;">}</span>;
+<span style="color: #8abeb7;">}</span><span style="color: #c5c8c6;">)</span>;
+
+myMod.factory<span style="color: #c5c8c6;">(</span><span style="color: #8abeb7;">'greeting'</span>, <span style="color: #b5bd68;">function</span><span style="color: #8abeb7;">()</span> <span style="color: #8abeb7;">{</span>
+  <span style="color: #b5bd68;">return</span> <span style="color: #b5bd68;">function</span><span style="color: #f0c674;">(</span><span style="color: #f0c674;">name</span><span style="color: #f0c674;">)</span> <span style="color: #f0c674;">{</span>
+    alert<span style="color: #b5bd68;">(</span><span style="color: #8abeb7;">"Hello, "</span> + name<span style="color: #b5bd68;">)</span>;
+  <span style="color: #f0c674;">}</span>;
+<span style="color: #8abeb7;">}</span><span style="color: #c5c8c6;">)</span>;
+
+myMod.value<span style="color: #c5c8c6;">(</span><span style="color: #8abeb7;">'greeting'</span>, <span style="color: #b5bd68;">function</span><span style="color: #8abeb7;">(</span><span style="color: #f0c674;">name</span><span style="color: #8abeb7;">)</span> <span style="color: #8abeb7;">{</span>
+  alert<span style="color: #f0c674;">(</span><span style="color: #8abeb7;">"Hello, "</span> + name<span style="color: #f0c674;">)</span>;
+<span style="color: #8abeb7;">}</span><span style="color: #c5c8c6;">)</span>;
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3ffc64e" class="outline-3">
+<h3 id="org3ffc64e"><span class="section-number-3">6.2</span> The injector (`$injector`)</h3>
+<div class="outline-text-3" id="text-6-2">
+<p>
+The injector creates instances of the services defined by the `$provide` code that has been created.
+To use `$injector`, it has to itself be injected into the parameters of e.g. a controller. Then the following can be used:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-js"><span style="color: #b5bd68;">var</span> <span style="color: #f0c674;">greeting</span> = $injector.get<span style="color: #c5c8c6;">(</span><span style="color: #8abeb7;">'greeting'</span><span style="color: #c5c8c6;">)</span>;
+greeting<span style="color: #c5c8c6;">(</span><span style="color: #8abeb7;">'Ford Prefect'</span><span style="color: #c5c8c6;">)</span>;
+</pre>
+</div>
+
+<p>
+Services can also be injected into functions:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-js"><span style="color: #b5bd68;">var</span> <span style="color: #f0c674;">greeting</span> = $injector.get<span style="color: #c5c8c6;">(</span><span style="color: #8abeb7;">'greeting'</span><span style="color: #c5c8c6;">)</span>;
+greeting<span style="color: #c5c8c6;">(</span><span style="color: #8abeb7;">'Ford Prefect'</span><span style="color: #c5c8c6;">)</span>;
+</pre>
+</div>
+
+<p>
+Services can be injected into <b>any function that is called with `$injector.invoke`</b>, including:
+</p>
+</div>
+<div id="outline-container-orgb4d2a88" class="outline-4">
+<h4 id="orgb4d2a88"><span class="section-number-4">6.2.1</span> controller/directive/filter definition functions,</h4>
+</div>
+<div id="outline-container-org9c2184a" class="outline-4">
+<h4 id="org9c2184a"><span class="section-number-4">6.2.2</span> the `$get` methods of providers.</h4>
+</div>
+</div>
+
+<div id="outline-container-org2b6fd65" class="outline-3">
+<h3 id="org2b6fd65"><span class="section-number-3">6.3</span> Configuring providers</h3>
+<div class="outline-text-3" id="text-6-3">
+<p>
+Providers can be configured to define how a given service is constructed. The configuraiton code can be added into the `config` phase of a module as such:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-js">myMod.config<span style="color: #c5c8c6;">(</span><span style="color: #b5bd68;">function</span><span style="color: #8abeb7;">(</span><span style="color: #f0c674;">greeting</span><span style="color: #8abeb7;">)</span> <span style="color: #8abeb7;">{</span>
+  <span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">WON'T WORK -- greeting is an *instance* of a service.</span>
+  <span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">Only providers for services can be injected in config blocks.</span>
+<span style="color: #8abeb7;">}</span><span style="color: #c5c8c6;">)</span>;
+
+myMod.config<span style="color: #c5c8c6;">(</span><span style="color: #b5bd68;">function</span><span style="color: #8abeb7;">(</span><span style="color: #f0c674;">greetingProvider</span><span style="color: #8abeb7;">)</span> <span style="color: #8abeb7;">{</span>
+  <span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">a-ok!</span>
+<span style="color: #8abeb7;">}</span><span style="color: #c5c8c6;">)</span>;
+</pre>
+</div>
+
+<p>
+There is one important exception: `constants`, since they cannot be changed, are allowed to be injected inside `config` blocks (this is how they differ from `value`s). They are accessed by their name alone (no `Provider` suffix necessary).
+</p>
+
+<p>
+Example of what can be done with provider configuration:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-js">myMod.provider<span style="color: #c5c8c6;">(</span><span style="color: #8abeb7;">'greeting'</span>, <span style="color: #b5bd68;">function</span><span style="color: #8abeb7;">()</span> <span style="color: #8abeb7;">{</span>
+  <span style="color: #b5bd68;">var</span> <span style="color: #f0c674;">text</span> = <span style="color: #8abeb7;">'Hello, '</span>;
+
+  <span style="color: #81a2be;">this</span>.setText = <span style="color: #b5bd68;">function</span><span style="color: #f0c674;">(</span><span style="color: #f0c674;">value</span><span style="color: #f0c674;">)</span> <span style="color: #f0c674;">{</span>
+    text = value;
+  <span style="color: #f0c674;">}</span>;
+
+  <span style="color: #81a2be;">this</span>.$get = <span style="color: #b5bd68;">function</span><span style="color: #f0c674;">()</span> <span style="color: #f0c674;">{</span>
+    <span style="color: #b5bd68;">return</span> <span style="color: #b5bd68;">function</span><span style="color: #b5bd68;">(</span><span style="color: #f0c674;">name</span><span style="color: #b5bd68;">)</span> <span style="color: #b5bd68;">{</span>
+      alert<span style="color: #81a2be;">(</span>text + name<span style="color: #81a2be;">)</span>;
+    <span style="color: #b5bd68;">}</span>;
+  <span style="color: #f0c674;">}</span>;
+<span style="color: #8abeb7;">}</span><span style="color: #c5c8c6;">)</span>;
+
+myMod.config<span style="color: #c5c8c6;">(</span><span style="color: #b5bd68;">function</span><span style="color: #8abeb7;">(</span><span style="color: #f0c674;">greetingProvider</span><span style="color: #8abeb7;">)</span> <span style="color: #8abeb7;">{</span>
+  greetingProvider.setText<span style="color: #f0c674;">(</span><span style="color: #8abeb7;">"Howdy there, "</span><span style="color: #f0c674;">)</span>;
+<span style="color: #8abeb7;">}</span><span style="color: #c5c8c6;">)</span>;
+
+myMod.run<span style="color: #c5c8c6;">(</span><span style="color: #b5bd68;">function</span><span style="color: #8abeb7;">(</span><span style="color: #f0c674;">greeting</span><span style="color: #8abeb7;">)</span> <span style="color: #8abeb7;">{</span>
+  greeting<span style="color: #f0c674;">(</span><span style="color: #8abeb7;">'Ford Prefect'</span><span style="color: #f0c674;">)</span>;
+<span style="color: #8abeb7;">}</span><span style="color: #c5c8c6;">)</span>;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb2edb84" class="outline-3">
+<h3 id="orgb2edb84"><span class="section-number-3">6.4</span> Controllers, filters and directives</h3>
+<div class="outline-text-3" id="text-6-4">
+<p>
+Filters and directives work analogously to controllers in this context.
+</p>
+
+<p>
+Controllers can be injected into, but cannot be injected themselves - they're created by a built-in Angular `$controller` service. 
+</p>
+
+<p>
+When defining a controller:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-js">myMod.controller<span style="color: #c5c8c6;">(</span><span style="color: #8abeb7;">'MainController'</span>, <span style="color: #b5bd68;">function</span><span style="color: #8abeb7;">(</span><span style="color: #f0c674;">$scope</span><span style="color: #8abeb7;">)</span> <span style="color: #8abeb7;">{</span>
+  <span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">...</span>
+<span style="color: #8abeb7;">}</span><span style="color: #c5c8c6;">)</span>;
+</pre>
+</div>
+
+<p>
+What is actually being done is:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-js">myMod.config<span style="color: #c5c8c6;">(</span><span style="color: #b5bd68;">function</span><span style="color: #8abeb7;">(</span><span style="color: #f0c674;">$controllerProvider</span><span style="color: #8abeb7;">)</span> <span style="color: #8abeb7;">{</span>
+  controllerProvider.register<span style="color: #f0c674;">(</span><span style="color: #8abeb7;">'MainController'</span>, <span style="color: #b5bd68;">function</span><span style="color: #b5bd68;">(</span><span style="color: #f0c674;">$scope</span><span style="color: #b5bd68;">)</span> <span style="color: #b5bd68;">{</span>
+    <span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">...</span>
+  <span style="color: #b5bd68;">}</span><span style="color: #f0c674;">)</span>;
+<span style="color: #8abeb7;">}</span><span style="color: #c5c8c6;">)</span>;
+</pre>
+</div>
+
+<p>
+For instantiating controllers, Angular uses the `$controller` service, which underneath uses the `$injector`.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1ab8a44" class="outline-3">
+<h3 id="org1ab8a44"><span class="section-number-3">6.5</span> Summary</h3>
+<div class="outline-text-3" id="text-6-5">
+<p>
+So, to summarize, any function that gets called with `$injector.invoke` <b>can be injected into</b>. This includes, but is not limited to:
+</p>
+
+<p>
+*controller
+*directive
+*factory
+*filter
+*provider `$get` (when defining provider as an object)
+*provider function (when defining provider as a constructor function)
+*service
+</p>
+
+<p>
+The provider creates new services that <b>can be injected into things</b>. This includes:
+</p>
+
+<p>
+*constant
+*factory
+*provider
+*service
+*value
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author:  (<a href="mailto:elkorn@arch">elkorn@arch</a>)</p>
+<p class="date">Date: </p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.0.3)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

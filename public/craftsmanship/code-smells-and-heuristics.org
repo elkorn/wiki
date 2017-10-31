@@ -1,0 +1,218 @@
+* Code smells and heuristics
+# %toc
+
+* Comments
+** C1: Inappropriate Information
+Comments should be short, technical notes about the code and design - all other
+info belongs somewhere else.
+** C2: Obsolete Comment
+Old or irrelevant comments should be upgraded or removed.
+** C3: Redundant Comment
+Comments should say things that the code cannot say for itself.
+** C4: Poorly Written Comment
+Be brief, don't ramble, don't state the obvious. Use correct language. Rewrite
+poorly written comments.
+** C5: Commented-Out Code
+Remove it.
+* Environment
+** E1: Build Requires More Than One Step
+The process is too complicated. Simplify. One comand must be enough to build the
+system.
+** E2: Tests Require More Than One Step
+The system must be testable with one command or GUI action.
+* Functions
+** F1: Too Many Arguments
+Optimally, functions should have no arguments. More than 3 should be questioned
+and avoided.
+** F2: Output Arguments
+Counterintuitive - if you're changing state, change it on the called-on object.
+** F3: Flag Arguments
+Counterintuitive. A function must do one thing only.
+Use the *STRATEGY* or the *TEMPLATE METHOD* pattern.
+** F4: Dead Function
+When you see one, delete it. Source control will remember it anyway.
+* General
+** G1: Multiple Languages in One Source File
+Minimize the number of languages per source file - create separate files.
+** G2: Obvious Behavior Is Unimplemented
+Any function or class must implement the behaviors that another programmer could
+reasonably expect.
+** G3: Incorrect Behavior at the Boundaries
+Provide test coverage for as much boundary cases as possible
+** G4: Overridden Safeties
+Don't turn off warnings, leave private variables alone.
+** G5: Duplication
+DRY, use design patterns and OO to avoid duplication.
+** G6: Code at Wrong Level of Abstraction
+When creating abstract or base classes (or different files, modules etc.), make 
+the separation complete.
+They should contain only high-level concepts, without any specific details.
+** G7: Base Classes Depending on Their Derivatives
+Classes should know nothing of their derivatives.
+State machines are exempt from this.
+** G8: Too Much Information
+Keep the modules, classes, functions small and focused. Especially the public
+parts.
+** G9: Dead Code
+Remove it.
+** G10: Vertical Separation
+Vars and funcs should be defined close to where they are used.
+Move them to the nearest vicinity of their first usage.
+** G11: Inconsistency
+Stick to the conventions.
+** G12: Clutter
+Unused variables, empty functions, stupid comments etc. Remove it all.
+** G13: Artificial Coupling
+Things that do not strictly depend on each other should not be coupled in any
+way.
+E.g. don't put enums in more specific classes.
+Take the time to declare things where they belong
+** G14: Feature Envy
+Methods of a class should be interested in vars and funcs of the class they
+belong to.
+To eliminate it, move the method to the scope features of which it envies.
+** G15: Selector Arguments
+The same as F3.
+** G16: Obscured Intent
+Untie knotted and unreadable code.
+Use *TEMPORARY EXPLAINING VARIABLES* and name the consecutive steps of the
+process.
+** G17: Misplaced Responsibility
+Put code where it naturally belongs - where it would be logical for the reader
+to find it.
+Function names must appropriately reflect their responsibilities.
+** G18: Inappropriate Static
+Making a function static applies some constraints that might bite in the future.
+(e.g. in cases where polymorphism turns out to be the right answer)
+Prefer non-static to static and use non-static when in doubt.
+If you absolutely need a function to be static, make sure that it will never
+have to behave polymorphically.
+** G19: Use Explanatory Variables
+** G20: Function Names Should Say What They Do
+Prime example of the problem: `date.add(5)`.
+It should be apparent whether this functions returns a new, later date or adds 5
+days (months? bytes?) to the current one.
+
+If you need to look at the docs of a function to see what it does, better go and
+find a different name for it.
+** G21: Understand the Algorithm
+Take the time to analyze the process that has to be implemented. Don't 'prod' it
+into working by using if statements. It will result in funny and stupid code.
+
+You can push a function into passing the tests.
+Then you must refactor and make sure that you actually know whether the solution
+is working correctly.
+** G22: Make Logical Dependencies Physical
+If a module makes assumptions about other models (i.e. that a given value will
+be `12` or that a module exists), create a physical dependency instead to
+formalize the relationship.
+** G23: Prefer Polymorphism to If/Else or Switch/Case
+Adhere to the One Switch rule:
+    There may be only one switch statement for a given type of selection.
+    The cases of that switch must create polymorphic objects that take the place
+    of other such switch statements in the rest of the system.
+** G24: Follow Standard Conventions
+Establish a common standard and stick to it.
+** G25: Replace Magic Numbers with Named Constants
+Hide numbers and various other tokens behind well-chosen names that explain the
+role of a given value in the system.
+Not only numbers can be magic.
+** G26: Be Precise
+Use the appropriate types, access specifiers.
+Check for nulls.
+Use integers for currency and take care of rounding.
+Use locking mechanisms.
+Don't be lazy.
+** G27: Structure over Convention
+Rely on structures that force compliance rather than naming conventions, which
+are weaker by definition.
+** G28: Encapsulate Conditionals
+Create meaningfully named functions and variables that describe the purpose of a
+given boolean conditional.
+** G29: Avoid Negative Conditionals
+They are confusing, use straightforward logic instead.
+** G30: Functions Should Do One Thing
+If a function has multiple 'sections' - it's a good clue that it should be
+broken down into smaller pieces.
+** G31: Hidden Temporal Couplings
+Temporal coupling is a specific order of operations.
+It's often necessary, but it should be made explicit and enforced to reduce the
+possibility of making mistakes.
+Design the consecutive methods to take the results of their predecessors as
+arguments.
+It's extra complexity, but it exposes the real complexity of the temporal
+coupling.
+** G32: Don’t Be Arbitrary
+Have a reason for the way  your code is structured.
+Others will feel empowered to change it if there is no sensible reason.
+** G33: Encapsulate Boundary Conditions
+Use *TEMPORARY EXPLAINING VARIABLES* or create appropriately named functions to
+exhibit the boundary case behaviors.
+** G34: Functions Should Descend Only One Level of Abstraction
+The statements within a functions should all reside on the same level of
+abstraction, which is one below the current operation.
+Each level of abstraction should be encapsulated in a separate function.
+Look for unfitting variables or operations and strange if statements.
+** G35: Keep Configurable Data at High Levels
+The highest level is a CLI argument or a config file.
+Expose configurable data as arguments to lower levels.
+This also includes defaults.
+** G36: Avoid Transitive Navigation
+Adhere to the Law of Demeter.
+Modules should know only about their immediate collaborators - this helps
+avoiding train-wrecks of `.get` calls.
+* Names
+** N1: Choose Descriptive Names
+Take your time and don't be afraid to rename.
+Meanings tend to drift along the evolution of software - reevaluate names when
+needed.
+** N2: Choose Names at the Appropriate Level of Abstraction
+Communicate responsibilities of the abstraction rather than implementation
+details.
+People have a tendency to mix abstraction levels too much.
+Always keep an eye for variables and functions that seem to be named at too low
+a level of abstraction.
+** N3: Use Standard Nomenclature Where Possible
+Adhere to standards and take advantage of ubiquitous language.
+** N4: Unambiguous Names
+** N5: Use Long Names for Long Scopes
+Short variables are OK for small scopes (e.g. `for` loop counter) but they lose
+meaning as the distance gets bigger.
+** N6: Avoid Encodings
+** N7: Names Should Describe Side-Effects
+Names should describe everything that a function does.
+* Tests
+** T1: Insufficient Tests
+Tests should exercise everything that could possibly break.
+** T2: Use a Coverage Tool!
+Aim for 100% coverage.
+Keep in mind that contextual coverage is the most important.
+A loop might have 100% line coverage, but given the data set used in tests it is
+being executed for only the first 10  out of 100 items. The contextual coverage
+of it is then just 10%.
+** T3: Don’t Skip Trivial Tests
+They bear documentary value.
+** T4: An Ignored Test Is a Question about an Ambiguity
+If the requirements are unclear, create tests asserting the possible outcomes
+that seem plausible to you and mark them as skipped/ignored.
+(with an appropriate explanation)
+They will serve as evidence of cases requiring further discussion.
+** T5: Test Boundary Conditions
+** T6: Exhaustively Test Near Bugs
+Bugs tend to congregate. When finding a bug in a function - test it extensively,
+there is a good chance that it has not been alone.
+** T7: Patterns of Failure Are Revealing
+The way the tests fail (or which of them fail in accord) can help diagnosing the
+issue.
+
+E.g.  some tests fail for input longer than 5 characters.
+** T8: Test Coverage Patterns Can Be Revealing
+
+** T9: Tests Should Be Fast
+* Java
+** J1: Avoid Long Import Lists by Using Wildcards
+** J2: Don’t Inherit Constants
+Hiding constants in a top-level interface is an anti-pattern.
+A static import should be used instead.
+** J3: Constants versus Enums
+They carry more meaning.

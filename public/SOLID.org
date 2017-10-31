@@ -1,0 +1,39 @@
+#+FILETAGS: :vimwiki:
+
+* SOLID
+[[http://en.wikipedia.org/wiki/Solid_(object-oriented_design) finish the wiki writeup and search for additional sources]]
+** Single Responsibility Principle
+Every class should have a single responsibility, and that responsiblity should be entirely encapsulated by the class.
+
+That entails high cohesion.
+** Open-Closed Principle
+software entities (classes, modules, functions etc.) should be open for extension but closed for modification. Thus, such an entity can allow its behavior to be altered without any modifications to its source code.
+
+A crucial advantage convincing to adhere to this principle is that in production environment, changes in the source code require code review and additional unit tests and possibly other quality measurement efforts to qualify it for usage in a product.
+
+Code that is changed through extension reduces this necessity greatly.
+*** Meyer's OCP
+Meyer's idea of OCP was that, once completed, the implementation of a class could only be modified to correct errors.
+
+New or changed features would require creating a new class.
+
+That class could reuse the coding from the first one through inheritance.
+
+The new class might or might not have the same interface as its predecessor.
+
+This is what we call *implementation inheritance*.
+
+*** Polymorphic OCP
+This flavor of OCP refers to the use of abstracted interfaces.
+
+The implementation can be changed and multiple implmenetations might be polymorphically substituted for each other. 
+** Liskov Substitution Principle
+[[Finish the writeup][http://en.wikipedia.org/wiki/Liskov_substitution_principle]]
+As a thumb rule:
+*Use inheritance only where you will use polymorphism.
+*Inheritance is an extremely rare occurence in the business domain.
+
+Inheritance should be a conclusion that arises after an anlysis of an existing structure, not a paradigm to base a design on. Think in terms of premature optimization.
+
+** Interface Segregation Principle
+** Dependency Inversion Principle

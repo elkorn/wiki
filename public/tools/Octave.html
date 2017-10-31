@@ -1,0 +1,1051 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-10-31 Tue 13:49 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title></title>
+<meta name="generator" content="Org mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/org"> HOME </a>
+</div><div id="content">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org75816ed">1. Octave</a>
+<ul>
+<li><a href="#org2115b59">1.1. Tools - Octave</a>
+<ul>
+<li><a href="#org96bd466">1.1.1. Basic operations</a></li>
+<li><a href="#orge9cd043">1.1.2. Moving data around</a>
+<ul>
+<li><a href="#org0a8e186">1.1.2.1. `load file.dat`, `load('file.dat')` imports a data file into the scope.</a></li>
+</ul>
+</li>
+<li><a href="#orga1a3557">1.1.3. Computing data</a></li>
+<li><a href="#orga32ab96">1.1.4. Plotting data</a></li>
+<li><a href="#org401ec35">1.1.5. Control statements</a>
+<ul>
+<li><a href="#org590a02d">1.1.5.1. Function definitions</a></li>
+</ul>
+</li>
+<li><a href="#org7a2559b">1.1.6. Vectorization</a>
+<ul>
+<li><a href="#org85be071">1.1.6.1. Basic example</a></li>
+<li><a href="#org00112de">1.1.6.2. Gradient descent example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org75816ed" class="outline-2">
+<h2 id="org75816ed"><span class="section-number-2">1</span> Octave</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-org2115b59" class="outline-3">
+<h3 id="org2115b59"><span class="section-number-3">1.1</span> Tools - Octave</h3>
+<div class="outline-text-3" id="text-1-1">
+</div><div id="outline-container-org96bd466" class="outline-4">
+<h4 id="org96bd466"><span class="section-number-4">1.1.1</span> Basic operations</h4>
+<div class="outline-text-4" id="text-1-1-1">
+<pre class="example">
+octave:6&gt; 6^2
+ans =  36
+octave:7&gt; 1 == 2
+ans = 0
+octave:8&gt; 1 ~= 2
+ans =  1
+octave:10&gt; 1 &amp;&amp; 0
+ans = 0
+octave:11&gt; 1 || 0
+ans =  1
+octave:12&gt; xor(1,0)
+ans =  1
+octave:13&gt; xor(1,1)
+ans = 0
+octave:15&gt; PS1('&gt;&gt; ')
+&gt;&gt; 
+&gt;&gt; a = 3
+a =  3
+&gt;&gt; b = 'hi'
+b = hi
+&gt;&gt; b = 'hi';
+&gt;&gt; c = (3&gt;=1);
+&gt;&gt; c
+c =  1
+&gt;&gt; a = pi;
+&gt;&gt; a
+a =  3.1416
+&gt;&gt; disp(a)
+ 3.1416
+&gt;&gt; disp(sprintf('2 decimals: %0.2f',a))
+2 decimals: 3.14
+&gt;&gt; format long
+&gt;&gt; a
+a =  3.14159265358979
+&gt;&gt; format short
+&gt;&gt; a
+a =  3.1416
+&gt;&gt; A = [1 2; 3 4; 5 6]
+A =
+
+   1   2
+   3   4
+   5   6
+&gt;&gt; v = [1 2 3] % 1 by 3
+v =
+
+   1   2   3
+
+&gt;&gt; v = [1; 2; 3] % 3 by 1
+v =
+
+   1
+   2
+   3
+&gt;&gt; v = 1:0.1:2
+v =
+
+ Columns 1 through 8:
+
+    1.0000    1.1000    1.2000    1.3000    1.4000    1.5000    1.6000    1.7000
+
+ Columns 9 through 11:
+
+    1.8000    1.9000    2.0000
+
+
+&gt;&gt; ones(2,3)
+ans =
+
+   1   1   1
+   1   1   1
+
+&gt;&gt; ones(3,2)
+ans =
+
+   1   1
+   1   1
+   1   1
+
+&gt;&gt; c = 2*ones(2,3) % also, `zeros`
+c =
+
+   2   2   2
+   2   2   2
+
+&gt;&gt; w = ones(1,3)
+w =
+
+   1   1   1
+
+&gt;&gt; w = rand(1,3)
+w =
+
+   0.70851   0.94212   0.29808
+
+&gt;&gt; w = rand(3,1)
+w =
+
+   0.602332
+   0.401473
+   0.072355
+
+&gt;&gt; w = rand(3,1)
+w =
+
+   0.68600
+   0.90467
+   0.80151
+
+&gt;&gt; w = rand(3,1)
+w =
+
+   0.35819
+   0.84049
+   0.66920
+
+&gt;&gt; w = randn(1,3) % from Gaussian distr
+w =
+
+   1.577927  -0.097761  -1.136075
+
+&gt;&gt; w = -6 + sqrt(10) * randn(1,10000);
+&gt;&gt; hist(w) % histogram
+&gt;&gt; hist(w,50) % histogram
+&gt;&gt; eye(3)
+ans =
+
+Diagonal Matrix
+
+   1   0   0
+   0   1   0
+   0   0   1
+# % also, use `help {anything}` for built-in help.
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orge9cd043" class="outline-4">
+<h4 id="orge9cd043"><span class="section-number-4">1.1.2</span> Moving data around</h4>
+<div class="outline-text-4" id="text-1-1-2">
+<pre class="example">
+# % A = [1 2; 3 4; 5 6]
+
+&gt;&gt; size(A)
+ans =
+
+   3   2
+
+&gt;&gt; length(A) % size of the longest dimension
+ans =  3
+&gt;&gt; length([1 2 3 4])
+ans =  4
+&gt;&gt; who
+Variables in the current scope:
+
+A    a    ans  b    c    v    w
+
+&gt;&gt; whos
+Variables in the current scope:
+
+   Attr Name        Size                     Bytes  Class
+   ==== ====        ====                     =====  ===== 
+        A           3x2                         48  double
+        a           1x1                          8  double
+        ans         1x1                          1  logical
+        b           1x2                          2  char
+        c           2x3                         48  double
+        v           1x11                        24  double
+        w           1x10000                  80000  double
+
+Total is 10027 elements using 80131 bytes
+&gt;&gt; v = w(1:10)
+v =
+
+ Columns 1 through 8:
+
+  -1.85036  -4.99490  -5.24149  -5.30683   0.45473  -6.32664  -5.26601  -8.31906
+
+ Columns 9 and 10:
+
+  -7.82427  -3.34916
+
+&gt;&gt; whos
+Variables in the current scope:
+
+   Attr Name        Size                     Bytes  Class
+   ==== ====        ====                     =====  ===== 
+        A           3x2                         48  double
+        a           1x1                          8  double
+        ans         1x1                          1  logical
+        b           1x2                          2  char
+        c           2x3                         48  double
+        v           1x10                        80  double
+        w           1x10000                  80000  double
+
+Total is 10026 elements using 80187 bytes
+
+&gt;&gt; save hello.mat v;
+&gt;&gt; clear v
+&gt;&gt; load hello.mat
+&gt;&gt; who
+Variables in the current scope:
+
+A    a    ans  b    c    v    w
+&gt;&gt; save hello.txt v -ascii % save as ASCII-formatted text
+&gt;&gt; A = rand(4,4)
+A =
+
+   0.319047   0.030859   0.840240   0.174995
+   0.825687   0.157595   0.947932   0.561120
+   0.032448   0.150073   0.082587   0.872453
+   0.333152   0.042347   0.831259   0.336317
+
+&gt;&gt; A(2,:)
+ans =
+
+   0.82569   0.15760   0.94793   0.56112
+
+&gt;&gt; A(:,2)
+ans =
+
+   0.030859
+   0.157595
+   0.150073
+   0.042347
+
+&gt;&gt; A([1 3], :)
+ans =
+
+   0.319047   0.030859   0.840240   0.174995
+   0.032448   0.150073   0.082587   0.872453
+&gt;&gt; A(:,2) = [10; 11; 12; 13]
+A =
+
+    0.319047   10.000000    0.840240    0.174995
+    0.825687   11.000000    0.947932    0.561120
+    0.032448   12.000000    0.082587    0.872453
+    0.333152   13.000000    0.831259    0.336317
+
+&gt;&gt; A = [A, [100; 200; 300; 400]]
+A =
+
+   3.1905e-01   1.0000e+01   8.4024e-01   1.7500e-01   1.0000e+02
+   8.2569e-01   1.1000e+01   9.4793e-01   5.6112e-01   2.0000e+02
+   3.2448e-02   1.2000e+01   8.2587e-02   8.7245e-01   3.0000e+02
+   3.3315e-01   1.3000e+01   8.3126e-01   3.3632e-01   4.0000e+02
+
+&gt;&gt; A(:) % put all elements into a single column vector
+ans =
+
+   3.1905e-01
+   8.2569e-01
+   3.2448e-02
+   3.3315e-01
+   1.0000e+01
+   1.1000e+01
+   1.2000e+01
+   1.3000e+01
+   8.4024e-01
+   9.4793e-01
+   8.2587e-02
+   8.3126e-01
+   1.7500e-01
+   5.6112e-01
+   8.7245e-01
+   3.3632e-01
+   1.0000e+02
+   2.0000e+02
+   3.0000e+02
+   4.0000e+02
+
+&gt;&gt; A = [1 2; 3 4; 5 6]
+A =
+
+   1   2
+   3   4
+   5   6
+
+&gt;&gt; B = [11 12; 13 14; 15 16]
+B =
+
+   11   12
+   13   14
+   15   16
+
+&gt;&gt; C = [A B]
+C =
+
+    1    2   11   12
+    3    4   13   14
+    5    6   15   16
+
+&gt;&gt; C = [A;B]
+C =
+
+    1    2
+    3    4
+    5    6
+   11   12
+   13   14
+   15   16
+</pre>
+
+<p>
+Also:
+</p>
+</div>
+<div id="outline-container-org0a8e186" class="outline-5">
+<h5 id="org0a8e186"><span class="section-number-5">1.1.2.1</span> `load file.dat`, `load('file.dat')` imports a data file into the scope.</h5>
+</div>
+</div>
+
+<div id="outline-container-orga1a3557" class="outline-4">
+<h4 id="orga1a3557"><span class="section-number-4">1.1.3</span> Computing data</h4>
+<div class="outline-text-4" id="text-1-1-3">
+<pre class="example">
+&gt;&gt; A
+A =
+
+   1   2
+   3   4
+   5   6
+
+&gt;&gt; B
+B =
+
+   11   12
+   13   14
+   15   16
+
+&gt;&gt; C = [1 1; 2 2]
+C =
+
+   1   1
+   2   2
+
+&gt;&gt; A*C
+ans =
+
+    5    5
+   11   11
+   17   17
+
+&gt;&gt; A .* B % take each element of A and multiply it by corresponding element of B
+ans =
+
+   11   24
+   39   56
+   75   96
+
+&gt;&gt; A .^ 2 % element-wise squaring
+ans =
+
+    1    4
+    9   16
+   25   36
+
+&gt;&gt; v = [1; 2; 3]
+v =
+
+   1
+   2
+   3
+
+&gt;&gt; 1 ./ v
+ans =
+
+   1.00000
+   0.50000
+   0.33333
+
+&gt;&gt; 1 ./ A
+ans =
+
+   1.00000   0.50000
+   0.33333   0.25000
+   0.20000   0.16667
+
+&gt;&gt; log(v)
+ans =
+
+   0.00000
+   0.69315
+   1.09861
+
+&gt;&gt; exp(v) % e^v
+ans =
+
+    2.7183
+    7.3891
+   20.0855
+
+&gt;&gt; e.^v
+ans =
+
+    2.7183
+    7.3891
+   20.0855
+
+&gt;&gt; abs(v)
+ans =
+
+   1
+   2
+   3
+
+&gt;&gt; -v
+ans =
+
+  -1
+  -2
+  -3
+
+&gt;&gt; v + ones(length(v),1)
+ans =
+
+   2
+   3
+   4
+
+&gt;&gt; v .+ 1
+ans =
+
+   2
+   3
+   4
+
+&gt;&gt; A'
+ans =
+
+   1   3   5
+   2   4   6
+
+&gt;&gt; (A')'
+ans =
+
+   1   2
+   3   4
+   5   6
+
+&gt;&gt; a = [1 15 2 0.5]
+a =
+
+    1.00000   15.00000    2.00000    0.50000
+
+&gt;&gt; val = max(a)
+val =  15
+&gt;&gt; [val, ind] = max(a)
+val =  15
+ind =  2
+&gt;&gt; max(a)
+ans =  15
+&gt;&gt; max(A) % column-wise maximum
+ans =
+
+   5   6
+
+&gt;&gt; a &lt; 3
+ans =
+
+   1   0   1   1
+
+&gt;&gt; a = [1 15 2 0.5]
+a =
+
+    1.00000   15.00000    2.00000    0.50000
+
+&gt;&gt; find (a &lt; 3)
+ans =
+
+   1   3   4
+
+&gt;&gt; magic(3) % 3x3 magic triangle, convenient for matrix generation
+ans =
+
+   8   1   6
+   3   5   7
+   4   9   2
+&gt;&gt; A = magic(3)
+A =
+
+   8   1   6
+   3   5   7
+   4   9   2
+
+&gt;&gt; [r,c] = find(A &gt;= 7)
+r =
+
+   1
+   3
+   2
+
+c =
+
+   1
+   2
+   3
+
+&gt;&gt; floor(a)
+ans =
+
+    1   15    2    0
+
+&gt;&gt; ceil(a)
+ans =
+
+    1   15    2    1
+
+&gt;&gt; round(a)
+ans =
+
+    1   15    2    1
+
+&gt;&gt; max(rand(3))
+ans =
+
+   0.71836   0.86637   0.70080
+
+&gt;&gt; max(rand(3), rand(3)) % element-wise maximum of the two random matrices
+ans =
+
+   0.53947   0.46529   0.91213
+   0.96463   0.63457   0.61481
+   0.45498   0.40820   0.86916
+&gt;&gt; max(A, [], 1) % max in the first dimension of A (per-column)
+ans =
+
+   8   9   7
+
+&gt;&gt; max(A, [], 2) % max in the second dimension of A (per-row)
+ans =
+
+   8
+   7
+   9
+&gt;&gt; max(max(A)) % max element in A
+ans =  9
+&gt;&gt; max(A(:))
+ans =  9
+&gt;&gt; A = magic(9)
+A =
+
+   47   58   69   80    1   12   23   34   45
+   57   68   79    9   11   22   33   44   46
+   67   78    8   10   21   32   43   54   56
+   77    7   18   20   31   42   53   55   66
+    6   17   19   30   41   52   63   65   76
+   16   27   29   40   51   62   64   75    5
+   26   28   39   50   61   72   74    4   15
+   36   38   49   60   71   73    3   14   25
+   37   48   59   70   81    2   13   24   35
+
+&gt;&gt; sum(A, 1)
+ans =
+
+   369   369   369   369   369   369   369   369   369
+
+&gt;&gt; sum(A,2)
+ans =
+
+   369
+   369
+   369
+   369
+   369
+   369
+   369
+   369
+   369
+
+&gt;&gt; A .* eye(9) % element-wise product
+ans =
+
+   47    0    0    0    0    0    0    0    0
+    0   68    0    0    0    0    0    0    0
+    0    0    8    0    0    0    0    0    0
+    0    0    0   20    0    0    0    0    0
+    0    0    0    0   41    0    0    0    0
+    0    0    0    0    0   62    0    0    0
+    0    0    0    0    0    0   74    0    0
+    0    0    0    0    0    0    0   14    0
+    0    0    0    0    0    0    0    0   35
+
+&gt;&gt; sum(sum(A .* eye(9))) % the sum of the sum of elements in an element-wise product
+ans =  369
+&gt;&gt; sum(sum(A .* flipud(eye(9)))) % sum on the other diagonal
+ans =  369
+&gt;&gt; flipud(eye(9))
+ans =
+
+Permutation Matrix
+
+   0   0   0   0   0   0   0   0   1
+   0   0   0   0   0   0   0   1   0
+   0   0   0   0   0   0   1   0   0
+   0   0   0   0   0   1   0   0   0
+   0   0   0   0   1   0   0   0   0
+   0   0   0   1   0   0   0   0   0
+   0   0   1   0   0   0   0   0   0
+   0   1   0   0   0   0   0   0   0
+   1   0   0   0   0   0   0   0   0
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orga32ab96" class="outline-4">
+<h4 id="orga32ab96"><span class="section-number-4">1.1.4</span> Plotting data</h4>
+<div class="outline-text-4" id="text-1-1-4">
+<pre class="example">
+&gt;&gt; t=[0:0.01:0.98];
+&gt;&gt; y1 = sin(2*pi*4*t);
+&gt;&gt; y2 = cos(2*pi*4*t);
+&gt;&gt; plot(t, y2);
+&gt;&gt; hold on
+&gt;&gt; plot(t, y1, 'r');
+&gt;&gt; xlabel('time');
+&gt;&gt; ylabel('value');
+&gt;&gt; legend('sin', 'cos');
+&gt;&gt; title('my plot');
+&gt;&gt; print -dpng 'plot.png';
+&gt;&gt; close
+&gt;&gt; figure(1); plot(t, y1);
+&gt;&gt; figure(2); plot(t, y2); % two separate plot windows
+&gt;&gt; subplot(1,2,1); % Divide plot into a 1x2 grid, access 1st element
+&gt;&gt; plot(t,y1); % goes into the first element
+&gt;&gt; subplot(1,2,2);
+&gt;&gt; plot(t,y2); % goes into the second element
+&gt;&gt; axis([0.5 1 -1 1]) % sets the and y ranges. Also, try `help axis`.
+&gt;&gt; clf; % clear figures
+&gt;&gt; A = magic(5);
+&gt;&gt; imagesc(A) % 5x5 grid of colors, corresponding to values
+&gt;&gt; imagesc(A), colorbar, colormap gray; % grayscale color map with color legend
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org401ec35" class="outline-4">
+<h4 id="org401ec35"><span class="section-number-4">1.1.5</span> Control statements</h4>
+<div class="outline-text-4" id="text-1-1-5">
+<pre class="example">
+&gt;&gt; v = zeros(10,1)
+&gt;&gt; for i=1:10,
+&gt;   v(i) = 2^il
+&gt;  end;
+&gt;&gt; indices = 1:10;
+&gt;&gt; for i=indices;
+&gt;   disp(i);
+&gt;  end;
+&gt;&gt; i = 1;
+&gt;&gt; while i &lt;= 5,
+&gt;   v(i) = 100;
+&gt;   i = i+1;
+&gt;  end;
+&gt;&gt; while true,
+&gt;   v(i) = 999;
+&gt;   i = i+1;
+&gt;   if i == 6,
+&gt;     breakl
+&gt;   end;
+&gt;  end;
+&gt;&gt; % else, elseif
+</pre>
+</div>
+
+<div id="outline-container-org590a02d" class="outline-5">
+<h5 id="org590a02d"><span class="section-number-5">1.1.5.1</span> Function definitions</h5>
+<div class="outline-text-5" id="text-1-1-5-1">
+<pre class="example">
+# % y - output argument
+# % x - input argument
+
+function y = squareThisNumber(x)
+    y = x^2;
+</pre>
+
+<pre class="example">
+# % returning multiple values
+function [y1,y2] = squareAndCubeThisNumber(x)
+    y1 = x^2;
+    y2 = x^3;
+</pre>
+
+<p>
+Compute the cost function \(J(\Theta)\).
+</p>
+<pre class="example">
+&gt;&gt; theta = [0; 1];
+&gt;&gt; X = [1 1; 1 2; 1 3];
+&gt;&gt; y = [1; 2; 3];
+&gt;&gt; j = costFunctionJ(X,y,theta)
+j = 0
+&gt;&gt; theta = [0;0];
+&gt;&gt; j = costFunctionJ(X,y,theta)
+j = 2.3333
+&gt;&gt; (1^2 + 2^2 + 3^2) / (2*3)
+ans = 2.3333
+
+# % costFunctionJ.m
+function J = costFunctionJ(X, y, theta)
+#     % X - design matrix
+#     % y - class labels
+
+    m = size(X,1);
+    predictions = X*theta % predictions of hypothesis on all `m` examples
+    sqrErrors = (predictions-y).^2;
+    J = 1/(2*m)*sum(sqrErrors);
+</pre>
+
+<p>
+Change Octave's search path:
+</p>
+<pre class="example">
+&gt;&gt; addpath('/home/user/scripts')
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7a2559b" class="outline-4">
+<h4 id="org7a2559b"><span class="section-number-4">1.1.6</span> Vectorization</h4>
+<div class="outline-text-4" id="text-1-1-6">
+</div><div id="outline-container-org85be071" class="outline-5">
+<h5 id="org85be071"><span class="section-number-5">1.1.6.1</span> Basic example</h5>
+<div class="outline-text-5" id="text-1-1-6-1">
+<p>
+Example: \(h_\Theta(x)=\Sum^n_{j=0}{\Theta_jx_j}=\Thets^Tx\)
+</p>
+
+<p>
+Unvectorized:
+</p>
+<pre class="example">
+prediction = 0.0;
+for j = 1:n+1,
+    prediction = prediction + theta(j) * x(j)
+end;
+</pre>
+<p>
+Vectorized:
+</p>
+<pre class="example">
+prediction = theta` *; % uses Octave's highly optimized low-level routines.
+</pre>
+</div>
+
+<ol class="org-ol"><li><a id="org580b971"></a>In C++<br  /><div class="outline-text-6" id="text-1-1-6-1-1">
+<p>
+Unvectorized
+</p>
+<pre class="example">
+double prediction = 0.0;
+for (int j = 0; j &lt;= n; j++)
+    prediction += theta[j] *[j];
+</pre>
+
+<p>
+Vectorized
+</p>
+<pre class="example">
+double prediction = theta.transpose() * x;
+</pre>
+</div></li></ol>
+</div>
+
+<div id="outline-container-org00112de" class="outline-5">
+<h5 id="org00112de"><span class="section-number-5">1.1.6.2</span> Gradient descent example</h5>
+<div class="outline-text-5" id="text-1-1-6-2">
+<p>
+Example: \(\Theta_j := \Theta_j - lpha rac{1}{m}\sum^m_{i=1}(h_\Theta(x^{(i)})-y^{)i)})x_l^{(i)}\)
+(for all \(j\))
+</p>
+
+<p>
+Vectorized implementation:
+</p>
+
+<p>
+\(\Theta := \Theta - lpha\delta\) where \(\delta = rac{1}{m}\sum^m_{i=1}(h_\Theta(x^{(i)})-y^{(i)})x^{(i)}\).
+</p>
+
+<p>
+A vectorized implementation will usually run much faster than a normal loop.
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author:  (<a href="mailto:elkorn@arch">elkorn@arch</a>)</p>
+<p class="date">Date: </p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.0.3)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

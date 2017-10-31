@@ -1,0 +1,110 @@
+#+FILETAGS: :vimwiki:
+
+* 2015-02-03
+#= Jesteś ekspertem, i co dalej? - Sławomir Sobótka =
+
+Dario Nardi, phd-  cognitive science?
+Neuroscience of personality book
+
+Gerard Weinberg - author
+
+personality/experience parallelization - doing the same things repeatedly causes them to meld into one from time perspective.
+Doing multiple things gives a feeling of richness in your memories.
+
+Alex Barszczewski - blog (2009)
+
+positive psychology: any of the following are enough to be happy
+** flow (this sounds somewhat like 'the zone')
+     - Meyers-Briggs, Mihaly Csikszentmihalyi 
+     - spurred by doing something sexy, np równanie RK4 :D
+     - brain parts related to behavior:
+         - reptile: fold (to avoid danger)/freeze (pretend you're not there) 
+         - limbic: fight / flight / freeze
+         - cortex area
+     - 16 personality types based on the mode in which the aforementioned parts of the brain work
+     - flow is characterized by all of the brain parts working together consistently for extended perids of time
+     - every MB type has a specific flow-entry mode
+     - when being torn out of the flow, your brain's empathy regions are not nourished, thus you can act with less regard to social norms
+** mindfulness
+     - being conscious of your internal cognitive processes, emotionless observation of thoughts
+     - 9 functions of the middle cortex...
+         - stopping emotions in their tracks, stopping before acting upon them 
+         - empathy - 'synchronizing' with another person: you can understand what another person is thinking and going through
+         - diminishing fear
+         - introspective
+         - morality
+         - intuition
+         - emotional balance
+         - ...
+     - mindfulness is the reverse to flow: instead of being essentialy within a problem, you are 100% in yourself 
+     - it's key to expanding your abilities: flow only drives you to a solution, mindfulness allows the analysis of that solution
+** meaning
+     - sacrificing yourself for doing things larger than yourself
+
+0.3s to react when emotions start to carry you.
+Dealing with such situations not to be driven by the lizard brain - use simple names for your emotions (2,3 words) so that you can quickly know what you're dealing with.
+The reptilian brain is responsible for your muscle memory - e.g. driving a car.
+Quick reactions have to be learned.
+The cortex processor can create re-projections to which the lizard brain listens.
+The key thing to deal with that is to observe what's going on, name it and defuse.
+
+There are different types of fear - each type is mapped to a specific body part (i.e. where you feel it).
+The moving of Chi energy is very close to this - that is, training your cortex to re-recreate the somatic effects of fear in more convenient areas that they would normally appear in.
+
+The hippocampus has a throughput of 115 b/s.
+
+
+4 dimensions of MBa (the presponaity types are based on combinations of these)
+** attitudes: extraversion/introversion
+** functions: sensing/intuition (s/n) and thinking/feeling (t/f)
+** lifestyle: judging/perception (j/p)
+
+another model: Belbin's
+
+There are only two types of decisions: those that get you closer to a lamborghini or get you further away from it and those that do ont affect this distance. :)
+
+
+tech leader
+inspirer - causes others to enter a creative state
+expert - avoid it being an intellectual sport,
+mentor
+
+The sandwich method (Virginia Satir iceberg model)
+** submodalities
+** metapgrograms: e.g. oriented toward achieving goals or avoiding problems
+** 
+
+
+Status games. Interesting topic
+Ego-less programming - there's a book on that.
+
+The first two options are not underminable.
+
+
+
+How to cure the inner monologue - dump it on paper.
+Or use a 2 minute technique- consciously look at a thing, point at it and call it something completely unrelated.
+This exercise works when it stops working - when you start having trouble naming things incorrectly.
+The center responsible for talking to you is not used to such mode of thinking and will become overloaded.
+After reaching the state of silence, observe the quality of what you are hearing at the moment (be mindful of your surroundings - you breathe, a clock is ticking etc.).
+
+
+how to enter a creative state? (relax, excite, understand -> haha, ah, aha!)
+Jeff Hopkins
+
+Brain inputs are more like sparse representations.
+
+NVC - Nonviolent communication
+** I observe that...
+** I feel that
+** I need...
+** I require... (e.g. to adhere to rules agreed upon beforehand)
+
+Look for emotion body mapping terms.
+
+Strategies for achieving goals absolutely require a stopping criterion - knowing when enough is really enough.
+
+Conflict reframing
+
+Conflicts occur on strategy level, never on the needs level.
+Piłowanie tępą piłą - nie ma czasu jej naostrzyć. :)))

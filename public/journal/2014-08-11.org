@@ -1,0 +1,8 @@
+#+FILETAGS: :vimwiki:
+
+* 2014-08-11
+#= JUG - Uncle Bob, "Architecture- the lost years" =
+
+
+
+Prevailer - persistence tool

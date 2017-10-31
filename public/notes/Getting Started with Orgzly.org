@@ -1,0 +1,77 @@
+Welcome to Orgzly. Check some of the features by going through these notes.
+
+* Notes
+** Click on a plus icon to create a new note
+** Note has a title
+
+Note can also have a body.
+
+** Click and hold the note to select it
+
+You can select multiple notes and edit them.
+
+*** You can create a sub-note
+**** You can have as many levels as you like
+
+Collapsing (folding) notes will be supported soon.
+
+** Note can have tags :tutorial:help:tags:
+** [#A] Note can have a priority
+** TODO Task is a note prefixed with TODO
+
+TODO is a state. You can have any number of different states (type of notes). You can add new states in Settings.
+
+** DONE Task can be completed by setting its state to DONE
+CLOSED: [2015-02-20 Fri 20:17]
+
+Time is automatically added.
+
+** TODO You can set scheduled time
+SCHEDULED: <2015-02-20 Fri 15:15>
+
+** TODO You can set deadline time
+DEADLINE: <2015-02-20 Fri> SCHEDULED: <2015-02-23 Mon>
+
+Both scheduled and deadline times can be used.
+
+** You can fling note right to open its quick-menu
+
+You can fling note left to open a different menu.
+
+* Searching
+** You can search notes by clicking the search icon
+** You can search for text occurring anywhere in the note
+** You can use search operators to narrow down the results
+
+b.Notebook – notes from notebook “Notebook”
+i.todo – notes with “TODO” state
+.i.done – notes which do not have “DONE” state
+s.today – notes scheduled for today or earlier
+t.help – notes with a tag “help”
+p.a – notes with a priority “A”
+
+** If you are searching from a notebook, default search operator will be added for you
+** There are two saved searches in navigation drawer
+
+Try them and notice the operators used.
+
+* Settings
+
+Settings button is located in the menu or in the top right corner, if your device doesn't have a menu button.
+
+** Go through available settings
+
+Modify them to your liking to improve your experience with Orgzly.
+
+* Syncing
+
+Notebooks can be saved to your Dropbox or a directory on your device. Plain-text files in Org mode format are used.
+
+** Add a repository from Settings
+
+Repository is a directory inside Dropbox or on your device. Soon, additional repository types will be supported such as Git, Google Drive, SSH and more.
+
+** Start sync
+
+Syncing is currently manual. Button is located in the navigation drawer.
+

@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-10-31 Tue 15:05 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title></title>
+<meta name="generator" content="Org mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/org"> HOME </a>
+</div><div id="content">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org40fb682">1. UNIX</a>
+<ul>
+<li><a href="#org5ac7a94">1.1. ACLs</a></li>
+<li><a href="#org251226f">1.2. CentOS</a>
+<ul>
+<li><a href="#org1917162">1.2.1. CentOS</a>
+<ul>
+<li><a href="#org62a7908">1.2.1.1. Disable iptables</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org34e8d7a">1.3. Process-related files and tree</a></li>
+<li><a href="#org70c2df6">1.4. Pulseaudio too silent</a></li>
+<li><a href="#orgdf894af">1.5. Size of a directory</a>
+<ul>
+<li><a href="#org752ed37">1.5.1. `du -h` – formats sizes according to kilo, mega, and gigabytes.</a></li>
+<li><a href="#org4246148">1.5.2. `du -hc` – produces a line with the word total at the end</a></li>
+<li><a href="#org30bf2ec">1.5.3. `du -hcs` – skips displaying size for sub-directories.</a></li>
+</ul>
+</li>
+<li><a href="#orga55e80a">1.6. UnixAsIDE</a>
+<ul>
+<li><a href="#orge117daf">1.6.1. Unix as IDE</a>
+<ul>
+<li><a href="#org62adac4">1.6.1.1. File and project management — ls, find, grep/ack, bash</a></li>
+<li><a href="#org57e5f7c">1.6.1.2. Text editor and editing tools — vim, awk, sort, column</a></li>
+<li><a href="#org4c13378">1.6.1.3. Compiler and/or interpreter — gcc, perl</a></li>
+<li><a href="#orgf12a56e">1.6.1.4. Build tools — make</a></li>
+<li><a href="#org76270e0">1.6.1.5. Debugger — gdb, valgrind, ltrace, lsof, pmap</a></li>
+<li><a href="#orgc592b66">1.6.1.6. Version control — diff, patch, svn, git</a></li>
+<li><a href="#org81d47e2">1.6.1.7. Files</a></li>
+<li><a href="#orgbc3f5f9">1.6.1.8. Building</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgdcef60c">1.7. User management</a>
+<ul>
+<li><a href="#orgb6e099b">1.7.1. UNIX - User management</a>
+<ul>
+<li><a href="#orgaac11fa">1.7.1.1. List the active X sessions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org40fb682" class="outline-2">
+<h2 id="org40fb682"><span class="section-number-2">1</span> UNIX</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+#= UNIX =
+</p>
+
+<p>
+<a href="#org5ac7a94">1.1</a>
+</p>
+
+<p>
+<a href="#org251226f">1.2</a>
+</p>
+
+<p>
+<a href="#org34e8d7a">1.3</a>
+</p>
+
+<p>
+<a href="#org70c2df6">1.4</a>
+</p>
+
+<p>
+<a href="#orgdf894af">1.5</a>
+</p>
+
+<p>
+<a href="#orga55e80a">1.6</a>
+</p>
+
+<p>
+<a href="#orgdcef60c">1.7</a>
+</p>
+</div>
+<div id="outline-container-org5ac7a94" class="outline-3">
+<h3 id="org5ac7a94"><span class="section-number-3">1.1</span> ACLs</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+#= UNIX - ACLs =
+</p>
+
+<p>
+ACLs allow automatically defining permissions for files created within a directory.
+</p>
+
+<p>
+(Do they also affect permissions of files moved in there?)
+</p>
+
+<p>
+ACLs are displayed using the `getfacl` command.
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">$ getfacl dir
+<span style="color: #969896; font-style: italic;"># </span><span style="color: #969896; font-style: italic;">file: dir</span>
+<span style="color: #969896; font-style: italic;"># </span><span style="color: #969896; font-style: italic;">owner: agruen</span>
+<span style="color: #969896; font-style: italic;"># </span><span style="color: #969896; font-style: italic;">group: suse</span>
+user::rwx
+group::r-x
+other::---
+</pre>
+</div>
+
+<p>
+Granting a user permissions:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">$ setfacl -m user:joe:rwx dir
+</pre>
+</div>
+
+<p>
+Set a default ACL for a group:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">$ setfacl -d -m group:toolies:r-x dir
+$ getfacl --omit-header dir
+user::rwx
+user:joe:rwx
+group::r-x
+mask::rwx
+other::---
+default:user::rwx
+default:group::r-x
+default:group:toolies:r-x
+default:mask::r-x
+default:other::---
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org251226f" class="outline-3">
+<h3 id="org251226f"><span class="section-number-3">1.2</span> CentOS</h3>
+<div class="outline-text-3" id="text-1-2">
+</div><div id="outline-container-org1917162" class="outline-4">
+<h4 id="org1917162"><span class="section-number-4">1.2.1</span> CentOS</h4>
+<div class="outline-text-4" id="text-1-2-1">
+</div><div id="outline-container-org62a7908" class="outline-5">
+<h5 id="org62a7908"><span class="section-number-5">1.2.1.1</span> Disable iptables</h5>
+<div class="outline-text-5" id="text-1-2-1-1">
+<p>
+For a local dev machine (Vagrant) it's useful to disable the firewall.
+</p>
+
+<pre class="example">
+# service iptables save
+# service iptables stop
+# chkconfig iptables off
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org34e8d7a" class="outline-3">
+<h3 id="org34e8d7a"><span class="section-number-3">1.3</span> Process-related files and tree</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+#= UNIX - Process-related files and tree =
+</p>
+
+<p>
+`lsof -a -p &lt;pid&gt;` - display all files used by a specific process. Can use this with a process name like so: `lsof -a -p $(pgrep &lt;procname&gt;)`.
+</p>
+
+<p>
+Check the process tree (what was run by what): `pstree`.
+</p>
+</div>
+</div>
+<div id="outline-container-org70c2df6" class="outline-3">
+<h3 id="org70c2df6"><span class="section-number-3">1.4</span> Pulseaudio too silent</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+Pluseaudio too silent
+</p>
+
+<p>
+Check `pavucontrol` or `ponymix` whether PA is not silenced.
+If not, run `alsamixer -c 0` and see if the card is not silenced in ALSA before hitting PA.
+</p>
+</div>
+</div>
+<div id="outline-container-orgdf894af" class="outline-3">
+<h3 id="orgdf894af"><span class="section-number-3">1.5</span> Size of a directory</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+#= UNIX - Size of a directory =
+</p>
+</div>
+
+<div id="outline-container-org752ed37" class="outline-4">
+<h4 id="org752ed37"><span class="section-number-4">1.5.1</span> `du -h` – formats sizes according to kilo, mega, and gigabytes.</h4>
+</div>
+<div id="outline-container-org4246148" class="outline-4">
+<h4 id="org4246148"><span class="section-number-4">1.5.2</span> `du -hc` – produces a line with the word total at the end</h4>
+</div>
+<div id="outline-container-org30bf2ec" class="outline-4">
+<h4 id="org30bf2ec"><span class="section-number-4">1.5.3</span> `du -hcs` – skips displaying size for sub-directories.</h4>
+</div>
+</div>
+
+<div id="outline-container-orga55e80a" class="outline-3">
+<h3 id="orga55e80a"><span class="section-number-3">1.6</span> UnixAsIDE</h3>
+<div class="outline-text-3" id="text-1-6">
+</div><div id="outline-container-orge117daf" class="outline-4">
+<h4 id="orge117daf"><span class="section-number-4">1.6.1</span> Unix as IDE</h4>
+<div class="outline-text-4" id="text-1-6-1">
+<p>
+(via <a href="http://blog.sanctum.geek.nz/series/unix-as-ide/">http://blog.sanctum.geek.nz/series/unix-as-ide/</a> )
+</p>
+
+<p>
+The main parts of this are:
+</p>
+</div>
+
+<div id="outline-container-org62adac4" class="outline-5">
+<h5 id="org62adac4"><span class="section-number-5">1.6.1.1</span> File and project management — ls, find, grep/ack, bash</h5>
+</div>
+<div id="outline-container-org57e5f7c" class="outline-5">
+<h5 id="org57e5f7c"><span class="section-number-5">1.6.1.2</span> Text editor and editing tools — vim, awk, sort, column</h5>
+</div>
+<div id="outline-container-org4c13378" class="outline-5">
+<h5 id="org4c13378"><span class="section-number-5">1.6.1.3</span> Compiler and/or interpreter — gcc, perl</h5>
+</div>
+<div id="outline-container-orgf12a56e" class="outline-5">
+<h5 id="orgf12a56e"><span class="section-number-5">1.6.1.4</span> Build tools — make</h5>
+</div>
+<div id="outline-container-org76270e0" class="outline-5">
+<h5 id="org76270e0"><span class="section-number-5">1.6.1.5</span> Debugger — gdb, valgrind, ltrace, lsof, pmap</h5>
+</div>
+<div id="outline-container-orgc592b66" class="outline-5">
+<h5 id="orgc592b66"><span class="section-number-5">1.6.1.6</span> Version control — diff, patch, svn, git</h5>
+</div>
+
+<div id="outline-container-org81d47e2" class="outline-5">
+<h5 id="org81d47e2"><span class="section-number-5">1.6.1.7</span> Files</h5>
+<div class="outline-text-5" id="text-1-6-1-7">
+</div><ol class="org-ol"><li><a id="org4f65c15"></a>Listing<br  /><div class="outline-text-6" id="text-1-6-1-7-1">
+<p>
+`ls`:
+</p>
+
+<p>
+-`t` — List files in order of last modification date, newest first. This is useful for very large directories when you want to get a quick list of the most recent files changed, maybe piped through head or sed 10q. Probably most useful combined with -l. If you want the oldest files, you can add -r to reverse the list.
+-`X` — Group files by extension; handy for polyglot code, to group header files and source files separately, or to separate source files from directories or build files.
+-`v` — Naturally sort version numbers in filenames.
+-`S` — Sort by filesize.
+-`R` — List files recursively. This one is good combined with -l and pipedthrough a pager like less.
+</p>
+
+<p>
+Open the results in `vim`:
+</p>
+
+<pre class="example">
+$ ls -XR | vim -
+</pre>
+</div></li>
+
+<li><a id="orgf18dc0d"></a>Finding<br  /><ol class="org-ol"><li><a id="org4125efb"></a>`find -name '*.c'` — Find files with names matching a shell-style pattern. Use `-iname` for a case-insensitive search.<br  /></li>
+<li><a id="org611da29"></a>`find -path '<b>test</b>'` — Find files with paths matching a shell-style pattern. Use `-ipath` for a case-insensitive search.<br  /></li>
+<li><a id="orga00d01e"></a>`find -mtime -5` — Find files edited within the last five days. You can use `+5` instead to find files edited before five days ago.<br  /></li>
+<li><a id="org8ff83c9"></a>`find -newer server.c` — Find files more recently modified than `server.c`.<br  /></li>
+<li><a id="org96594bf"></a>`find -type d` — Find directories. For files, use -type f; for symbolic links, use `-type l`.<br  /></li>
+<li><a id="orgd7c98bf"></a>`ls` — Provide an `ls -l` style listing, as above<br  /></li>
+<li><a id="org2cba136"></a>`delete` — Delete matching files<br  /></li>
+<li><a id="org06b61a5"></a>`exec` — Run an arbitrary command line on each file, replacing `{}` with the appropriate filename, and terminated by `\;;` for example:<br  /><div class="outline-text-7" id="text-1-6-1-7-2-8">
+<pre class="example">
+$ find -name '*.c' -exec vim {} +
+</pre>
+</div></li></ol></li>
+
+<li><a id="org193c82a"></a>Searching<br  /><div class="outline-text-6" id="text-1-6-1-7-3">
+<p>
+`grep`:
+</p>
+</div>
+<ol class="org-ol"><li><a id="org19e4b08"></a>`-R`: searches the current directory tree recursively for anything matching the given string<br  /></li>
+<li><a id="org27347f2"></a>`-i`: case insensitive<br  /></li>
+<li><a id="org997f218"></a>`-l`: print just the list of files containing the matches<br  /></li>
+<li><a id="org8d07cd7"></a>`-v`: exclude a file/directory from the search<br  /><div class="outline-text-7" id="text-1-6-1-7-3-4">
+<p>
+`ack` and `ag` are alternatives for `grep` which ignore VCS stuff by default as well as allow using Perl-compatible regexps.
+</p>
+</div></li></ol></li></ol>
+</div>
+
+
+<div id="outline-container-orgbc3f5f9" class="outline-5">
+<h5 id="orgbc3f5f9"><span class="section-number-5">1.6.1.8</span> Building</h5>
+<div class="outline-text-5" id="text-1-6-1-8">
+<p>
+`make`: 
+</p>
+
+<p>
+Canonical usage:
+</p>
+
+<pre class="example">
+CC = gcc
+OBJECTS = main.o example.o library.o
+BINARY = example
+
+all: example
+
+example: $(OBJECTS)
+    $(CC) $(OBJECTS) -o $(BINARY)
+
+clean:
+    rm -f $(BINARY) $(OBJECTS)
+
+install: example
+    cp $(BINARY) /usr/bin
+</pre>
+
+<p>
+More general usage examples:
+</p>
+
+<pre class="example">
+icons: create.png read.png update.png delete.png
+
+create.png: create.svg
+    convert create.svg create.raw.png &amp;&amp; \
+    pngcrush create.raw.png create.png
+
+read.png: read.svg
+    convert read.svg read.raw.png &amp;&amp; \
+    pngcrush read.raw.png read.png
+
+update.png: update.svg
+    convert update.svg update.raw.png &amp;&amp; \
+    pngcrush update.raw.png update.png
+
+delete.png: delete.svg
+    convert delete.svg delete.raw.png &amp;&amp; \
+    pngcrush delete.raw.png delete.png
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgdcef60c" class="outline-3">
+<h3 id="orgdcef60c"><span class="section-number-3">1.7</span> User management</h3>
+<div class="outline-text-3" id="text-1-7">
+</div><div id="outline-container-orgb6e099b" class="outline-4">
+<h4 id="orgb6e099b"><span class="section-number-4">1.7.1</span> UNIX - User management</h4>
+<div class="outline-text-4" id="text-1-7-1">
+</div><div id="outline-container-orgaac11fa" class="outline-5">
+<h5 id="orgaac11fa"><span class="section-number-5">1.7.1.1</span> List the active X sessions</h5>
+<div class="outline-text-5" id="text-1-7-1-1">
+<pre class="example">
+# who -u
+root     tty1         Jun 14 05:54 00:03        9353
+mat      :0           Jun 14 05:54   ?          9391
+mat      pts/1        Jun 14 05:55   .          9538
+</pre>
+
+<p>
+You can use `kill` to log each session out- the last number in each line is its
+PID.
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author:  (<a href="mailto:elkorn@arch">elkorn@arch</a>)</p>
+<p class="date">Date: </p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.0.3)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

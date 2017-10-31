@@ -1,0 +1,6 @@
+#+FILETAGS: :vimwiki:
+
+* Vagrant
+#= Tools - Vagrant =
+
+Test.

@@ -1,0 +1,7 @@
+* Hello
+SCHEDULED: <2015-12-30 Wed>
+:PROPERTIES:
+:CREATED: [2015-12-30 Wed 22:28]
+:END:
+It is important to know
+

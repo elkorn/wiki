@@ -1,0 +1,51 @@
+#+FILETAGS: :vimwiki:
+
+* Performance
+** AngularJS - Performance
+# %toc
+
+*** What does slow mean?
+**** '$apply` > 25ms
+**** click handler > 100ms
+**** page load > 1s
+
+*** Directives
+**** `compile` is called only once within a repeater,
+**** `link` and the constructor are called once per iteration
+**** try to get as much work done as possible in the compile phasei
+**** transclusion allows a directive to `$digest` its own scope withou cousing dirty checks on bindings within the Directives
+
+*** `$$digest` and `$$apply`
+**** `$apply` = `$rootScope.$digest` + other stuff
+**** if you update a child scope `s` only, you can call `s.$digest` to dirty-check only that scope and its descendants
+
+*** $watch
+**** watcher must be fast. 
+**** avoid touching the DOM (or use `debounce`)
+**** avoid deep `$watch`
+**** `$watchCollection` is a good alternative for deep watch
+**** watch only relevant data, strip it as much as possible
+**** watch *before* transforming - watch the input for changes rather than the output of the transformation
+
+*** `$eval`, `$parse` and `interpolate`
+**** call `$parse` once and use the returned function instead of calling `$eval`
+**** prefer `$parse` to `$interpolate`
+
+*** track by `$index`
+**** when using an `ng-repeat track by $index`, Angular will reuse created DOM nodes instead of creating and destroying every one of them when the model changes.
+
+*** `ng-if` vs `ng-show`
+**** first one does not render the DOM, the second one just hides it.
+
+*** `$$postDigest`
+**** firest a callback after the digest cycle is complete
+**** can be used to update the DOM once after dirty checking is over - not recommended, though (scope is not going to get updated).
+
+*** Don't dirty check when it's not needed
+**** `fast-bind-on-notify` vs `fast-bind-once` vs `ng-bind`
+**** check `fast-bind` by kseamon on github.
+
+*** Tooling
+**** Batarang -> Performance
+**** DevTools Profiler
+**** `performance.now()` provides high resolution time

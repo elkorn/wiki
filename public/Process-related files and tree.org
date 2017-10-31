@@ -1,0 +1,8 @@
+#+FILETAGS: :vimwiki:
+
+* Process-related files and tree
+#= UNIX - Process-related files and tree =
+
+`lsof -a -p <pid>` - display all files used by a specific process. Can use this with a process name like so: `lsof -a -p $(pgrep <procname>)`.
+
+Check the process tree (what was run by what): `pstree`.

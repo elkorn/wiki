@@ -1,0 +1,31 @@
+When faced with a problem you do not know how to solve, it is helpful to have a pre-planned procedures that serve as immediate reactions to the cue of no clear next step being visible.
+
+* When you can't figure out how to solve the problem
+
+- Write the problem down in as much detail as possible.
+- Write down what exactly would constitute a solution.
+- Write down why I need to solve this exact problem and why it cannot be anything simpler.
+- Write down a list of examples of the problem and try to solve each one by hand.
+- Write down any problems that are already solved and seem related to the current one. See if the solutions can be adapted.
+- Write down similar, but easier problems. Try to solve them.
+- Try each of the heuristics from "How To Solve It".
+- Explain all of the above to somebody.
+
+* When you can't decide what to do
+
+- Write the problem down.
+- Write down the criteria by which you should judge each option.
+- Write down all the options that come to mind.
+- Write down their pros and cons.
+- If possible, go do something else instead (to enable background processing).
+- Otherwise, start a pomodoro and at the end pick the least bad option.
+
+* If you don't know where to start
+
+- List all the things that need to happen, in time order.
+- If the first thing on the list is something you can do - do it.
+- Otherwise, take the first thing on the list and break it down into smaller steps.
+
+The key point of these techniques is generating momentum - you are taking smaller steps, but cross the procrastination barrier.
+You also optimize for smaller, but consistent rewards - that should help against feeling defeated.
+

@@ -1,0 +1,131 @@
+#+FILETAGS: :vimwiki:
+
+* Vertex cover problem
+** MSc - Vertex cover problem
+
+*** What is a graph?
+
+A triple set:
+**** vertices $V(G)$
+**** edges $E(G)$
+**** relations $E(G)ightarrow V(G)$
+
+Possibilities:
+**** loop
+**** finite/infinite graph
+**** complete graph
+     - for each pair of vertices there is an edge
+     - $K_n$ for $n$ vertices
+     - for $\left|V(G)ight|=n$ vertices 
+    there are $egin{pmatrix} n\2 nd{pmatrix}$ edges possible
+
+$H$ is a subgraph of $G$: $V(H) \subseteq V(G), E(H) \subseteq E(G)$, the
+endpoints in $H$ are assigned the same as in $G$. (This is really intuitive - 
+consider the name *subgraph*)
+
+$H$ is an induced subgraph of $G$ on $S$, where $S \subseteq V(G)$: 
+$V(H) = S$ and $E(H)$ is the set of edges of $G$ such that both the endpoints 
+belong to $S$.
+
+(If an edge of the selected subgraph does not exist in the original graph, you
+draw it anyway - this is an induced subgraph.)
+
+A graph is *connected* if each of its vertices belongs to a path.
+A *path* connects any vertex with a selected one.
+
+*** Isomorphism
+
+An Isomorphism from a simple graph $G$ to a simple graph $H$ is a bijection
+$f: V(G) ightarrow V(H)$ such that $(u, v) \in E(G)$ if and only if
+$(f(u), f(v)) \in E(H)$
+
+What it means that vertices of one graph can be mapped to vertices of another
+one, based on how they are connected.
+(example - two identical graphs, but drawn differently)
+
+*** Acyclic graph
+
+A graph without any cycles is an *acyclic* graph.
+
+A *tree* is an acyclic connected graph.
+
+A *forest* is an acyclic disconnected graph.
+
+*** Bipartite graph
+
+Graph $g$ is *bipartite* if $V(G)$ is the union of two disjoint (possibly empty)
+independent sets called *partite sets* of $G$.
+
+A subset $S \in V(G)$ is an independent set if the included subgraph on $S$
+contains no edges. That means a subset of vertices that are not directly
+connected.
+
+If a graph is cyclic, it can be a bipartite graph only if the cycle is even
+(includes an even number of vertices).
+
+A tree is a bipartite graph.
+
+A complete graph can be bipartite - it is denoted as $K_{n,m}$ where $n,m$ are
+the number of vertices in each partite set.
+
+*** Vertex cover
+
+A set $S \subseteq V(G)$ is a vertex cover of $G$ (of the edges in $G$) if every
+edge of $G$ is incident with a vertex in $S$.
+
+A vertex cover of the minimum cardinality is called a *minimum vertex cover*,
+denoted as $MVC(G)$.
+
+What it means is that every edge touches at least one of the vertices belonging
+to the cover.
+
+*Q:* What is the cardinality of MVC in the complete graph $K_n$?
+
+$n-1$
+
+*Q:* What is the cardinality of MVC in the complete bipartite graph $K_{m,n}$?
+
+$min(m,n)$. If it would be possible to do it with less than that, there would
+have to exist a vertex that is not a part of the cover.
+
+*Q:* What is the cardinality of MVC in an odd cycle $C_n$?
+
+$\lceilrac{n}{2}ceil$. It's not possible to do with less, because the degree
+of every vertex is 2.
+
+*Q:* What is the cardinality of MVC in an even cycle $C_n$?
+
+$rac{n}{2}$. It's not possible to do with less, because the degree of every
+vertex is 2.
+
+*** Independence/stability number
+
+An *independent set* or *stable set* is a set of vertices in a graph, no two of
+which are adjacent.
+
+The cardinality of a biggest independent set in $G$ is called the independence
+number (or a stability number) of $G$ and is denoted by $lpha(G)$.
+
+$lpha(K_n)=1$
+
+$lpha(K_{m,n})=max(m,n)$
+
+For an odd cycle: $lpha(C_n)=\left\lfloorrac{n}{2}ightfloor$
+
+For an even cycle: $lpha(C_n)=rac{n}{2}$
+
+**** Relations between $\left| MVC(G) ight|$ and $lpha(G)$:
+
+Removing a vertex cover from $G$, the rest is an independent set.
+
+If we remove $MVC$ from $G$, the rest, i.e. $V-MVC$ is an independent set.
+
+So, $lpha(G) \ge n - \left| MVC(G) ight|$.
+Thus, $\left| MVC(G) ight| \ge n - lpha(G)$.
+
+Similarly, if we remove any independent set from $G$, the rest is a vertex
+cover, and so $\left|MVC(G)ight|\le n-lpha(G)$.
+
+Thus, we get $\left|MVC(G)ight|=n-lpha(G)$.
+
+If we denote $-MVC(G)$ as $eta(G)$, then we have $eta(G)+lpha(G)=n$.

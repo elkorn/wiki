@@ -1,0 +1,14 @@
+#+FILETAGS: :vimwiki:
+
+* MonadicDesignPatternsForTheWeb
+#= Monadic design patterns for the web =
+
+...
+
+The connection between polymorphic set comprehension notation and the `for` notation in Scala can be made explicit by stating the following relationship:
+    The correspondence between set comprehension and `for` notation takes $\{*|pattern \in S | condition |*\}$ to:
+    #+begin_example
+    for (x <- S if condition) yield {
+        x match { case pattern => x }
+    }
+    #+end_example

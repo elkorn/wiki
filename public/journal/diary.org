@@ -1,0 +1,45 @@
+#+FILETAGS: :vimwiki:
+
+* diary
+ (transfo= Generated Links ==
+** Diary
+
+*** 2015
+
+**** March
+***** [[2015-03-11][.NET UG  CQRS x3]]
+
+**** February
+***** [[2015-02-27][Lambda Days: Day 2]]
+***** [[2015-02-26][Lambda Days: Day 1]]
+***** [[2015-02-09]]
+****** 2015-02-09
+This will never happen again.
+I promise.
+***** [[2015-02-03][Jesteś ekspertem, i co dalej? - Sławomir Sobótka]]
+
+**** January
+***** [[2015-01-18][Chamberconf #2]]
+***** [[2015-01-17][Chamberconf 1]]
+***** [[2015-01-12][The Humane Representation of Thought]]
+
+*** 2014
+
+**** December
+***** [[2014-12-18][ng-wroclaw #4]]
+***** [[2014-12-17][JUG - Continuous Delivery]]
+***** [[2014-12-02][Greg Young - polyglot data]]
+
+**** November
+***** [[2014-11-12][Nice quote]]
+***** [[2014-11-05][Being the worst - ep. 11/12 (Application and Domain Services, DSL-based code generation)]]
+
+**** August
+***** [[2014-08-11][JUG - Uncle Bob, "Architecture- the lost years"]]
+***** [[2014-08-01][JUG 36 - Akka persistence, cluster, plugins]]
+
+**** January
+***** [[2014-01-14]]
+
+****** 2014-01-14
+Math $ \sum{i=1}^N a_i^2 = \infty $

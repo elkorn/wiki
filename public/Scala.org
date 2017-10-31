@@ -1,0 +1,1263 @@
+#+FILETAGS: :vimwiki:
+
+* Scala
+#= Scala =
+
+[[Akka]]
+
+[[Asynchronous processing]]
+
+[[Implicits]]
+
+[[Play]]
+
+[[ScalaTest]]
+
+[[Substitution-related]]
+
+[[Traits]]
+** Akka
+#= Akka =
+
+*** [[Persistence API]]
+**** Persistence API
+***** Akka persistence
+# %toc
+
+****** Recover app state after a crash
+****** opt-in at-least-once delivery
+****** semantics between actors
+
+To add as a dependency:
+#+begin_example
+"com.typesafe.akka" %% "akka-persistence-experimental" % "2.3.0"
+#+end_example
+
+It's a complete rewrite of the [[https://github.com/eligosource/eventsourced][Eventsourced]] library, a migration is possible.
+
+****** Storing state transitions
+
+Instead of storing state, transitions are being recorded.
+E.g.
+#+begin_example
+Cart created => Added 2 socks => Added 2 shirts => Shipping info Added
+#+end_example
+
+The events can be replayed and they are immutable (a parallel with DB migration
+incremental scripts?).
+This is called _event sourcing_.
+
+****** Domain events
+******* things that have completed, _facts_
+******* immutable
+******* verbs in past tense
+          - `CustomerRelocated`
+          - `CargoShipped`
+          - `InvoiceSent`
+******* essential building block in DDD, representing the domain state transition.
+
+*Benefits*:
+******* Bulletproof auditing and historical tracing.
+          - Think in terms of the history of transactions that caused a specific bank account balance to occur.
+******* Support future ways of looking at data.
+          - After adding new features, it is possible to recreate the past data in the new form.
+          - Useful when creating an initial release and then, after discussing with the business, having to add new features and emulate the same state.
+******* Performance and scalability
+          - Streams can be scaled.
+******* Testability
+          - Define a sequence of events as a scenario - it makes expected actions very clear.
+******* Reconstruct production scenarios
+******* No object-relational impedance mismatch
+          - No complex data structures are stored, no ORMs needed.
+******* Nice fit with actors
+          - It does not mean that it should be used everywhere alongside Akka.
+          - It's not good for ad-hoc queries.
+
+****** Different approaches
+
+*Command sourcing*:
+******* write-ahead-log
+******* same behavior during recovery as normal operation
+          - external interaction can be problematic
+          - changing the command logic will cause retro steps to work as the new cmds
+******* persisted before validation
+******* allows retroactive changes to the business logic
+******* naming: represent intent, imperative
+
+*Event sourcing:*
+******* derive events from a Command
+******* only state-changing behavior during recovery
+******* events cannot fail
+******* fixing the business logic will not affect persisted models
+******* naming: things that have completed, verbs in the past tense
+
+****** Consistency boundary
+******* An actor is a consistency boundary
+          - corresponds to a DDD Aggregate
+******* No distributed transactions
+          - eventually consistent
+          - compensating actions instead of transactional mechanisms
+
+****** Building blocks
+******* Processor
+
+******** Automatic recovery on start and restart
+******** Stashing until recovery completed
+******** Failure handling with the supervisor strategy
+******** Might want to delete erroneous messages
+
+Minimal processor example
+#+begin_example
+import akka.persistence.{ Persistent, Processor }
+class MyProcessor extends Processor {
+    def receive = {
+        case Persistent(payload, sequenceNr) =>
+            // msg successfully written to Journal
+        case other => // msg not written to journal
+    }
+}
+
+val processor = context.actorOf(Props[MyProcessor], name = "myProcessor")
+
+processor ! Persistent("foo")   // journaled
+processor ! "bar"               // not journaled
+#+end_example
+
+Real-world example:
+#+begin_example
+
+class InvoiceService extends Processor {
+    var invoices = Map.empty[String, Invoice]
+
+    def receive: Receive = {
+        case Persistent(CreateInvoice(id), _) =>
+            invoices = invoices.updated(id, Invoice(id))
+        case Persistent(AddInvoiceItem(id, item), _) =>
+            invoices.get(id) match {
+                case Some(inv) =>
+                    invoices = invoices.updated(id, inv.addItem(item))
+                case None => // TODO recovery
+            }
+        case GetInvoice(id) =>
+            sender() ! invoices.getOrElse(id, "not found: " + id) ===
+
+        case Persistent(SendInvoiceTo(id, address), _) =>
+            // TODO send to the invoice printing service.
+    }
+}
+#+end_example
+
+Invoice context code:
+#+begin_example
+case class CreateInvoice(invoiceId: String)
+case class AddInvoiceItem(invoiceId: String, invoiceItem: InvoiceItem)
+case class SendInvoiceTo(invoiceId: String, to: InvoiceAddress)
+case class GetInvoice(invoiceId: String)
+
+case class Invoice(id: String, items: IndexedSeq[InvoiceItem] = Vector.empty) {
+    def addItem(item: InvoiceItem): Invoice = copy(items = items :+ item)
+}
+
+case class InvoiceItem(description: String, count: Int, amount: BigDecimal)
+case class InvoiceAddress(name: String, street: String, city: String)
+#+end_example
+
+Processor identifier - the default identifier is the path of the actor:
+`/user/top/myProcessor`.
+
+Anonymous processors should not be used as the names may change on system
+startup.
+#+begin_example
+    override def processorId = "my-stable-processor-id"
+#+end_example
+
+******** Processor with Channel
+Handshaking - sending delivery and confirmation messages.
+#+begin_example
+val printingChannel = context.actorOf(Channel.props(), name = "printingChannel")
+val printingDestination = context.system / "printingService"
+// 'printingService' probably should be 'printingChannel'.
+
+def receive: Receive = {
+    case p @ Persistent(SendInvoiceTo(id, address), _) => 
+        // send to the invoice printing machine
+        invoices.get(id) match {
+            case Some(inv) =>
+                printingChannel ! Deliver(p.withPayload(
+                    PrintingOrder(inv, address), printingDestination)
+                invoices -= inv.id
+            case None => TODO
+        }
+}
+
+class PrintingService extends Actor {
+    def receive = {
+        case p @ ConfirmablePersistent(payload, sequenceNr, redeliveries) =>
+            // ...
+            p.confirm()
+    }
+}
+#+end_example
+
+******* Eventsourced processor
+Incoming messages (commands) are not persisted.
+
+Steps:
+******** Validate Command
+******** Create domain event and explicitly persist it
+******** Update internal state by *applying the event*
+******** External side effects
+
+During recovery the internal state is updated by applying the events, which
+prevents any external side effects.
+
+Example:
+#+begin_example
+class BlogPost extends EventsourcedProcessor {
+    import BlogPost._
+    override def receiveCommand: Receive = ???
+    override def receiveRecover: Receive = ???
+
+    private var state = State("","","",false)
+
+    override def receiveCommand: Receive = {
+        case AddPost(author, title) =>
+            // The difference between command and event approaches is clear here
+            if(state.body == "" && author != "" && title != "") {
+                persist(PostAdded(author, title)) { evt =>
+                    state = state.updated(evt)
+                }
+            }
+
+        case ChangeBody(body) =>
+            if(!state.published) {
+                persist(BodyChanged(body)) { evt =>
+                    state = state.updated(evt)
+                }
+            }
+
+        case Publish =>
+            if(!state.published) {
+                persist(PostPublished) { evt =>
+                    state = state.updated(evt)
+                    // call the external web content service...
+                }
+            }
+    }
+
+    override def receiveRecover: Receive = {
+        case evt: Event => state = state.updated(evt)
+    }
+}
+
+object BlogPost {
+    import BlogPost._
+    case class AddPost(athor: String, title: String) // domain command
+
+    // this is the proposed way:
+    sealed trait Event
+    case class PostAdded(author: String, title: String) extends Event
+    case class BodyChanged(body: String) extends Event
+    case object PostPublished extends Event
+
+    private class State(author: String, title: String, body: String,
+                        published: Boolean) {
+        def updated(evt: Event): State = evt match {
+            case PostAdded(author, title)   => copy(author, title)
+            case BodyChanged(b)             => copy(body = b)
+            case PostPublished              => copy(published = true)
+        }
+    }
+}
+#+end_example
+
+Additional functionality: support for snapshots.
+
+#+begin_example
+class MyProcessor extends Processor {
+    var state: Any = _
+
+    def receive = {
+        case "snap"                                   => saveSnapshot(state)
+        case SaveSnapshotSuccess(metadata)            => // ...
+        case SaveSnapshotFailure(metadata, reason)    => // ...
+
+        case SnapshotOffer(metadata, offeredSnapshot) => state = offeredSnapshot
+        case Persistent(payload, _)                   => // ...
+    }
+}
+#+end_example
+
+******* View
+Replays persistent messages from a Processor's journal.
+Serves as the query side of CQRS.
+
+Features:
+******** auto-update interval,
+******** update message,
+******** limit,
+******** may store its own snapshots.
+
+Example:
+#+begin_example
+class InvoiceCounter extends View {
+    import InvoiceCounter._
+    override def processorId: String = "/user/InvoiceService"
+    override def autoUpdateInterval = 10 seconds
+
+    var count = 0L
+
+    def receive: Actor.Receive = {
+        case Persistent(payload: SendInvoiceTo, _) => count += 1
+        case _: Persistent =>
+        case GetInvoiceCount => sender ! InvoiceCount(count)
+    }
+}
+
+object InvoiceCounter {
+    case object GetInvoiceCount
+    case class InvoiceCount(count: Long)
+}
+#+end_example
+
+******* Persistent Channel
+Used for at-least-once delivery.
+
+A message might be dropped.
+To be sure that a message has arrived, an acknowledgment from the receiver.
+The acknowledgment delivery may also fail - in that case the message must be
+resent.
+This is the _at-least-once_ delivery mode.
+
+Channels re-deliver messages until confirmed.
+The confirmation is on application level.
+Different semantics:
+******** duplicates received
+******** message order not retained
+******** after a creash and restart messages are still delivered
+
+Recommendation: use one destination per channel.
+The exception is when replies are being sent via the channel.
+
+Where a Channel is meant to be used from within a Processor and resides within
+memory, the PersistentChannel is to be used standalone.
+
+It is conceptually a processor + a channel.
+It persists messages before delivering, replies `ack` when persisted and allows
+more advanced delivery flow control.
+
+Example:
+#+begin_example
+class MyProcessor extends Processor {
+    val channel = context.actorOf(Channel.props(), name = "myChannel")
+
+    def receive = {
+        case p @ Persistent(payload, _) =>
+            val destination = context.system / "myDestination"
+            channel ! Deliver(p.withPayload("output msg"), destination)
+    }
+}
+
+class MyDestination extends Actor {
+    def receive = {
+        case p @ ConfirmablePersistent(payload, sequenceNr, redeliveries) =>
+            // ...
+            p.confirm()
+    }
+}
+
+class Endpoint extends Actor {
+    val channel = context.actorOf(
+            PersistentChannel.props(PersistentChannelSettings(
+                    redeliverInterval = 3 seconds,
+                    redeliverMax = 10,
+                    replyPersistent = true)
+            ),
+            name = "myChannel")
+    val destination = context.system / "jobManager"
+
+    import context.dispatcher
+    implicit val timeout = Timeout(5 seconds)
+
+    def receive = {
+        case job: Job =>
+            (channel ? Deliver(Persistent(job), destination)) map {
+                // send the acknowledgment
+                case _: Persistent => "OK: " + job.id
+            } recover {
+                case e => "FAILED: " + job.id
+            } pipeTo sender()
+    }
+}
+#+end_example
+
+******* Serialization
+******** Pluggable, Akka serialization
+******** app life-cycle, versioning
+******** don't use default Java serialization
+
+******** Journal
+********* Pluggable
+********* LevelDB shipped with Akka - local files
+********* [[http://akka.io/community/][Community journals]] can be used
+
+******* Cluster
+******** simple way of migrating/moving stateful actors in a cluster
+******** distributed journal
+           - shared LevelDB journal for testing
+           - try the Cassandra alternative
+******** single write per event stream
+
+******** Cluster singleton
+Follow-up...
+
+******** Cluster sharding
+Follow-up...
+
+Send the recipient identifier with a message to a cluster sharding region.
+
+A routing coordinator is required.
+
+#+begin_example
+val idExtractor: ShardRegion.IdExtractor = {
+    case cmd: Command => (cmd.postId, cmd)
+}
+
+val shardResolver: ShardRegion.ShardResolver = msg => msg match {
+    case cmd: Command => (math.abs(cmd.postId.hashCode) % 100).toString
+}
+
+ClusterSharding(system).start(
+    typeName = BlogPost.shardName,
+    entryProps = Some(BlogPost.props()),
+    idExtractor = BlogPost.idExtractor,
+    shardResolver = BlogPost.ShardResolver)
+
+val postRegion: ActorRef =
+    ClusterSharding(context.system).shardRegion(BlogPost.shardName)
+
+val postId = UUID.randomUUID().toString
+postRegion ! BlogPost.AddPost(postId, author, title)
+#+end_example
+*** [[Futures]]
+**** Futures
+#= Akka - Futures =
+Notes from "Composable Futures with Akka" will go here.
+
+Code examples:
+***** https://bitbucket.org/mslinn/akkafutures
+** Asynchronous processing
+*** Asynchronous processing
+
+**** Futures vs Promises
+
+Futures and Promises implement the same concept, but Promises are read-write
+(i.e. you can do side effects with them).
+
+Futures are just read-only handles to computations that are going to finish in
+some time.
+
+**** Retrying
+
+The problem:
+
+#+begin_example
+def toss(probability: Int) {
+    if(rand.nextInt % probability == 0)
+        throw new RuntimeException("Boom");
+}
+
+Await.result(future(toss(2)), 50 millis)
+Await.result(future(toss(2)), 50 millis)
+// reflection of a non-deterministic behavior concept
+#+end_example
+
+We want a method kinda like this:
+
+#+begin_example
+// f should run for at most n+1 times.
+def retry[T](n: Int)(f: => T): Future[T] =
+    future { f } recoverWith {
+        case e if n > 0 => retry(n - 1)(f)
+    }
+
+#+end_example
+
+**** Timeouts
+
+The problem:
+
+#+begin_example
+def aBlockingSlowCall: String = {
+    Thread.sleep(1000)
+    "foo"
+}
+
+future { aBlockingSlowCall }
+res: s.c.Future[String] = ...
+
+Await.result(res, 500 millis)
+// j.u.c.TimeoutException: Futures timed out after [500 ms]
+#+end_example
+
+The problem is that the timeout is only known at the `Await` level.
+It sucks due to the fact that `Await`s are generally put at the web controller
+level.
+
+What we really want is for each component to know about its related timeouts.
+
+Enter `com.twitter.util.Future`:
+
+#+begin_example
+def within(timeout: Duration)(implicit timer: Timer): Future[A]
+
+val pool = FuturePool.unboundedPool
+
+pool { aBlockingSlowCall }
+    within (100 millis)
+
+res: c.t.u.Future[String] = ???
+
+Await.result(res)
+// c.t.u.TimeoutException: 100.milliseconds
+#+end_example
+
+[[https://github.com/wix/future-perfect][Future perfect]] from Wix provides an abstraction over c.t.u.Futures.
+
+#+begin_example
+object App extends FuturePerfect { // FP is a trait
+    val executorService = Executors.newScheduledThreadPool(10)
+
+    val future = execution(
+        name = "foo",
+        timeout = 100 millis,
+        retryPolicy = RetryPolicy(retries = 1)) {
+            // some blocking call
+            // partial function can be defined for specific exception cases
+        })
+}
+
+val result = Await.result(future)
+#+end_example
+
+The problem with future perfect is that you get a Twitter future back, not a
+Scala future.
+To convert between the two:
+
+#+begin_example
+import com.twitter.{util => tw} // import util as tw
+
+implicit def twf2scf[T](tf: tw.Future[T]):
+    Future[T] = {
+        val p = Promise[T]
+        tf respond {
+            case tw.Return(r) => p success r
+            case tw.Throw(e) => p failure e
+        }
+
+        p.future
+    }
+#+end_example
+
+
+
+** Implicits
+*** Scala - Implicits
+
+An implicit could be an "ambient" value for some scope or a conversion which can be applied automatically (implicitly :)).
+
+**** Implicit conversion
+
+Example:
+
+#+begin_example
+"abc".map(_.toString)
+#+end_example
+
+`String` does not support a `map` operation, but `StringOps` does - and if there exists a conversion from `String` to `StringOps`, then the example code will compile and work as expected.
+
+**** Implicit parameters
+
+Implicit parameters work just like normal ones, except for that the compiler tries to fill them in automatically - if it cannot, it will throw an error.
+
+Example:
+#+begin_example
+def foo[T](t: T)(implicit integral: Integral[T]) {println(integral)}
+#+end_example
+
+**** View bounds
+
+In the following example, an implicit value acts both as an implicit conversion and an implicit parameter:
+
+#+begin_example
+def getIndex[T, CC](seq: CC, value: T)(implicit conv: CC => Seq[T]) = seq.indexOf(value)
+
+getIndex("abc", 'a')
+#+end_example
+
+This function can receive any objects as `seq` and `value` as long as an appropriate conversion exists.
+
+This pattern is *very useful*, to the point of having syntactic sugar of *view bounds* for it:
+
+#+begin_example
+def getIndex[T, CC <% Seq[T]](seq: CC, value: T) = seq.indexOf(value)
+#+end_example
+
+There is a kinship between the view bound and the upper bound (`CC <: Seq[Int]`) or the lower bound (`T >: Null`).
+
+**** Context Bounds
+
+Context bounds pose syntactic sugar for having to provide an implicit parameter.
+This technique is useful when achieving ad-hoc polymorphism through typeclasses, enabling common interface provisioning to classes which did not declare them.
+Typeclasses can be used as bridges as well as adapters.
+
+Example:
+#+begin_example
+// without a context bound
+def sum[T](list: List[T])(implicit integral: Integral[T]): T = {
+    import integral._
+    list.foldLeft(integral.zero)(_ + _)
+}
+
+// with a context bound
+def sum[T: Integral](list: List[T]): T = {
+    // You have to refer the implicit.
+    val integral = implicitly[Integral[T]]
+    import integral._
+    list.foldLeft(integral.zero)(_ + _)
+}
+#+end_example
+
+Context bounds are more useful when you just pass them to other methods which use them.
+Example: the `sorted` method on `Seq` needs an implicit `Ordering`.
+To create a `reverseSort` method, one could write:
+#+begin_example
+def reverseSort[T: Ordering](seq: Seq[T]) = seq.sorted.reverse
+#+end_example
+
+The `Ordering[T]` was implicitly passed using a context bound, it can be as well passed implicitly to `sorted`.
+
+**** Order of precedence for implicits
+
+Primary search locations:
+
+***** Implicits defined in current scope
+#+begin_example
+implicit val n: Int = 5
+def add(x: Int)(implicit y: Int) = x+y
+add(5) // 10
+#+end_example
+
+***** explicit imports
+#+begin_example
+import scala.collection.JavaConversions.mapAsScalaMap
+def env = System.getenv() // Java map
+val term = env("TERM") // implicit Java map -> Scala map conversion 
+#+end_example
+
+***** wildcard imports (see the context bound example)
+
+Secondary search locations:
+
+***** companion objects of a type
+        - first, the companion object for the "source" type is looked into. E.g. inside the `object Option` there is an implicit conversion to `Iterable`, so one can call its methods on `Option` or pass `Option` as `Iterable`
+#+begin_example
+for {
+    x <- List(1, 2, 3)
+    y <- Some('x')
+} yield (x, y)
+// Which desugars into
+List(1,2,3).flatMap(x => Some('x').map(y => (x, y)))
+#+end_example
+            - `List.flatMap`, however, requires a `TraversableOnce`, which `Option` is not. The compiler then looks for it in the `Option`'s companion object and finds the conversion to `Iterable`.
+        - second, companion object of the expected type
+            - the method `sorted` takes an implicit `Ordering`. In case of `List(1,2,3).sorted`, the compiler looks inside the `object Ordering` and finds an implicit `Ordering[Int]`.
+        - companion objects of superclasses are also looked into.
+***** implicit scopes of an argument's type
+        - by 'implicit scope' it's meant that all the given rules will be applied to the argument type (its companion object will be searched and so on.).   
+***** implicit scope of type arguments
+        - the implicit scope is now the type arguments for given function
+***** outer objects for nested types
+#+begin_example
+class A(val n: Int) {
+    class B(val m: Int) { require(m < n) }
+}
+
+object A {
+    implicit def bToString(b: A#B) = "B: %d" format b.m
+}
+
+val a = new A(5)
+val b = new a.B(3)
+val s: String = b // s == "B: 3"
+#+end_example
+** Play
+*** Play
+# %toc
+
+Using the `play` command, one can call the framework's functions (e.g.
+`views.html.hello.render("Scala")` without having to run the server.
+There is testability potential here, don't know yet how it all is wired up
+though.
+
+**** Architecture
+
+Based on the MVC model.
+Play runs o JBoss Netty server (a non-blocking Java _New I/O_ -type server).
+Play apps can satisfy the constraints of a REST-style architecture.
+Resources can be identified by URLs (through routes) and manipulated by HTTP
+methods.
+
+***** Ways of app design
+
+****** *Database-centric*, where you start by defining the domain model with database entities and relations
+         - A common approach in enterprise environments, which often view the data model as a fundamental representation of a business domain that will outlive any single software application.
+****** *URL-centric*, where you start by defining the application's HTTP interface. 
+         - Once you have a solid design, you can add a user-interface layer on top of this HTTP interface, and add a model that backs the HTTP resources.
+         - You can create a consistent public API for your application that’s more stable than either the physical data model represented by its model classes, or the user interface generated by its view templates.
+         - Focus is applied to _resource-oriented architecture_.
+****** *UI-centric*, where you start by defining ways in which the user will interact with the application through its GUI.
+         - Mockups play a driving role.
+
+***** Configuration
+
+Play uses the [[https://github.com/typesafehub/config][Typesafe config library]].
+It is possible to modularize the config through using multiple `.conf` files.
+Create a `db-default.conf`, containing your default DB connection information
+and then use `include "db-default.conf"` in your main `application.conf` file.
+
+"Overwriting" a JSON object in the `application.conf` will effectively merge its
+properties with the original one, instead of truly overwriting it.
+
+The configuration file format is specified by the
+[[https://github.com/typesafehub/config/blob/master/HOCON.md][Human-Optimized Config Object Notation]].
+
+Configuration can be overriden from the CLI by using `run -Ddb.default.url=xxx`
+for single values or `run -Dconfig.file=xxx/xxx` for the whole config file.
+A relative path can be used for configs residing within the project, an absolute
+one has to be provided for external configuration files.
+
+The `play.api.Configuration` class provides the API for accessing config
+options.
+
+The `play.api.Application.configuration` is the configuration instance
+for the current application.
+
+Example:
+
+#+begin_example
+import play.api.Play.current
+current.configuration.getString("db.default.url").map {
+    databaseUrl => Logger.info(databaseUrl)
+}
+
+// You can also use getBoolean, getInt etc. - it's type-safe.
+#+end_example
+
+Configuration is structured hierarchically:
+
+#+begin_example
+// Returns an Option[Configuration] object.
+current.configuration.getConfig("db.default").map {
+    databaseConfiguration =>
+        databaseConfiguration.getString("driver").map(Logger.info(_))
+        databaseConfiguration.getString("url").map(Logger.info(_))
+}
+#+end_example
+
+Using custom entries (e.g. `application.revision`):
+
+#+begin_example
+@import play.api.Play.current
+<footer>
+    Revision @current.configuration.getString("application.revision")
+</footer>
+#+end_example
+
+***** Controller
+
+Handles incoming HTTP requests and uses the model and view to build and return a
+response.
+
+Controller methods are called _actions_— Play’s architecture is in fact an MVC
+variant called _action-based MVC_— so you can also think of a controller class
+as a collection of action methods.
+
+Group controllers by entity.
+
+Don't define `var`s in controllers.
+They should be stateless.
+
+Each `Action` in Scala is a `Request[A] => Result` function, where `A` is the
+request body type.
+
+*Only import stuff from the* `play.api` *package*.
+
+
+****** `play.api.mvc.Cookie`— An HTTP cookie: a small amount of data stored on the client and sent with subsequent requests.
+****** `play.api.mvc.Request`— An HTTP request: HTTP method, URL, headers, body, and cookies
+****** `play.api.mvc.RequestHeader`— Request metadata: a name-value pair
+****** `play.api.mvc.Response`— An HTTP response, with headers and a body; wraps a Play Result
+****** `play.api.mvc.ResponseHeader`—Response metadata: a name-value pair
+
+
+****** `play.api.mvc.Action`—A function that processes a client Request and returns a Result
+****** `play.api.mvc.Call`—An HTTP request: the combination of an HTTP method and a URL
+****** `play.api.mvc.Content`—An HTTP response body with a particular content type
+****** `play.api.mvc.Controller`—A generator for Action functions
+****** `play.api.mvc.Flash`—A short-lived HTTP data scope used to set data for the next request
+****** `play.api.mvc.Result`—The result of calling an Action to process a Request,
+****** `play.api.mvc.Session`—A set of string keys and values, stored in an HTTP used to generate an HTTP response cookie
+
+****** Action composition
+
+To avoid code duplication, actions can be composed, since they are just
+functions.
+It's a decorator pattern.
+
+Example:
+#+begin_example
+def list =
+    Authenticated {
+        Cached {
+            Action {
+                // Process request...
+            }
+        }
+    }
+#+end_example
+
+`Authenticated` action is being passed to `Cached` as a parameter, which in turn
+is being passed to the main `Action` that is to constitute the actual work to be
+done.
+
+
+****** Parameter Binding
+
+Play uses binding concepts similar to those in ASP .NET MVC.
+
+Will be discussed in chapter 7.
+
+***** View
+
+Combines dynamic model data with view templates.
+
+If you have high performance requirements for serving static content, the best
+approach is probably to use a cache or load balancer in front of Play,
+instead of avoiding serving the files using Play in the first place.
+
+
+***** Model
+
+The application's domain-specific data and logic.
+Communicates with storage through _Persistence API_.
+
+It is beneficial to represent the model with Scala case classes.
+They can be serialized by the Persistence API.
+
+Play uses the the [[http://workwithplay.com/blog/2013/05/08/persist-data-with-anorm/][Anorm]] persistence library, but it's not a requirement.
+Other ones, such as [[http://www.scalatra.org/2.2/guides/persistence/slick.html][Slick]], can be used.
+
+****** Slick
+[[http://www.scalatra.org/2.2/guides/persistence/slick.html][Slick]] is intended as the go-to Scala persistence API for relational DB access.
+It acts as a kind of ORM by using built-in Scala language features.
+
+Examples:
+
+******* Mapping a database table to a `Product` DAO:
+#+begin_example
+object Product extends Table[(Long, String, String)]("products") {
+    def ean = column[Long]("ean", O.PrimaryKey)
+    def name = column[String]("name")
+    def description = column[String]("description")
+
+    // The projection that defines the columns in the "Table" definition.
+    def * = ean ~ name ~ description
+}
+#+end_example
+******* defining a query on a `Product` object:
+#+begin_example
+val products = for {
+    product <- Product.sortBy(product => product.name.asc)
+} yield (product)
+#+end_example
+To execute the query, you can use the query to generate a list of products in a
+database session:
+#+begin_example
+val url = "jdbc:postgresql://localhost/slick?user=slick&password=slick"
+Database.forURL(url, driver = "org.postgresql.Driver") withSession {
+    val productList = products.list
+}
+#+end_example
+
+**** Jobs
+
+Akka is integrated, so long-running jobs can be scheduled for `Actor`s to
+perform.
+See the `simple-app` example for code.
+
+**** Modularization
+
+Play is modular - there are core modules, custom modules and 3rd party modules.
+
+Examples of 3rd party modules:
+***** _Deadbolt_ - role-based authorization
+***** _Groovy templates_ - Alternative to Scala templates
+***** _PDF_ - PDF output based on HTML templates
+***** _Redis_ - Redis cache implementation
+***** _Sass_ - Sass compilation support
+
+The main Play application should be oriented on the domain model and business
+logic.
+Everything else should be extracted to custom modules. (for SRP, testability,
+maintainability etc.)
+i
+*Example: adding commenting functionality to an application for managing product stocks in a warehouse network.*
+This functionality (as well as the related data) is somewhat independent from
+the domain and has a public interface (UI / API) that's separate from the rest
+of the app.
+
+Related features:
+***** Persistent model classes for comment storage
+***** A UI on the products page for CRUDing comments
+***** A controller, providing an HTTP API for adding and viewing comments
+
+For that, you'd create a new, separate `comments` module, add it as an app
+dependency and finally move the relevant code to the module. This assumes that
+you have already coded up the comments in the main app and want to refactor.
+You can also go module-first, always creating separate modules for different
+functionalities and adding to the main application only when absolutely
+necessary.
+
+***** How to connect modules to the domain
+
+E.g. the obvious model design for product comments includes a direct reference
+from a comment to a product it relates to.
+Such a design would of course make the comments module dependent on the domain
+model, a trait you strive to avoid.
+The solution is to make a weaker link from comments to products, using the app's
+HTTP API. Instead of linking comments directly to the products model, you can
+link comments to an arbitrary application URL, such as a product's details page
+URL.
+
+As long as you identify products by clean, stateless URLs for their details
+pages, it's enough to comment on a page instead of a product.
+
+A similar issue arises in the controller layer when you want to acquire the
+comments for a given product to render them inline within the view template.
+The solution here is to load them separately via AJAX. This AJAX request would
+call the comments controller and receive a JSON response.
+
+    A good rule of thumb is that you can use a separate module whenever possible
+    for functionality that’s orthogonal to your application’s model.
+    Code that doesn’t depend on your model can usually be extracted to a
+    separate independent module, but code that uses your model shouldn’t be in a
+    module because then that module would depend on your application and not be
+    reusable.
+
+If you want to extract functionality that appears to depend on the model,
+consider whether there’s a way to avoid this dependency, or make it a loose
+coupling by using an external reference like the page URL rather than a model
+reference like a product ID.
+
+A module can also include a plugin, which is a class that extends
+`play.api.Plugin` in order to intercept application startup and shutdown events.
+Plugins aren’t specific to modules—a Play application can also include a plugin—
+but they’re especially useful for modules that enhance Play.
+
+**** HTTP API design
+***** Routing
+
+`GET /products controllers.Products.list(page: Int ?= 1)` syntax is used for
+optional parameters.
+
+`GET /products controllers.Products.list(page: Int = 1)` syntax is used for
+fixed parameter values that are not specified in the URL.
+
+*To support slashes in URL parameters*, use:
+`GET /photo/*file controllers.Media.photo(file: String)` (notice the asterisk).
+
+*To alias routes*, use:
+#+begin_example
+GET /product/$ean<\d{13}> controllers.Products.details(ean: Long)
+GET /product/:alias controllers.Products.alias(alias: String)
+#+end_example
+
+*Reverse routing* is nothing more than having Scala objects built based on the
+ route configuration file.
+They serve to provide maintainable URL references that reflect any changes in
+the configuration.
+Each URL of your application shoul optimally occur only once - in the route
+config file.
+
+Reverse controllers are available in the `controllers.routes` class, generated
+by Play.
+
+***** Response handling
+
+You can add custom headers to the response.
+
+Example:
+#+begin_example
+val url = routes.Products.details(product.ean).url
+// /HTTP 201 wuth a 'Location' header
+Created.withHeaders(LOCATION -> url)
+#+end_example
+
+Response types can be overriden, using values from the
+`play.api.http.ContentTypes` trait, which `Controller` extends.
+
+Example:
+#+begin_example
+Ok("""{ "status": "success" }""").as(JSON)
+#+end_example
+
+****** JSON
+
+JSON responses are created from `Map` objects.
+
+Example:
+#+begin_example
+def json = Action {
+    import play.api.libs.json.Json
+    val success = Map("status" -> "success")
+    val json = Json.toJson(success)
+    Ok(json)
+}
+#+end_example
+
+****** Binary data
+
+Creating a binary response is similar to JSON or XML - you just need to add the
+content type yourself.
+
+****** Session
+
+Session data is a `Map[String,String]` which is implemented as an HTTP cookie.
+
+    *Important note:* 
+    The canonical use case for session cookies is to identify the currently
+    authenticated user. In fact, it’s reasonable to argue that if you can 
+    identify the current user using a session cookie, then that should be the
+    only thing you use cookies for, because you can load user-specific data from 
+    a Persistent data model instead.
+
+Example usage:
+#+begin_example
+Ok(results).withSession(
+    request.session + ("search.previous" -> query)
+)
+
+// Then for another request...
+val search = request.session.get("search.previous")
+
+// Clearing a session value
+Ok(results).withSession(
+    request.session - "search.previous"
+)
+#+end_example
+
+****** Flash data
+
+A specific, transient session use case.
+Flash data can be used e.g. to display success/error messages.
+
+To use the _flash scope_ provided by Play:
+#+begin_example
+// set the flash data
+Redirect(routes.Products.flash()).flashing(
+    "info" -> "Product deleted!"
+)
+
+// (somewhere else) acquire the data
+val message = request.flash("info")
+#+end_example
+
+An `(implicit flash: Flash)` parameter can also be used in a view template to
+have implicit access to the _flash scope_.
+
+
+
+** ScalaTest
+#= ScalaTest =
+
+Read the [ScalaDoc](http://www.scalatest.org/scaladoc) for ScalaTest - there is a lot of info there, much of it not covered in the main guide.
+
+`trait Checkpoints` aggregates assertion errors, allowing you to have all the erro messages instead of failing the spec on the first faield test.
+
+During the presentation (JUG), the followign opinion was voiced again:
+
+> If you're writing Scala and have to use mocks, that's a code smell.
+
+This pertains to maintaing purity in tested functions.
+
+`scalatest.fixtures` allows to create data fictures for test which are then injected into `in` blocks.
+You need to extend `fixtures.FlatSpec` instead of just `scalatest.FlatSpec`.
+#+begin_example
+type FixtureParam = yourtype
+def withFixture(test: someTestType): Outcome
+#+end_example
+
+`trait PatienceConfiguration` allows defining the `timeout` and `interval` values for asynchronous code executed within tests.
+This is useful whenutilizing the `whenReady` function (similar to `Await` but async).
+Another use case is the `eventually { ... }` construct, which tries to execute the code block every `interval` ms until `timeout` value has been reached.
+
+Test tagging:
+#+begin_example
+it should "do something" taggedAs IntegrationTest in {
+    ...
+}
+#+end_example
+
+This allows running only a specifiedset of tests - can be used through test configurations.
+
+Object property checking:
+#+begin_example
+person should have (
+    'id(123),
+    'name("test"),
+    ...
+)
+#+end_example
+
+This was compared to a [[lens]].
+
+
+*** lens
+#= Lens =
+
+This topic should be followed up on when you're more qualified to reason about these topics.
+
+SPJ presentation:
+[[https://pdlvimeocdn-a.akamaihd.net/11073/941/195814777.mp4?token2=1426025400_f1ce041424a36f8be91eb40b5a56dbca&aksessionid=6464f9f872ab29c5]]
+
+Lenses in Scalaz:
+http://eed3si9n.com/learning-scalaz/Lens.html
+
+
+In functional programming, lenses are a construct that allow functional, composable access to data structures.
+They were called "jQuery for data types".
+A simple example of a lens would be a function giving you access to the `minutes` portion of a `DateTime` structure.
+
+A lens is a first-class value with a type of `Lens' s a`, where `s` is the container type and `a` is the *focus* type.
+
+Lens composition:
+#+begin_example
+composeL :: Lens' s1 s2
+         -> Lens' s2 a
+         -> Lens' s1 a
+#+end_example
+
+Haskell already supports a similar concept through nested records, but the code for that is quite cumbersome.
+
+More concrete example:
+#+begin_example
+data Person = P { name :: String
+                , addr :: Address
+                , salary :: Int }
+data Address = A { road :: String
+                 , city :: String
+                 , postcode :: String }
+
+setPostcode :: String -> Person -> Person
+setPostcode pc p =
+    set (laddr `composeL` lpostcode) pc p
+}
+#+end_example
+
+We want to have a lens for each field:
+#+begin_example
+data Person = P { name :: String
+                , addr :: Address
+                , salary :: Int }
+lname :: Lens' Person String
+laddr :: Lens' Person Address
+lsalary :: Lens' Person Int
+#+end_example
+
+as well as means to use it for getting or updating values:
+#+begin_example
+view :: Lens' s a -> s -> a
+view :: Lens' s a -> a -> s -> s
+#+end_example
+
+and the aforementioned way of composing them:
+
+#+begin_example
+somposeL :: Lens' s1 s2 -> Lens' s2 a -> Lens' s1 a
+#+end_example
+** Substitution-related
+*** Substitution-related
+
+**** Substitution
+
+Substitution in Scala by default is done as follows:
+***** Pick the left-most operation.
+***** Evaluate its operands.
+***** Apply the operator to the operand values.
+
+The process of stepwise simplification of expressions is called _reduction_.
+
+A function also plays the role of an operator.
+
+Precondition for the following sections:
+
+#+begin_example
+scala> def square(x: Double) = x * x
+square: (Double)Double
+
+scala> def sumOfSquares(x: Double, y: Double) = square(x) + square(y)
+sumOfSquares: (Double,Double)Double
+#+end_example
+
+**** Call-by-value
+
+This is a standard way of doing reduction by the interpreter.
+***** The arguments of a function are evaluated (LTR).
+***** Function application is replaced by the function's RHS.
+***** All formal parameters of the function are replaced by their corresponding actual arguments.
+
+#+begin_example
+  sumOfSquares(3, 2+2)
+→ sumOfSquares(3, 4)
+→ square(3) + square(4)
+→ 3 * 3 + square(4)
+→ 9 + square(4)
+→ 9 + 4 * 4
+→ 9 + 16
+→ 25
+#+end_example
+
+**** Call-by-name
+
+An alternative way of doing reduction
+***** Function application is replaced by the function's RHS.
+***** The arguments of a function are evaluated (LTR).
+***** All formal parameters of the function are replaced by their corresponding actual arguments.
+
+#+begin_example
+  sumOfSquares(3, 2+2)
+→ square(3) + square(2+2)
+→ 3 * 3 + square(2+2)
+→ 9 + square(2+2)
+→ 9 + (2+2) * (2+2)
+→ 9 + 4 * (2+2)
+→ 9 + 4 * 4
+→ 9 + 16
+→ 25
+#+end_example
+
+Scala uses call-by-value by default, but it switches to call-by-name evaluation
+if the parameter type is preceded by `=>`.
+** Traits
+#= Scala - traits =
+
+Instead of abstract class one also often uses the keyword `trait` in Scala.
+Traits are abstract classes that are meant to be added to some other class.
+This might be because a trait adds some methods or fields to an unknown parent
+class.
+For instance, a trait Bordered might be used to add a border to a various
+graphical components.
+Another usage scenario is where the trait collects signatures of some 
+functionality provided by different classes, much in the way a Java interface 
+would work.

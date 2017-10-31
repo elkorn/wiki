@@ -1,0 +1,344 @@
+#+FILETAGS: :vimwiki:
+
+* Node.js
+#= Node.js =
+
+[[Security]]
+
+[[Optimization killers]]
+
+[[Distributed applications]]
+** Security
+*** Node.js - security
+
+**** CSRF protection
+#+begin_src javascript
+app.use(express.csrf());
+app.use(function(req, res, next) {
+    res.locals.csrftoken = req.csrfToken();
+    next();
+}
+#+end_src
+
+And then somewhere in the HTML:
+#+begin_example
+<input type="hidden" name="_csrf" value="{{csrftoken}}">
+#+end_example
+
+***** Express CSRF middleware ignores verifying tokens on HTTP `GET`, `OPTIONS` and
+`HEAD` requests.
+***** Ensure `GET` APIs are non-mutating.
+
+**** Preventing internal implementation disclosure
+***** Remove the `X-Powered-By` header.
+#+begin_src javascript
+app.disable("x-powered-by");
+#+end_src
+
+***** Change the default session cookie name (from `connect.sid`)
+#+begin_src javascript
+app.use(express.session({
+    secret: "13375UP4H4X0R",
+    key: "yourCusomtKey",
+    /* ... */
+});
+#+end_src
+
+**** XSS protection
+***** It's a myth that template libraries handle output encoding by default, making the application safe from XSS attacks.
+***** Encode untrusted data for _correct context_, depending on where it will reside.
+        - HTML Body
+            - & -> `&amp;`
+            - < -> `&lt;`
+            - > -> `&gt;`
+            - " -> `&quot;`
+            - ' -> `&#x27;`
+            - / -> `&#x2F;`
+        - HTML attributes
+            - e.g. `<input type="text" name="firstname" value="{untrusted}">`
+            - Non-alphanumeric chars -> `&#xHH;` format
+        - CSS
+            - e.g. `<div style="width={untrusted};">contents</div>`
+            - Untrusted ata -> CSS hex encoding (`\HH` or `\HHHHHH`)
+        - JS
+            - e.g. `<script>var firstName="{untrusted}"</script>`
+            - Non-alphanumeric chars -> `\uXXXX;` unicode format
+        - URL
+            - e.g. `<a href="{untrusted}">Show details</a>`
+            - Untrusted data -> `encodeURI()`
+        - URL parameter
+            - e.g. `<a href="/account?id={untrusted}">Show details</a>`
+            - Untrusted data -> `encodeURIComponent()`
+***** Use [[https://www.owasp.org/index.php/Category:OWASP_Enterprise_Security_API][proven utilities]] for encoding.
+***** DOM-based XSS: Encode both on the server and client side.
+***** Add `HTTPOnly`, `Secure` attributes on the Session cookie:
+#+begin_src javascript
+app.use(express.session({
+    secret: "s3Cur3",
+    key: "sessionId",
+    cookie: {
+        httpOnly: true,
+        secure: true
+    }
+});
+#+end_src
+***** Add *content security policy* header
+#+begin_src javascript
+var policy = {
+    defaultPolicy: {
+        "default-src": ["'self'"],
+        "img-src": ["static.example.com"]
+    }
+}
+
+helmet.csp.policy(policy);
+#+end_src
+
+**** HTTP parameter pollution
+Express populate HTTP request parameters with the same name in an array.
+#+begin_example
+// POST firstname=John&firstname=Mary
+req.body.firstname
+// => ["John", "Mary"]
+#+end_example
+
+This mechanism can be exploited by an attacker to:
+***** trigger type errors on the server (uncaught errors crash it and cause DoS)
+***** modify application behavior (e.g. store arrays in the DB)
+***** bypass input validation applied on strings in the code, WAF, browser filters
+#+begin_example
+["John", "John"] + "Doe"
+// => "John, John Doe"
+#+end_example
+
+Countermeasures:
+***** *Check the expected type* as a part of input validation.
+***** Incorporate *input fuzzing* into test suites to discover problems.
+***** Implement a *robust error handling mechanism*, using `try/catch`, `domain` and `cluster`.
+
+**** Regular Expression Denial of Service (REDoS)
+Evil regexps can take exponential execution time when applied to certain
+non-matching inputs. By default, regexps get executed in the event loop thread,
+so it can be exploited for DoS attacks.
+
+Evil regexp pattern requiremenets:
+***** Grouping with repetition
+***** Inside repeated group, repetition (`(a+)+`) or alternation with overlapping (`(a|aa)+`)
+***** Example: Input pattern `aaaaaaaaaaaaa!` for a commonly used URL validation regexp
+        - 30 input characters take 6sec, 40 take 3hr 46min.
+
+
+Review the regexps in the code for evil patterns.
+Do not use user supplied inputs as regexps.
+
+**** Don't use eval
+
+Indirect forms of `eval`:
+#+begin_example
+setInterval(String, number);
+setTimeout(String, number);
+new Function(String);
+#+end_example
+
+**** Avoid command injection
+
+`child_process.exec` is actually a `bash` interpreter, not a program launcher.
+Do not pass user input to `child_process.exec` to avoid potential commands being injected through subshells.
+Using `child_process.execFile` is a safe alternative.
+
+**** Temp files
+
+Instead of creating temporary files (to avoid disk space usage) use Streams.
+
+**** Cookie theft
+
+Any third-party javascript can read cookies on the page it's being run.
+To prevent this, set the `HttpOnly` flag on cookies.
+
+**** Content Security Policy
+Introduce a security poilicy for your domain through an HTTP header e.g. `Content-Security-Policy: default-src 'self' *.home.com`.
+
+**** Tools
+***** Helmet
+https://github.com/evilpacket/helmet
+Helmet provides middleware for securing a node.js application.
+
+***** npm shrinkwrap
+Locks down dependency versions recursively - useful for making releases.
+
+***** retire.js
+retire.js detects module versions with known vulnerabilities (both node and browser modules).
+
+** Optimization killers
+*** Node.js - optimization killers
+
+Example code for tracing opts/deopts:
+#+begin_example
+//Function that contains the pattern to be inspected (using with statement)
+function containsWith() {
+    return 3;
+    with({}) {}
+}
+
+function printStatus(fn) {
+    switch(%GetOptimizationStatus(fn)) {
+        case 1: console.log("Function is optimized"); break;
+        case 2: console.log("Function is not optimized"); break;
+        case 3: console.log("Function is always optimized"); break;
+        case 4: console.log("Function is never optimized"); break;
+        case 6: console.log("Function is maybe deoptimized"); break;
+    }
+}
+
+//Fill type-info
+containsWith();
+
+# %OptimizeFunctionOnNextCall(containsWith);
+//The next call
+containsWith();
+
+//Check
+printStatus(containsWith);
+#+end_example
+
+The following flags have to be applied for the code to work:
+
+#+begin_example
+$ node --trace_opt --trace_deopt --allow-natives-syntax test.js
+Function is not optimized
+#+end_example
+
+To verify that it works, run:
+
+#+begin_example
+$ node --trace_opt --trace_deopt --allow-natives-syntax test.js
+[optimizing 000003FFCBF74231 <JS Function containsWith (SharedFunctionInfo 00000000FE1389E1)> - took 0.345, 0.042, 0.010 ms]
+Function is optimized
+#+end_example
+
+**** Unsupported syntax
+Some constructs are currently not optimizable:
+
+***** Generator functions
+***** Functions that contain a `for-of` statement
+***** Functions that contain a `try-catch` statement
+***** Functions that contain a `try-finally` statement
+***** Functions that contain a compound `let` assignment
+***** Functions that contain a compound `const` assignment
+***** Functions that contain object literals that contain `__proto__`, or `get` or `set` declarations.
+
+Likely never optimizable:
+***** Functions that contain a `debugger` statement
+***** Functions that call literally `eval()`
+***** Functions that contain a `with` statement
+
+Using one of these makes the *entire* function unoptimizable.
+`eval` and `with` can cause deopts of other functions, not only the ones they're
+contained in, since they cause dynamic scoping of everything in the exec path.
+
+Even if a construct is not reachable by any practical execution path, it still
+causes a function to be unoptimizable.
+#+begin_example
+// This will cause a deopt anyway.
+if (DEVELOPMENT) {
+    debugger;
+}
+#+end_example
+
+The workaround is to minimize the scope of unoptimizable statements - create
+separate local functions that contain nothing else but them.
+This makes sure that as small a part of the code as possible is deoptimized.
+
+**** Case of `arguments`
+
+Don't assign to a defined parameter while also using `arguments`.
+Instead, save the parameter to a new variable.
+
+*Leaking the object*
+
+All of the following cases leak `arguments`:
+#+begin_example
+function leaksArguments1() {
+    return arguments;
+}
+
+function leaksArguments2() {
+    var args = [].slice.call(arguments);
+}
+
+function leaksArguments3() {
+    var a = arguments;
+    return function() {
+        return a;
+    };
+}
+#+end_example
+
+A workaround is to create a new array inline and use a `for` loop to fill it up
+with arguments.
+It's quite tedious, since it cannot be abstracted.
+A more sensible alternative would be to create a macro as a build step, e.g.:
+#+begin_example
+function doesntLeakArguments() {
+    INLINE_SLICE(args, arguments);
+    return args;
+}
+// which would expand to this:
+function doesntLeakArguments() {
+    var $_len = arguments.length;var args = new Array($_len); for(var $_i = 0; $_i < $_len; ++$_i) {args[$_i] = arguments[$_i];}
+    return args;
+}
+#+end_example
+
+*Safe usage*
+
+Only use:
+***** `arguments.length`
+***** `argumentsTODO` where `i` is always a valid integer index into the `arguments`
+***** Never use `arguments` directly without `.length` or `TODO` (STRICTLY `x.apply(y, arguments)` is ok, nothing else is, e.g. `.slice`. `Function#apply` is special)
+
+**** switch
+Have under 128 case statements, more than that causes a deopt.
+
+**** For-in
+Generally, use `Object.keys` instead.
+There are multiple cases of `for-in` to remember and it's not worth it.
+** Distributed applications
+*** Node.js - distributed applications
+
+**** Using the `recluster` module
+
+Recluster builds on the internal clustering (0.10's `Cluster`) capabilities of node.js.
+It also adds features like exponential back-off and hot reloading.
+
+Example code:
+#+begin_example
+var cluster = recluster("/path/to/worker.js", {
+    workers: 4,
+    backoff: 10
+});
+cluster.run();
+#+end_example
+
+It is important to have the application encapsulated in a domain and propagate
+its exceptions to explicitly kill workers that have failed instead of leaving
+them in an undefined state.
+
+#+begin_example
+var app = domain.create();
+app.on("error", function(err) {
+    cluster.worker.disconnect();
+});
+app.run(function() {
+    http.createServer(function(req, res) {
+        res.end("Hello World
+");
+    }).listen(8000);
+});
+#+end_example
+
+Inter-process communication does not scale in node.js, especially when dealing
+with an appliaction distributed over multiple servers.
+
+The solution for this is to use a state backend (persistence layer).
+An example would be the [[https://github.com/mranney/node_redis][node_redis client]].

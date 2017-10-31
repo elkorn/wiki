@@ -1,0 +1,71 @@
+#+FILETAGS: :vimwiki:
+
+* Kernelization
+#= MSc - Kernelization =
+
+Kernelization makes algorithms more efficient by a preprocessing stage, where
+the inputs are replaced by a smaller one, called a _kernel_.
+
+The result of solving a problem on the kernel should either be the same as on
+the original input, or be easily transformable to it.
+
+Kernelization is often achieved by applying a set of reduction rules, cutting
+away parts of the instance that are easy to handle.
+
+It is often possible to find a kernel with guaranteed bounds on the size of a
+kernel can be found in polynomial time ($O(n^k)$).
+When it is possible, it results in a fixed-parameter tractable algorithm.
+Its running time is then the sum of the kernelization step (polynomial) and the
+time to solve the kernel (polynomial, but bounded by the parameter).
+
+*Input*: an undirected graph $G$ and a number $k$.
+
+*Output*: A set of at most $k$ vertices that includes the endpoint of every edge
+in the graph. If such a set does not exist, a failure exception has to be
+thrown.
+
+This problem is NP-hard, meaning it cannot be solved in polynomial time unless
+[[P=NP]].
+
+However, the following _reduction rules_ m may be used to kernelize it:
+
+** P=NP
+#= P=NP =
+
+The general class of questions for which some algorithm can provide an answer in
+polynomial time is called $P$.
+
+For some questions there is no known way to find an answer quickly, but given a
+ready-made answer, it may be possible to verify its correctness quickly.
+
+The class of questions for which an answer can be _verified_ in polynomial time
+is called $NP$.
+
+$P=NP$ is really a question. If it was true, it would mean that problems
+verifiable in polynomial time would also be solvable in polynomial time.
+If $P
+eq NP$ was true, it would mean that there exist problems answers for
+which can be verified in polynomial time, but they cannot be solved as fast.
+** [[Vertex cover problem kernelization by S.Buss]] (basic)
+*** Vertex cover problem kernelization by S.Buss
+#= VC kernelization by S.Buss =
+
+**** If $v$ is a vertex of degree greater than $k$, remove $v$ from the graph and decrease $k$ by one. Every vertex cover of size $k$ must contain $v$, since otherwise too many of its neighbors would have to be picked to cover the incident edges. Thus, *an additional vertex cover for the original graph may be formed from a cover of the reduced problem by adding $v$ back to the cover*.
+**** If $v$ is an isolated vertex, remove it. An isolated vertex cannot cover any edges, so it cannot be a part of a vertex cover.
+**** If more than $k^2$ edges remain in the graph and neither of the previous two rules can be applied, then the graph cannot contain a vertex cover of size $k$. For, after eliminating all vertices of degree greater than $k$, each remaining vertex can only cover at most $k$ edges and a set of $k$ vertices could only cover at most $k^2$ edges. In this case, the graph may be replaced by the complete graph $K_{k+1}$, which also has no $k$-vertex cover.
+
+An algorithm applying these rules immediately until no more reductions are
+possible terminates with a kernel of at most $k^2$ edges and $2k^2$ vertices.
+(because there are no isolated vertices left and each edge connects max. 2
+vertices)
+
+This algorithm can be implemented in linear time.
+
+After that, the vertex cover problem may be solved using a brute force search
+algorithm, testing whether each subset of the kernel is a covert of the kernel.
+
+The problem can then be solved efficiently for small $k$, for a graph with
+$n$ vertices and $m$ edges ($O(2^{k^2}+n+m)$).
+
+** [[Linear program relaxation]]
+** [[crown reduction + alternating path arguments]]

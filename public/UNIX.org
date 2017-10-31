@@ -1,0 +1,198 @@
+#+FILETAGS: :vimwiki:
+
+* UNIX
+#= UNIX =
+
+[[ACLs]]
+
+[[CentOS]]
+
+[[Process-related files and tree]]
+
+[[Pulseaudio too silent]]
+
+[[Size of a directory]]
+
+[[UnixAsIDE]]
+
+[[User management]]
+** ACLs
+#= UNIX - ACLs =
+
+ACLs allow automatically defining permissions for files created within a directory.
+
+(Do they also affect permissions of files moved in there?)
+
+ACLs are displayed using the `getfacl` command.
+#+begin_src bash
+$ getfacl dir
+# file: dir
+# owner: agruen
+# group: suse
+user::rwx
+group::r-x
+other::---
+#+end_src
+
+Granting a user permissions:
+
+#+begin_src bash
+$ setfacl -m user:joe:rwx dir
+#+end_src
+
+Set a default ACL for a group:
+#+begin_src bash
+$ setfacl -d -m group:toolies:r-x dir
+$ getfacl --omit-header dir
+user::rwx
+user:joe:rwx
+group::r-x
+mask::rwx
+other::---
+default:user::rwx
+default:group::r-x
+default:group:toolies:r-x
+default:mask::r-x
+default:other::---
+#+end_src
+** CentOS
+*** CentOS
+
+**** Disable iptables
+
+For a local dev machine (Vagrant) it's useful to disable the firewall.
+
+#+begin_example
+# service iptables save
+# service iptables stop
+# chkconfig iptables off
+#+end_example
+** Process-related files and tree
+#= UNIX - Process-related files and tree =
+
+`lsof -a -p <pid>` - display all files used by a specific process. Can use this with a process name like so: `lsof -a -p $(pgrep <procname>)`.
+
+Check the process tree (what was run by what): `pstree`.
+** Pulseaudio too silent
+Pluseaudio too silent
+
+Check `pavucontrol` or `ponymix` whether PA is not silenced.
+If not, run `alsamixer -c 0` and see if the card is not silenced in ALSA before hitting PA.
+** Size of a directory
+#= UNIX - Size of a directory =
+
+*** `du -h` – formats sizes according to kilo, mega, and gigabytes.
+*** `du -hc` – produces a line with the word total at the end
+*** `du -hcs` – skips displaying size for sub-directories.
+
+** UnixAsIDE
+*** Unix as IDE
+(via http://blog.sanctum.geek.nz/series/unix-as-ide/ )
+
+The main parts of this are:
+
+**** File and project management — ls, find, grep/ack, bash
+**** Text editor and editing tools — vim, awk, sort, column
+**** Compiler and/or interpreter — gcc, perl
+**** Build tools — make
+**** Debugger — gdb, valgrind, ltrace, lsof, pmap
+**** Version control — diff, patch, svn, git
+
+**** Files
+***** Listing
+`ls`:
+
+-`t` — List files in order of last modification date, newest first. This is useful for very large directories when you want to get a quick list of the most recent files changed, maybe piped through head or sed 10q. Probably most useful combined with -l. If you want the oldest files, you can add -r to reverse the list.
+-`X` — Group files by extension; handy for polyglot code, to group header files and source files separately, or to separate source files from directories or build files.
+-`v` — Naturally sort version numbers in filenames.
+-`S` — Sort by filesize.
+-`R` — List files recursively. This one is good combined with -l and pipedthrough a pager like less.
+
+Open the results in `vim`:
+
+#+begin_example
+$ ls -XR | vim -
+#+end_example
+
+***** Finding
+
+****** `find -name '*.c'` — Find files with names matching a shell-style pattern. Use `-iname` for a case-insensitive search.
+****** `find -path '*test*'` — Find files with paths matching a shell-style pattern. Use `-ipath` for a case-insensitive search.
+****** `find -mtime -5` — Find files edited within the last five days. You can use `+5` instead to find files edited before five days ago.
+****** `find -newer server.c` — Find files more recently modified than `server.c`.
+****** `find -type d` — Find directories. For files, use -type f; for symbolic links, use `-type l`.
+****** `ls` — Provide an `ls -l` style listing, as above
+****** `delete` — Delete matching files
+****** `exec` — Run an arbitrary command line on each file, replacing `{}` with the appropriate filename, and terminated by `\;;` for example:
+#+begin_example
+$ find -name '*.c' -exec vim {} +
+#+end_example
+
+***** Searching
+`grep`:
+****** `-R`: searches the current directory tree recursively for anything matching the given string
+****** `-i`: case insensitive
+****** `-l`: print just the list of files containing the matches
+****** `-v`: exclude a file/directory from the search
+
+`ack` and `ag` are alternatives for `grep` which ignore VCS stuff by default as well as allow using Perl-compatible regexps.
+
+
+**** Building
+
+`make`: 
+
+Canonical usage:
+
+#+begin_example
+CC = gcc
+OBJECTS = main.o example.o library.o
+BINARY = example
+
+all: example
+
+example: $(OBJECTS)
+    $(CC) $(OBJECTS) -o $(BINARY)
+
+clean:
+    rm -f $(BINARY) $(OBJECTS)
+
+install: example
+    cp $(BINARY) /usr/bin
+#+end_example
+
+More general usage examples:
+
+#+begin_example
+icons: create.png read.png update.png delete.png
+
+create.png: create.svg
+    convert create.svg create.raw.png && \
+    pngcrush create.raw.png create.png
+
+read.png: read.svg
+    convert read.svg read.raw.png && \
+    pngcrush read.raw.png read.png
+
+update.png: update.svg
+    convert update.svg update.raw.png && \
+    pngcrush update.raw.png update.png
+
+delete.png: delete.svg
+    convert delete.svg delete.raw.png && \
+    pngcrush delete.raw.png delete.png
+#+end_example
+** User management
+*** UNIX - User management
+
+**** List the active X sessions
+
+#+begin_example
+# who -u
+root     tty1         Jun 14 05:54 00:03        9353
+mat      :0           Jun 14 05:54   ?          9391
+mat      pts/1        Jun 14 05:55   .          9538
+#+end_example
+
+You can use `kill` to log each session out- the last number in each line is its
+PID.

@@ -1,0 +1,355 @@
+#+FILETAGS: :vimwiki:
+
+* MSc
+#= MSc =
+
+[[Topic]]
+
+[[Vertex cover problem]]
+
+[[Kernelization]]
+
+[[Parameterized algorightms]]
+
+[[How to write a paper]]
+** Topic
+*** MSc - Topic
+
+**** Parameterized computational complexity
+
+***** Opis
+
+W klasie NP istnieją problemy, które wymagają czasu wykładniczego względem
+rozmiaru danych wejściowych $n$.
+Można je jednak rozwiązać w czasie wielomianowym względem $n$ oraz wykładniczym
+(lub gorszym) względem pewnego parametru $k$ charkateryzującego 'trudność'
+danych wejściowych. Jeśli $k$ jest ograniczone, to problemy te da sie rozwiązać
+w rozsądnym czasie, mimo że należą do klasy trudnorozwiązywalnych.
+
+Bardziej formalnie, parametryzowany problem $P$ jest rozwiązywalny przy
+stałym $k$ (ang. fixed-parameter tractable, FPT),
+jeśli da się go rozwiązać w czasie $f(k)n^c$, gdzie $f$ jest dowolną funkcją $k$,
+a $c$ stałą.
+
+Celem pracy jest zaimplementowanie algorytmów oraz dokonanie badań
+eksperymentalnych rowiązywania wybranych problemów FPT, np. problemu pokrycia
+wierzchołkowego (ang. vertex cover problem).
+
+***** Plan pracy
+
+****** Studia literaturowe.
+****** Wybór problemów FPT.
+****** Opracowanie algorytmów, implementacja, badania eksperymentalne.
+****** Sformulowanie wniosków.
+
+***** Literatura
+
+****** Downey R.G., Fellows M.R., Parameterized complexity, Springer 1999.
+****** Chen J., Kanj A., Xia G., Improved upper bounds for vertex cover, Theor. Comput. Sci., 411 (40-42):3736-3756, 2010.
+** Vertex cover problem
+*** MSc - Vertex cover problem
+
+**** What is a graph?
+
+A triple set:
+***** vertices $V(G)$
+***** edges $E(G)$
+***** relations $E(G)ightarrow V(G)$
+
+Possibilities:
+***** loop
+***** finite/infinite graph
+***** complete graph
+      - for each pair of vertices there is an edge
+      - $K_n$ for $n$ vertices
+      - for $\left|V(G)ight|=n$ vertices 
+    there are $egin{pmatrix} n\2 nd{pmatrix}$ edges possible
+
+$H$ is a subgraph of $G$: $V(H) \subseteq V(G), E(H) \subseteq E(G)$, the
+endpoints in $H$ are assigned the same as in $G$. (This is really intuitive - 
+consider the name *subgraph*)
+
+$H$ is an induced subgraph of $G$ on $S$, where $S \subseteq V(G)$: 
+$V(H) = S$ and $E(H)$ is the set of edges of $G$ such that both the endpoints 
+belong to $S$.
+
+(If an edge of the selected subgraph does not exist in the original graph, you
+draw it anyway - this is an induced subgraph.)
+
+A graph is *connected* if each of its vertices belongs to a path.
+A *path* connects any vertex with a selected one.
+
+**** Isomorphism
+
+An Isomorphism from a simple graph $G$ to a simple graph $H$ is a bijection
+$f: V(G) ightarrow V(H)$ such that $(u, v) \in E(G)$ if and only if
+$(f(u), f(v)) \in E(H)$
+
+What it means that vertices of one graph can be mapped to vertices of another
+one, based on how they are connected.
+(example - two identical graphs, but drawn differently)
+
+**** Acyclic graph
+
+A graph without any cycles is an *acyclic* graph.
+
+A *tree* is an acyclic connected graph.
+
+A *forest* is an acyclic disconnected graph.
+
+**** Bipartite graph
+
+Graph $g$ is *bipartite* if $V(G)$ is the union of two disjoint (possibly empty)
+independent sets called *partite sets* of $G$.
+
+A subset $S \in V(G)$ is an independent set if the included subgraph on $S$
+contains no edges. That means a subset of vertices that are not directly
+connected.
+
+If a graph is cyclic, it can be a bipartite graph only if the cycle is even
+(includes an even number of vertices).
+
+A tree is a bipartite graph.
+
+A complete graph can be bipartite - it is denoted as $K_{n,m}$ where $n,m$ are
+the number of vertices in each partite set.
+
+**** Vertex cover
+
+A set $S \subseteq V(G)$ is a vertex cover of $G$ (of the edges in $G$) if every
+edge of $G$ is incident with a vertex in $S$.
+
+A vertex cover of the minimum cardinality is called a *minimum vertex cover*,
+denoted as $MVC(G)$.
+
+What it means is that every edge touches at least one of the vertices belonging
+to the cover.
+
+*Q:* What is the cardinality of MVC in the complete graph $K_n$?
+
+$n-1$
+
+*Q:* What is the cardinality of MVC in the complete bipartite graph $K_{m,n}$?
+
+$min(m,n)$. If it would be possible to do it with less than that, there would
+have to exist a vertex that is not a part of the cover.
+
+*Q:* What is the cardinality of MVC in an odd cycle $C_n$?
+
+$\lceilrac{n}{2}ceil$. It's not possible to do with less, because the degree
+of every vertex is 2.
+
+*Q:* What is the cardinality of MVC in an even cycle $C_n$?
+
+$rac{n}{2}$. It's not possible to do with less, because the degree of every
+vertex is 2.
+
+**** Independence/stability number
+
+An *independent set* or *stable set* is a set of vertices in a graph, no two of
+which are adjacent.
+
+The cardinality of a biggest independent set in $G$ is called the independence
+number (or a stability number) of $G$ and is denoted by $lpha(G)$.
+
+$lpha(K_n)=1$
+
+$lpha(K_{m,n})=max(m,n)$
+
+For an odd cycle: $lpha(C_n)=\left\lfloorrac{n}{2}ightfloor$
+
+For an even cycle: $lpha(C_n)=rac{n}{2}$
+
+***** Relations between $\left| MVC(G) ight|$ and $lpha(G)$:
+
+Removing a vertex cover from $G$, the rest is an independent set.
+
+If we remove $MVC$ from $G$, the rest, i.e. $V-MVC$ is an independent set.
+
+So, $lpha(G) \ge n - \left| MVC(G) ight|$.
+Thus, $\left| MVC(G) ight| \ge n - lpha(G)$.
+
+Similarly, if we remove any independent set from $G$, the rest is a vertex
+cover, and so $\left|MVC(G)ight|\le n-lpha(G)$.
+
+Thus, we get $\left|MVC(G)ight|=n-lpha(G)$.
+
+If we denote $-MVC(G)$ as $eta(G)$, then we have $eta(G)+lpha(G)=n$.
+
+
+** Kernelization
+#= MSc - Kernelization =
+
+Kernelization makes algorithms more efficient by a preprocessing stage, where
+the inputs are replaced by a smaller one, called a _kernel_.
+
+The result of solving a problem on the kernel should either be the same as on
+the original input, or be easily transformable to it.
+
+Kernelization is often achieved by applying a set of reduction rules, cutting
+away parts of the instance that are easy to handle.
+
+It is often possible to find a kernel with guaranteed bounds on the size of a
+kernel can be found in polynomial time ($O(n^k)$).
+When it is possible, it results in a fixed-parameter tractable algorithm.
+Its running time is then the sum of the kernelization step (polynomial) and the
+time to solve the kernel (polynomial, but bounded by the parameter).
+
+*Input*: an undirected graph $G$ and a number $k$.
+
+*Output*: A set of at most $k$ vertices that includes the endpoint of every edge
+in the graph. If such a set does not exist, a failure exception has to be
+thrown.
+
+This problem is NP-hard, meaning it cannot be solved in polynomial time unless
+[[P=NP]].
+
+However, the following _reduction rules_ m may be used to kernelize it:
+
+*** P=NP
+#= P=NP =
+
+The general class of questions for which some algorithm can provide an answer in
+polynomial time is called $P$.
+
+For some questions there is no known way to find an answer quickly, but given a
+ready-made answer, it may be possible to verify its correctness quickly.
+
+The class of questions for which an answer can be _verified_ in polynomial time
+is called $NP$.
+
+$P=NP$ is really a question. If it was true, it would mean that problems
+verifiable in polynomial time would also be solvable in polynomial time.
+If $P
+eq NP$ was true, it would mean that there exist problems answers for
+which can be verified in polynomial time, but they cannot be solved as fast.
+*** [[Vertex cover problem kernelization by S.Buss]] (basic)
+**** Vertex cover problem kernelization by S.Buss
+#= VC kernelization by S.Buss =
+
+***** If $v$ is a vertex of degree greater than $k$, remove $v$ from the graph and decrease $k$ by one. Every vertex cover of size $k$ must contain $v$, since otherwise too many of its neighbors would have to be picked to cover the incident edges. Thus, *an additional vertex cover for the original graph may be formed from a cover of the reduced problem by adding $v$ back to the cover*.
+***** If $v$ is an isolated vertex, remove it. An isolated vertex cannot cover any edges, so it cannot be a part of a vertex cover.
+***** If more than $k^2$ edges remain in the graph and neither of the previous two rules can be applied, then the graph cannot contain a vertex cover of size $k$. For, after eliminating all vertices of degree greater than $k$, each remaining vertex can only cover at most $k$ edges and a set of $k$ vertices could only cover at most $k^2$ edges. In this case, the graph may be replaced by the complete graph $K_{k+1}$, which also has no $k$-vertex cover.
+
+An algorithm applying these rules immediately until no more reductions are
+possible terminates with a kernel of at most $k^2$ edges and $2k^2$ vertices.
+(because there are no isolated vertices left and each edge connects max. 2
+vertices)
+
+This algorithm can be implemented in linear time.
+
+After that, the vertex cover problem may be solved using a brute force search
+algorithm, testing whether each subset of the kernel is a covert of the kernel.
+
+The problem can then be solved efficiently for small $k$, for a graph with
+$n$ vertices and $m$ edges ($O(2^{k^2}+n+m)$).
+
+*** [[Linear program relaxation]]
+*** [[crown reduction + alternating path arguments]]
+** Parameterized algorightms
+#= MSc - Parameterized algorithms =
+
+[[J.Chen, I.Kanj, G.Xia]]
+[[A. Dharwadker]]
+*** J.Chen, I.Kanj, G.Xia
+This is an $O(1.2738^k + kn)$-time polynomial-space parameterized algorithm.
+
+Given a graph $G$ and a parameter $k$, decied if $G$ has a vertex cover of at
+most $k$ vertices.
+
+I'll come back to this after reading the basics (kernelization).
+*** A. Dharwadker
+**** Parameterized algorithms- A. Dharwadker
+
+http://www.dharwadker.org/vertex_cover/
+
+***** Notes
+
+The pessimistic complexities are being computed for $k=1$.
+
+****** Procedure 3.1
+The procedure removes all removable vertices from a vertex cover, thus producing
+a minimal vertex cover. It does so by performing a straightforward check through
+all of the neighbors of each vertex belonging to the cover. 
+
+****** Procedure 3.2
+
+The clue of this procedure is the fact that to create a vertex cover, a choice
+has to be made on every step - whether to take a vertex into the cover or all of
+its neighbors. Since procedure 3.1 follows a hardcoded path, it is possible that
+the resulting cover is not as small as it can be. This procedure tries to
+minimize it further. Finding a vertex which has only a single neighbor outside
+of the cover allows changing its structure a bit. After doing that, 
+Procedure 3.2 performs Procedure 3.1 on the modified cover - expressing the 
+possibility of achieving a cover of a smaller size than the one resulting from
+Procedure 3.1.
+
+****** Algorithm
+
+******* Part I
+
+This part strives to extract a minimal vertex cover (of size $k$ or less) from
+given graph.
+
+******* Part II
+
+This part is meant to be used for very complicated graphs.
+At the point of entering Part II, it is certain that Part I did not find
+a minimal vertex cover of size $k$ or less.
+This part of the algorithm takes each pair of extracted minimal vertex covers
+and performs a union operation on them. Then, tries to extract a minimal vertex
+cover from thusly achieved construct.
+
+An example of a graph for which can be a graph from
+_Klaus D. Witzel, Personal Communication, 2006._ :
+
+    Take thirty disjoint cliques on fifteen vertices and connect random pairs of cliques by random edges. Shuffle the labels of the vertices well so that the original cliques are hidden.
+
+An exemplary graph:
+
+{{http://www.dharwadker.org/vertex_cover/fig20.gif}}
+** How to write a paper
+*** MSc- How to write a paper
+
+**** Labelling statements
+
+*Definition* — a precise and unambiguous description of the meaning of a
+mathematical term. 
+It characterizes the meaning of a word by giving all the properties and only
+those properties that must be true.
+
+*Theorem* — a mathematical statement that is proved using rigorous mathematical
+reasoning.
+In a mathematical paper, the term theorem is often reserved for the most
+important results.
+
+*Lemma* — a minor result whose sole purpose is to help in proving a theorem.
+It is a stepping stone on the path to proving a theorem.
+Very occasionally lemmas can take on a life of their own 
+(Zorn’s lemma, Urysohn’s lemma, Burnside’s lemma, Sperner’s lemma).
+
+*Corollary* — a result in which the (usually short) proof relies heavily on a
+given theorem (we often say that “this is a corollary of Theorem A”).
+
+*Proposition* — a proved and often interesting result, but generally less 
+important than a theorem.
+
+*Conjecture* — a statement that is unproved, but is believed to be true 
+(Collatz conjecture, Goldbach conjecture, twin prime conjecture).
+
+*Claim* — an assertion that is then proved.
+It is often used like an informal lemma.
+
+*Axiom/Postulate* — a statement that is assumed to be true without proof.
+These are the basic building blocks from which all theorems are proved (Euclid’s five postulates, Zermelo-Fraenkel axioms, Peano axioms).
+
+*Identity* — a mathematical expression giving the equality of two
+(often variable) quantities (trigonometric identities, Euler’s identity).
+
+*Paradox* — a statement that can be shown, using a given set of axioms and 
+definitions, to be both true and false.
+Paradoxes are often used to show the inconsistencies in a flawed theory
+(Russell’s paradox).
+The term paradox is often used informally to describe a surprising or
+counterintuitive result that follows from a given set of rules
+(Banach-Tarski paradox, Alabama paradox, Gabriel’s horn).

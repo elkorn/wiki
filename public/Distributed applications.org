@@ -1,0 +1,41 @@
+#+FILETAGS: :vimwiki:
+
+* Distributed applications
+** Node.js - distributed applications
+
+*** Using the `recluster` module
+
+Recluster builds on the internal clustering (0.10's `Cluster`) capabilities of node.js.
+It also adds features like exponential back-off and hot reloading.
+
+Example code:
+#+begin_example
+var cluster = recluster("/path/to/worker.js", {
+    workers: 4,
+    backoff: 10
+});
+cluster.run();
+#+end_example
+
+It is important to have the application encapsulated in a domain and propagate
+its exceptions to explicitly kill workers that have failed instead of leaving
+them in an undefined state.
+
+#+begin_example
+var app = domain.create();
+app.on("error", function(err) {
+    cluster.worker.disconnect();
+});
+app.run(function() {
+    http.createServer(function(req, res) {
+        res.end("Hello World
+");
+    }).listen(8000);
+});
+#+end_example
+
+Inter-process communication does not scale in node.js, especially when dealing
+with an appliaction distributed over multiple servers.
+
+The solution for this is to use a state backend (persistence layer).
+An example would be the [[https://github.com/mranney/node_redis][node_redis client]].

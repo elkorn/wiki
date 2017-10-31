@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-10-31 Tue 15:05 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title></title>
+<meta name="generator" content="Org mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/org"> HOME </a>
+</div><div id="content">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org82ec6d4">1. Plan for learning Functional Programming</a>
+<ul>
+<li><a href="#org69a7c95">1.1. Actions</a>
+<ul>
+<li><a href="#orgd7e4b77">1.1.1. <span class="done DONE">DONE</span> ScalaZ 0</a></li>
+<li><a href="#org4404d55">1.1.2. <span class="done DONE">DONE</span> ScalaZ 1</a></li>
+<li><a href="#orgcbdd5c6">1.1.3. <span class="todo TODO">TODO</span> ScalaZ 2</a></li>
+<li><a href="#org67f8ccb">1.1.4. <span class="done DONE">DONE</span> finish writing the FP plan.</a></li>
+</ul>
+</li>
+<li><a href="#orgf58d4f1">1.2. Theory</a>
+<ul>
+<li><a href="#org58ddf70">1.2.1. <span class="todo TODO">TODO</span> Milewski <code>[0%]</code></a></li>
+<li><a href="#org5fbdd94">1.2.2. Monadic Web Patterns <code>[25%]</code></a></li>
+<li><a href="#org2a655f2">1.2.3. Stateless state <code>[0%]</code></a></li>
+</ul>
+</li>
+<li><a href="#org4919bf1">1.3. Scala</a>
+<ul>
+<li><a href="#org65d21c2">1.3.1. Monadic Web Patterns in Scala <code>[10%]</code></a></li>
+<li><a href="#org28ac897">1.3.2. ScalaZ <code>[8%]</code></a></li>
+</ul>
+</li>
+<li><a href="#org7ae8aac">1.4. Neophyte's Guide to Scala <code>[0%]</code></a></li>
+<li><a href="#orgea58582">1.5. BoldRadius blog link</a></li>
+<li><a href="#org1555909">1.6. Clojure / Scheme</a></li>
+<li><a href="#org72e9570">1.7. Haskell</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org82ec6d4" class="outline-2">
+<h2 id="org82ec6d4"><span class="section-number-2">1</span> Plan for learning Functional Programming</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-org69a7c95" class="outline-3">
+<h3 id="org69a7c95"><span class="section-number-3">1.1</span> Actions</h3>
+<div class="outline-text-3" id="text-1-1">
+</div><div id="outline-container-orgd7e4b77" class="outline-4">
+<h4 id="orgd7e4b77"><span class="section-number-4">1.1.1</span> <span class="done DONE">DONE</span> ScalaZ 0</h4>
+<div class="outline-text-4" id="text-1-1-1">
+<p>
+<a href="http://eed3si9n.com/learning-scalaz/day0.html">link</a>
+<span class="timestamp-wrapper"><span class="timestamp">&lt;2015-03-16 Mon&gt;</span></span>
+</p>
+</div>
+</div>
+<div id="outline-container-org4404d55" class="outline-4">
+<h4 id="org4404d55"><span class="section-number-4">1.1.2</span> <span class="done DONE">DONE</span> ScalaZ 1</h4>
+<div class="outline-text-4" id="text-1-1-2">
+<p>
+<a href="http://eed3si9n.com/learning-scalaz/day1.html">link</a>
+<span class="timestamp-wrapper"><span class="timestamp">&lt;2015-03-17 Tue&gt;</span></span>
+</p>
+</div>
+</div>
+<div id="outline-container-orgcbdd5c6" class="outline-4">
+<h4 id="orgcbdd5c6"><span class="section-number-4">1.1.3</span> <span class="todo TODO">TODO</span> ScalaZ 2</h4>
+<div class="outline-text-4" id="text-1-1-3">
+<p>
+<a href="http://eed3si9n.com/learning-scalaz/day2.html">link</a>
+<span class="timestamp-wrapper"><span class="timestamp">&lt;2015-03-18 Wed&gt;</span></span>
+</p>
+</div>
+</div>
+<div id="outline-container-org67f8ccb" class="outline-4">
+<h4 id="org67f8ccb"><span class="section-number-4">1.1.4</span> <span class="done DONE">DONE</span> finish writing the FP plan.</h4>
+<div class="outline-text-4" id="text-1-1-4">
+<p>
+<span class="timestamp-wrapper"><span class="timestamp">&lt;2015-03-17 Tue&gt;</span></span>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf58d4f1" class="outline-3">
+<h3 id="orgf58d4f1"><span class="section-number-3">1.2</span> Theory</h3>
+<div class="outline-text-3" id="text-1-2">
+</div><div id="outline-container-org58ddf70" class="outline-4">
+<h4 id="org58ddf70"><span class="section-number-4">1.2.1</span> <span class="todo TODO">TODO</span> Milewski <code>[0%]</code></h4>
+<div class="outline-text-4" id="text-1-2-1">
+<ul class="org-ul">
+<li class="off"><code>[&#xa0;]</code> <a href="http://bartoszmilewski.com/2014/12/23/kleisli-categories/">Kleisli categories</a></li>
+<li class="off"><code>[&#xa0;]</code> <a href="http://bartoszmilewski.com/2015/01/07/products-and-coproducts/">Products and coproducts</a></li>
+<li class="off"><code>[&#xa0;]</code> <a href="http://bartoszmilewski.com/2015/01/13/simple-algebraic-data-types/">Simple ADTs</a></li>
+<li class="off"><code>[&#xa0;]</code> <a href="http://bartoszmilewski.com/2015/01/20/functors/">Functors</a></li>
+<li class="off"><code>[&#xa0;]</code> <a href="http://bartoszmilewski.com/2015/02/03/functoriality/">Functoriality</a></li>
+<li class="off"><code>[&#xa0;]</code> <a href="http://bartoszmilewski.com/2015/03/13/function-types/">Function types</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org5fbdd94" class="outline-4">
+<h4 id="org5fbdd94"><span class="section-number-4">1.2.2</span> Monadic Web Patterns <code>[25%]</code></h4>
+<div class="outline-text-4" id="text-1-2-2">
+<ul class="org-ul">
+<li class="on"><code>[X]</code> <a href="http://channel9.msdn.com/Series/C9-Lectures-Greg-Meredith-Monadic-Design-Patterns-for-the-Web/C9-Lectures-Greg-Meredith-Monadic-Design-Patterns-for-the-Web-Introduction-to-Monads">Introduction to Monads (Part 1)</a></li>
+<li class="off"><code>[&#xa0;]</code> <a href="http://channel9.msdn.com/Series/C9-Lectures-Greg-Meredith-Monadic-Design-Patterns-for-the-Web/C9-Lectures-Greg-Meredith-Monadic-Design-Patterns-for-the-Web-2-of-n">Part 2</a></li>
+<li class="off"><code>[&#xa0;]</code> <a href="http://channel9.msdn.com/Series/C9-Lectures-Greg-Meredith-Monadic-Design-Patterns-for-the-Web/C9-Lectures-Greg-Meredith-Monadic-Design-Patterns-for-the-Web-3-of-n">Part 3</a>
+Classical point of view in logic, intuitionistic logic for
+functional programming.</li>
+<li class="off"><code>[&#xa0;]</code> <a href="http://channel9.msdn.com/Series/C9-Lectures-Greg-Meredith-Monadic-Design-Patterns-for-the-Web/C9-Lectures-Greg-Meredith-Monadic-Design-Patterns-for-the-Web-4-of-n">Part 4</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org2a655f2" class="outline-4">
+<h4 id="org2a655f2"><span class="section-number-4">1.2.3</span> Stateless state <code>[0%]</code></h4>
+<div class="outline-text-4" id="text-1-2-3">
+<ul class="org-ul">
+<li class="off"><code>[&#xa0;]</code> <a href="http://channel9.msdn.com/Shows/Going+Deep/Brian-Beckman-The-Zen-of-Expressing-State-The-State-Monad?wt.mc_id=player">Part 1</a></li>
+<li class="off"><code>[&#xa0;]</code> <a href="http://channel9.msdn.com/Shows/Going+Deep/Brian-Beckman-The-Zen-of-Stateless-State-The-State-Monad-Part-2?wt.mc_id=EntriesInArea">Part 2</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org4919bf1" class="outline-3">
+<h3 id="org4919bf1"><span class="section-number-3">1.3</span> Scala</h3>
+<div class="outline-text-3" id="text-1-3">
+</div><div id="outline-container-org65d21c2" class="outline-4">
+<h4 id="org65d21c2"><span class="section-number-4">1.3.1</span> Monadic Web Patterns in Scala <code>[10%]</code></h4>
+<div class="outline-text-4" id="text-1-3-1">
+<ul class="org-ul">
+<li class="on"><code>[X]</code> Chapter 1</li>
+<li class="off"><code>[&#xa0;]</code> Chapter 2</li>
+<li class="off"><code>[&#xa0;]</code> Chapter 3</li>
+<li class="off"><code>[&#xa0;]</code> Chapter 4</li>
+<li class="off"><code>[&#xa0;]</code> Chapter 5</li>
+<li class="off"><code>[&#xa0;]</code> Chapter 6</li>
+<li class="off"><code>[&#xa0;]</code> Chapter 7</li>
+<li class="off"><code>[&#xa0;]</code> Chapter 8</li>
+<li class="off"><code>[&#xa0;]</code> Chapter 9</li>
+<li class="off"><code>[&#xa0;]</code> Chapter 10</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org28ac897" class="outline-4">
+<h4 id="org28ac897"><span class="section-number-4">1.3.2</span> ScalaZ <code>[8%]</code></h4>
+<div class="outline-text-4" id="text-1-3-2">
+<ul class="org-ul">
+<li class="on"><code>[X]</code> <a href="http://eed3si9n.com/learning-scalaz/day0.html">Day 0</a></li>
+<li class="on"><code>[X]</code> <a href="http://eed3si9n.com/learning-scalaz/day1.html">Day 1</a></li>
+<li class="off"><code>[&#xa0;]</code> <a href="http://eed3si9n.com/learning-scalaz/day2.html">Day 2</a></li>
+<li class="off"><code>[&#xa0;]</code> <a href="http://eed3si9n.com/learning-scalaz/day3.html">Day 3</a></li>
+<li class="off"><code>[&#xa0;]</code> <a href="http://eed3si9n.com/learning-scalaz/day4.html">Day 4</a></li>
+<li class="off"><code>[&#xa0;]</code> <a href="http://eed3si9n.com/learning-scalaz/day5.html">Day 5</a></li>
+<li class="off"><code>[&#xa0;]</code> <a href="http://eed3si9n.com/learning-scalaz/day6.html">Day 6</a></li>
+<li class="off"><code>[&#xa0;]</code> <a href="http://eed3si9n.com/learning-scalaz/day7.html">Day 7</a></li>
+<li class="off"><code>[&#xa0;]</code> <a href="http://eed3si9n.com/learning-scalaz/day8.html">Day 8</a></li>
+<li class="off"><code>[&#xa0;]</code> <a href="http://eed3si9n.com/learning-scalaz/day9.html">Day 9</a></li>
+<li class="off"><code>[&#xa0;]</code> <a href="http://eed3si9n.com/learning-scalaz/day10.html">Day 10</a></li>
+<li class="off"><code>[&#xa0;]</code> <a href="http://eed3si9n.com/learning-scalaz/day11.html">Day 11</a></li>
+<li class="off"><code>[&#xa0;]</code> <a href="http://eed3si9n.com/learning-scalaz/day12.html">Day 12</a></li>
+<li class="off"><code>[&#xa0;]</code> <a href="http://eed3si9n.com/learning-scalaz/day13.html">Day 13</a></li>
+<li class="off"><code>[&#xa0;]</code> <a href="http://eed3si9n.com/learning-scalaz/day14.html">Day 14</a></li>
+<li class="off"><code>[&#xa0;]</code> <a href="http://eed3si9n.com/learning-scalaz/day15.html">Day 15</a></li>
+<li class="off"><code>[&#xa0;]</code> <a href="http://eed3si9n.com/learning-scalaz/day16.html">Day 16</a></li>
+<li class="off"><code>[&#xa0;]</code> <a href="http://eed3si9n.com/learning-scalaz/day17.html">Day 17</a></li>
+<li class="off"><code>[&#xa0;]</code> <a href="http://eed3si9n.com/learning-scalaz/day18.html">Day 18</a></li>
+<li class="off"><code>[&#xa0;]</code> <a href="http://eed3si9n.com/learning-scalaz/day19.html">Day 19</a></li>
+<li class="off"><code>[&#xa0;]</code> <a href="http://eed3si9n.com/learning-scalaz/day20.html">Day 20</a></li>
+<li class="off"><code>[&#xa0;]</code> <a href="http://eed3si9n.com/learning-scalaz/day21.html">Day 21</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org7ae8aac" class="outline-3">
+<h3 id="org7ae8aac"><span class="section-number-3">1.4</span> Neophyte's Guide to Scala <code>[0%]</code></h3>
+<div class="outline-text-3" id="text-1-4">
+<ul class="org-ul">
+<li class="off"><code>[&#xa0;]</code> Chapter 1</li>
+<li class="off"><code>[&#xa0;]</code> Chapter 2</li>
+<li class="off"><code>[&#xa0;]</code> Chapter 3</li>
+<li class="off"><code>[&#xa0;]</code> Chapter 4</li>
+<li class="off"><code>[&#xa0;]</code> Chapter 5</li>
+<li class="off"><code>[&#xa0;]</code> Chapter 6</li>
+<li class="off"><code>[&#xa0;]</code> Chapter 7</li>
+<li class="off"><code>[&#xa0;]</code> Chapter 8</li>
+<li class="off"><code>[&#xa0;]</code> Chapter 9</li>
+<li class="off"><code>[&#xa0;]</code> Chapter 10</li>
+<li class="off"><code>[&#xa0;]</code> Chapter 11</li>
+<li class="off"><code>[&#xa0;]</code> Chapter 12</li>
+<li class="off"><code>[&#xa0;]</code> Chapter 13</li>
+<li class="off"><code>[&#xa0;]</code> Chapter 14</li>
+<li class="off"><code>[&#xa0;]</code> Chapter 15</li>
+<li class="off"><code>[&#xa0;]</code> Chapter 16</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgea58582" class="outline-3">
+<h3 id="orgea58582"><span class="section-number-3">1.5</span> BoldRadius blog <a href="http://boldradius.com/archive?obj=blog&amp;tag=video&amp;utm_campaign=Blog&amp;utm_content=13156838">link</a></h3>
+</div>
+<div id="outline-container-org1555909" class="outline-3">
+<h3 id="org1555909"><span class="section-number-3">1.6</span> Clojure / Scheme</h3>
+<div class="outline-text-3" id="text-1-6">
+<ul class="org-ul">
+<li class="off"><code>[&#xa0;]</code> The Joy Of Clojure</li>
+<li class="off"><code>[&#xa0;]</code> <a href="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/">MIT 6.001: SICP</a></li>
+<li class="off"><code>[&#xa0;]</code> Define further resources.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org72e9570" class="outline-3">
+<h3 id="org72e9570"><span class="section-number-3">1.7</span> Haskell</h3>
+<div class="outline-text-3" id="text-1-7">
+<ul class="org-ul">
+<li class="off"><code>[&#xa0;]</code> <a href="https://www.seas.upenn.edu/~cis194/">CIS194: Introduction to Haskell</a></li>
+<li class="off"><code>[&#xa0;]</code> <a href="https://github.com/NICTA/course">NICTA FP</a></li>
+<li class="off"><code>[&#xa0;]</code> Lenses</li>
+<li class="off"><code>[&#xa0;]</code> Watch SPJ lectures</li>
+<li class="off"><code>[&#xa0;]</code> Define further resources.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author:  (<a href="mailto:elkorn@arch">elkorn@arch</a>)</p>
+<p class="date">Date: </p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.0.3)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

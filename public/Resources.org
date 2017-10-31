@@ -1,0 +1,20 @@
+#+FILETAGS: :vimwiki:
+
+* Resources
+#= Resources =
+
+[[Web App Performance]]
+
+[[ModernRIAPrinciples]]
+
+** Web App Performance
+*** Resources - Web App Performance
+
+# %toc
+
+**** Jank Free Must-Sees
+Strapped for time or just getting started with eliminating jank from your projects? These are our must-see resources!
+
+http://jankfree.org/
+** ModernRIAPrinciples
+http://rauchg.com/2014/7-principles-of-rich-web-applications/

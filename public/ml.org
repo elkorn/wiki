@@ -1,0 +1,8 @@
+* TODO Spark 101
+  [[https://www.youtube.com/watch?v=VWeWViFCzzg][video]]
+  <2015-03-23 Mon>
+* DONE Stanford 4
+      <2015-03-16 Mon>
+* TODO Stanford 5
+* TODO Stanford 6
+* TODO Stanford 7

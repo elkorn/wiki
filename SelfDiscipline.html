@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-10-31 Tue 15:05 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title></title>
+<meta name="generator" content="Org mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/org"> HOME </a>
+</div><div id="content">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org7af05e8">1. SelfDiscipline</a>
+<ul>
+<li><a href="#org474e005">1.1. Health - Self-discipline</a>
+<ul>
+<li><a href="#org0701b20">1.1.1. Building self-discipline</a></li>
+<li><a href="#org02742de">1.1.2. Acceptance</a>
+<ul>
+<li><a href="#org394d82b">1.1.2.1. Do you shower/bathe every day?</a></li>
+<li><a href="#org8433545">1.1.2.2. Do you get up at the same time every morning? Including weekends?</a></li>
+<li><a href="#orgafb05b1">1.1.2.3. Are you overweight?</a></li>
+<li><a href="#org612ce31">1.1.2.4. Do you have any addictions (caffeine, nicotine, sugar, etc.) you’d like to break but haven’t?</a></li>
+<li><a href="#orge65e616">1.1.2.5. Is your email inbox empty right now?</a></li>
+<li><a href="#orgf3492d9">1.1.2.6. Is your office neat and well organized?</a></li>
+<li><a href="#orge96d198">1.1.2.7. Is your home neat and well organized?</a></li>
+<li><a href="#org8a5d72d">1.1.2.8. How much time do you waste in a typical day? On a weekend?</a></li>
+<li><a href="#org7f629b6">1.1.2.9. If you make a promise to someone, what’s the percentage chance you’ll keep it?</a></li>
+<li><a href="#orgd4efa90">1.1.2.10. If you make a promise to yourself, what’s the percentage chance you’ll keep it?</a></li>
+<li><a href="#org640000f">1.1.2.11. Could you fast for one day?</a></li>
+<li><a href="#orgbd9c17b">1.1.2.12. How well organized is your computer’s hard drive?</a></li>
+<li><a href="#org0df42da">1.1.2.13. How often do you exercise?</a></li>
+<li><a href="#org5ac7717">1.1.2.14. What’s the greatest physical challenge you’ve ever faced, and how long ago was it?</a></li>
+<li><a href="#orgbcc7815">1.1.2.15. How many hours of focused work do you complete in a typical workday?</a></li>
+<li><a href="#orga74afd5">1.1.2.16. How many items on your to do list are older than 90 days?</a></li>
+<li><a href="#org451de36">1.1.2.17. Do you have clear, written goals? Do you have written plans to achieve them?</a></li>
+<li><a href="#org26e9328">1.1.2.18. If you lost your job, how much time would you spend each day looking for a new one, and how long would you maintain that level of effort?</a></li>
+<li><a href="#org03ad5c4">1.1.2.19. How much TV do you currently watch? Could you give up TV for 30 days?</a></li>
+<li><a href="#org14a2a6c">1.1.2.20. How do you look right now? What does your appearance say about your level of discipline (clothes, grooming, etc)?</a></li>
+<li><a href="#org6eb0d21">1.1.2.21. Do you primarily select foods to eat based on health considerations or on taste/satiety?</a></li>
+<li><a href="#orge7a86c4">1.1.2.22. When was the last time you consciously adopted a positive new habit? Discontinued a bad habit?</a></li>
+<li><a href="#org2247796">1.1.2.23. Are you in debt? Do you consider this debt an investment or a mistake?</a></li>
+<li><a href="#org14da266">1.1.2.24. Did you decide in advance to be reading this blog right now, or did it just happen?</a></li>
+<li><a href="#orgd7bbdc3">1.1.2.25. Can you tell me what you’ll be doing tomorrow? Next weekend?</a></li>
+<li><a href="#org4eb12e8">1.1.2.26. On a scale of 1-10, how would you rate your overall level of self-discipline?</a></li>
+<li><a href="#org5ccb0ed">1.1.2.27. What more could you accomplish if you could answer that last question with a 9 or 10?</a></li>
+<li><a href="#orgd26a074">1.1.2.28. disciplined sleep,</a></li>
+<li><a href="#orgb76b9b7">1.1.2.29. disciplined diet,</a></li>
+<li><a href="#org8ba427a">1.1.2.30. disciplined work habits,</a></li>
+<li><a href="#org2f50cd2">1.1.2.31. disciplined communication.</a></li>
+</ul>
+</li>
+<li><a href="#org323a4a1">1.1.3. Willpower</a>
+<ul>
+<li><a href="#org4b7f867">1.1.3.1. Choose the objective.</a></li>
+<li><a href="#org0aa8e3c">1.1.3.2. Create a plan of attack.</a></li>
+<li><a href="#org289ebf3">1.1.3.3. Execute the plan.</a></li>
+</ul>
+</li>
+<li><a href="#org97749f6">1.1.4. Hard work</a></li>
+<li><a href="#org2fc1a1c">1.1.5. Industry</a></li>
+</ul>
+</li>
+<li><a href="#org0e40774">1.2. Persistence</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org7af05e8" class="outline-2">
+<h2 id="org7af05e8"><span class="section-number-2">1</span> SelfDiscipline</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-org474e005" class="outline-3">
+<h3 id="org474e005"><span class="section-number-3">1.1</span> Health - Self-discipline</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+The pinnacle of self-discipline is a point where whenever you make a conscious decision, you're guaranteed to follow through on it.
+While it can empower you to overcome addictions, lose weight, deal with procrastination, disorder and ignorance, it works best when combined with passion, goal-setting and planning.
+Without those, you're in danger of moving around very consequently but without any direction.
+</p>
+</div>
+
+<div id="outline-container-org0701b20" class="outline-4">
+<h4 id="org0701b20"><span class="section-number-4">1.1.1</span> Building self-discipline</h4>
+<div class="outline-text-4" id="text-1-1-1">
+<p>
+Self-discipline is like a muscle. The more you train it, the stronger you become. The less you train it, the weaker you become.
+</p>
+
+<p>
+Building self-discipline is analogous to weight training.
+Tackle challenges that you can successfully accomplish but which are <b>near your limit</b>.
+Don't start with weights that you cannot budge and neither with weights that you can lift all day long.
+</p>
+
+<p>
+Train progressively - increase the challenge with each success.
+Do not try to change everything overnight - setting yourself up for lifting 300kgs will only get you injured.
+The more disciplined you become, the more weight you can carry i.e. the easier life gets.
+</p>
+
+<p>
+An important note:
+    <b>Do not compare yourself to other people. You will only find what you expect to find. Simply look at where you are now and aim to get better as you go forward.</b>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org02742de" class="outline-4">
+<h4 id="org02742de"><span class="section-number-4">1.1.2</span> Acceptance</h4>
+<div class="outline-text-4" id="text-1-1-2">
+<p>
+The first step on the way to building self-discipline is to acknowledge where you are on the road to it.
+A few helpful measurements:
+</p>
+</div>
+<div id="outline-container-org394d82b" class="outline-5">
+<h5 id="org394d82b"><span class="section-number-5">1.1.2.1</span> Do you shower/bathe every day?</h5>
+</div>
+<div id="outline-container-org8433545" class="outline-5">
+<h5 id="org8433545"><span class="section-number-5">1.1.2.2</span> Do you get up at the same time every morning? Including weekends?</h5>
+</div>
+<div id="outline-container-orgafb05b1" class="outline-5">
+<h5 id="orgafb05b1"><span class="section-number-5">1.1.2.3</span> Are you overweight?</h5>
+</div>
+<div id="outline-container-org612ce31" class="outline-5">
+<h5 id="org612ce31"><span class="section-number-5">1.1.2.4</span> Do you have any addictions (caffeine, nicotine, sugar, etc.) you’d like to break but haven’t?</h5>
+</div>
+<div id="outline-container-orge65e616" class="outline-5">
+<h5 id="orge65e616"><span class="section-number-5">1.1.2.5</span> Is your email inbox empty right now?</h5>
+</div>
+<div id="outline-container-orgf3492d9" class="outline-5">
+<h5 id="orgf3492d9"><span class="section-number-5">1.1.2.6</span> Is your office neat and well organized?</h5>
+</div>
+<div id="outline-container-orge96d198" class="outline-5">
+<h5 id="orge96d198"><span class="section-number-5">1.1.2.7</span> Is your home neat and well organized?</h5>
+</div>
+<div id="outline-container-org8a5d72d" class="outline-5">
+<h5 id="org8a5d72d"><span class="section-number-5">1.1.2.8</span> How much time do you waste in a typical day? On a weekend?</h5>
+</div>
+<div id="outline-container-org7f629b6" class="outline-5">
+<h5 id="org7f629b6"><span class="section-number-5">1.1.2.9</span> If you make a promise to someone, what’s the percentage chance you’ll keep it?</h5>
+</div>
+<div id="outline-container-orgd4efa90" class="outline-5">
+<h5 id="orgd4efa90"><span class="section-number-5">1.1.2.10</span> If you make a promise to yourself, what’s the percentage chance you’ll keep it?</h5>
+</div>
+<div id="outline-container-org640000f" class="outline-5">
+<h5 id="org640000f"><span class="section-number-5">1.1.2.11</span> Could you fast for one day?</h5>
+</div>
+<div id="outline-container-orgbd9c17b" class="outline-5">
+<h5 id="orgbd9c17b"><span class="section-number-5">1.1.2.12</span> How well organized is your computer’s hard drive?</h5>
+</div>
+<div id="outline-container-org0df42da" class="outline-5">
+<h5 id="org0df42da"><span class="section-number-5">1.1.2.13</span> How often do you exercise?</h5>
+</div>
+<div id="outline-container-org5ac7717" class="outline-5">
+<h5 id="org5ac7717"><span class="section-number-5">1.1.2.14</span> What’s the greatest physical challenge you’ve ever faced, and how long ago was it?</h5>
+</div>
+<div id="outline-container-orgbcc7815" class="outline-5">
+<h5 id="orgbcc7815"><span class="section-number-5">1.1.2.15</span> How many hours of focused work do you complete in a typical workday?</h5>
+</div>
+<div id="outline-container-orga74afd5" class="outline-5">
+<h5 id="orga74afd5"><span class="section-number-5">1.1.2.16</span> How many items on your to do list are older than 90 days?</h5>
+</div>
+<div id="outline-container-org451de36" class="outline-5">
+<h5 id="org451de36"><span class="section-number-5">1.1.2.17</span> Do you have clear, written goals? Do you have written plans to achieve them?</h5>
+</div>
+<div id="outline-container-org26e9328" class="outline-5">
+<h5 id="org26e9328"><span class="section-number-5">1.1.2.18</span> If you lost your job, how much time would you spend each day looking for a new one, and how long would you maintain that level of effort?</h5>
+</div>
+<div id="outline-container-org03ad5c4" class="outline-5">
+<h5 id="org03ad5c4"><span class="section-number-5">1.1.2.19</span> How much TV do you currently watch? Could you give up TV for 30 days?</h5>
+</div>
+<div id="outline-container-org14a2a6c" class="outline-5">
+<h5 id="org14a2a6c"><span class="section-number-5">1.1.2.20</span> How do you look right now? What does your appearance say about your level of discipline (clothes, grooming, etc)?</h5>
+</div>
+<div id="outline-container-org6eb0d21" class="outline-5">
+<h5 id="org6eb0d21"><span class="section-number-5">1.1.2.21</span> Do you primarily select foods to eat based on health considerations or on taste/satiety?</h5>
+</div>
+<div id="outline-container-orge7a86c4" class="outline-5">
+<h5 id="orge7a86c4"><span class="section-number-5">1.1.2.22</span> When was the last time you consciously adopted a positive new habit? Discontinued a bad habit?</h5>
+</div>
+<div id="outline-container-org2247796" class="outline-5">
+<h5 id="org2247796"><span class="section-number-5">1.1.2.23</span> Are you in debt? Do you consider this debt an investment or a mistake?</h5>
+</div>
+<div id="outline-container-org14da266" class="outline-5">
+<h5 id="org14da266"><span class="section-number-5">1.1.2.24</span> Did you decide in advance to be reading this blog right now, or did it just happen?</h5>
+</div>
+<div id="outline-container-orgd7bbdc3" class="outline-5">
+<h5 id="orgd7bbdc3"><span class="section-number-5">1.1.2.25</span> Can you tell me what you’ll be doing tomorrow? Next weekend?</h5>
+</div>
+<div id="outline-container-org4eb12e8" class="outline-5">
+<h5 id="org4eb12e8"><span class="section-number-5">1.1.2.26</span> On a scale of 1-10, how would you rate your overall level of self-discipline?</h5>
+</div>
+<div id="outline-container-org5ccb0ed" class="outline-5">
+<h5 id="org5ccb0ed"><span class="section-number-5">1.1.2.27</span> What more could you accomplish if you could answer that last question with a 9 or 10?</h5>
+<div class="outline-text-5" id="text-1-1-2-27">
+<p>
+Apart from acknowledging your strong and weak points, you can be in a state of ignorance (you don't know how disciplined you are) or denial (you underestimate or overestimate your level of discipline, leading to choosing unsuitable tasks).
+</p>
+
+<p>
+There are different groups of self-discipline e.g.:
+</p>
+</div>
+</div>
+<div id="outline-container-orgd26a074" class="outline-5">
+<h5 id="orgd26a074"><span class="section-number-5">1.1.2.28</span> disciplined sleep,</h5>
+</div>
+<div id="outline-container-orgb76b9b7" class="outline-5">
+<h5 id="orgb76b9b7"><span class="section-number-5">1.1.2.29</span> disciplined diet,</h5>
+</div>
+<div id="outline-container-org8ba427a" class="outline-5">
+<h5 id="org8ba427a"><span class="section-number-5">1.1.2.30</span> disciplined work habits,</h5>
+</div>
+<div id="outline-container-org2f50cd2" class="outline-5">
+<h5 id="org2f50cd2"><span class="section-number-5">1.1.2.31</span> disciplined communication.</h5>
+</div>
+</div>
+
+<div id="outline-container-org323a4a1" class="outline-4">
+<h4 id="org323a4a1"><span class="section-number-4">1.1.3</span> Willpower</h4>
+<div class="outline-text-4" id="text-1-1-3">
+<p>
+Willpower is the ability to set a course of action and say "Engage!".
+</p>
+
+<p>
+Nice example: 
+    Products that are aimed to serve as willpower substitutes offer impossible results in a dramatically short period of time.
+    This is a safe bet, because people lacking willpower most likely will not take the time to return those products.
+</p>
+
+<p>
+Willpower provides a temporary, strong boost.
+It burns out quickly, but directed intelligently can overcome inertia.
+It is like the D-Day, a great battle that turned the tide of WWII, even though victory was achieved a year later.
+To make that kind of effort every day on the war would have been impossible.
+</p>
+
+<p>
+The application of willpower includes the following steps:
+</p>
+</div>
+<div id="outline-container-org4b7f867" class="outline-5">
+<h5 id="org4b7f867"><span class="section-number-5">1.1.3.1</span> Choose the objective.</h5>
+</div>
+<div id="outline-container-org0aa8e3c" class="outline-5">
+<h5 id="org0aa8e3c"><span class="section-number-5">1.1.3.2</span> Create a plan of attack.</h5>
+</div>
+<div id="outline-container-org289ebf3" class="outline-5">
+<h5 id="org289ebf3"><span class="section-number-5">1.1.3.3</span> Execute the plan.</h5>
+<div class="outline-text-5" id="text-1-1-3-3">
+<p>
+The important thing is to make hit the problem hard and fast in point 3. 
+Problems have to be attacked at their weakest points to be cracked easily - so that a high level of willpower is not required every day.
+Willpower is unsustainable and <b>overusing it causes burnout</b>.
+</p>
+
+<p>
+Use willpower to establish a solid foundation for tackling the problem even in days when you will be lacking.
+That means changing the environment around the issue and yourself to make dealing with problems easier and more manageable.
+Adhering to the 3 points, after choosing the objective, set up a plan of things that have to be done to create  a setting to ease the burdens of dealing with your tasks.
+Then execute this plan hard and fast.
+The plan can be probably implemented in a day or less.
+</p>
+
+<p>
+Don’t use willpower to attack your biggest problem directly.
+Use willpower to attack the environmental and social obstacles that perpetuate the problem.
+Establish a beachhead first, and then fortify your position i.e. turn it into a habit.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org97749f6" class="outline-4">
+<h4 id="org97749f6"><span class="section-number-4">1.1.4</span> Hard work</h4>
+<div class="outline-text-4" id="text-1-1-4">
+<p>
+Hard work is that which challenges you.
+</p>
+
+<p>
+Most people will do what's easiest - superficial opportunities in life will be attacked by hordes of people.
+Tougher challenges will usually see much less competition and much more opportunity.
+</p>
+
+<p>
+Strong challenge is commonly connected with strong results. Sure you can get lucky every once in a while and find an easy path to success. But will you be able to maintain that success, or is it just a fluke? Will you be able to repeat it? Once other people learn how you did it, will you find yourself overloaded with competition?
+</p>
+
+<p>
+When you discipline yourself to do what is hard, you gain access to a realm of results that are denied everyone else. The willingness to do what is difficult is like having a key to a special private treasure room.
+</p>
+
+<p>
+Hard work pays off. When someone tells you otherwise, beware the sales pitch for something “fast and easy” that’s about to come next. The greater your capacity for hard work, the more rewards fall within your grasp. The deeper you can dig, the more treasure you can potentially find.
+</p>
+
+<p>
+Being happy is hard work - true happinesss comes from self-esteem, not from denial and escapism.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org2fc1a1c" class="outline-4">
+<h4 id="org2fc1a1c"><span class="section-number-4">1.1.5</span> Industry</h4>
+<div class="outline-text-4" id="text-1-1-5">
+<p>
+Industry is working hard.
+It means putting in the time to do the work, be it hard or easy.
+</p>
+
+<p>
+Self-discipline requires a capability to put in the time where it's needed.
+A lot of messes are created when we refuse to put in the time to do what needs to be done.
+</p>
+
+<p>
+There are many problems in life where the solution is largely a brainless time investment.
+Emptying the inbox is not a challenging problem - it just requires time.
+</p>
+
+<p>
+Disciplining yourself to be industrious allows you to squeeze more value out of your time.
+Time is constant, but productivity is not.
+</p>
+
+<p>
+A good idea is to keep an eye on your productivity - measure the current level and then gradually ramp it up.
+This will cause some hair-pulling days but it will pay off.
+</p>
+
+<p>
+Industry is a low level tool.
+It will allow you to complete your work efficiently but it will not tell you what work to do in the first place.
+Working hard does not necessarily equal working smart.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0e40774" class="outline-3">
+<h3 id="org0e40774"><span class="section-number-3">1.2</span> Persistence</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Nothing in the world can take the place of Persistence. Talent will not; nothing is more common than unsuccessful men with talent. Genius will not; unrewarded genius is almost a proverb. Education will not; the world is full of educated derelicts. Persistence and determination alone are omnipotent. The slogan “Press On” has solved and always will solve the problems of the human race.
+</p>
+
+<p>
+Persistence is the ability to maintain action regardless of your feelings.
+It's following the "quitters never win, winners never quit" phrase.
+When working on stuff, you will sometimes be motivated, sometimes not.
+But it's continuous action that produces results - and persistence allows you to keep taking action even against your motivation.
+The good news is that persistence will ultimately provide its own motivation - all the work will start bringing results, which are highly motivating.
+</p>
+
+<p>
+Of course, there are times when giving up is the reasonable choice.
+Is the plan still correct?
+If not, update it.
+Is your goal still correct?
+If not, update or abandon it.
+Don't cling on to things that no longer inspire you - avoid stubbornness.
+</p>
+
+<p>
+If possible - find a missions that drives you for a long time, possibly your whole life (like personal growth) and build everything around it.
+A general mission like this will enable you to more easily sift through ideas and potential projects and filter out those that do not align with your most precious mission.
+</p>
+
+<p>
+The value of persistence comes from a vision of the future that is so compelling that you would give almost anything to make it real.
+Following that, persistence of action comes from persistence of vision.
+When you're clear about what you want  so that your vision does not change much, you'll be more consistent and persistent in your actions.
+That leads to much better results.
+</p>
+
+<p>
+Can you identify a part of your life where you’ve demonstrated a pattern of long-term persistence? If you can identify such an area, it may provide a clue to your mission — something you can work towards where passion and self-discipline function synergistically.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author:  (<a href="mailto:elkorn@arch">elkorn@arch</a>)</p>
+<p class="date">Date: </p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.0.3)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

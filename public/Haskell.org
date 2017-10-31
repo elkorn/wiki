@@ -1,0 +1,211 @@
+* QuickCheck
+** Implementing an Arbitrary instance for custom data types
+
+#+begin_src haskell
+type Name = Int
+data Form = Prop Name
+          | Neg  Form
+          | Cnj [Form]
+          | Dsj [Form]
+          | Impl Form Form
+          | Equiv Form Form
+          deriving Eq
+
+answer = oneof [
+Prop <$> arbitrary, 
+Neg <$> arbitrary, 
+Cnj <$> arbitrary, 
+Dsj <$> arbitrary, 
+Impl <$> arbitrary <*> arbitrary, 
+Equiv <$> arbitrary <*> arbitrary]
+#+end_src
+
+* Testing IO
+
+The example is of testing an HTTP request library.
+
+The request function is as follows.
+
+#+begin_src haskell
+httpLbs :: Request -> Manager -> IO (Response ByteString)
+#+end_src
+
+The server is just an entity responding with data, thus it can be modelled as a =Reader= monad.
+Defining the server as a monad transformer allows combining it with other monads.
+
+#+begin_src haskell
+newtype MockServer m a = MockServer
+  { server :: ReaderT (Response BL.ByteString) m a }
+  deriving (Applicative, Functor, Monad, MonadTrans)
+#+end_src
+
+Since this is a mock, the main idea is to be able to run it so that it responds with a particular message:
+
+#+begin_src haskell
+runMockServer
+  :: MockServer m a
+  -> Response BL.ByteString
+  -> m a
+runMockServer (MockServer s) = runReaderT s
+#+end_src
+
+The problem is that the library code needs to check with both a real server (=IO=) as well as the mock server (=MockServer s=).
+Instead of having to take the =httpLbs= function as a parameter, we can create a typeclass:
+
+#+begin_src haskell
+class Monad m => MonadHTTP m where
+  httpLbs :: Request -> Manager -> m (Response BL.ByteString)
+
+-- And the two instances we need:
+
+instance MonadHTTP IO where
+  -- The regular function from the http-client library
+  httpLbs = HTTP.Client.httpLbs
+
+instance Monad m => MonadHTTP (MockServer m) where
+  -- ask environment from the reader monad;
+  -- i.e. what you "run" it with
+  httpLbs _ _ = ask
+#+end_src
+
+
+Additional benefits:
+
+- =MonadHTTP= may serve as a base for HTTP-requesting stuff, something like =MonadTime= might be used for things that
+  get time values.
+- easier to swap implementations - you're passing an interface-like construct to functions.
+
+Testing (with `hspec`): 
+
+Define the mocked response
+#+begin_src haskell
+succeededResponse :: Response BL.ByteString
+succeededResponse = Response
+  { responseStatus = mkStatus 200 "success"
+  , responseVersion = http11
+  , responseHeaders = []
+  , responseBody = "{"data":"some body"}"
+  , responseCookieJar = createCookieJar []
+  , responseClose' = ResponseClose (return () :: IO ())
+  }
+#+end_src
+
+And the test itself
+#+begin_src haskell
+test :: Spec
+test =
+  describe "HTTP.get" $ do
+    it "returns the body when the request is 200" $
+      withConnManager $ \mngr ->
+        runMockServer
+          (get mngr "http://example.com/path" [])
+          succeededResponse
+        `shouldBe`
+          (Right $
+            A.Object $
+              HM.singleton "data" (A.String "some body"))
+#+end_src
+
+*Note:* The Reader monad is all right for simple mocks i.e. when you don't need to keep any intermediate state.
+* Language extensions
+** FlexibleInstances
+=FlexibleInstances= gives you more granular control over types for which 
+typeclass instances are being defined.
+
+Example:
+
+#+begin_src haskell
+ class Something a where
+  doSomething :: a -> Integer
+
+instance Something Integer where
+  doSomething x = 1
+
+instance Something Char where
+  doSomething x = 2
+
+instance Something [Char] where
+  doSomething x = 3
+#+end_src
+
+without =FlexibleInstances= this would give you the following compile-time 
+error:
+
+#+begin_src ghci
+Illegal instance declaration for `Something [Char]'
+  (All instance types must be of the form (T a1 ... an)
+  where a1 ... an are type *variables*,
+  and each type variable appears at most once in the instance head.
+  Use -XFlexibleInstances if you want to disable this.)
+In the instance declaration for `Something [Char]'
+#+end_src
+
+which essentially means that you must use a type variable like =a= as the list
+element:
+
+#+begin_src haskell
+instance Something [a] where
+  doSomething x = 3
+#+end_src
+
+However, adding ={-# LANGUAGE FlexibleInstances #-}= on top of the file allows 
+the compiler to differentiate between lists of concretely typed elements.
+* Terminology
+The logic behind names of =fmap=, =liftM= and =lift=:
+- =fmap= elevates a pure function to the level of functors.
+- =liftM= elevates a pure function to the level of monads.
+- =lift= elevates a monadic action from one level beneath in a transformer 
+  stack to the current one.
+* Monad transformers
+** When is explicit lifting necessary?
+Normally, when we implement a monad stack, we let `mtl` to do the work for 
+us, which leads to cleaner code.
+#+BEGIN_SRC haskell
+type App = ReaderT AppConfig (StateT AppState IO)
+
+implicitGet1 :: App AppState
+implicitGet1 = get
+
+-- Explicitly lifting `get` from StateT into ReaderT.
+explicitGet2 :: App AppState
+explicitGet2 = lift get
+#+END_SRC
+
+=lift= must be used explicitly  when we create a monad stack in which 
+instances of the same typeclass appear at multiple levels.
+
+#+BEGIN_SRC haskell
+type Foo = StateT Int (State String)
+
+outerPut :: Int -> Foo ()
+outerPut = put
+
+innerPut :: Int -> Foo ()
+innerPut = lift . put
+#+END_SRC
+
+The instance we will get by using =outerPut= is of =StateT Int=, because it
+is at the top of the stack.
+The =put= in =innerPut= is forcibly lifted, providing access to the 
+underlying =State= monad.
+
+Explicit =lift= composition needs to be used also in situations when we 
+need to access a monad more than one level down the stack.
+In this sense, =lift= allows 'traversing' the monad stack.
+
+#+BEGIN_SRC haskell
+type Bar = ReaderT Bool Foo
+
+barPut :: String -> Bar ()
+barPut = lift . lift . put
+#+END_SRC
+
+In this example, =barPut= allows putting a value inside the =State String=
+instance contained in =Foo=.
+
+When having to lift explicitly, it is considered a good practice to create
+wrapper functions with this responsibility - it keeps the code much cleaner
+compared to using =lift=s throughout the codebase.
+Also, using wrapper functions abstracts the monad stack structure away, 
+simplifying subsequent modifications to it.
+

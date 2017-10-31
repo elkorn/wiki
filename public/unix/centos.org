@@ -1,0 +1,9 @@
+* Disable iptables
+
+For a local dev machine (Vagrant) it's useful to disable the firewall.
+
+#+begin_example
+# service iptables save
+# service iptables stop
+# chkconfig iptables off
+#+end_example

@@ -1,0 +1,8 @@
+#+FILETAGS: :vimwiki:
+
+* Futures
+#= Akka - Futures =
+Notes from "Composable Futures with Akka" will go here.
+
+Code examples:
+** https://bitbucket.org/mslinn/akkafutures

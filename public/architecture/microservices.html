@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>microservices</title>
+<!-- 2015-08-08 Sat 14:46 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">microservices</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Services vs libraries</a></li>
+<li><a href="#sec-2">2. Business capability orientation</a></li>
+<li><a href="#sec-3">3. Products not Projects</a></li>
+<li><a href="#sec-4">4. Smart endpoints and dumb pipes</a></li>
+<li><a href="#sec-5">5. Decentralized governance</a>
+<ul>
+<li><a href="#sec-5-1">5.1. Patterns commonly applied to microservices:</a>
+<ul>
+<li><a href="#sec-5-1-1">5.1.1. <span class="todo TODO">TODO</span> Tolerant Reader</a></li>
+<li><a href="#sec-5-1-2">5.1.2. <span class="todo TODO">TODO</span> Consumer-Driven Contracts</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#sec-6">6. Decentralized Data Management</a></li>
+<li><a href="#sec-7">7. Infrastructure automation</a></li>
+<li><a href="#sec-8">8. Design for failure</a></li>
+<li><a href="#sec-9">9. Evolutionary design</a></li>
+<li><a href="#sec-10">10. The drawbacks</a></li>
+</ul>
+</div>
+</div>
+<p>
+In a nutshell - microservices mean splitting the whole system into modules per
+business capability.
+Each module is a separate application, running in its own process.
+Applications communicate with each other through a service, most probably a
+REST HTTP API or a message bus.
+Distributing and scaling can be done with much finer granularity than with
+standard, monolithic applications.
+</p>
+
+<p>
+Each service defines a strict module boundary and can also be maintained by a
+separate team.
+</p>
+
+<p>
+This is UNIX philosophy in my opinion.
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Services vs libraries</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+In the standard approach, libraries form the notion of a module.
+Changing one feature in a single 'module' library bears the need of redeploying
+the whole application.
+This is not the case when a service defiens the unit of modularity- services are
+independently deployable.
+</p>
+
+<p>
+Another case is encapsulation - it's much easier to break a library module's
+public interface boundaries than to do the same with an exposed service API
+(also called its <i>Published Interface</i>).
+Also, service API's robustness is language-independent.
+</p>
+
+<p>
+A downside to microservices is that RPCs are more expensive than in-process
+calls and the <i>Published Interface</i>s are coarser-grained.
+It means that it's harder to change the allocation of responsibilities between
+coponents.
+</p>
+
+<p>
+I would argue with the validity of that point as it really depends on
+technological differences between the services - from the outside perspective
+behavior migrations can easily be done through redirects.
+</p>
+
+<p>
+A service in the most basic understanding maps to a runtime process. In practice
+it has to be noted that a single service may encapsulate multiproc applications,
+developed and deployed in concert.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Business capability orientation</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Microservices take a broad-stack implementation for a business area.
+A cross-functional team develops a microservice for that given business area,
+from the DB to the UI.
+This is similar to what has been maintained in Parkeon's Back Office teams -
+each has GUI specialists, backend specialists, DBAs, a leader/manager, a Product
+Owner, a QA etc.
+Ideally, everyone in a cross-functional should have a broad-spectrum knowledge
+about the module they are responsible for.
+</p>
+
+<p>
+<b>Two Pizza Team rule</b>: the whole team responsible for one module can be fed
+by two pizzas. This practically means no more than a dozen of people.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Products not Projects</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+The team responsible for a module, <b>owns it</b>.
+They build it, maintain it and take full responsibility for it.
+</p>
+
+<p>
+Amazon says: "<a href="https://queue.acm.org/detail.cfm?id=1142065">You build it, you run it.</a>"
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Smart endpoints and dumb pipes</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Microservice apps aim to be as decoupled and cohesive as possible.
+They act more like Unix filters.
+They communicate with <b>simple protocols</b>, like REST.
+Alternatively, <b>simple messaging solutions</b>, such as RabbitMQ or ZeroMQ, can be
+applied.
+The logic must remain within the endpoints.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Decentralized governance</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+This means no enforced technology for everything.
+Each module can be written on a different stack, tailored to what it actually
+calls for.
+E.g. node.js for simple and scalable dashboards (high I/O throughput, low memory
+footprint), C++ for near-real-time components, different database for a READ (as
+of CQRS) module etc.
+</p>
+</div>
+
+<div id="outline-container-sec-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> Patterns commonly applied to microservices:</h3>
+<div class="outline-text-3" id="text-5-1">
+</div><div id="outline-container-sec-5-1-1" class="outline-4">
+<h4 id="sec-5-1-1"><span class="section-number-4">5.1.1</span> <span class="todo TODO">TODO</span> <a href="http://martinfowler.com/bliki/TolerantReader.html">Tolerant Reader</a></h4>
+</div>
+<div id="outline-container-sec-5-1-2" class="outline-4">
+<h4 id="sec-5-1-2"><span class="section-number-4">5.1.2</span> <span class="todo TODO">TODO</span> <a href="http://martinfowler.com/articles/consumerDrivenContracts.html">Consumer-Driven Contracts</a></h4>
+<div class="outline-text-4" id="text-5-1-2">
+<p>
+Consumer-driven contracts act as tests for the service API and can be run as a
+build step. Once the service fullfills them, it's done.
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> Decentralized Data Management</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+Abstractly speaking, decentralized data management means that the conceptual
+model of the world will differ between the system components.
+An example might be that the notion of a customer is different from the sales
+perspective and from IT support perspective.
+In some other perspectives it might not even exist.
+</p>
+
+<p>
+This relates to DDD's <a href="http://martinfowler.com/bliki/BoundedContext.html">Bounded Contexts</a>, which form coherent units, relationships
+of which are defined by subsystem interactions.
+It is worth noting that dividing a system into microservices clearly denotes
+context boundaries.
+</p>
+
+<p>
+Technically speaking, this means that each microservice may maintain its own
+database system, adding up to polyglot persistence in the whole.
+This imposes transactionality difficulties - microservice architecture
+emphasizes transactionless exchanges, eventual consistency and dealing with
+inconsistencies through compensating operations. (Akka's journaling model might
+be relevant here)
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> Infrastructure automation</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+We are aiming for continuous delivery.
+This means a lot of automated test and creating integration pipelines ending
+with automatic deployment to production.
+Make simple tools and services to aid in this process.
+The whole process should work from single input (command, click of a button
+etc.).
+<a href="http://netflix.github.io/">Netflix</a>'s open source tools are quite awesome.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> Design for failure</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+Failure of microservices must be handled gracefully up to the point of that the
+UX should not drop too much.
+More info on fault tolerance can be found in <a href="http://techblog.netflix.com/2012/02/fault-tolerance-in-high-volume.html">this Netflix article</a>.
+Due to being oriented towards choreography and event collaboration, emergent
+beavior is abundant in microservice architecture.
+Due to this, real-time monitoring and logging of the application state is
+crucial.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-9" class="outline-2">
+<h2 id="sec-9"><span class="section-number-2">9</span> Evolutionary design</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+New features generally should be added as microservices.
+This allows easy, granular change (as well as more precise release planning) and
+having decoupled, replaceable components.
+A nice example is a financial institution, where new services are added for a
+market opportunity and discarded after a few months or weeks.
+</p>
+
+<p>
+Remember about <span class="underline">reasons to change</span> - if you often have to modify two services
+together to accomodate changes, it's a good indicator that they should be
+merged.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-10" class="outline-2">
+<h2 id="sec-10"><span class="section-number-2">10</span> The drawbacks</h2>
+<div class="outline-text-2" id="text-10">
+<p>
+<b>Operational overhead</b>
+</p>
+
+<p>
+There is a significant operations overhead related to microservices.
+Instead of a simple monolith, there are possibly hundreds of processes to
+maintain, monitor and ensure that they don't run out of disk space, don't
+deadlock and stay performant.
+</p>
+
+<p>
+There are also no microservice frameworks.
+The tools and scripts have to be mostly rolled by the teams implementing the
+system.
+</p>
+
+<p>
+Strong DevOps skills are required, as well as developers with full-stack,
+polyglot knowledge.
+This makes hiring harder.
+</p>
+
+<p>
+<b>Implicit interfaces</b>
+</p>
+
+<p>
+Each microservice exposes an implicit interface and a communication contract.
+This makes it more effortful to make cross-cutting changes as they have to be
+introduced into multiple components at once.
+They also need to be re-released together, which magnifies the release risk.
+</p>
+
+<p>
+My counterargument here would be that actually adhering more to DDD rules and
+separating the pure domain logic to a separate, common module would suffice to
+fix most of the cross-cutting concern issues.
+Separate policy-defining modules from operational ones.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2015-08-08 Sat 14:46</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

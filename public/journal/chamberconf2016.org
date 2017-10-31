@@ -1,0 +1,52 @@
+* Chamberconf 2016
+** Budowa modeli predykcyjnych w R - Artur Suchwałku (quantup.pl)
+*** quantup.pl/chamberconf.zip - materials
+*** Predictive models use cases
+**** who can pay their credit
+**** who will stop using our services
+**** who will buy the product, use the mailing list
+**** Use cases are extremely common
+**** Classification, NOT time series or regression
+*** Predictive modelling process
+**** Finding relationships between describing variables and the variable being described 
+**** Based on historical data
+**** Using these relationships to predict future results
+*** Feature engineering
+*** Feature selection methods
+**** Filters (e.g. information value ranking)
+**** Wrappers (e.g. forward feature selection) 
+**** Built-in methods (built into the classifier)
+** Pony - Jarosław Pałka
+*** Nominal and structural sub-typing
+**** Nominal: `trait`s
+#+BEGIN_SRC pony
+interface Name
+   fun name(): String
+ 
+ class Bob
+   fun name(): String => "Bob"
+#+END_SRC
+*** Algebraic data types
+#+BEGIN_SRC pony
+interface Eq
+  fun eq(object: Any) : Bool
+
+interface HashCode
+  fun hashCode() : I32
+
+type Entry is (Eq & HashCode) // type alias, intersection type
+#+END_SRC
+
+#+BEGIN_SRC pony
+primitve Error
+
+class Value
+  var value : String
+  var size  : USize
+
+type Response is (Value | Error | None) // union type
+#+END_SRC
+*** Primitives
+**** Cannot have state, have only methods
+
+

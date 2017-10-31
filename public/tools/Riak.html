@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-10-31 Tue 13:49 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title></title>
+<meta name="generator" content="Org mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/org"> HOME </a>
+</div><div id="content">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgb1d5eb8">1. Riak</a>
+<ul>
+<li><a href="#orged90040">1.1. distributed data type in Riak</a></li>
+<li><a href="#org5a03646">1.2. PN Counters are capable of being incremented (P) an decremeted (N)</a></li>
+<li><a href="#org87c161f">1.3. automatic conflict resolution after a network partition</a></li>
+<li><a href="#orgb34bbff">1.4. 2i queries are sorted and client can request only first N results</a></li>
+<li><a href="#orge2c4472">1.5. pagination allows queries to begin where n left off to deliver the rest</a></li>
+<li><a href="#orgf094dad">1.6. can also view start, continuation, end value etc.</a></li>
+<li><a href="#org61c7e87">1.7. riak with postgres</a></li>
+<li><a href="#org610943e">1.8. riak with elastic search</a></li>
+<li><a href="#org3047baf">1.9. riak with hadoop</a></li>
+<li><a href="#org32a73c8">1.10. secondary analytic clusters (enterprise)</a></li>
+<li><a href="#org7188531">1.11. amazon AMIs</a></li>
+<li><a href="#orgea7e528">1.12. Engine Yard</a></li>
+<li><a href="#org0eb8060">1.13. Azure VM depot</a></li>
+<li><a href="#org5d2cb8e">1.14. SoftLayer</a></li>
+<li><a href="#org6546787">1.15. multi datacenter replication</a></li>
+<li><a href="#org4d878e6">1.16. realtime or full-sync</a></li>
+<li><a href="#orgd0f22b5">1.17. 24/7 support</a></li>
+<li><a href="#orgd48de3b">1.18. faster, more conns bvetween clusters</a></li>
+<li><a href="#orga85b583">1.19. per connection statistics - better</a></li>
+<li><a href="#orgaccf0f7">1.20. ssl, nat and full sync scheduling support</a></li>
+<li><a href="#orgfd29863">1.21. large object support</a></li>
+<li><a href="#org64c4eed">1.22. S3-compatible API</a></li>
+<li><a href="#org48a45b1">1.23. reporting on usage</a></li>
+<li><a href="#orgee3e0f5">1.24. tight Solr integration</a></li>
+<li><a href="#org70f2521">1.25. greater consistency</a></li>
+<li><a href="#orgb561ce7">1.26. dynamic ring resizing</a></li>
+<li><a href="#org4d55e52">1.27. check github</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgb1d5eb8" class="outline-2">
+<h2 id="orgb1d5eb8"><span class="section-number-2">1</span> Riak</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+#= Tools - Riak =
+</p>
+
+<p>
+Querying
+GET/PUT/DELETE
+MapReduce
+Full-Text Search
+Secondary Indexes (2i)
+</p>
+
+<p>
+Client libraries for nearly every platform.
+</p>
+
+<p>
+Under the hood
+consistent hashing
+160bit keyspace
+</p>
+
+<p>
+replicas
+requests go to fallback neighboring nodes when a node fails
+handoff - data returns when node is back up
+</p>
+
+<p>
+and rebalancing
+</p>
+
+<p>
+masterless, deployed as a cluster of 5 nodes per cluster
+</p>
+
+<p>
+automatic self healing
+repairs divergent, missing or corrupt replicas
+large clusters, long term storage
+</p>
+
+
+<p>
+Riak 1.4
+Eventually consistent counters
+</p>
+</div>
+<div id="outline-container-orged90040" class="outline-3">
+<h3 id="orged90040"><span class="section-number-3">1.1</span> distributed data type in Riak</h3>
+</div>
+<div id="outline-container-org5a03646" class="outline-3">
+<h3 id="org5a03646"><span class="section-number-3">1.2</span> PN Counters are capable of being incremented (P) an decremeted (N)</h3>
+</div>
+<div id="outline-container-org87c161f" class="outline-3">
+<h3 id="org87c161f"><span class="section-number-3">1.3</span> automatic conflict resolution after a network partition</h3>
+</div>
+<div id="outline-container-orgb34bbff" class="outline-3">
+<h3 id="orgb34bbff"><span class="section-number-3">1.4</span> 2i queries are sorted and client can request only first N results</h3>
+</div>
+<div id="outline-container-orge2c4472" class="outline-3">
+<h3 id="orge2c4472"><span class="section-number-3">1.5</span> pagination allows queries to begin where n left off to deliver the rest</h3>
+</div>
+<div id="outline-container-orgf094dad" class="outline-3">
+<h3 id="orgf094dad"><span class="section-number-3">1.6</span> can also view start, continuation, end value etc.</h3>
+<div class="outline-text-3" id="text-1-6">
+<p>
+Riak Control - mgmt studio?
+</p>
+
+<p>
+progressbar for handoff
+reduced object storage overhead (not turned on by default- check release notes)
+udpated protocol buffer properties
+overload protection for vnode processes
+cascading real-time writes for riak enterprise multi-datacenter replication
+</p>
+
+
+<p>
+when and why?
+enough data to require &gt;1 physical machine (&gt;5 prefereably)
+when availability &gt; consistency (big data, critical data)
+when data can be modeled as keys and values - denormalization
+</p>
+
+<p>
+Case studies
+enstratatius - cloud infrastructure mgmt
+George Reese - moving from mysql to riak
+best buy - replatform of e-commerce platform
+copious - registered accts and tokens for FB/twitter logins; lookign to move over more data due to operational simplicity.
+mochi - high availability and low latency
+openX - couchDB + cassandra -&gt; riak and riak core
+voxer - 60 nodes, 100s TBs of data, 400k concurrent users, billions of daily requests
+</p>
+
+<p>
+Hybrid solutions
+</p>
+</div>
+</div>
+<div id="outline-container-org61c7e87" class="outline-3">
+<h3 id="org61c7e87"><span class="section-number-3">1.7</span> riak with postgres</h3>
+</div>
+<div id="outline-container-org610943e" class="outline-3">
+<h3 id="org610943e"><span class="section-number-3">1.8</span> riak with elastic search</h3>
+</div>
+<div id="outline-container-org3047baf" class="outline-3">
+<h3 id="org3047baf"><span class="section-number-3">1.9</span> riak with hadoop</h3>
+</div>
+<div id="outline-container-org32a73c8" class="outline-3">
+<h3 id="org32a73c8"><span class="section-number-3">1.10</span> secondary analytic clusters (enterprise)</h3>
+<div class="outline-text-3" id="text-1-10">
+<p>
+Hosting options
+</p>
+</div>
+</div>
+<div id="outline-container-org7188531" class="outline-3">
+<h3 id="org7188531"><span class="section-number-3">1.11</span> amazon AMIs</h3>
+</div>
+<div id="outline-container-orgea7e528" class="outline-3">
+<h3 id="orgea7e528"><span class="section-number-3">1.12</span> Engine Yard</h3>
+</div>
+<div id="outline-container-org0eb8060" class="outline-3">
+<h3 id="org0eb8060"><span class="section-number-3">1.13</span> Azure VM depot</h3>
+</div>
+<div id="outline-container-org5d2cb8e" class="outline-3">
+<h3 id="org5d2cb8e"><span class="section-number-3">1.14</span> SoftLayer</h3>
+<div class="outline-text-3" id="text-1-14">
+<p>
+Open Source + commercial (enterprise)
+</p>
+</div>
+</div>
+<div id="outline-container-org6546787" class="outline-3">
+<h3 id="org6546787"><span class="section-number-3">1.15</span> multi datacenter replication</h3>
+</div>
+<div id="outline-container-org4d878e6" class="outline-3">
+<h3 id="org4d878e6"><span class="section-number-3">1.16</span> realtime or full-sync</h3>
+</div>
+<div id="outline-container-orgd0f22b5" class="outline-3">
+<h3 id="orgd0f22b5"><span class="section-number-3">1.17</span> 24/7 support</h3>
+<div class="outline-text-3" id="text-1-17">
+<p>
+1.4 enterprise
+</p>
+</div>
+</div>
+<div id="outline-container-orgd48de3b" class="outline-3">
+<h3 id="orgd48de3b"><span class="section-number-3">1.18</span> faster, more conns bvetween clusters</h3>
+</div>
+<div id="outline-container-orga85b583" class="outline-3">
+<h3 id="orga85b583"><span class="section-number-3">1.19</span> per connection statistics - better</h3>
+</div>
+<div id="outline-container-orgaccf0f7" class="outline-3">
+<h3 id="orgaccf0f7"><span class="section-number-3">1.20</span> ssl, nat and full sync scheduling support</h3>
+<div class="outline-text-3" id="text-1-20">
+<p>
+Riak Cloud Storage
+</p>
+</div>
+</div>
+<div id="outline-container-orgfd29863" class="outline-3">
+<h3 id="orgfd29863"><span class="section-number-3">1.21</span> large object support</h3>
+</div>
+<div id="outline-container-org64c4eed" class="outline-3">
+<h3 id="org64c4eed"><span class="section-number-3">1.22</span> S3-compatible API</h3>
+<div class="outline-text-3" id="text-1-22">
+<p>
+-multi-tenancy
+</p>
+</div>
+</div>
+<div id="outline-container-org48a45b1" class="outline-3">
+<h3 id="org48a45b1"><span class="section-number-3">1.23</span> reporting on usage</h3>
+<div class="outline-text-3" id="text-1-23">
+<p>
+Future Work
+</p>
+</div>
+</div>
+<div id="outline-container-orgee3e0f5" class="outline-3">
+<h3 id="orgee3e0f5"><span class="section-number-3">1.24</span> tight Solr integration</h3>
+</div>
+<div id="outline-container-org70f2521" class="outline-3">
+<h3 id="org70f2521"><span class="section-number-3">1.25</span> greater consistency</h3>
+<div class="outline-text-3" id="text-1-25">
+<p>
+-faster data transfer between clusters
+</p>
+</div>
+</div>
+<div id="outline-container-orgb561ce7" class="outline-3">
+<h3 id="orgb561ce7"><span class="section-number-3">1.26</span> dynamic ring resizing</h3>
+</div>
+<div id="outline-container-org4d55e52" class="outline-3">
+<h3 id="org4d55e52"><span class="section-number-3">1.27</span> check github</h3>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author:  (<a href="mailto:elkorn@arch">elkorn@arch</a>)</p>
+<p class="date">Date: </p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.0.3)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

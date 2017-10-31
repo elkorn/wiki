@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-10-31 Tue 15:05 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title></title>
+<meta name="generator" content="Org mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/org"> HOME </a>
+</div><div id="content">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org2254352">1. ScalaTest</a>
+<ul>
+<li><a href="#orga780a1d">1.1. lens</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org2254352" class="outline-2">
+<h2 id="org2254352"><span class="section-number-2">1</span> ScalaTest</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+#= ScalaTest =
+</p>
+
+<p>
+Read the [ScalaDoc](<a href="http://www.scalatest.org/scaladoc">http://www.scalatest.org/scaladoc</a>) for ScalaTest - there is a lot of info there, much of it not covered in the main guide.
+</p>
+
+<p>
+`trait Checkpoints` aggregates assertion errors, allowing you to have all the erro messages instead of failing the spec on the first faield test.
+</p>
+
+<p>
+During the presentation (JUG), the followign opinion was voiced again:
+</p>
+
+<p>
+&gt; If you're writing Scala and have to use mocks, that's a code smell.
+</p>
+
+<p>
+This pertains to maintaing purity in tested functions.
+</p>
+
+<p>
+`scalatest.fixtures` allows to create data fictures for test which are then injected into `in` blocks.
+You need to extend `fixtures.FlatSpec` instead of just `scalatest.FlatSpec`.
+</p>
+<pre class="example">
+type FixtureParam = yourtype
+def withFixture(test: someTestType): Outcome
+</pre>
+
+<p>
+`trait PatienceConfiguration` allows defining the `timeout` and `interval` values for asynchronous code executed within tests.
+This is useful whenutilizing the `whenReady` function (similar to `Await` but async).
+Another use case is the `eventually { &#x2026; }` construct, which tries to execute the code block every `interval` ms until `timeout` value has been reached.
+</p>
+
+<p>
+Test tagging:
+</p>
+<pre class="example">
+it should "do something" taggedAs IntegrationTest in {
+    ...
+}
+</pre>
+
+<p>
+This allows running only a specifiedset of tests - can be used through test configurations.
+</p>
+
+<p>
+Object property checking:
+</p>
+<pre class="example">
+person should have (
+    'id(123),
+    'name("test"),
+    ...
+)
+</pre>
+
+<p>
+This was compared to a <a href="#orga780a1d">1.1</a>.
+</p>
+</div>
+
+
+<div id="outline-container-orga780a1d" class="outline-3">
+<h3 id="orga780a1d"><span class="section-number-3">1.1</span> lens</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+#= Lens =
+</p>
+
+<p>
+This topic should be followed up on when you're more qualified to reason about these topics.
+</p>
+
+<p>
+SPJ presentation:
+<a href="https://pdlvimeocdn-a.akamaihd.net/11073/941/195814777.mp4?token2=1426025400_f1ce041424a36f8be91eb40b5a56dbca&amp;aksessionid=6464f9f872ab29c5">https://pdlvimeocdn-a.akamaihd.net/11073/941/195814777.mp4?token2=1426025400_f1ce041424a36f8be91eb40b5a56dbca&amp;aksessionid=6464f9f872ab29c5</a>
+</p>
+
+<p>
+Lenses in Scalaz:
+<a href="http://eed3si9n.com/learning-scalaz/Lens.html">http://eed3si9n.com/learning-scalaz/Lens.html</a>
+</p>
+
+
+<p>
+In functional programming, lenses are a construct that allow functional, composable access to data structures.
+They were called "jQuery for data types".
+A simple example of a lens would be a function giving you access to the `minutes` portion of a `DateTime` structure.
+</p>
+
+<p>
+A lens is a first-class value with a type of `Lens' s a`, where `s` is the container type and `a` is the <b>focus</b> type.
+</p>
+
+<p>
+Lens composition:
+</p>
+<pre class="example">
+composeL :: Lens' s1 s2
+         -&gt; Lens' s2 a
+         -&gt; Lens' s1 a
+</pre>
+
+<p>
+Haskell already supports a similar concept through nested records, but the code for that is quite cumbersome.
+</p>
+
+<p>
+More concrete example:
+</p>
+<pre class="example">
+data Person = P { name :: String
+                , addr :: Address
+                , salary :: Int }
+data Address = A { road :: String
+                 , city :: String
+                 , postcode :: String }
+
+setPostcode :: String -&gt; Person -&gt; Person
+setPostcode pc p =
+    set (laddr `composeL` lpostcode) pc p
+}
+</pre>
+
+<p>
+We want to have a lens for each field:
+</p>
+<pre class="example">
+data Person = P { name :: String
+                , addr :: Address
+                , salary :: Int }
+lname :: Lens' Person String
+laddr :: Lens' Person Address
+lsalary :: Lens' Person Int
+</pre>
+
+<p>
+as well as means to use it for getting or updating values:
+</p>
+<pre class="example">
+view :: Lens' s a -&gt; s -&gt; a
+view :: Lens' s a -&gt; a -&gt; s -&gt; s
+</pre>
+
+<p>
+and the aforementioned way of composing them:
+</p>
+
+<pre class="example">
+somposeL :: Lens' s1 s2 -&gt; Lens' s2 a -&gt; Lens' s1 a
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author:  (<a href="mailto:elkorn@arch">elkorn@arch</a>)</p>
+<p class="date">Date: </p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.0.3)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

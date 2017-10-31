@@ -1,0 +1,158 @@
+#+FILETAGS: :vimwiki:
+
+* Microservices
+** Architecture - Microservices
+In a nutshell - microservices mean splitting the whole system into modules per
+business capability.
+Each module is a separate application, running in its own process.
+Applications communicate with each other through a service, most probably a
+REST HTTP API or a message bus.
+Distributing and scaling can be done with much finer granularity than with
+standard, monolithic applications.
+
+Each service defines a strict module boundary and can also be maintained by a
+separate team.
+
+This is UNIX philosophy in my opinion.
+
+*** Services vs libraries
+In the standard approach, libraries form the notion of a module.
+Changing one feature in a single 'module' library bears the need of redeploying
+the whole application.
+This is not the case when a service defiens the unit of modularity- services are
+independently deployable.
+
+Another case is encapsulation - it's much easier to break a library module's
+public interface boundaries than to do the same with an exposed service API
+(also called its [[Published Interface]]).
+Also, service API's robustness is language-independent.
+
+A downside to microservices is that RPCs are more expensive than in-process
+calls and the [[Published Interface]]s are coarser-grained.
+It means that it's harder to change the allocation of responsibilities between
+coponents.
+
+I would argue with the validity of that point as it really depends on
+technological differences between the services - from the outside perspective
+behavior migrations can easily be done through redirects.
+
+A service in the most basic understanding maps to a runtime process. In practice
+it has to be noted that a single service may encapsulate multiproc applications,
+developed and deployed in concert.
+
+*** Business capability orientation
+Microservices take a broad-stack implementation for a business area.
+A cross-functional team develops a microservice for that given business area,
+from the DB to the UI.
+This is similar to what has been maintained in Parkeon's Back Office teams -
+each has GUI specialists, backend specialists, DBAs, a leader/manager, a Product
+Owner, a QA etc.
+Ideally, everyone in a cross-functional should have a broad-spectrum knowledge
+about the module they are responsible for.
+
+    *Two Pizza Team rule*: the whole team responsible for one module can be fed
+    by two pizzas. This practically means no more than a dozen of people.
+
+*** Products not Projects
+The team responsible for a module, *owns it*.
+They build it, maintain it and take full responsibility for it.
+
+Amazon says: "[[https://queue.acm.org/detail.cfm?id=1142065][You build it, you run it.]]"
+
+*** Smart endpoints and dumb pipes
+Microservice apps aim to be as decoupled and cohesive as possible.
+They act more like Unix filters.
+They communicate with *simple protocols*, like REST.
+Alternatively, *simple messaging solutions*, such as RabbitMQ or ZeroMQ, can be
+applied.
+The logic must remain within the endpoints.
+
+*** Decentralized governance
+This means no enforced technology for everything.
+Each module can be written on a different stack, tailored to what it actually
+calls for.
+E.g. node.js for simple and scalable dashboards (high I/O throughput, low memory
+footprint), C++ for near-real-time components, different database for a READ (as
+of CQRS) module etc.
+
+Patterns commonly applied to microservices (followup!): [[http://martinfowler.com/bliki/TolerantReader.html][Tolerant Reader]],
+[[http://martinfowler.com/articles/consumerDrivenContracts.html][Consumer-Driven Contracts]].
+
+Consumer-driven contracts act as tests for the service API and can be run as a
+build step. Once the service fullfills them, it's done.
+
+*** Decentralized Data Management
+Abstractly speaking, decentralized data management means that the conceptual
+model of the world will differ between the system components.
+An example might be that the notion of a customer is different from the sales
+perspective and from IT support perspective.
+In some other perspectives it might not even exist.
+
+This relates to DDD's [[http://martinfowler.com/bliki/BoundedContext.html][Bounded Contexts]], which form coherent units, relationships
+of which are defined by subsystem interactions.
+It is worth noting that dividing a system into microservices clearly denotes
+context boundaries.
+
+Technically speaking, this means that each microservice may maintain its own
+database system, adding up to polyglot persistence in the whole.
+This imposes transactionality difficulties - microservice architecture
+emphasizes transactionless exchanges, eventual consistency and dealing with
+inconsistencies through compensating operations. (Akka's journaling model might
+be relevant here)
+
+*** Infrastructure automation
+We are aiming for continuous delivery.
+This means a lot of automated test and creating integration pipelines ending
+with automatic deployment to production.
+Make simple tools and services to aid in this process.
+The whole process should work from single input (command, click of a button
+etc.).
+[[http://netflix.github.io/][Netflix]]'s open source tools are quite awesome.
+
+*** Design for failure
+Failure of microservices must be handled gracefully up to the point of that the
+UX should not drop too much.
+More info on fault tolerance can be found in [[http://techblog.netflix.com/2012/02/fault-tolerance-in-high-volume.html][this Netflix article]].
+Due to being oriented towards choreography and event collaboration, emergent
+beavior is abundant in microservice architecture.
+Due to this, real-time monitoring and logging of the application state is
+crucial.
+
+*** Evolutionary design
+New features generally should be added as microservices.
+This allows easy, granular change (as well as more precise release planning) and
+having decoupled, replaceable components.
+A nice example is a financial institution, where new services are added for a
+market opportunity and discarded after a few months or weeks.
+
+Remember about _reasons to change_ - if you often have to modify two services
+together to accomodate changes, it's a good indicator that they should be
+merged.
+
+*** The drawbacks
+*Operational overhead*
+
+There is a significant operations overhead related to microservices.
+Instead of a simple monolith, there are possibly hundreds of processes to
+maintain, monitor and ensure that they don't run out of disk space, don't
+deadlock and stay performant.
+
+There are also no microservice frameworks.
+The tools and scripts have to be mostly rolled by the teams implementing the
+system.
+
+Strong DevOps skills are required, as well as developers with full-stack,
+polyglot knowledge.
+This makes hiring harder.
+
+*Implicit interfaces*
+
+Each microservice exposes an implicit interface and a communication contract.
+This makes it more effortful to make cross-cutting changes as they have to be
+introduced into multiple components at once.
+They also need to be re-released together, which magnifies the release risk.
+
+My counterargument here would be that actually adhering more to DDD rules and
+separating the pure domain logic to a separate, common module would suffice to
+fix most of the cross-cutting concern issues.
+Separate policy-defining modules from operational ones.

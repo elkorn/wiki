@@ -1,0 +1,754 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-10-31 Tue 15:05 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title></title>
+<meta name="generator" content="Org mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/org"> HOME </a>
+</div><div id="content">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org4db8709">1. Continuations</a>
+<ul>
+<li><a href="#org1f4f993">1.1. Functors</a>
+<ul>
+<li><a href="#org45e2116">1.1.1. Lifting</a></li>
+</ul>
+</li>
+<li><a href="#orge0ed603">1.2. Monads</a>
+<ul>
+<li><a href="#org4a1a8a9">1.2.1. Lifting functions with arity &gt; 1</a>
+<ul>
+<li><a href="#orgc390641">1.2.1.1. <span class="todo TODO">TODO</span> How to express variadic functions correctly in HM notation?</a></li>
+</ul>
+</li>
+<li><a href="#org8f268d7">1.2.2. Error handling</a></li>
+<li><a href="#org0bd8787">1.2.3. Side effects</a></li>
+<li><a href="#org8a1679e">1.2.4. Aside: promises</a></li>
+<li><a href="#org4e8e3ba">1.2.5. <span class="todo TODO">TODO</span> Applicative Functors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org81af103">2. Followups</a>
+<ul>
+<li><a href="#orgad5f1df">2.1. <span class="done DONE">DONE</span> </a></li>
+<li><a href="#org8d8d83c">2.2. <span class="todo TODO">TODO</span> </a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org4db8709" class="outline-2">
+<h2 id="org4db8709"><span class="section-number-2">1</span> Continuations</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Callbacks represent a concept of <i>continuations</i>.
+The main problem with callbacks is that they do not compose - that causes to lose insight into the program flow.
+</p>
+</div>
+
+<div id="outline-container-org1f4f993" class="outline-3">
+<h3 id="org1f4f993"><span class="section-number-3">1.1</span> Functors</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+In Scala, for example, continuation-passing style can be executed by means of <b>Futures</b>.
+An example implementation of a Future in JS can look like so:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-javascript"><span style="color: #b5bd68;">class</span> Future <span style="color: #c5c8c6;">{</span>
+    constructor<span style="color: #8abeb7;">()</span> <span style="color: #8abeb7;">{</span>
+        <span style="color: #81a2be;">this</span>.slots = <span style="color: #f0c674;">[]</span>;
+        <span style="color: #81a2be;">this</span>.completed = <span style="color: #81a2be;">false</span>;
+    <span style="color: #8abeb7;">}</span>
+
+    <span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">ready :: Future a -&gt; (a -&gt; b) -&gt; ()</span>
+    ready<span style="color: #8abeb7;">(</span>fn<span style="color: #8abeb7;">)</span> <span style="color: #8abeb7;">{</span>
+        <span style="color: #b5bd68;">if</span><span style="color: #f0c674;">(</span><span style="color: #81a2be;">this</span>.completed<span style="color: #f0c674;">)</span> <span style="color: #f0c674;">{</span>
+            fn<span style="color: #b5bd68;">(</span><span style="color: #81a2be;">this</span>.value<span style="color: #b5bd68;">)</span>;
+        <span style="color: #f0c674;">}</span> <span style="color: #b5bd68;">else</span> <span style="color: #f0c674;">{</span>
+            <span style="color: #81a2be;">this</span>.slots.push<span style="color: #b5bd68;">(</span>fn<span style="color: #b5bd68;">)</span>;
+        <span style="color: #f0c674;">}</span>
+    <span style="color: #8abeb7;">}</span>
+
+    <span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">complete :: Future a -&gt; a -&gt; ()</span>
+    complete<span style="color: #8abeb7;">(</span>val<span style="color: #8abeb7;">)</span> <span style="color: #8abeb7;">{</span>
+        <span style="color: #b5bd68;">if</span><span style="color: #f0c674;">(</span><span style="color: #81a2be;">this</span>.completed<span style="color: #f0c674;">)</span> <span style="color: #f0c674;">{</span>
+            <span style="color: #b5bd68;">throw</span> <span style="color: #b5bd68;">new</span> <span style="color: #81a2be;">Error</span><span style="color: #b5bd68;">(</span><span style="color: #8abeb7;">'Cannot complete an already completed Future!'</span><span style="color: #b5bd68;">)</span>;
+        <span style="color: #f0c674;">}</span>
+
+        <span style="color: #81a2be;">this</span>.value = val;
+        <span style="color: #81a2be;">this</span>.completed = <span style="color: #81a2be;">true</span>;
+        <span style="color: #81a2be;">this</span>.slots.forEach<span style="color: #f0c674;">(</span>fn =&gt; fn<span style="color: #b5bd68;">(</span><span style="color: #81a2be;">this</span>.value<span style="color: #b5bd68;">)</span><span style="color: #f0c674;">)</span>;
+        <span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">Release the slots from memory.</span>
+        <span style="color: #81a2be;">this</span>.slots = <span style="color: #81a2be;">null</span>;
+    <span style="color: #8abeb7;">}</span>
+
+    <span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">map :: Future a -&gt; (b -&gt; c) -&gt; Future c</span>
+    map<span style="color: #8abeb7;">(</span>fn<span style="color: #8abeb7;">)</span> <span style="color: #8abeb7;">{</span>
+        <span style="color: #b5bd68;">const</span> <span style="color: #f0c674;">future</span> = <span style="color: #b5bd68;">new</span> <span style="color: #81a2be;">Future</span><span style="color: #f0c674;">()</span>;
+        <span style="color: #81a2be;">this</span>.ready<span style="color: #f0c674;">(</span>val =&gt; future.complete<span style="color: #b5bd68;">(</span>fn<span style="color: #81a2be;">(</span>val<span style="color: #81a2be;">)</span><span style="color: #b5bd68;">)</span><span style="color: #f0c674;">)</span>;
+        <span style="color: #b5bd68;">return</span> future;
+    <span style="color: #8abeb7;">}</span>
+
+    <span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">unit :: a -&gt; Future a</span>
+    <span style="color: #b5bd68;">static</span> unit<span style="color: #8abeb7;">(</span>val<span style="color: #8abeb7;">)</span> <span style="color: #8abeb7;">{</span>
+        <span style="color: #b5bd68;">const</span> <span style="color: #f0c674;">future</span> = <span style="color: #b5bd68;">new</span> <span style="color: #81a2be;">Future</span><span style="color: #f0c674;">()</span>;
+        future.complete<span style="color: #f0c674;">(</span>val<span style="color: #f0c674;">)</span>;
+        <span style="color: #b5bd68;">return</span> future;
+    <span style="color: #8abeb7;">}</span>
+
+    <span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">delay :: a -&gt; Int -&gt; Future a</span>
+    <span style="color: #b5bd68;">static</span> delay<span style="color: #8abeb7;">(</span>val, millis<span style="color: #8abeb7;">)</span> <span style="color: #8abeb7;">{</span>
+        <span style="color: #b5bd68;">const</span> <span style="color: #f0c674;">future</span> = <span style="color: #b5bd68;">new</span> <span style="color: #81a2be;">Future</span><span style="color: #f0c674;">()</span>;
+        setTimeout<span style="color: #f0c674;">(</span><span style="color: #b5bd68;">()</span>=&gt;<span style="color: #b5bd68;">{</span>
+            future.complete<span style="color: #81a2be;">(</span>val<span style="color: #81a2be;">)</span>;
+        <span style="color: #b5bd68;">}</span>, millis<span style="color: #f0c674;">)</span>;
+        <span style="color: #b5bd68;">return</span> future;
+    <span style="color: #8abeb7;">}</span>
+
+<span style="color: #c5c8c6;">}</span>
+</pre>
+</div>
+
+<p>
+Having such a tool, we can compose our asynchronous computations with different aspects.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-javascript"><span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">logF :: Future a -&gt; ()</span>
+<span style="color: #b5bd68;">function</span> <span style="color: #de935f;">logF</span><span style="color: #c5c8c6;">(</span><span style="color: #f0c674;">f</span><span style="color: #c5c8c6;">)</span> <span style="color: #c5c8c6;">{</span>
+    f.ready<span style="color: #8abeb7;">(</span>::console.log<span style="color: #8abeb7;">)</span>;
+    <span style="color: #b5bd68;">return</span> f;
+<span style="color: #c5c8c6;">}</span>
+</pre>
+</div>
+
+<p>
+An important thing about the Future and the concept it represents is that it always denotes an immutable value.
+The completion values cannot be changed.
+</p>
+
+<p>
+An example of lifting the <code>fs.readFile</code> function into Future:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-javascript"><span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">readFileF :: String -&gt; Object -&gt; Future String</span>
+<span style="color: #b5bd68;">function</span> <span style="color: #de935f;">readFileF</span><span style="color: #c5c8c6;">(</span><span style="color: #f0c674;">file</span>, <span style="color: #f0c674;">options</span><span style="color: #c5c8c6;">)</span> <span style="color: #c5c8c6;">{</span>
+    <span style="color: #b5bd68;">const</span> <span style="color: #f0c674;">f</span> = <span style="color: #b5bd68;">new</span> <span style="color: #81a2be;">Future</span><span style="color: #8abeb7;">()</span>;
+    fs.readFile<span style="color: #8abeb7;">(</span>file, options, <span style="color: #b5bd68;">function</span><span style="color: #f0c674;">(</span><span style="color: #f0c674;">err</span>, <span style="color: #f0c674;">data</span><span style="color: #f0c674;">){</span>
+        <span style="color: #b5bd68;">if</span><span style="color: #b5bd68;">(</span>err<span style="color: #b5bd68;">)</span> <span style="color: #b5bd68;">throw</span> err;
+        f.complete<span style="color: #b5bd68;">(</span>data<span style="color: #b5bd68;">)</span>;
+    <span style="color: #f0c674;">}</span><span style="color: #8abeb7;">)</span>;
+
+    <span style="color: #b5bd68;">return</span> f;
+<span style="color: #c5c8c6;">}</span>
+</pre>
+</div>
+
+<p>
+A very useful function on Future is <code>map</code>, which allows to compose a value transformation onto a Future instance.
+Note that, for example, Array also can be <code>map</code> ped over.
+</p>
+
+<p>
+Generally, if you are able to <code>map</code> over something, it means that it is a <b>Functor</b>.
+The name comes from the fact that a Functor takes a function, applies it to the contained value and returns another instance representing the transformation result.
+</p>
+</div>
+
+<div id="outline-container-org45e2116" class="outline-4">
+<h4 id="org45e2116"><span class="section-number-4">1.1.1</span> Lifting</h4>
+<div class="outline-text-4" id="text-1-1-1">
+<p>
+We can extract the lift operation (as what was done to the <code>fs.readFile</code> function) as a first-class citizen.
+Let's take an example of measuring the length of the result of a Future.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-javascript"><span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">lengthF :: Future a -&gt; Future Int</span>
+<span style="color: #b5bd68;">function</span> <span style="color: #de935f;">lengthF</span><span style="color: #c5c8c6;">(</span><span style="color: #f0c674;">f</span><span style="color: #c5c8c6;">)</span> <span style="color: #c5c8c6;">{</span>
+    <span style="color: #b5bd68;">const</span> <span style="color: #f0c674;">resultF</span> = <span style="color: #b5bd68;">new</span> <span style="color: #81a2be;">Future</span><span style="color: #8abeb7;">()</span>;
+    f.ready<span style="color: #8abeb7;">(</span>val =&gt; resultF.complete<span style="color: #f0c674;">(</span>val.length<span style="color: #f0c674;">)</span><span style="color: #8abeb7;">)</span>;
+    <span style="color: #b5bd68;">return</span> resultF;
+<span style="color: #c5c8c6;">}</span>
+</pre>
+</div>
+
+<p>
+Now we see some duplication - a sign that some deeper laws are at work here.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-javascript"><span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">lift1 :: (a -&gt; b) -&gt; Future a -&gt; Future b</span>
+Future.lift1 = fn =&gt; fut =&gt; fut.map<span style="color: #c5c8c6;">(</span>fn<span style="color: #c5c8c6;">)</span>;
+
+<span style="color: #b5bd68;">let</span> <span style="color: #f0c674;">lengthF</span> = Future.lift1<span style="color: #c5c8c6;">(</span>result =&gt; result.length<span style="color: #c5c8c6;">)</span>;
+</pre>
+</div>
+
+<p>
+The name <code>lift1</code> corresponds to the arity of the function taken as input.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge0ed603" class="outline-3">
+<h3 id="orge0ed603"><span class="section-number-3">1.2</span> Monads</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Does Future constitute the same meaning for all types that reside within it?
+What about <code>Future Future</code>?
+</p>
+
+<p>
+An example that will be worked on here is that of inspecting a directory and then reading the content of the first file within it.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-javascript"><span style="color: #b5bd68;">import</span> fs from <span style="color: #8abeb7;">'fs'</span>;
+
+<span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">readDirF :: String -&gt; Future [String]</span>
+<span style="color: #b5bd68;">function</span> <span style="color: #de935f;">readDirF</span><span style="color: #c5c8c6;">(</span><span style="color: #f0c674;">path</span><span style="color: #c5c8c6;">)</span> <span style="color: #c5c8c6;">{</span>
+    <span style="color: #b5bd68;">const</span> <span style="color: #f0c674;">future</span> = <span style="color: #b5bd68;">new</span> <span style="color: #81a2be;">Future</span><span style="color: #8abeb7;">()</span>;
+    fs.readdir<span style="color: #8abeb7;">(</span>path, <span style="color: #f0c674;">(</span>err, files<span style="color: #f0c674;">)</span> =&gt; <span style="color: #f0c674;">{</span>
+        <span style="color: #b5bd68;">if</span><span style="color: #b5bd68;">(</span>err<span style="color: #b5bd68;">)</span> <span style="color: #b5bd68;">throw</span> err;
+        future.complete<span style="color: #b5bd68;">(</span>files<span style="color: #b5bd68;">)</span>;
+    <span style="color: #f0c674;">}</span><span style="color: #8abeb7;">)</span>;
+
+    <span style="color: #b5bd68;">return</span> future;
+<span style="color: #c5c8c6;">}</span>
+</pre>
+</div>
+
+<p>
+We can see that trying to just map over the first future with another one, trying to get the length does not work.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-javascript">logF<span style="color: #c5c8c6;">(</span>readDirF<span style="color: #8abeb7;">(</span><span style="color: #8abeb7;">'foo'</span><span style="color: #8abeb7;">)</span>
+     .map<span style="color: #8abeb7;">(</span>files =&gt; ReadFileF<span style="color: #f0c674;">(</span>files<span style="color: #b5bd68;">[</span><span style="color: #81a2be;">0</span><span style="color: #b5bd68;">]</span><span style="color: #f0c674;">)</span><span style="color: #8abeb7;">)</span><span style="color: #c5c8c6;">)</span>;
+<span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">{slots []}</span>
+</pre>
+</div>
+
+<p>
+It just returns the second Future.
+We need to <i>respect</i> the fact that the first Future has to do what it needs to before we can transform its result.
+The function to watch for this looks thusly:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-javascript"><span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">flatten :: Future Future a -&gt; Future a</span>
+Future.<span style="color: #81a2be;">prototype</span>.flatten = <span style="color: #c5c8c6;">()</span> =&gt; <span style="color: #c5c8c6;">{</span>
+    <span style="color: #b5bd68;">const</span> <span style="color: #f0c674;">future1</span> = <span style="color: #b5bd68;">new</span> <span style="color: #81a2be;">Future</span><span style="color: #8abeb7;">()</span>;
+    <span style="color: #81a2be;">this</span>.ready<span style="color: #8abeb7;">(</span>future2 =&gt; future2.ready<span style="color: #f0c674;">(</span>val =&gt; future1.complete<span style="color: #b5bd68;">(</span>val<span style="color: #b5bd68;">)</span><span style="color: #f0c674;">)</span><span style="color: #8abeb7;">)</span>;
+    <span style="color: #b5bd68;">return</span> future1;
+<span style="color: #c5c8c6;">}</span>;
+</pre>
+</div>
+
+<p>
+Having this, we can achieve our original goal, albeit the result is a bit clunky:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-javascript"><span style="color: #b5bd68;">const</span> <span style="color: #f0c674;">result</span> = readDirF<span style="color: #c5c8c6;">(</span><span style="color: #8abeb7;">"testdir"</span><span style="color: #c5c8c6;">)</span>
+               .fmap<span style="color: #c5c8c6;">(</span> files =&gt; readFileF<span style="color: #8abeb7;">(</span>files<span style="color: #f0c674;">[</span><span style="color: #81a2be;">0</span><span style="color: #f0c674;">]</span>, <span style="color: #f0c674;">{</span>encoding: <span style="color: #8abeb7;">'utf8'</span><span style="color: #f0c674;">}</span><span style="color: #8abeb7;">)</span><span style="color: #c5c8c6;">)</span>;
+
+logF<span style="color: #c5c8c6;">(</span> result.flatten<span style="color: #8abeb7;">()</span> <span style="color: #c5c8c6;">)</span>
+</pre>
+</div>
+
+<p>
+Conceptually, we have just <i>sequenced</i> two asynchronous computations.
+This is a very powerful concepts and one of the core features of a <b>Monad</b>.
+It should also be expressed as a first-class citizen.
+</p>
+
+
+<div class="org-src-container">
+<pre class="src src-javascript"><span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">flatMap :: Future a -&gt; (a -&gt; Future b) -&gt; Future b</span>
+Future.<span style="color: #81a2be;">prototype</span>.flatMap = <span style="color: #b5bd68;">function</span><span style="color: #c5c8c6;">(</span><span style="color: #f0c674;">fn</span><span style="color: #c5c8c6;">)</span> <span style="color: #c5c8c6;">{</span>
+    <span style="color: #b5bd68;">return</span> <span style="color: #81a2be;">this</span>.map<span style="color: #8abeb7;">(</span>fn<span style="color: #8abeb7;">)</span>.flatten<span style="color: #8abeb7;">()</span>;
+<span style="color: #c5c8c6;">}</span>;
+</pre>
+</div>
+
+<p>
+The idiomatic way to fulfill the example's goal is:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-javascript">logF<span style="color: #c5c8c6;">(</span>readDirF<span style="color: #8abeb7;">(</span><span style="color: #8abeb7;">"testdir"</span><span style="color: #8abeb7;">)</span>
+     .flatMap<span style="color: #8abeb7;">(</span>files =&gt; readFileF<span style="color: #f0c674;">(</span>files<span style="color: #b5bd68;">[</span><span style="color: #81a2be;">0</span><span style="color: #b5bd68;">]</span>, <span style="color: #b5bd68;">{</span>
+         encoding: <span style="color: #8abeb7;">'utf8'</span>
+     <span style="color: #b5bd68;">}</span><span style="color: #f0c674;">)</span><span style="color: #8abeb7;">)</span><span style="color: #c5c8c6;">)</span>;
+</pre>
+</div>
+
+<p>
+What a type needs to fulfill the Monad interface is:
+</p>
+<ul class="org-ul">
+<li>A way to lift normal values to Monadic ones such as <code>Future.unit</code>.</li>
+<li>A way of chaining (sequencing) 2 consecutive Monadic operations - each monad can have its own chaining logic.
+Here, the logic is handled with <code>flatMap</code> which waits for a Future to complete.</li>
+</ul>
+</div>
+
+<div id="outline-container-org4a1a8a9" class="outline-4">
+<h4 id="org4a1a8a9"><span class="section-number-4">1.2.1</span> Lifting functions with arity &gt; 1</h4>
+<div class="outline-text-4" id="text-1-2-1">
+<p>
+Naively, one could implement lifting functions for different arities.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-javascript"><span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">lift2 :: (a-&gt;b-&gt;c) -&gt; (Future a -&gt; Future b -&gt; Future c)</span>
+Future.lift2 = <span style="color: #b5bd68;">function</span><span style="color: #c5c8c6;">(</span><span style="color: #f0c674;">fn</span><span style="color: #c5c8c6;">)</span> <span style="color: #c5c8c6;">{</span>
+    <span style="color: #b5bd68;">return</span> <span style="color: #8abeb7;">(</span>f1, f2<span style="color: #8abeb7;">)</span> =&gt;
+        f1.flatMap<span style="color: #8abeb7;">(</span>value1 =&gt;
+            f2.flatMap<span style="color: #f0c674;">(</span>value2 =&gt;
+                Future.unit<span style="color: #b5bd68;">(</span>fn<span style="color: #81a2be;">(</span>value1, value2<span style="color: #81a2be;">)</span><span style="color: #b5bd68;">)</span>
+            <span style="color: #f0c674;">)</span>
+        <span style="color: #8abeb7;">)</span>;
+<span style="color: #c5c8c6;">}</span>;
+
+<span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">and so on...</span>
+</pre>
+</div>
+
+<p>
+Note that the first operation doesn't really do anything - it just provides a scope for the result of the first Future.
+An interesting property becomes visible if we put this into action:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-javascript"><span style="color: #b5bd68;">var</span> <span style="color: #f0c674;">concat2F</span> = Future.lift2<span style="color: #c5c8c6;">(</span> <span style="color: #8abeb7;">(</span>str1, str2<span style="color: #8abeb7;">)</span> =&gt; str1+<span style="color: #8abeb7;">' '</span>+str2 <span style="color: #c5c8c6;">)</span>;
+<span style="color: #b5bd68;">var</span> <span style="color: #f0c674;">text1F</span> = readFileF<span style="color: #c5c8c6;">(</span><span style="color: #8abeb7;">'test1.txt'</span>, <span style="color: #8abeb7;">{</span>encoding: <span style="color: #8abeb7;">'utf8'</span><span style="color: #8abeb7;">}</span><span style="color: #c5c8c6;">)</span>;
+<span style="color: #b5bd68;">var</span> <span style="color: #f0c674;">text2F</span> = readFileF<span style="color: #c5c8c6;">(</span><span style="color: #8abeb7;">'test2.txt'</span>, <span style="color: #8abeb7;">{</span>encoding: <span style="color: #8abeb7;">'utf8'</span><span style="color: #8abeb7;">}</span><span style="color: #c5c8c6;">)</span>;
+log<span style="color: #c5c8c6;">(</span> concat2F<span style="color: #8abeb7;">(</span>text1F, text2F<span style="color: #8abeb7;">)</span> <span style="color: #c5c8c6;">)</span>;
+</pre>
+</div>
+
+<p>
+Note that the multi-argument function does not depend on the order of completion of its inputs or on their interdependence.
+It can be stated that
+</p>
+
+<blockquote>
+<p>
+<b>If</b> <code>map</code> denotes a single operation
+<b>and</b> <code>flatMap</code> denotes sequential operations
+<b>then</b> multi-argument lifted functions denote <i>parallel</i> operations.
+</p>
+</blockquote>
+
+<p>
+Practically - we run all Futures at once and wait for their completion.
+A variadic lifting function looks like so.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-javascript"><span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">MISSING TYPE DECLARATION!</span>
+Future.lift = fn =&gt; <span style="color: #c5c8c6;">{</span>
+    <span style="color: #b5bd68;">return</span> <span style="color: #8abeb7;">(</span>...args<span style="color: #8abeb7;">)</span> =&gt; <span style="color: #8abeb7;">{</span>
+        <span style="color: #b5bd68;">let</span> <span style="color: #f0c674;">bindArg</span> = <span style="color: #f0c674;">(</span>index, values<span style="color: #f0c674;">)</span> =&gt; <span style="color: #f0c674;">{</span>
+            <span style="color: #b5bd68;">return</span> args<span style="color: #b5bd68;">[</span>index<span style="color: #b5bd68;">]</span>.flatMap<span style="color: #b5bd68;">(</span>val =&gt; <span style="color: #81a2be;">{</span>
+                values = values.concat<span style="color: #c5c8c6;">(</span>val<span style="color: #c5c8c6;">)</span>;
+                <span style="color: #b5bd68;">if</span> <span style="color: #c5c8c6;">(</span>index &lt; args.length - <span style="color: #81a2be;">1</span><span style="color: #c5c8c6;">)</span> <span style="color: #c5c8c6;">{</span>
+                    <span style="color: #b5bd68;">return</span> bindArg<span style="color: #8abeb7;">(</span>index + <span style="color: #81a2be;">1</span>, values<span style="color: #8abeb7;">)</span>;
+                <span style="color: #c5c8c6;">}</span>
+
+                <span style="color: #b5bd68;">return</span> Future.unit<span style="color: #c5c8c6;">(</span>fn.apply<span style="color: #8abeb7;">(</span><span style="color: #81a2be;">this</span>, values<span style="color: #8abeb7;">)</span><span style="color: #c5c8c6;">)</span>;
+            <span style="color: #81a2be;">}</span><span style="color: #b5bd68;">)</span>;
+        <span style="color: #f0c674;">}</span>;
+
+        <span style="color: #b5bd68;">return</span> bindArg<span style="color: #f0c674;">(</span><span style="color: #81a2be;">0</span>, <span style="color: #b5bd68;">[]</span><span style="color: #f0c674;">)</span>;
+    <span style="color: #8abeb7;">}</span>;
+<span style="color: #c5c8c6;">}</span>;
+</pre>
+</div>
+
+<p>
+N-ary lifting can also be implemented via an Applicative Functor.
+</p>
+</div>
+
+<div id="outline-container-orgc390641" class="outline-5">
+<h5 id="orgc390641"><span class="section-number-5">1.2.1.1</span> <span class="todo TODO">TODO</span> How to express variadic functions correctly in HM notation?</h5>
+</div>
+</div>
+<div id="outline-container-org8f268d7" class="outline-4">
+<h4 id="org8f268d7"><span class="section-number-4">1.2.2</span> Error handling</h4>
+<div class="outline-text-4" id="text-1-2-2">
+<p>
+Instead of throwing the error in <code>readFileF</code> and <code>readDirF</code>, the Future could be augmented with means of expressing failure.
+Note that the failure handling logic has to be implemented in all primitive combinators.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-javascript"><span style="color: #b5bd68;">class</span> Future <span style="color: #c5c8c6;">{</span>
+    constructor<span style="color: #8abeb7;">()</span> <span style="color: #8abeb7;">{</span>
+        <span style="color: #81a2be;">this</span>.completeSlots = <span style="color: #f0c674;">[]</span>;
+        <span style="color: #81a2be;">this</span>.failSlots = <span style="color: #f0c674;">[]</span>;
+        <span style="color: #81a2be;">this</span>.completed = <span style="color: #81a2be;">false</span>;
+        <span style="color: #81a2be;">this</span>.failed = <span style="color: #81a2be;">false</span>;
+    <span style="color: #8abeb7;">}</span>
+
+    <span style="color: #969896; font-style: italic;">/* </span><span style="color: #969896; font-style: italic;">... */</span>
+
+    failed<span style="color: #8abeb7;">(</span>fn<span style="color: #8abeb7;">)</span> <span style="color: #8abeb7;">{</span>
+        <span style="color: #b5bd68;">if</span> <span style="color: #f0c674;">(</span><span style="color: #81a2be;">this</span>.failed<span style="color: #f0c674;">)</span> <span style="color: #f0c674;">{</span>
+            fn<span style="color: #b5bd68;">(</span><span style="color: #81a2be;">this</span>.error<span style="color: #b5bd68;">)</span>;
+        <span style="color: #f0c674;">}</span> <span style="color: #b5bd68;">else</span> <span style="color: #f0c674;">{</span>
+            <span style="color: #81a2be;">this</span>.failSlots.push<span style="color: #b5bd68;">(</span>fn<span style="color: #b5bd68;">)</span>;
+        <span style="color: #f0c674;">}</span>
+    <span style="color: #8abeb7;">}</span>
+
+    fail<span style="color: #8abeb7;">(</span>err<span style="color: #8abeb7;">)</span> <span style="color: #8abeb7;">{</span>
+        <span style="color: #b5bd68;">if</span><span style="color: #f0c674;">(</span><span style="color: #81a2be;">this</span>.completed || <span style="color: #81a2be;">this</span>.failed<span style="color: #f0c674;">)</span> <span style="color: #f0c674;">{</span>
+            <span style="color: #b5bd68;">throw</span> <span style="color: #b5bd68;">new</span> <span style="color: #81a2be;">Error</span><span style="color: #b5bd68;">(</span><span style="color: #8abeb7;">'Cannot fail an already settled Future!'</span><span style="color: #b5bd68;">)</span>;
+        <span style="color: #f0c674;">}</span>
+
+        <span style="color: #81a2be;">this</span>.failed = <span style="color: #81a2be;">true</span>;
+        <span style="color: #81a2be;">this</span>.error = err;
+        <span style="color: #81a2be;">this</span>.failSlots.forEach<span style="color: #f0c674;">(</span>fn =&gt; fn<span style="color: #b5bd68;">(</span>err<span style="color: #b5bd68;">)</span><span style="color: #f0c674;">)</span>;
+        <span style="color: #81a2be;">this</span>.failSlots = <span style="color: #81a2be;">null</span>;
+        <span style="color: #81a2be;">this</span>.slots = <span style="color: #81a2be;">null</span>;
+    <span style="color: #8abeb7;">}</span>
+
+    map<span style="color: #8abeb7;">(</span>fn<span style="color: #8abeb7;">)</span> <span style="color: #8abeb7;">{</span>
+        <span style="color: #b5bd68;">const</span> <span style="color: #f0c674;">future</span> = <span style="color: #b5bd68;">new</span> <span style="color: #81a2be;">Future</span><span style="color: #f0c674;">()</span>;
+        <span style="color: #81a2be;">this</span>.ready<span style="color: #f0c674;">(</span>val =&gt; <span style="color: #b5bd68;">{</span>
+            <span style="color: #b5bd68;">try</span> <span style="color: #81a2be;">{</span>
+                future.complete<span style="color: #c5c8c6;">(</span>fn<span style="color: #8abeb7;">(</span>val<span style="color: #8abeb7;">)</span><span style="color: #c5c8c6;">)</span>;
+            <span style="color: #81a2be;">}</span> <span style="color: #b5bd68;">catch</span><span style="color: #81a2be;">(</span>err<span style="color: #81a2be;">)</span> <span style="color: #81a2be;">{</span>
+                future.fail<span style="color: #c5c8c6;">(</span>err<span style="color: #c5c8c6;">)</span>;
+            <span style="color: #81a2be;">}</span>
+        <span style="color: #b5bd68;">}</span><span style="color: #f0c674;">)</span>;
+
+        <span style="color: #81a2be;">this</span>.failed<span style="color: #f0c674;">(</span>err =&gt; future.fail<span style="color: #b5bd68;">(</span>err<span style="color: #b5bd68;">)</span><span style="color: #f0c674;">)</span>;
+        <span style="color: #b5bd68;">return</span> future;
+    <span style="color: #8abeb7;">}</span>
+
+    flatten<span style="color: #8abeb7;">()</span> <span style="color: #8abeb7;">{</span>
+        <span style="color: #b5bd68;">const</span> <span style="color: #f0c674;">future1</span> = <span style="color: #b5bd68;">new</span> <span style="color: #81a2be;">Future</span><span style="color: #f0c674;">()</span>;
+
+        <span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">If outer fails, we don't care about the result of inner.</span>
+        <span style="color: #81a2be;">this</span>.failed<span style="color: #f0c674;">(</span>err =&gt; future1.fail<span style="color: #b5bd68;">(</span>err<span style="color: #b5bd68;">)</span><span style="color: #f0c674;">)</span>;
+
+        <span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">If inner fails, we need to fail the result.</span>
+        <span style="color: #81a2be;">this</span>.ready<span style="color: #f0c674;">(</span>future2 =&gt; future2.failed<span style="color: #b5bd68;">(</span>err =&gt; future1.fail<span style="color: #81a2be;">(</span>err<span style="color: #81a2be;">)</span><span style="color: #b5bd68;">)</span><span style="color: #f0c674;">)</span>;
+
+        <span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">Happy case.</span>
+        <span style="color: #81a2be;">this</span>.ready<span style="color: #f0c674;">(</span>future2 =&gt; future2.ready<span style="color: #b5bd68;">(</span>val =&gt; future1.complete<span style="color: #81a2be;">(</span>val<span style="color: #81a2be;">)</span><span style="color: #b5bd68;">)</span><span style="color: #f0c674;">)</span>;
+
+        <span style="color: #b5bd68;">return</span> future1;
+    <span style="color: #8abeb7;">}</span>
+<span style="color: #c5c8c6;">}</span>
+</pre>
+</div>
+
+<p>
+What can we do with a failed Future?
+There is actually only one thing - we can <i>catch</i> the errors and try to recover from them.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-javascript"><span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">recover :: Future a|Error -&gt; (Error -&gt; b|Error) -&gt; Future b|Error</span>
+Future.<span style="color: #81a2be;">prototype</span>.recover = fn =&gt; <span style="color: #c5c8c6;">{</span>
+    <span style="color: #b5bd68;">const</span> <span style="color: #f0c674;">future</span> = <span style="color: #b5bd68;">new</span> <span style="color: #81a2be;">Future</span><span style="color: #8abeb7;">()</span>;
+
+    <span style="color: #81a2be;">this</span>.ready<span style="color: #8abeb7;">(</span>val =&gt; future.complete<span style="color: #f0c674;">(</span>val<span style="color: #f0c674;">)</span><span style="color: #8abeb7;">)</span>;
+
+    <span style="color: #81a2be;">this</span>.failed<span style="color: #8abeb7;">(</span>err =&gt; <span style="color: #f0c674;">{</span>
+        <span style="color: #b5bd68;">try</span> <span style="color: #b5bd68;">{</span>
+            future.complete<span style="color: #81a2be;">(</span>fn<span style="color: #c5c8c6;">(</span>err<span style="color: #c5c8c6;">)</span><span style="color: #81a2be;">)</span>;
+        <span style="color: #b5bd68;">}</span> <span style="color: #b5bd68;">catch</span><span style="color: #b5bd68;">(</span>err<span style="color: #b5bd68;">)</span> <span style="color: #b5bd68;">{</span>
+            future.fail<span style="color: #81a2be;">(</span>err<span style="color: #81a2be;">)</span>;
+        <span style="color: #b5bd68;">}</span>
+    <span style="color: #f0c674;">}</span><span style="color: #8abeb7;">)</span>;
+
+    <span style="color: #b5bd68;">return</span> future;
+<span style="color: #c5c8c6;">}</span>;
+</pre>
+</div>
+
+<p>
+To be able to use the recovery functionality in monadic sequences, we need to defined a <code>flatMap</code> variant as well.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-javascript"><span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">flatMapRecover :: Future a|Error -&gt; (Error -&gt; Future b|Error) -&gt; Future b|Error</span>
+Future.<span style="color: #81a2be;">prototype</span>.flatMapRecover = fn =&gt; <span style="color: #c5c8c6;">{</span>
+    <span style="color: #b5bd68;">return</span> <span style="color: #81a2be;">this</span>.recover<span style="color: #8abeb7;">(</span>fn<span style="color: #8abeb7;">)</span>.flatten<span style="color: #8abeb7;">()</span>;
+<span style="color: #c5c8c6;">}</span>;
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org0bd8787" class="outline-4">
+<h4 id="org0bd8787"><span class="section-number-4">1.2.3</span> Side effects</h4>
+<div class="outline-text-4" id="text-1-2-3">
+<p>
+When computations finish, that's the time to update the UI, save to DB, log to the console etc. - generally, perform IO.
+The problem is that if we want to be purely functional,  we need to return something as a result of this IO operation.
+Another issue is that we may need to wait for the side effect operation to complete and we often need its result.
+These problems point to an obvious solution - IO should be <i>monadic</i> as well.
+</p>
+
+
+<div class="org-src-container">
+<pre class="src src-javascript"><span style="color: #b5bd68;">class</span> IO <span style="color: #c5c8c6;">{</span>
+    constructor<span style="color: #8abeb7;">(</span>io<span style="color: #8abeb7;">)</span> <span style="color: #8abeb7;">{</span>
+        <span style="color: #81a2be;">this</span>.io = io;
+    <span style="color: #8abeb7;">}</span>
+
+    <span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">map :: IO a -&gt; (a -&gt; b) -&gt; IO b</span>
+    map<span style="color: #8abeb7;">(</span>fn<span style="color: #8abeb7;">)</span> <span style="color: #8abeb7;">{</span>
+        <span style="color: #b5bd68;">return</span> <span style="color: #b5bd68;">new</span> <span style="color: #81a2be;">IO</span><span style="color: #f0c674;">(</span><span style="color: #b5bd68;">()</span> =&gt; fn<span style="color: #b5bd68;">(</span><span style="color: #81a2be;">this</span>.io<span style="color: #81a2be;">()</span><span style="color: #b5bd68;">)</span><span style="color: #f0c674;">)</span>;
+    <span style="color: #8abeb7;">}</span>
+
+    <span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">map :: IO a -&gt; (a -&gt; IO b) -&gt; IO b</span>
+    flatMap<span style="color: #8abeb7;">()</span> <span style="color: #8abeb7;">{</span>
+        <span style="color: #b5bd68;">return</span> <span style="color: #b5bd68;">new</span> <span style="color: #81a2be;">IO</span><span style="color: #f0c674;">(</span><span style="color: #b5bd68;">()</span> =&gt; fn<span style="color: #b5bd68;">(</span><span style="color: #81a2be;">this</span>.io<span style="color: #81a2be;">()</span><span style="color: #b5bd68;">)</span>.run<span style="color: #b5bd68;">()</span><span style="color: #f0c674;">)</span>;
+    <span style="color: #8abeb7;">}</span>
+
+    <span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">map :: IO a -&gt; a </span>
+    run<span style="color: #8abeb7;">()</span> <span style="color: #8abeb7;">{</span>
+        <span style="color: #81a2be;">this</span>.io<span style="color: #f0c674;">()</span>;
+    <span style="color: #8abeb7;">}</span>
+
+    <span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">unit :: a -&gt; IO a</span>
+    <span style="color: #b5bd68;">static</span> unit<span style="color: #8abeb7;">(</span>val<span style="color: #8abeb7;">)</span> <span style="color: #8abeb7;">{</span>
+        <span style="color: #b5bd68;">return</span> <span style="color: #b5bd68;">new</span> <span style="color: #81a2be;">IO</span><span style="color: #f0c674;">(</span><span style="color: #b5bd68;">()</span> =&gt; val<span style="color: #f0c674;">)</span>;
+    <span style="color: #8abeb7;">}</span>
+<span style="color: #c5c8c6;">}</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8a1679e" class="outline-4">
+<h4 id="org8a1679e"><span class="section-number-4">1.2.4</span> Aside: promises</h4>
+<div class="outline-text-4" id="text-1-2-4">
+<p>
+Promises look similar to Futures - one would just have to merge all the ready/error handling methods into one.
+The clue of the difference lies in the semantics.
+The Promise specification describes <i>operational</i> semantics (i.e. how exactly a Promise implementation should behave) whereas the Future presents a <i>denotational</i> semantics (focusing more on the overall result).
+Promises can be thought of in a more functional context - functions can be lifted into their domain to reduce complexity and provide more referential transparency.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org4e8e3ba" class="outline-4">
+<h4 id="org4e8e3ba"><span class="section-number-4">1.2.5</span> <span class="todo TODO">TODO</span> Applicative Functors</h4>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org81af103" class="outline-2">
+<h2 id="org81af103"><span class="section-number-2">2</span> Followups</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-orgad5f1df" class="outline-3">
+<h3 id="orgad5f1df"><span class="section-number-3">2.1</span> <span class="done DONE">DONE</span> <a href="https://medium.com/@yelouafi/from-callback-to-future-functor-monad-6c86d9c16cb5">https://medium.com/@yelouafi/from-callback-to-future-functor-monad-6c86d9c16cb5</a></h3>
+</div>
+<div id="outline-container-org8d8d83c" class="outline-3">
+<h3 id="org8d8d83c"><span class="section-number-3">2.2</span> <span class="todo TODO">TODO</span> <a href="https://medium.com/@yelouafi/futures-and-monoids-7e9f4574bd88">https://medium.com/@yelouafi/futures-and-monoids-7e9f4574bd88</a></h3>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author:  (<a href="mailto:elkorn@arch">elkorn@arch</a>)</p>
+<p class="date">Date: </p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.0.3)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

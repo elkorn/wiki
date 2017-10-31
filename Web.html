@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-10-31 Tue 15:05 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title></title>
+<meta name="generator" content="Org mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/org"> HOME </a>
+</div><div id="content">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org9f2433a">1. Web</a>
+<ul>
+<li><a href="#orgf11231c">1.1. HTML, DOM</a>
+<ul>
+<li><a href="#org03fcb59">1.1.1. Web - HTML, DOM</a>
+<ul>
+<li><a href="#orgb23d333">1.1.1.1. Compare the positions of two given nodes in a document</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgbdfdc4e">1.2. JavaScript</a>
+<ul>
+<li><a href="#org4333cf1">1.2.1. WellManagedAMDCodebase</a>
+<ul>
+<li><a href="#org3d1b05b">1.2.1.1. Well managed AMD codebase</a></li>
+</ul>
+</li>
+<li><a href="#org496a251">1.2.2. MVCFrameworks</a>
+<ul>
+<li><a href="#orgbe9ac6b">1.2.2.1. MVC Frameworks</a></li>
+</ul>
+</li>
+<li><a href="#org4e26e5a">1.2.3. ReactIsNotAsGoodAsItCouldBe</a>
+<ul>
+<li><a href="#orgf8b5afb">1.2.3.1. React is not as good as it could be</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org3a8021e">1.3. JSONWebTokens</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org9f2433a" class="outline-2">
+<h2 id="org9f2433a"><span class="section-number-2">1</span> Web</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+#= Web =
+</p>
+
+<p>
+<a href="#orgf11231c">1.1</a>
+</p>
+
+<p>
+<a href="#orgbdfdc4e">1.2</a>
+</p>
+
+<p>
+<a href="#org3a8021e">1.3</a>
+</p>
+</div>
+
+<div id="outline-container-orgf11231c" class="outline-3">
+<h3 id="orgf11231c"><span class="section-number-3">1.1</span> HTML, DOM</h3>
+<div class="outline-text-3" id="text-1-1">
+</div><div id="outline-container-org03fcb59" class="outline-4">
+<h4 id="org03fcb59"><span class="section-number-4">1.1.1</span> Web - HTML, DOM</h4>
+<div class="outline-text-4" id="text-1-1-1">
+</div><div id="outline-container-orgb23d333" class="outline-5">
+<h5 id="orgb23d333"><span class="section-number-5">1.1.1.1</span> Compare the positions of two given nodes in a document</h5>
+<div class="outline-text-5" id="text-1-1-1-1">
+<p>
+A method called `compareDocumentPosition` allows to check the position of a DOM
+element relative to another one.
+</p>
+
+<p>
+Possible return values:
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="org863c823"></a>Node.DOCUMENT<sub>POSITION</sub><sub>DISCONNECTED</sub>: 1<br  /></li>
+<li><a id="org6d3fca0"></a>Node.DOCUMENT<sub>POSITION</sub><sub>PRECEDING</sub>: 2<br  /></li>
+<li><a id="org6246977"></a>Node.DOCUMENT<sub>POSITION</sub><sub>FOLLOWING</sub>: 4<br  /></li>
+<li><a id="orgd17eae2"></a>Node.DOCUMENT<sub>POSITION</sub><sub>CONTAINS</sub>: 8<br  /></li>
+<li><a id="org69d57fa"></a>Node.DOCUMENT<sub>POSITION</sub><sub>CONTAINED</sub><sub>BY</sub>: 16<br  /></li>
+<li><a id="orgd34af80"></a>Node.DOCUMENT<sub>POSITION</sub><sub>IMPLEMENTATION</sub><sub>SPECIFIC</sub>: 32<br  /><div class="outline-text-6" id="text-1-1-1-1-6">
+<p>
+Example:
+</p>
+<pre class="example">
+&lt;div id="one"&gt;
+  &lt;div id="two"&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+<pre class="example">
+$('#two').compareDocumentPosition($('#one')) // 20
+document.body.compareDocumentPosition(document.head) // 2
+document.head.compareDocumentPosition(document.body) // 4
+</pre>
+
+<p>
+`head` precedes `body` (2) and `body` follows `head` (4).
+</p>
+
+<p>
+Note that `#two` is contained in `#one` and the result is 16 + 4, which means 
+that `#two` is contained by `#one` and also is following it.
+</p>
+
+<p>
+<a href="http://ejohn.org/blog/comparing-document-position/">John Resig</a> elaborates on browser support as well as how to polyfill 
+the functionality in different browsers.
+</p>
+</div></li></ol>
+</div>
+</div>
+</div>
+<div id="outline-container-orgbdfdc4e" class="outline-3">
+<h3 id="orgbdfdc4e"><span class="section-number-3">1.2</span> JavaScript</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+#= Web - JavaScript =
+</p>
+
+<p>
+<a href="#org4333cf1">1.2.1</a>
+</p>
+
+<p>
+<a href="#org496a251">1.2.2</a>
+</p>
+
+<p>
+<a href="#org4e26e5a">1.2.3</a>
+</p>
+</div>
+
+
+
+<div id="outline-container-org4333cf1" class="outline-4">
+<h4 id="org4333cf1"><span class="section-number-4">1.2.1</span> WellManagedAMDCodebase</h4>
+<div class="outline-text-4" id="text-1-2-1">
+</div><div id="outline-container-org3d1b05b" class="outline-5">
+<h5 id="org3d1b05b"><span class="section-number-5">1.2.1.1</span> Well managed AMD codebase</h5>
+<div class="outline-text-5" id="text-1-2-1-1">
+<p>
+Such a codebase is characterized by 5 traits.
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="orgfcf7c80"></a>1. Dependencies are always declared<br  /><div class="outline-text-6" id="text-1-2-1-1-1">
+<p>
+Scripts should not assume that a dependency will be available in the target environment e.g. a jQuery plugin should not assume jQuery being present.
+Instead, all dependencies should be explicitly stated in the module definition.
+</p>
+</div></li>
+
+<li><a id="orga03dd49"></a>2. 3rd party code is shimmed<br  /><div class="outline-text-6" id="text-1-2-1-1-2">
+<p>
+If a 3rd-party module implicitly depends on some module and is not AMD-oriented, the dependencies have to be made explicit by using a shim.
+Example:
+</p>
+<pre class="example">
+var require = {
+    shim: {
+        "lib/cool-plugin": {
+            deps: ["lib/jquery"]
+        }
+    }
+}
+</pre>
+</div></li>
+
+<li><a id="org30d2f60"></a>3. Definitions are separate from executions<br  /><div class="outline-text-6" id="text-1-2-1-1-3">
+<p>
+This trait improves testability and reusability.
+The problem occurs when a `define` call not only defines a module but also invokes it.
+This causes unavoidable side effects and makes mocking harder.
+</p>
+
+<p>
+The solution is to use separate `define` statements for actual definition and execution.
+Example:
+</p>
+<pre class="example">
+## js/User.js
+define(function(require) {
+    var User = function(name, greeter) {
+        this.name = name;
+        this.greeter = greeter;
+    };
+
+    User.prototype.sayHello = function() {
+        this.greeter('Hello ' + this.name);
+    };
+
+    return User;
+});
+
+## js/page.js
+define(function(require) {
+    var User = require('js/User');
+    var user = new User('Alice', window.alert);
+    
+    user.sayHello();
+});
+</pre>
+</div></li>
+
+<li><a id="org28870aa"></a>4. Dependency loading is asynchronous<br  /><div class="outline-text-6" id="text-1-2-1-1-4">
+<p>
+Require.js enables asynchronous loading by default when the module is placed in a function.
+It gets invoked only after all dependencies are met.
+</p>
+<pre class="example">
+define(['lib/jquery', 'lib/underscore'], function($,_) {
+    'use strict';
+    // init
+});
+</pre>
+</div></li>
+
+<li><a id="org1abaf46"></a>5. Modules do not depend on globals.<br  /><div class="outline-text-6" id="text-1-2-1-1-5">
+<p>
+Instead of using globals, create a module with important constants and so on.
+3rd-party globals can be shimmed:
+</p>
+<pre class="example">
+// Calc is global, but we export it as a local variable when it's required.
+var require = {
+    shim: {
+        'lib/calculator': {
+            export: "Calc"
+        }
+    }
+};
+</pre>
+</div></li></ol>
+</div>
+</div>
+<div id="outline-container-org496a251" class="outline-4">
+<h4 id="org496a251"><span class="section-number-4">1.2.2</span> MVCFrameworks</h4>
+<div class="outline-text-4" id="text-1-2-2">
+</div><div id="outline-container-orgbe9ac6b" class="outline-5">
+<h5 id="orgbe9ac6b"><span class="section-number-5">1.2.2.1</span> MVC Frameworks</h5>
+<div class="outline-text-5" id="text-1-2-2-1">
+</div><ol class="org-ol"><li><a id="orgb9e982d"></a>Mithril<br  /><div class="outline-text-6" id="text-1-2-2-1-1">
+<p>
+<a href="http://lhorie.github.io/mithril/">http://lhorie.github.io/mithril/</a>
+</p>
+
+<p>
+It has virtual DOM.
+</p>
+</div></li>
+
+<li><a id="org0f00a60"></a>Taunus<br  /><div class="outline-text-6" id="text-1-2-2-1-2">
+<p>
+<a href="http://taunus.bevacqua.io/">http://taunus.bevacqua.io/</a>
+</p>
+
+<p>
+Performance-oriented.
+</p>
+</div></li>
+
+<li><a id="org95ee380"></a>Mercury<br  /><div class="outline-text-6" id="text-1-2-2-1-3">
+<p>
+<a href="https://github.com/Raynos/mercury">https://github.com/Raynos/mercury</a>
+</p>
+
+<p>
+Very modular, has virtual DOM.
+</p>
+</div></li>
+
+<li><a id="orgcb75482"></a>Maria<br  /><div class="outline-text-6" id="text-1-2-2-1-4">
+<p>
+<a href="https://github.com/petermichaux/maria">https://github.com/petermichaux/maria</a>
+</p>
+
+<p>
+Implements the smalltalk MVC model.
+</p>
+</div></li></ol>
+</div>
+</div>
+<div id="outline-container-org4e26e5a" class="outline-4">
+<h4 id="org4e26e5a"><span class="section-number-4">1.2.3</span> ReactIsNotAsGoodAsItCouldBe</h4>
+<div class="outline-text-4" id="text-1-2-3">
+</div><div id="outline-container-orgf8b5afb" class="outline-5">
+<h5 id="orgf8b5afb"><span class="section-number-5">1.2.3.1</span> React is not as good as it could be</h5>
+<div class="outline-text-5" id="text-1-2-3-1">
+<p>
+Via "Don't React" presentation.
+</p>
+
+<p>
+Don't follow the hype, the community, the companies.
+The only thing you should follow is the science.
+</p>
+
+<p>
+React has virtual DOM.
+That's good, since the real DOM is very slow.
+</p>
+
+<p>
+Unfortunately, the authors did not quite grasp the idea of reactive programming.
+Their docs mention 'reactive data flow' or 'reactive state' - things that do not exist.
+</p>
+
+<p>
+There are two ways of communicating:
+</p>
+</div>
+<ol class="org-ol"><li><a id="orgee66064"></a>interactive communication, where a module defines what it affects<br  /></li>
+<li><a id="org2555f64"></a>reactive communication, where a module defines what it is affected by<br  /><div class="outline-text-6" id="text-1-2-3-1-2">
+<p>
+In interavtive programming, there are 2 key roles:
+</p>
+</div></li>
+<li><a id="org810a6ac"></a>passive, where methods are being exposed to mutate internal state (this is bad)<br  /></li>
+<li><a id="orgaa8187d"></a>proactive, where the only communication responsibilities are sending and handling events (this is good).<br  /><div class="outline-text-6" id="text-1-2-3-1-4">
+<p>
+React has mostly a passive API, especially the `state` concepts.
+</p>
+
+<p>
+It could be improved by:
+</p>
+</div></li>
+<li><a id="orgd6ee8cf"></a>promoting virtual DOM to first-class data structures<br  /></li>
+<li><a id="org3171350"></a>making it fully proactive<br  /></li>
+<li><a id="org55fbc1f"></a>making it more explicit - less magic<br  /></li>
+
+<li><a id="org81acceb"></a>Alternatives<br  /><div class="outline-text-6" id="text-1-2-3-1-8">
+<p>
+Virtual DOM libraries:
+</p>
+</div>
+<ol class="org-ol"><li><a id="org50943b4"></a><a href="https://github.com/Matt-Esch/virtual-dom">https://github.com/Matt-Esch/virtual-dom</a><br  /></li>
+<li><a id="org074c6fa"></a><a href="https://github.com/staltz/cycle">https://github.com/staltz/cycle</a><br  /><div class="outline-text-7" id="text-1-2-3-1-8-2">
+<p>
+Better frameworks: check <a href="#org496a251">1.2.2</a>.
+</p>
+</div></li></ol></li></ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3a8021e" class="outline-3">
+<h3 id="org3a8021e"><span class="section-number-3">1.3</span> JSONWebTokens</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+#= JSON Web Tokens =
+<a href="http://jwt.io/">http://jwt.io/</a>
+</p>
+
+<p>
+JWTs are supposed to replace API keys.
+</p>
+
+<p>
+JSON Web Token (JWT) is a compact URL-safe means of representing claims to be transferred between two parties. The claims in a JWT are encoded as a JSON object that is digitally signed using JSON Web Signature (JWS). IETF
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author:  (<a href="mailto:elkorn@arch">elkorn@arch</a>)</p>
+<p class="date">Date: </p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.0.3)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+Tracking side-project ideas to stop them fading away and not swamp myself at the same time.
+
+* COMMENT Project template
+
+*Language*:  LANGUAGE
+
+** Resources
+- RESOURCE
+
+** Notes
+NOTE 
+
+
+* Procedural texture generation
+
+*Language*:  Haskell
+
+** Resources
+- http://www.upvector.com/?section=Tutorials&subsection=Intro%20to%20Procedural%20Textures
+
+** Notes
+*** TODO Haskell image processing
+
+
+* CQRS e-commerce API
+*Language*:  Haskell
+
+** Resources
+- https://hackage.haskell.org/package/cqrs-core
+- https://lostechies.com/gabrielschenker/author/gabrielschenker/
+
+** Notes
+*** TODO Consider coupling this with Evans / Vernon reading
+    
+*** TODO Try Kafka as an event store
+
+* GMail shortcuts
+
+*Language*:  ES2015 / PureScript / GHCJS / ClojureScript (make up your mind...)
+
+** Resources
+- https://support.google.com/mail/answer/7190?hl=en
+- https://mail.google.com/mail/h/
+
+** Notes
+
+Re-implement the seedling of this project that you've made a few years back.
+
+- Walk the links on the simple HTML GMail interface.
+- Use the GMail search queries for enhanced flexibility.
+- Display as simple and efficient an interface as possible.
+- Stick to basic elements - rely on Vimium / Vimperator to achieve maximum usage comfort. 
+- Use user-defined labels.
+- Allow predefining criteria.
+- Use a persistence mechanism.
+- Package as a Chrome extension.
+
+
+* Raft implementation
+
+*Language*:  Haskell
+
+** Resources
+- http://thesecretlivesofdata.com/raft/
+
+** Notes
+- Use cloud Haskell
