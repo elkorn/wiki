@@ -1,7 +1,7 @@
 all: updateMaster updatePages
 
-updateMaster: checkoutMaster stage commit push
-updatePages: checkoutPages publish stage commit push
+updateMaster: checkoutMaster stage commit push publish
+updatePages: checkoutPages stage commit push
 
 stage:
 	git add --all .
