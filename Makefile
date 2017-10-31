@@ -19,4 +19,4 @@ checkoutPages:
 	git checkout gh-pages
 
 publish:
-	emacs fp.org -f org-publish-all
+	emacs fp.org --batch -f org-publish-all
