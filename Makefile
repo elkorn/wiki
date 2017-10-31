@@ -1,13 +1,13 @@
 all: master pages
 
-master: checkoutmaster stageorg commit push
-pdatepages: checkoutpages stagehtml commit pushpages
+master: checkoutmaster stage commit push
+pages: checkoutpages stagehtml commit pushpages
 
 stagehtml:
-	git add --ignore-errors **.html
+	git add -f **.html
 
-stageorg:
-	git add --ignore-errors public/**.org
+stage:
+	git add --all .
 
 commit:
 	git commit --quiet --message "[make] Updating org."
@@ -22,7 +22,7 @@ checkoutmaster:
 	git checkout master
 
 checkoutpages:
-	git checkout gh-pages
+	git checkout --orphan gh-pages
 
 publish:
 	emacs fp.org --batch -f org-publish-all
