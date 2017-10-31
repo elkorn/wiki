@@ -1,10 +1,11 @@
 all: master pages
 
 master: checkoutmaster stage commit push
-pages: checkoutpages stagehtml commit pushpages
+pages: checkoutpages stagehtml commit pushpages checkoutmaster removepages
 
 stagehtml:
-	git add -f **.html
+	git add -f *.html
+	git add -f **/*.html
 
 stage:
 	git add --all .
@@ -23,6 +24,9 @@ checkoutmaster:
 
 checkoutpages:
 	git checkout --orphan gh-pages
+
+removepages:
+	git branch -D gh-pages
 
 publish:
 	emacs fp.org --batch -f org-publish-all
