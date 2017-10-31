@@ -1,10 +1,13 @@
-all: updateMaster updatePages
+all: master pages
 
-updateMaster: checkoutMaster stage commit push publish
-updatePages: checkoutPages stage commit push
+master: checkoutmaster stageorg commit push
+pdatepages: checkoutpages stagehtml commit pushpages
 
-stage:
-	git add --all .
+stagehtml:
+	git add --ignore-errors **.html
+
+stageorg:
+	git add --ignore-errors public/**.org
 
 commit:
 	git commit --quiet --message "[make] Updating org."
@@ -12,10 +15,13 @@ commit:
 push:
 	git push --quiet --force
 
-checkoutMaster:
+pushpages:
+	git push --quiet --force origin gh-pages
+
+checkoutmaster:
 	git checkout master
 
-checkoutPages:
+checkoutpages:
 	git checkout gh-pages
 
 publish:

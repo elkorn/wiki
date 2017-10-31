@@ -1,0 +1,2810 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-10-31 Tue 13:49 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title></title>
+<meta name="generator" content="Org mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/org"> HOME </a>
+</div><div id="content">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orga393bcc">1. Tools</a>
+<ul>
+<li><a href="#org969de7b">1.1. Docker</a></li>
+<li><a href="#org543ea36">1.2. Git</a></li>
+<li><a href="#org7a296dc">1.3. JS libs</a>
+<ul>
+<li><a href="#org6c7a7bd">1.3.1. The BMEAN stack</a></li>
+<li><a href="#org99a3ebc">1.3.2. Fit.js</a></li>
+<li><a href="#orgf1b7dfb">1.3.3. jQuery notebook</a></li>
+<li><a href="#orgceedca7">1.3.4. localForage</a></li>
+<li><a href="#org57cd31e">1.3.5. Sculpt</a></li>
+<li><a href="#org2d6969b">1.3.6. BipIO</a></li>
+<li><a href="#orgbf3661e">1.3.7. jspm</a></li>
+<li><a href="#orge48344a">1.3.8. Mockery</a></li>
+<li><a href="#orgf160c9e">1.3.9. Rewire</a></li>
+<li><a href="#orgaac067b">1.3.10. Sinon</a></li>
+<li><a href="#orgbad092c">1.3.11. Supervizer</a></li>
+<li><a href="#org93620e1">1.3.12. Webpack</a></li>
+<li><a href="#orgbb76044">1.3.13. Gulp recipes</a></li>
+<li><a href="#orgfa68271">1.3.14. Please JS</a></li>
+<li><a href="#org331e3bf">1.3.15. spots, functional pipeline, potential point-free</a></li>
+</ul>
+</li>
+<li><a href="#orgbd2c89c">1.4. Nginx</a></li>
+<li><a href="#org697f0df">1.5. NoSQL</a>
+<ul>
+<li><a href="#orge90293f">1.5.1. NoSQL</a>
+<ul>
+<li><a href="#orgc653d7e">1.5.1.1. Redis</a></li>
+<li><a href="#org8a779d5">1.5.1.2. NoSQL@Twitter</a></li>
+<li><a href="#org5cb18dd">1.5.1.3. What should you be using NoSQL for</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgbb5b838">1.6. Octave</a>
+<ul>
+<li><a href="#orgf9bafa1">1.6.1. Tools - Octave</a>
+<ul>
+<li><a href="#orgc914c2a">1.6.1.1. Basic operations</a></li>
+<li><a href="#org63dc64e">1.6.1.2. Moving data around</a></li>
+<li><a href="#orge77f7bb">1.6.1.3. Computing data</a></li>
+<li><a href="#orgb1b641d">1.6.1.4. Plotting data</a></li>
+<li><a href="#orgb218710">1.6.1.5. Control statements</a></li>
+<li><a href="#orgad4f892">1.6.1.6. Vectorization</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org9cb9daa">1.7. PostgreSQL</a>
+<ul>
+<li><a href="#org311ae73">1.7.1. Tools - PostgreSQL</a>
+<ul>
+<li><a href="#org26368d2">1.7.1.1. Feature highlights</a></li>
+<li><a href="#orgbc252b2">1.7.1.2. Roles</a></li>
+<li><a href="#orgadde4cf">1.7.1.3. Tablespaces</a></li>
+<li><a href="#org3e8efac">1.7.1.4. Examples</a></li>
+<li><a href="#org9d7cbac">1.7.1.5. Data types</a></li>
+<li><a href="#orge6e65ea">1.7.1.6. Table mgmt</a></li>
+<li><a href="#orgc8f9f66">1.7.1.7. Database mgmt</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org1b25ca7">1.8. Riak</a>
+<ul>
+<li><a href="#org4554a61">1.8.1. distributed data type in Riak</a></li>
+<li><a href="#org0d6c969">1.8.2. PN Counters are capable of being incremented (P) an decremeted (N)</a></li>
+<li><a href="#orgafd5e86">1.8.3. automatic conflict resolution after a network partition</a></li>
+<li><a href="#orgbf03c90">1.8.4. 2i queries are sorted and client can request only first N results</a></li>
+<li><a href="#orgf1b09b8">1.8.5. pagination allows queries to begin where n left off to deliver the rest</a></li>
+<li><a href="#org8663918">1.8.6. can also view start, continuation, end value etc.</a></li>
+<li><a href="#org93c3ca3">1.8.7. riak with postgres</a></li>
+<li><a href="#org84344e3">1.8.8. riak with elastic search</a></li>
+<li><a href="#org4fecc75">1.8.9. riak with hadoop</a></li>
+<li><a href="#org9a4b5e7">1.8.10. secondary analytic clusters (enterprise)</a></li>
+<li><a href="#org4d5e282">1.8.11. amazon AMIs</a></li>
+<li><a href="#org3168a76">1.8.12. Engine Yard</a></li>
+<li><a href="#org7345e16">1.8.13. Azure VM depot</a></li>
+<li><a href="#orgc0e15d2">1.8.14. SoftLayer</a></li>
+<li><a href="#orgfde9616">1.8.15. multi datacenter replication</a></li>
+<li><a href="#orgc95198c">1.8.16. realtime or full-sync</a></li>
+<li><a href="#org98eecad">1.8.17. 24/7 support</a></li>
+<li><a href="#org7859293">1.8.18. faster, more conns bvetween clusters</a></li>
+<li><a href="#org4bb54e6">1.8.19. per connection statistics - better</a></li>
+<li><a href="#orge9b840e">1.8.20. ssl, nat and full sync scheduling support</a></li>
+<li><a href="#orgae88de5">1.8.21. large object support</a></li>
+<li><a href="#org9a230ce">1.8.22. S3-compatible API</a></li>
+<li><a href="#orgae19e16">1.8.23. reporting on usage</a></li>
+<li><a href="#org69bbdd1">1.8.24. tight Solr integration</a></li>
+<li><a href="#orgf7682dd">1.8.25. greater consistency</a></li>
+<li><a href="#orgc8bb78b">1.8.26. dynamic ring resizing</a></li>
+<li><a href="#org6374a5d">1.8.27. check github</a></li>
+</ul>
+</li>
+<li><a href="#orge3233dc">1.9. SVN</a>
+<ul>
+<li><a href="#orga23f06f">1.9.1. Tools - SVN</a>
+<ul>
+<li><a href="#org266a80f">1.9.1.1. Creating a patch</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgd2e5926">1.10. Testing Tools</a></li>
+<li><a href="#orga7bbf7d">1.11. Vagrant</a></li>
+<li><a href="#org4e18534">1.12. Vim</a>
+<ul>
+<li><a href="#org7aaa2c2">1.12.1. Tools - Vim</a>
+<ul>
+<li><a href="#orgc597efb">1.12.1.1. Synchronizing .vim through GitHub</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org7112439">1.13. VoltDB</a>
+<ul>
+<li><a href="#orgc618d2e">1.13.1. Tools - VoltDB</a>
+<ul>
+<li><a href="#orgdcc0b73">1.13.1.1. Use cases</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orga393bcc" class="outline-2">
+<h2 id="orga393bcc"><span class="section-number-2">1</span> Tools</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+#= Tools =
+</p>
+
+<p>
+<a href="#org969de7b">1.1</a>
+</p>
+
+<p>
+<a href="#org543ea36">1.2</a>
+</p>
+
+<p>
+<a href="#org7a296dc">1.3</a>
+</p>
+
+<p>
+<a href="#orgbd2c89c">1.4</a>
+</p>
+
+<p>
+<a href="#org697f0df">1.5</a>
+</p>
+
+<p>
+<a href="#orgbb5b838">1.6</a>
+</p>
+
+<p>
+<a href="#org9cb9daa">1.7</a>
+</p>
+
+<p>
+<a href="#org1b25ca7">1.8</a>
+</p>
+
+<p>
+<a href="#orge3233dc">1.9</a>
+</p>
+
+<p>
+<a href="#orgd2e5926">1.10</a>
+</p>
+
+<p>
+<a href="#orga7bbf7d">1.11</a>
+</p>
+
+<p>
+<a href="#org4e18534">1.12</a>
+</p>
+
+<p>
+<a href="#org7112439">1.13</a>
+</p>
+</div>
+<div id="outline-container-org969de7b" class="outline-3">
+<h3 id="org969de7b"><span class="section-number-3">1.1</span> Docker</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+#= Tools - Docker =
+</p>
+
+<p>
+Build container from a local Dockerfile:
+</p>
+<pre class="example">
+docker build -t container_name .
+</pre>
+
+<p>
+Run bash inside the built container:
+</p>
+<pre class="example">
+docker run -t -i container_name /bin/bash
+</pre>
+</div>
+</div>
+<div id="outline-container-org543ea36" class="outline-3">
+<h3 id="org543ea36"><span class="section-number-3">1.2</span> Git</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+#= Tools - Git =
+</p>
+
+<p>
+Nothing here, this is just a test.
+</p>
+</div>
+</div>
+<div id="outline-container-org7a296dc" class="outline-3">
+<h3 id="org7a296dc"><span class="section-number-3">1.3</span> JS libs</h3>
+<div class="outline-text-3" id="text-1-3">
+</div><div id="outline-container-org6c7a7bd" class="outline-4">
+<h4 id="org6c7a7bd"><span class="section-number-4">1.3.1</span> The BMEAN stack</h4>
+<div class="outline-text-4" id="text-1-3-1">
+<p>
+It's the MEAN stack extended with Breeze.js for advanced client-side data
+storage. Example application:
+</p>
+
+<p>
+<a href="https://github.com/dai-shi/notes-app-sample">https://github.com/dai-shi/notes-app-sample</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org99a3ebc" class="outline-4">
+<h4 id="org99a3ebc"><span class="section-number-4">1.3.2</span> Fit.js</h4>
+<div class="outline-text-4" id="text-1-3-2">
+<p>
+Fitting things into other things.
+</p>
+
+<p>
+<a href="http://soulwire.github.io/fit.js/">http://soulwire.github.io/fit.js/</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf1b7dfb" class="outline-4">
+<h4 id="orgf1b7dfb"><span class="section-number-4">1.3.3</span> jQuery notebook</h4>
+<div class="outline-text-4" id="text-1-3-3">
+<p>
+Like Aloha, only lighter.
+</p>
+
+<p>
+<a href="http://raphaelcruzeiro.github.io/jquery-notebook/">http://raphaelcruzeiro.github.io/jquery-notebook/</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgceedca7" class="outline-4">
+<h4 id="orgceedca7"><span class="section-number-4">1.3.4</span> localForage</h4>
+<div class="outline-text-4" id="text-1-3-4">
+<p>
+Mozilla's abstraction over `localStorage`, IndexedDB and WebSQL. The underlying
+driver is chosen automatically.
+</p>
+
+<p>
+<a href="https://hacks.mozilla.org/2014/02/localforage-offline-storage-improved/">https://hacks.mozilla.org/2014/02/localforage-offline-storage-improved/</a>
+</p>
+
+<p>
+<a href="https://github.com/mozilla/localForage">https://github.com/mozilla/localForage</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org57cd31e" class="outline-4">
+<h4 id="org57cd31e"><span class="section-number-4">1.3.5</span> Sculpt</h4>
+<div class="outline-text-4" id="text-1-3-5">
+<p>
+A collection of node.js transform stream utilities for data manipulation.
+</p>
+
+<p>
+<a href="https://github.com/Obvious/sculpt">https://github.com/Obvious/sculpt</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org2d6969b" class="outline-4">
+<h4 id="org2d6969b"><span class="section-number-4">1.3.6</span> BipIO</h4>
+<div class="outline-text-4" id="text-1-3-6">
+<p>
+An API server, similar to what IFTTT does.
+</p>
+
+<p>
+Works on Node, RabbitMQ and MongoDB.
+</p>
+
+<p>
+<a href="https://github.com/bipio-server/bipio">https://github.com/bipio-server/bipio</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgbf3661e" class="outline-4">
+<h4 id="orgbf3661e"><span class="section-number-4">1.3.7</span> jspm</h4>
+<div class="outline-text-4" id="text-1-3-7">
+<p>
+Looks like an alternative for Bower.
+</p>
+
+<p>
+<a href="https://github.com/jspm/jspm-cli">https://github.com/jspm/jspm-cli</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge48344a" class="outline-4">
+<h4 id="orge48344a"><span class="section-number-4">1.3.8</span> Mockery</h4>
+<div class="outline-text-4" id="text-1-3-8">
+<p>
+Allows mocking.
+</p>
+
+<p>
+<a href="https://github.com/mfncooper/mockery">https://github.com/mfncooper/mockery</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf160c9e" class="outline-4">
+<h4 id="orgf160c9e"><span class="section-number-4">1.3.9</span> Rewire</h4>
+<div class="outline-text-4" id="text-1-3-9">
+<p>
+Dependency injection in JS - allows rewiring private variables in modules.
+</p>
+
+<p>
+<a href="https://github.com/jhnns/rewire">https://github.com/jhnns/rewire</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgaac067b" class="outline-4">
+<h4 id="orgaac067b"><span class="section-number-4">1.3.10</span> Sinon</h4>
+<div class="outline-text-4" id="text-1-3-10">
+<p>
+A mocking/stubbing library
+</p>
+
+<p>
+<a href="http://sinonjs.org/">http://sinonjs.org/</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgbad092c" class="outline-4">
+<h4 id="orgbad092c"><span class="section-number-4">1.3.11</span> Supervizer</h4>
+<div class="outline-text-4" id="text-1-3-11">
+<p>
+A node.js daemon process manager to spawn/start/stop node apps.
+</p>
+
+<p>
+<a href="https://github.com/oOthkOo/supervizer">https://github.com/oOthkOo/supervizer</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org93620e1" class="outline-4">
+<h4 id="org93620e1"><span class="section-number-4">1.3.12</span> Webpack</h4>
+<div class="outline-text-4" id="text-1-3-12">
+<p>
+Webpack is a module bundler. 
+It takes modules with dependencies and emits static assets representing that modules.
+</p>
+
+<p>
+<a href="http://webpack.github.io/">http://webpack.github.io/</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgbb76044" class="outline-4">
+<h4 id="orgbb76044"><span class="section-number-4">1.3.13</span> Gulp recipes</h4>
+<div class="outline-text-4" id="text-1-3-13">
+<p>
+A set of recipes for quickly creating performant Gulp tasks.
+</p>
+
+<p>
+<a href="https://github.com/gulpjs/gulp/tree/master/docs/recipes">https://github.com/gulpjs/gulp/tree/master/docs/recipes</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgfa68271" class="outline-4">
+<h4 id="orgfa68271"><span class="section-number-4">1.3.14</span> Please JS</h4>
+<div class="outline-text-4" id="text-1-3-14">
+<p>
+A simple tool for generating pleasing colors.
+</p>
+
+<p>
+<a href="https://github.com/Fooidge/PleaseJS">https://github.com/Fooidge/PleaseJS</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org331e3bf" class="outline-4">
+<h4 id="org331e3bf"><span class="section-number-4">1.3.15</span> spots, functional pipeline, potential point-free</h4>
+<div class="outline-text-4" id="text-1-3-15">
+<p>
+<a href="https://github.com/bahmutov/spots">https://github.com/bahmutov/spots</a>
+<a href="https://github.com/bahmutov/functional-pipeline">https://github.com/bahmutov/functional-pipeline</a>
+<a href="https://github.com/bahmutov/eslint-rules">https://github.com/bahmutov/eslint-rules</a>
+</p>
+
+<p>
+Spots allow to do tacit programming easier by selective partial application e.g.
+</p>
+<pre class="example">
+var S = require('spots');
+[3,6,9].map(S(div, S, 3));
+
+S(div,S,3)(6) === div(6,3); // true
+</pre>
+
+<p>
+This can be combined with the `functional-pipeline` lib to create more complicated combinators e.g.
+</p>
+<pre class="example">
+var S = require('spots');
+var fp = require('functional-pipeline');
+['3','6','9'].map(
+    fp(
+        S(parseInt, S, 10),
+        S(div, S, 3)));
+</pre>
+
+<p>
+A nice plus is the `potential-point-free` plugin for `eslint` which detects functions that can be made tacit.
+</p>
+<pre class="example">
+/* eslint potential-point-free:1 */
+function print(x) {
+  console.log(x);
+}
+[1, 2, 3].forEach(function printX(x) {
+  print(x);
+});
+
+// eslint
+$ eslint --rulesdir .. test.js 
+test.js
+   7:18  warning  printX   potential-point-free
+✖ 1 problem
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgbd2c89c" class="outline-3">
+<h3 id="orgbd2c89c"><span class="section-number-3">1.4</span> Nginx</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+#= Tools - NGINX =
+</p>
+
+<p>
+Optimization article (FOLLOW UP!): <a href="http://www.softwareprojects.com/resources/programming/t-optimizing-nginx-and-php-fpm-for-high-traffic-sites-2081.html">http://www.softwareprojects.com/resources/programming/t-optimizing-nginx-and-php-fpm-for-high-traffic-sites-2081.html</a>
+</p>
+</div>
+</div>
+<div id="outline-container-org697f0df" class="outline-3">
+<h3 id="org697f0df"><span class="section-number-3">1.5</span> NoSQL</h3>
+<div class="outline-text-3" id="text-1-5">
+</div><div id="outline-container-orge90293f" class="outline-4">
+<h4 id="orge90293f"><span class="section-number-4">1.5.1</span> NoSQL</h4>
+<div class="outline-text-4" id="text-1-5-1">
+<p>
+<a href="http://nosql-database.org/">Master list of all the NoSQL products</a>
+<a href="#orgc653d7e">1.5.1.1</a>
+</p>
+
+<p>
+This section requires followups:
+</p>
+</div>
+<div id="outline-container-orgc653d7e" class="outline-5">
+<h5 id="orgc653d7e"><span class="section-number-5">1.5.1.1</span> Redis</h5>
+<div class="outline-text-5" id="text-1-5-1-1">
+</div><ol class="org-ol"><li><a id="orge612e42"></a>Redis<br  /><ol class="org-ol"><li><a id="org1eb9a29"></a>Example use cases<br  /><ol class="org-ol"><li><a id="org4718fed"></a>calculating whose friends are online using sets<br  /></li>
+<li><a id="org17ba416"></a>memcached<br  /></li>
+<li><a id="org644e3a7"></a>distributed lock manager for process coordination<br  /></li>
+<li><a id="orgee4b63e"></a>full text inverted index lookups<br  /></li>
+<li><a id="orgcc65a67"></a>tag clouds<br  /></li>
+<li><a id="orga7d7905"></a>leaderboards<br  /></li>
+<li><a id="org5a4a63a"></a>circular log buffers (works like a automatically emptied, fixed-size queue)<br  /></li>
+<li><a id="orgaf936f7"></a>DB for uni vourse availability info<br  /><div class="outline-text-8" id="text-1-5-1-1-1-1-8">
+<ul class="org-ul">
+<li>if the set contains a course ID, then the course has free seats left</li>
+<li>data is scraped and processed continuously</li>
+</ul>
+</div></li>
+<li><a id="org6e3bf30"></a>server for backed sessions (they are often one-time used and never queried by anything other than their primary key)<br  /></li>
+<li><a id="org03ac8c5"></a>fast, atomically incremented counters<br  /></li>
+<li><a id="org32f701e"></a>polling the DB every few seconds<br  /></li>
+<li><a id="orge176856"></a>transient data in general<br  /><div class="outline-text-8" id="text-1-5-1-1-1-1-12">
+<ul class="org-ul">
+<li>CSRF tokens</li>
+<li>handshake data</li>
+</ul>
+</div></li>
+<li><a id="orgdcade7d"></a>sharing state between processes (producer + consumer real-time cooperation)<br  /></li>
+<li><a id="org07bfc9e"></a>mimic a `tail -f` for system logging<br  /></li>
+<li><a id="orgadd4006"></a>tracking <span class="underline">all</span> of the IDs that have been used for records in a system<br  /></li>
+<li><a id="org17eff40"></a>quickly pick a random item from a set<br  /></li>
+<li><a id="orgae360df"></a>API rate limiting<br  /></li>
+<li><a id="orgef19dcc"></a>A/B testing<br  /><div class="outline-text-8" id="text-1-5-1-1-1-1-18">
+<ul class="org-ul">
+<li>realtime user behavior tracking, writing short-lived state and picking random items</li>
+</ul>
+</div></li>
+<li><a id="org47957c6"></a>inbox method<br  /><div class="outline-text-8" id="text-1-5-1-1-1-1-19">
+<ul class="org-ul">
+<li>each user gets a queue and a set to keep track of followers</li>
+<li>e.g. fanning out messages (like in Twitter)</li>
+<li>pub/sub in general</li>
+<li>workers periodically reporting their load average to a sorted set
+<ul class="org-ul">
+<li>redistributing load
+<ul class="org-ul">
+<li>when issuing a job, grab the 3 least loaded workers from the sorted set and pick one of them at random</li>
+</ul></li>
+</ul></li>
+</ul>
+</div></li>
+<li><a id="orgd5cd1f1"></a>multiple GIS indexes<br  /></li>
+<li><a id="org12259a8"></a>recommendation engine based on relationships<br  /></li>
+<li><a id="org14a3427"></a>social graphs<br  /></li>
+<li><a id="org7e531b1"></a>reducing impedance mismatch (DB data model can more closely match the one used in the application)<br  /></li></ol></li>
+
+<li><a id="org5e00231"></a>Who's online?<br  /><div class="outline-text-7" id="text-1-5-1-1-1-2">
+<p>
+(From <a href="http://www.lukemelia.com/blog/archives/2010/01/17/redis-in-practice-whos-online/">Redis in practice: Who's online?</a>)
+</p>
+
+<p>
+Redis goes beyond a simple key-value store for the values can be simple strings,
+but also data structures.
+Redis supports lists, sets and ordered sets.
+Redis' implementation of a set has the same properties as an abstract set.
+</p>
+
+<p>
+Be able to see which of your friends are online.
+</p>
+
+<p>
+The idea is to have one active set per minute.
+During each request that comes in from a logged-in user, we’ll add a user ID to
+the active set.
+When we want to know which user IDs are online, we can union the last 5 sets to
+get a collection of user IDs who have made a request in the last 5 minutes.
+</p>
+
+<p>
+{{<img src="http://www.lukemelia.com/images/blog/presence-online-users-diagram.png" alt="presence-online-users-diagram.png" />}}
+</p>
+
+<p>
+Now, if we have a set of the user’s friend’s IDs, we can intersect that with the
+online users and we’ve got our online friend IDs.
+</p>
+
+<p>
+{{<img src="http://www.lukemelia.com/images/blog/presence-online-friends-diagram.png" alt="presence-online-friends-diagram.png" />}}
+</p>
+
+<pre class="example">
+# Defining the keys
+
+def current_key
+    key(Time.now.strftime("%M"))
+end
+
+def keys_in_last_5_minutes
+    now = Time.now
+    times = (0..5).collect {|n| now - n.minutes }
+    times.collect{ |t| key(t.strftime("%M")) }
+end
+
+def key(minute)
+    "online_users_minute_#{minute}"
+end
+
+# Tracking an Active User
+
+def track_user_id(id)
+    key = current_key
+    redis.sadd(key, id)
+end
+
+# Who's online
+
+def online_user_ids
+    redis.sunion(*keys_in_last_5_minutes)
+end
+
+def online_friend_ids(interested_user_id)
+    redis.sunionstore("online_users", *keys_in_last_5_minutes)
+    redis.sinter("online_users", "user:#{interested_user_id}:friend_ids")
+end
+</pre>
+</div></li></ol></li></ol>
+</div>
+
+
+<div id="outline-container-org8a779d5" class="outline-5">
+<h5 id="org8a779d5"><span class="section-number-5">1.5.1.2</span> <a href="http://www.slideshare.net/kevinweil/nosql-at-twitter-nosql-eu-2010">NoSQL@Twitter</a></h5>
+</div>
+
+<div id="outline-container-org5cb18dd" class="outline-5">
+<h5 id="org5cb18dd"><span class="section-number-5">1.5.1.3</span> What should you be using NoSQL for</h5>
+<div class="outline-text-5" id="text-1-5-1-3">
+</div><ol class="org-ol"><li><a id="org753c7ca"></a>General use cases<br  /><div class="outline-text-6" id="text-1-5-1-3-1">
+<p>
+<b>Bigness</b>
+</p>
+
+<p>
+Big data, big numbers of users/computers, big supply chains, big science etc.
+When something becomes so massive that it has to be intensively distributed,
+NoSQL fits the bill.
+Remember though that bigness can be across many different dimensions, not just
+disk space.
+</p>
+
+<p>
+<b>Masive write performance</b>
+</p>
+
+<p>
+Writing large amounts of data (e.g. Facebook's 135 billion messages per month or
+Twitter's 7TB of data per day) has to be distributed over a cluster. That
+implies key-value access, MapReduce, replication, fault tolerance, consistency
+issues etc.
+</p>
+
+<p>
+<b>Fast key-value access</b>
+</p>
+
+<p>
+When low latency is the key, it's hard to beat hashing on a key and reading the
+value in ~1 disk seek.
+</p>
+
+<p>
+<b>Flexible schema / flexible datatypes</b>
+</p>
+
+<p>
+NoSQL offers column-oriented, graph, advanced data structures, document-oriented
+and key-value.
+Complex objects can be easily stored without many mappings.
+NoSQL also mostly uses friendly data types like JSON.
+</p>
+
+<p>
+<b>Schema migration</b>
+</p>
+
+<p>
+Schemas are imposed by the application at run-time.
+Different parts of the application can have a different view of the schema.
+This can also cause some pains when the dynamic schema changes while the
+application is running on production and already has data stored.
+</p>
+
+<p>
+<b>Write availability</b>
+</p>
+
+<p>
+Partitioning, CAP (Consistency-Availability-network Partition tolerance), eventual consistency etc. help with making sure that ~100%
+writes to the database succeed.
+</p>
+
+<p>
+<b>No single point of failure</b>
+</p>
+
+<p>
+High availability with auto load balancing and cluster sizing help to remedy
+fault tolerance issues.
+</p>
+
+<p>
+<b>Generally available parallel computing</b>
+</p>
+
+<p>
+Related to baking in analytical features such as MapReduce.
+</p>
+
+<p>
+<b>Easier maintainability, administration and operations</b>
+</p>
+
+<p>
+Vendors try to make sure that the DBs are as easy to use as possible.
+Also, NoSQL products are made mainly for programmers by programmers.
+They are aimed to be easy to use and compatible with the technologies popular
+with developers.
+</p>
+
+<p>
+<b>Right data for the right problem</b>
+</p>
+
+<p>
+Example: when the domain of your problem is based on a graph, You can use a
+graph database and have native support instead of trying to wedge the graph
+idioms into a relational system.
+</p>
+
+<p>
+<b>Avoid hitting a performance wall</b>
+</p>
+
+<p>
+NoSQL products are highly scalable out-of-the-box.
+</p>
+
+<p>
+<b>Distributed systems support</b>
+</p>
+
+<p>
+NoSQL products are naturally aligned with distributed data-centers and similar
+systems due to their focus on scale.
+They tend to use partitions and avoid heavy strict consistency protocols.
+</p>
+
+<p>
+<b>Tunable CAP tradeoffs</b>
+</p>
+
+<p>
+Relational DBs choose strong consistency which means that they cannot tolerate a
+parition failure.
+NoSQL products actually come with a "slider" for balancing between the CAP
+tradeoffs.
+It depends on what pays best in each specific case, so it's a big advantage.
+</p>
+</div></li>
+
+<li><a id="org452c722"></a>Specific use cases<br  /><ol class="org-ol"><li><a id="org6b5100c"></a>Managing large streams of non-transactional data: logs, clickstreams etc.<br  /></li>
+<li><a id="org662d359"></a>Syncing online/offline data (CouchDB targets this)<br  /></li>
+<li><a id="orgde95889"></a>Fast, load-independent response times<br  /></li>
+<li><a id="org7f31fee"></a>Avoiding heavy joins. This is the case when complex joins stop performing under load in an RDBMS.<br  /></li>
+<li><a id="org104d9cf"></a>Apps with a variety of different write/read/query/consistency pattern support<br  /><div class="outline-text-7" id="text-1-5-1-3-2-5">
+<ul class="org-ul">
+<li>there are systems optimized for 50/50, 95% reads or 95% writes</li>
+<li>read-only apps needing speed and resiliency, tolerating slightly stale data</li>
+<li>apps with moderate perf, r/w access, simple queries, authoritative data</li>
+<li>read-only apps with complex query requirements</li>
+</ul>
+</div></li>
+<li><a id="orgaa29842"></a>load balancing for accomodating data and usage concentrations to keep microprocessors busy<br  /></li>
+<li><a id="org892ab42"></a>real-time inserts, updates and quries<br  /></li>
+<li><a id="orgef3eddb"></a>hierarchical daa (threaded discussions, parts explosion)<br  /></li>
+<li><a id="orgafae278"></a>dynamic table creation<br  /></li>
+<li><a id="org23291fb"></a>two tier apps with low-latency data made available through a fast NoSQL interface but computed by high-latency Hadoop (or other low priority) apps<br  /></li>
+<li><a id="org6142765"></a>sequential data reading (the right underlying model must be selected!)<br  /></li>
+<li><a id="org1a33cab"></a>slicing off parts of service to it's own system for performance/scalability (e.g. user login)<br  /></li>
+<li><a id="orgc3636db"></a>caching (a high perf caching tier)<br  /></li>
+<li><a id="orgfd352f8"></a>voting<br  /></li>
+<li><a id="org66c58e4"></a>real-time page view counters<br  /></li>
+<li><a id="orgf5d1b08"></a>user registration, profile, session data<br  /></li>
+<li><a id="org3a88288"></a>document, catalog and content mgmt systems, inventory, shopping carts and complex data structures in general, as they can be stored as a whole<br  /></li>
+<li><a id="orgdc178fa"></a>archiving, storing a large continual data stream that is still accessible online<br  /></li>
+<li><a id="orgfe499bb"></a>analytics - MapReduce, Hive, Pig used to perform analytical queries and scale-out systems with high write load support<br  /></li>
+<li><a id="org39ff252"></a>heterogenous types of data (e.g. different media types) at a generic level<br  /></li>
+<li><a id="org29ad923"></a>embedded systems - simplicity and performance are very important due to limited resources<br  /></li>
+<li><a id="org86fcad1"></a>"market" games<br  /><div class="outline-text-7" id="text-1-5-1-3-2-22">
+<ul class="org-ul">
+<li>when somebody buys a building, the list of bought things should pop up quickly- so you partition the owner column of the building table so the select is single-partitioned</li>
+<li>when somebody buys sth from somebody else, you update the owner column along with the price</li>
+</ul>
+</div></li>
+<li><a id="org1149324"></a>federal law agencies track ppl in real-time using credit or loyalty cards and travel reservations<br  /></li>
+<li><a id="org4532847"></a>real-time fraud detection by comparing transactions to known patterns<br  /></li>
+<li><a id="orgecd7039"></a>helping diagnose the typology of tumors by integrating the history of every patient<br  /></li>
+<li><a id="orgb84661d"></a>in-memory DBs for high update situations e.g. displaying everyone's "last active" time<br  /></li>
+<li><a id="org10a616b"></a>handling lower-freq multipart queries with materialized views while processing hi-freq streaming data<br  /></li>
+<li><a id="org7f4c8c6"></a>priority queues<br  /></li>
+<li><a id="orgbadcca8"></a>calculations on cached data using a program-friendly interface (without an ORM)<br  /></li>
+<li><a id="org7d51284"></a>unique a large dataset using simple key-value columns<br  /></li>
+<li><a id="orgf672ae9"></a>rolling values up into different time slices for fast queries<br  /></li>
+<li><a id="orgd30c474"></a>computing the intersection of two massive sets, where a join would be too slow<br  /></li>
+<li><a id="orge7b929a"></a>a <a href="http://highscalability.com/scaling-twitter-making-twitter-10000-percent-faster">timeline a'la Twitter</a><br  /></li></ol></li>
+
+<li><a id="org054b852"></a>Analytics use cases<br  /><div class="outline-text-6" id="text-1-5-1-3-3">
+<p>
+These are mainly related to Hadoop and boil down to answering questions in the
+like of the following.
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="org6c40352"></a>How many requests do we serve each day?<br  /></li>
+<li><a id="org6766ea3"></a>What is the average or nth percentile latency?<br  /></li>
+<li><a id="org7ae51c0"></a>Grouped by response code: hourly distribution?<br  /></li>
+<li><a id="org1013d77"></a>How many searches happen each day at Twitter?<br  /></li>
+<li><a id="orgb95150d"></a>Where do they come from?<br  /></li>
+<li><a id="orgf9bf011"></a>How many unique queries?<br  /></li>
+<li><a id="org9f3fb92"></a>How many unique users?<br  /></li>
+<li><a id="orgd2932cc"></a>Geographic distribution?<br  /></li>
+<li><a id="orgb50a1fa"></a>How does usage differ for mobile users?<br  /></li>
+<li><a id="org3d2f9f7"></a>How does usage differ for 3rd party desktop client users?<br  /></li>
+<li><a id="orgd3375d1"></a>Cohort analysis: all users who signed up on the same day—then see how they differ over time.<br  /></li>
+<li><a id="orgbb2b12c"></a>Site problems: what goes wrong at the same time?<br  /></li>
+<li><a id="orgc13a542"></a>Which features get users hooked?<br  /></li>
+<li><a id="org533482c"></a>Which features do successful users use often?<br  /></li>
+<li><a id="org611210a"></a>Search corrections and suggestions (not done now at Twitter, but coming in the feature).<br  /></li>
+<li><a id="orgf2848b8"></a>What can web tell about a user from their tweets?<br  /></li>
+<li><a id="orgddc8486"></a>What can we tell about you from the tweets of those you follow?<br  /></li>
+<li><a id="org23398b9"></a>What can we tell about you from the tweets of your followers?<br  /></li>
+<li><a id="orgd5a492f"></a>What can we tell about you from the ratio of your followers/following?<br  /></li>
+<li><a id="org284bd2c"></a>What graph structures lead to successful networks? (Twitter’s graph structure is interesting since it’s not two-way)<br  /></li>
+<li><a id="orgce2ca11"></a>What features get a tweet retweeted?<br  /></li>
+<li><a id="orgaa7cf6a"></a>When a tweet is retweeted, how deep is the corresponding retweet three?<br  /></li>
+<li><a id="org6293f4c"></a>Long-term duplicate detection (short term for abuse and stopping spammers)<br  /></li>
+<li><a id="org18f0dd3"></a>Machine learning. About not quite knowing the right questions to ask at first. How do we cluster users?<br  /></li>
+<li><a id="org8e56767"></a>Language detection (contact mobile providers to get SMS deals for users—focusing on the most popular countries at first).<br  /></li>
+<li><a id="orgb3ebbf1"></a>How can we detect bots and other non-human tweeters?<br  /></li></ol></li>
+
+<li><a id="orgae0a1a0"></a>Poor use cases<br  /><div class="outline-text-6" id="text-1-5-1-3-4">
+<p>
+These are very important as you should avoid them intensively.
+</p>
+
+<p>
+<b>OLTP</b>
+</p>
+
+<p>
+VoltDB is an exception here, but complex, multi-object transactions are
+generally not supported. Programmers are supposed to denormalize, use documents
+or other coplex strategies like compensating transactions.
+</p>
+
+<p>
+<b>Data integrity</b>
+</p>
+
+<p>
+SQL uses a declarative approach NoSQL systems rely on applications to maintain
+integrity.
+</p>
+
+<p>
+<b>Data independence</b>
+</p>
+
+<p>
+Data outlasts apps.
+But in NoSQL, apps drive everything.
+Relational data might last for the entire enterprise lifetime.
+</p>
+
+<p>
+<b>SQL</b>
+</p>
+
+<p>
+Duh.
+More and more systems are starting to provide SQLish interfaces though.
+</p>
+
+<p>
+<b>Ad-hoc queries</b>
+Answering real-time, unpredictable questions is still the domain of RDBs.
+</p>
+
+<p>
+<b>Complex relationships</b>
+</p>
+
+<p>
+<b>Maturity and stability</b>
+</p>
+
+<p>
+People know RDBs, there are also more tools available for them.
+When in doubt, this is the road that will be most likely traveled.
+</p>
+</div></li></ol>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgbb5b838" class="outline-3">
+<h3 id="orgbb5b838"><span class="section-number-3">1.6</span> Octave</h3>
+<div class="outline-text-3" id="text-1-6">
+</div><div id="outline-container-orgf9bafa1" class="outline-4">
+<h4 id="orgf9bafa1"><span class="section-number-4">1.6.1</span> Tools - Octave</h4>
+<div class="outline-text-4" id="text-1-6-1">
+</div><div id="outline-container-orgc914c2a" class="outline-5">
+<h5 id="orgc914c2a"><span class="section-number-5">1.6.1.1</span> Basic operations</h5>
+<div class="outline-text-5" id="text-1-6-1-1">
+<pre class="example">
+octave:6&gt; 6^2
+ans =  36
+octave:7&gt; 1 == 2
+ans = 0
+octave:8&gt; 1 ~= 2
+ans =  1
+octave:10&gt; 1 &amp;&amp; 0
+ans = 0
+octave:11&gt; 1 || 0
+ans =  1
+octave:12&gt; xor(1,0)
+ans =  1
+octave:13&gt; xor(1,1)
+ans = 0
+octave:15&gt; PS1('&gt;&gt; ')
+&gt;&gt; 
+&gt;&gt; a = 3
+a =  3
+&gt;&gt; b = 'hi'
+b = hi
+&gt;&gt; b = 'hi';
+&gt;&gt; c = (3&gt;=1);
+&gt;&gt; c
+c =  1
+&gt;&gt; a = pi;
+&gt;&gt; a
+a =  3.1416
+&gt;&gt; disp(a)
+ 3.1416
+&gt;&gt; disp(sprintf('2 decimals: %0.2f',a))
+2 decimals: 3.14
+&gt;&gt; format long
+&gt;&gt; a
+a =  3.14159265358979
+&gt;&gt; format short
+&gt;&gt; a
+a =  3.1416
+&gt;&gt; A = [1 2; 3 4; 5 6]
+A =
+
+   1   2
+   3   4
+   5   6
+&gt;&gt; v = [1 2 3] % 1 by 3
+v =
+
+   1   2   3
+
+&gt;&gt; v = [1; 2; 3] % 3 by 1
+v =
+
+   1
+   2
+   3
+&gt;&gt; v = 1:0.1:2
+v =
+
+ Columns 1 through 8:
+
+    1.0000    1.1000    1.2000    1.3000    1.4000    1.5000    1.6000    1.7000
+
+ Columns 9 through 11:
+
+    1.8000    1.9000    2.0000
+
+
+&gt;&gt; ones(2,3)
+ans =
+
+   1   1   1
+   1   1   1
+
+&gt;&gt; ones(3,2)
+ans =
+
+   1   1
+   1   1
+   1   1
+
+&gt;&gt; c = 2*ones(2,3) % also, `zeros`
+c =
+
+   2   2   2
+   2   2   2
+
+&gt;&gt; w = ones(1,3)
+w =
+
+   1   1   1
+
+&gt;&gt; w = rand(1,3)
+w =
+
+   0.70851   0.94212   0.29808
+
+&gt;&gt; w = rand(3,1)
+w =
+
+   0.602332
+   0.401473
+   0.072355
+
+&gt;&gt; w = rand(3,1)
+w =
+
+   0.68600
+   0.90467
+   0.80151
+
+&gt;&gt; w = rand(3,1)
+w =
+
+   0.35819
+   0.84049
+   0.66920
+
+&gt;&gt; w = randn(1,3) % from Gaussian distr
+w =
+
+   1.577927  -0.097761  -1.136075
+
+&gt;&gt; w = -6 + sqrt(10) * randn(1,10000);
+&gt;&gt; hist(w) % histogram
+&gt;&gt; hist(w,50) % histogram
+&gt;&gt; eye(3)
+ans =
+
+Diagonal Matrix
+
+   1   0   0
+   0   1   0
+   0   0   1
+# % also, use `help {anything}` for built-in help.
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org63dc64e" class="outline-5">
+<h5 id="org63dc64e"><span class="section-number-5">1.6.1.2</span> Moving data around</h5>
+<div class="outline-text-5" id="text-1-6-1-2">
+<pre class="example">
+# % A = [1 2; 3 4; 5 6]
+
+&gt;&gt; size(A)
+ans =
+
+   3   2
+
+&gt;&gt; length(A) % size of the longest dimension
+ans =  3
+&gt;&gt; length([1 2 3 4])
+ans =  4
+&gt;&gt; who
+Variables in the current scope:
+
+A    a    ans  b    c    v    w
+
+&gt;&gt; whos
+Variables in the current scope:
+
+   Attr Name        Size                     Bytes  Class
+   ==== ====        ====                     =====  ===== 
+        A           3x2                         48  double
+        a           1x1                          8  double
+        ans         1x1                          1  logical
+        b           1x2                          2  char
+        c           2x3                         48  double
+        v           1x11                        24  double
+        w           1x10000                  80000  double
+
+Total is 10027 elements using 80131 bytes
+&gt;&gt; v = w(1:10)
+v =
+
+ Columns 1 through 8:
+
+  -1.85036  -4.99490  -5.24149  -5.30683   0.45473  -6.32664  -5.26601  -8.31906
+
+ Columns 9 and 10:
+
+  -7.82427  -3.34916
+
+&gt;&gt; whos
+Variables in the current scope:
+
+   Attr Name        Size                     Bytes  Class
+   ==== ====        ====                     =====  ===== 
+        A           3x2                         48  double
+        a           1x1                          8  double
+        ans         1x1                          1  logical
+        b           1x2                          2  char
+        c           2x3                         48  double
+        v           1x10                        80  double
+        w           1x10000                  80000  double
+
+Total is 10026 elements using 80187 bytes
+
+&gt;&gt; save hello.mat v;
+&gt;&gt; clear v
+&gt;&gt; load hello.mat
+&gt;&gt; who
+Variables in the current scope:
+
+A    a    ans  b    c    v    w
+&gt;&gt; save hello.txt v -ascii % save as ASCII-formatted text
+&gt;&gt; A = rand(4,4)
+A =
+
+   0.319047   0.030859   0.840240   0.174995
+   0.825687   0.157595   0.947932   0.561120
+   0.032448   0.150073   0.082587   0.872453
+   0.333152   0.042347   0.831259   0.336317
+
+&gt;&gt; A(2,:)
+ans =
+
+   0.82569   0.15760   0.94793   0.56112
+
+&gt;&gt; A(:,2)
+ans =
+
+   0.030859
+   0.157595
+   0.150073
+   0.042347
+
+&gt;&gt; A([1 3], :)
+ans =
+
+   0.319047   0.030859   0.840240   0.174995
+   0.032448   0.150073   0.082587   0.872453
+&gt;&gt; A(:,2) = [10; 11; 12; 13]
+A =
+
+    0.319047   10.000000    0.840240    0.174995
+    0.825687   11.000000    0.947932    0.561120
+    0.032448   12.000000    0.082587    0.872453
+    0.333152   13.000000    0.831259    0.336317
+
+&gt;&gt; A = [A, [100; 200; 300; 400]]
+A =
+
+   3.1905e-01   1.0000e+01   8.4024e-01   1.7500e-01   1.0000e+02
+   8.2569e-01   1.1000e+01   9.4793e-01   5.6112e-01   2.0000e+02
+   3.2448e-02   1.2000e+01   8.2587e-02   8.7245e-01   3.0000e+02
+   3.3315e-01   1.3000e+01   8.3126e-01   3.3632e-01   4.0000e+02
+
+&gt;&gt; A(:) % put all elements into a single column vector
+ans =
+
+   3.1905e-01
+   8.2569e-01
+   3.2448e-02
+   3.3315e-01
+   1.0000e+01
+   1.1000e+01
+   1.2000e+01
+   1.3000e+01
+   8.4024e-01
+   9.4793e-01
+   8.2587e-02
+   8.3126e-01
+   1.7500e-01
+   5.6112e-01
+   8.7245e-01
+   3.3632e-01
+   1.0000e+02
+   2.0000e+02
+   3.0000e+02
+   4.0000e+02
+
+&gt;&gt; A = [1 2; 3 4; 5 6]
+A =
+
+   1   2
+   3   4
+   5   6
+
+&gt;&gt; B = [11 12; 13 14; 15 16]
+B =
+
+   11   12
+   13   14
+   15   16
+
+&gt;&gt; C = [A B]
+C =
+
+    1    2   11   12
+    3    4   13   14
+    5    6   15   16
+
+&gt;&gt; C = [A;B]
+C =
+
+    1    2
+    3    4
+    5    6
+   11   12
+   13   14
+   15   16
+</pre>
+
+<p>
+Also:
+</p>
+</div>
+<ol class="org-ol"><li><a id="orgc1d6f98"></a>`load file.dat`, `load('file.dat')` imports a data file into the scope.<br  /></li></ol>
+</div>
+
+<div id="outline-container-orge77f7bb" class="outline-5">
+<h5 id="orge77f7bb"><span class="section-number-5">1.6.1.3</span> Computing data</h5>
+<div class="outline-text-5" id="text-1-6-1-3">
+<pre class="example">
+&gt;&gt; A
+A =
+
+   1   2
+   3   4
+   5   6
+
+&gt;&gt; B
+B =
+
+   11   12
+   13   14
+   15   16
+
+&gt;&gt; C = [1 1; 2 2]
+C =
+
+   1   1
+   2   2
+
+&gt;&gt; A*C
+ans =
+
+    5    5
+   11   11
+   17   17
+
+&gt;&gt; A .* B % take each element of A and multiply it by corresponding element of B
+ans =
+
+   11   24
+   39   56
+   75   96
+
+&gt;&gt; A .^ 2 % element-wise squaring
+ans =
+
+    1    4
+    9   16
+   25   36
+
+&gt;&gt; v = [1; 2; 3]
+v =
+
+   1
+   2
+   3
+
+&gt;&gt; 1 ./ v
+ans =
+
+   1.00000
+   0.50000
+   0.33333
+
+&gt;&gt; 1 ./ A
+ans =
+
+   1.00000   0.50000
+   0.33333   0.25000
+   0.20000   0.16667
+
+&gt;&gt; log(v)
+ans =
+
+   0.00000
+   0.69315
+   1.09861
+
+&gt;&gt; exp(v) % e^v
+ans =
+
+    2.7183
+    7.3891
+   20.0855
+
+&gt;&gt; e.^v
+ans =
+
+    2.7183
+    7.3891
+   20.0855
+
+&gt;&gt; abs(v)
+ans =
+
+   1
+   2
+   3
+
+&gt;&gt; -v
+ans =
+
+  -1
+  -2
+  -3
+
+&gt;&gt; v + ones(length(v),1)
+ans =
+
+   2
+   3
+   4
+
+&gt;&gt; v .+ 1
+ans =
+
+   2
+   3
+   4
+
+&gt;&gt; A'
+ans =
+
+   1   3   5
+   2   4   6
+
+&gt;&gt; (A')'
+ans =
+
+   1   2
+   3   4
+   5   6
+
+&gt;&gt; a = [1 15 2 0.5]
+a =
+
+    1.00000   15.00000    2.00000    0.50000
+
+&gt;&gt; val = max(a)
+val =  15
+&gt;&gt; [val, ind] = max(a)
+val =  15
+ind =  2
+&gt;&gt; max(a)
+ans =  15
+&gt;&gt; max(A) % column-wise maximum
+ans =
+
+   5   6
+
+&gt;&gt; a &lt; 3
+ans =
+
+   1   0   1   1
+
+&gt;&gt; a = [1 15 2 0.5]
+a =
+
+    1.00000   15.00000    2.00000    0.50000
+
+&gt;&gt; find (a &lt; 3)
+ans =
+
+   1   3   4
+
+&gt;&gt; magic(3) % 3x3 magic triangle, convenient for matrix generation
+ans =
+
+   8   1   6
+   3   5   7
+   4   9   2
+&gt;&gt; A = magic(3)
+A =
+
+   8   1   6
+   3   5   7
+   4   9   2
+
+&gt;&gt; [r,c] = find(A &gt;= 7)
+r =
+
+   1
+   3
+   2
+
+c =
+
+   1
+   2
+   3
+
+&gt;&gt; floor(a)
+ans =
+
+    1   15    2    0
+
+&gt;&gt; ceil(a)
+ans =
+
+    1   15    2    1
+
+&gt;&gt; round(a)
+ans =
+
+    1   15    2    1
+
+&gt;&gt; max(rand(3))
+ans =
+
+   0.71836   0.86637   0.70080
+
+&gt;&gt; max(rand(3), rand(3)) % element-wise maximum of the two random matrices
+ans =
+
+   0.53947   0.46529   0.91213
+   0.96463   0.63457   0.61481
+   0.45498   0.40820   0.86916
+&gt;&gt; max(A, [], 1) % max in the first dimension of A (per-column)
+ans =
+
+   8   9   7
+
+&gt;&gt; max(A, [], 2) % max in the second dimension of A (per-row)
+ans =
+
+   8
+   7
+   9
+&gt;&gt; max(max(A)) % max element in A
+ans =  9
+&gt;&gt; max(A(:))
+ans =  9
+&gt;&gt; A = magic(9)
+A =
+
+   47   58   69   80    1   12   23   34   45
+   57   68   79    9   11   22   33   44   46
+   67   78    8   10   21   32   43   54   56
+   77    7   18   20   31   42   53   55   66
+    6   17   19   30   41   52   63   65   76
+   16   27   29   40   51   62   64   75    5
+   26   28   39   50   61   72   74    4   15
+   36   38   49   60   71   73    3   14   25
+   37   48   59   70   81    2   13   24   35
+
+&gt;&gt; sum(A, 1)
+ans =
+
+   369   369   369   369   369   369   369   369   369
+
+&gt;&gt; sum(A,2)
+ans =
+
+   369
+   369
+   369
+   369
+   369
+   369
+   369
+   369
+   369
+
+&gt;&gt; A .* eye(9) % element-wise product
+ans =
+
+   47    0    0    0    0    0    0    0    0
+    0   68    0    0    0    0    0    0    0
+    0    0    8    0    0    0    0    0    0
+    0    0    0   20    0    0    0    0    0
+    0    0    0    0   41    0    0    0    0
+    0    0    0    0    0   62    0    0    0
+    0    0    0    0    0    0   74    0    0
+    0    0    0    0    0    0    0   14    0
+    0    0    0    0    0    0    0    0   35
+
+&gt;&gt; sum(sum(A .* eye(9))) % the sum of the sum of elements in an element-wise product
+ans =  369
+&gt;&gt; sum(sum(A .* flipud(eye(9)))) % sum on the other diagonal
+ans =  369
+&gt;&gt; flipud(eye(9))
+ans =
+
+Permutation Matrix
+
+   0   0   0   0   0   0   0   0   1
+   0   0   0   0   0   0   0   1   0
+   0   0   0   0   0   0   1   0   0
+   0   0   0   0   0   1   0   0   0
+   0   0   0   0   1   0   0   0   0
+   0   0   0   1   0   0   0   0   0
+   0   0   1   0   0   0   0   0   0
+   0   1   0   0   0   0   0   0   0
+   1   0   0   0   0   0   0   0   0
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgb1b641d" class="outline-5">
+<h5 id="orgb1b641d"><span class="section-number-5">1.6.1.4</span> Plotting data</h5>
+<div class="outline-text-5" id="text-1-6-1-4">
+<pre class="example">
+&gt;&gt; t=[0:0.01:0.98];
+&gt;&gt; y1 = sin(2*pi*4*t);
+&gt;&gt; y2 = cos(2*pi*4*t);
+&gt;&gt; plot(t, y2);
+&gt;&gt; hold on
+&gt;&gt; plot(t, y1, 'r');
+&gt;&gt; xlabel('time');
+&gt;&gt; ylabel('value');
+&gt;&gt; legend('sin', 'cos');
+&gt;&gt; title('my plot');
+&gt;&gt; print -dpng 'plot.png';
+&gt;&gt; close
+&gt;&gt; figure(1); plot(t, y1);
+&gt;&gt; figure(2); plot(t, y2); % two separate plot windows
+&gt;&gt; subplot(1,2,1); % Divide plot into a 1x2 grid, access 1st element
+&gt;&gt; plot(t,y1); % goes into the first element
+&gt;&gt; subplot(1,2,2);
+&gt;&gt; plot(t,y2); % goes into the second element
+&gt;&gt; axis([0.5 1 -1 1]) % sets the and y ranges. Also, try `help axis`.
+&gt;&gt; clf; % clear figures
+&gt;&gt; A = magic(5);
+&gt;&gt; imagesc(A) % 5x5 grid of colors, corresponding to values
+&gt;&gt; imagesc(A), colorbar, colormap gray; % grayscale color map with color legend
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgb218710" class="outline-5">
+<h5 id="orgb218710"><span class="section-number-5">1.6.1.5</span> Control statements</h5>
+<div class="outline-text-5" id="text-1-6-1-5">
+<pre class="example">
+&gt;&gt; v = zeros(10,1)
+&gt;&gt; for i=1:10,
+&gt;   v(i) = 2^il
+&gt;  end;
+&gt;&gt; indices = 1:10;
+&gt;&gt; for i=indices;
+&gt;   disp(i);
+&gt;  end;
+&gt;&gt; i = 1;
+&gt;&gt; while i &lt;= 5,
+&gt;   v(i) = 100;
+&gt;   i = i+1;
+&gt;  end;
+&gt;&gt; while true,
+&gt;   v(i) = 999;
+&gt;   i = i+1;
+&gt;   if i == 6,
+&gt;     breakl
+&gt;   end;
+&gt;  end;
+&gt;&gt; % else, elseif
+</pre>
+</div>
+
+<ol class="org-ol"><li><a id="org7ec411e"></a>Function definitions<br  /><div class="outline-text-6" id="text-1-6-1-5-1">
+<pre class="example">
+# % y - output argument
+# % x - input argument
+
+function y = squareThisNumber(x)
+    y = x^2;
+</pre>
+
+<pre class="example">
+# % returning multiple values
+function [y1,y2] = squareAndCubeThisNumber(x)
+    y1 = x^2;
+    y2 = x^3;
+</pre>
+
+<p>
+Compute the cost function \(J(\Theta)\).
+</p>
+<pre class="example">
+&gt;&gt; theta = [0; 1];
+&gt;&gt; X = [1 1; 1 2; 1 3];
+&gt;&gt; y = [1; 2; 3];
+&gt;&gt; j = costFunctionJ(X,y,theta)
+j = 0
+&gt;&gt; theta = [0;0];
+&gt;&gt; j = costFunctionJ(X,y,theta)
+j = 2.3333
+&gt;&gt; (1^2 + 2^2 + 3^2) / (2*3)
+ans = 2.3333
+
+# % costFunctionJ.m
+function J = costFunctionJ(X, y, theta)
+#     % X - design matrix
+#     % y - class labels
+
+    m = size(X,1);
+    predictions = X*theta % predictions of hypothesis on all `m` examples
+    sqrErrors = (predictions-y).^2;
+    J = 1/(2*m)*sum(sqrErrors);
+</pre>
+
+<p>
+Change Octave's search path:
+</p>
+<pre class="example">
+&gt;&gt; addpath('/home/user/scripts')
+</pre>
+</div></li></ol>
+</div>
+
+<div id="outline-container-orgad4f892" class="outline-5">
+<h5 id="orgad4f892"><span class="section-number-5">1.6.1.6</span> Vectorization</h5>
+<div class="outline-text-5" id="text-1-6-1-6">
+</div><ol class="org-ol"><li><a id="orgf6228aa"></a>Basic example<br  /><div class="outline-text-6" id="text-1-6-1-6-1">
+<p>
+Example: \(h_\Theta(x)=\Sum^n_{j=0}{\Theta_jx_j}=\Thets^Tx\)
+</p>
+
+<p>
+Unvectorized:
+</p>
+<pre class="example">
+prediction = 0.0;
+for j = 1:n+1,
+    prediction = prediction + theta(j) * x(j)
+end;
+</pre>
+<p>
+Vectorized:
+</p>
+<pre class="example">
+prediction = theta` *; % uses Octave's highly optimized low-level routines.
+</pre>
+</div>
+
+<ol class="org-ol"><li><a id="org89d5ec3"></a>In C++<br  /><div class="outline-text-7" id="text-1-6-1-6-1-1">
+<p>
+Unvectorized
+</p>
+<pre class="example">
+double prediction = 0.0;
+for (int j = 0; j &lt;= n; j++)
+    prediction += theta[j] *[j];
+</pre>
+
+<p>
+Vectorized
+</p>
+<pre class="example">
+double prediction = theta.transpose() * x;
+</pre>
+</div></li></ol></li>
+
+<li><a id="orgac54ece"></a>Gradient descent example<br  /><div class="outline-text-6" id="text-1-6-1-6-2">
+<p>
+Example: \(\Theta_j := \Theta_j - lpha rac{1}{m}\sum^m_{i=1}(h_\Theta(x^{(i)})-y^{)i)})x_l^{(i)}\)
+(for all \(j\))
+</p>
+
+<p>
+Vectorized implementation:
+</p>
+
+<p>
+\(\Theta := \Theta - lpha\delta\) where \(\delta = rac{1}{m}\sum^m_{i=1}(h_\Theta(x^{(i)})-y^{(i)})x^{(i)}\).
+</p>
+
+<p>
+A vectorized implementation will usually run much faster than a normal loop.
+</p>
+</div></li></ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9cb9daa" class="outline-3">
+<h3 id="org9cb9daa"><span class="section-number-3">1.7</span> PostgreSQL</h3>
+<div class="outline-text-3" id="text-1-7">
+</div><div id="outline-container-org311ae73" class="outline-4">
+<h4 id="org311ae73"><span class="section-number-4">1.7.1</span> Tools - PostgreSQL</h4>
+<div class="outline-text-4" id="text-1-7-1">
+<p>
+An adequate definition would be an 'SQL standard implementation, kept
+up-to-date'.
+</p>
+</div>
+
+<div id="outline-container-org26368d2" class="outline-5">
+<h5 id="org26368d2"><span class="section-number-5">1.7.1.1</span> Feature highlights</h5>
+<div class="outline-text-5" id="text-1-7-1-1">
+</div><ol class="org-ol"><li><a id="orgf15a4d5"></a>User-defined data and index types, functional languages<br  /></li>
+<li><a id="org244d7fd"></a>Table inheritance<br  /></li>
+<li><a id="orgb7d1015"></a>A sophisticated locking mechanism<br  /></li>
+<li><a id="orgbf1d233"></a>Foreign key referential integrity<br  /></li>
+<li><a id="org532d510"></a>Views, rules, sub-select<br  /></li>
+<li><a id="orgb483c43"></a>Nested transactions (savepoints)<br  /></li>
+<li><a id="org06d4bb8"></a>Multi-version concurrency control<br  /></li>
+<li><a id="org41e8fe4"></a>Async replication<br  /></li></ol>
+</div>
+
+<div id="outline-container-orgbc252b2" class="outline-5">
+<h5 id="orgbc252b2"><span class="section-number-5">1.7.1.2</span> Roles</h5>
+<div class="outline-text-5" id="text-1-7-1-2">
+<p>
+Managing roles (case-sensitive, the semicolon also matters):
+</p>
+<pre class="example">
+CREATE ROLE name;
+DROP ROLE name;
+SELECT rolname FROM pg_roles;
+</pre>
+
+<p>
+To check existing roles, use `\du`.
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="orga4b5ff0"></a>Role attributes<br  /><div class="outline-text-6" id="text-1-7-1-2-1">
+<p>
+To be able to login with a role:
+</p>
+<pre class="example">
+CREATE ROLE name LOGIN;
+// equivalent to:
+CREATE USER name;
+</pre>
+
+<p>
+<b>Superuser status</b>: bypassess all perm checks except the login right.
+Recommendations are similar to those related to being a root user.
+</p>
+
+<pre class="example">
+CREATE ROLE name SUPERUSER;
+</pre>
+
+<p>
+<b>Role creation</b>, as well as dropping other roles, managing role membership.
+</p>
+<pre class="example">
+CREATE ROLE name CREATEROLE;
+</pre>
+
+<p>
+<b>Initiating replication</b>: a role allowed to initiate streaming replication must
+ have the `LOGIN` privilege as well.
+</p>
+
+<pre class="example">
+CREATE ROLE name REPLICATION LOGIN;
+</pre>
+
+<p>
+<b>Password</b>: only significant if the client auth requires it for DB connection.
+ DB passwords are separate from OS passwords.
+</p>
+
+<pre class="example">
+CREATE ROLE name PASSWORD 'secret';
+</pre>
+
+<p>
+Role's attributes can be modified through `ALTER ROLE`.
+</p>
+<pre class="example">
+ALTER ROLE name WITH option
+</pre>
+
+<p>
+<b>Tip</b>: It is good practice to create a role that has the `CREATEDB` and `CREATEROLE`
+privileges, but is not a superuser, and then use this role for all routine
+management of databases and roles. This approach avoids the dangers of operating
+as a superuser for tasks that do not really require it.
+</p>
+</div></li></ol>
+</div>
+
+<div id="outline-container-orgadde4cf" class="outline-5">
+<h5 id="orgadde4cf"><span class="section-number-5">1.7.1.3</span> Tablespaces</h5>
+<div class="outline-text-5" id="text-1-7-1-3">
+<p>
+Tablespaces define physical locations for database data.
+</p>
+
+<pre class="example">
+CREATE TABLESPACE dvdrental LOCATION 'c:\data\dvdrental';
+// and then...
+ALTER DATABASE dvdrental
+SET TABLESPACE dvdrental;
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org3e8efac" class="outline-5">
+<h5 id="org3e8efac"><span class="section-number-5">1.7.1.4</span> Examples</h5>
+<div class="outline-text-5" id="text-1-7-1-4">
+<p>
+All examples are assuming that the `dvdrental` database (available <a href="http://www.postgresqltutorial.com/?wpdmact=process&amp;did=MS5ob3RsaW5r">here</a> is
+imported).
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="org6164fa4"></a>SELECT<br  /><div class="outline-text-6" id="text-1-7-1-4-1">
+<pre class="example">
+SELECT 
+    first_name,
+    last_name,
+    email
+FROM customer;
+</pre>
+
+<p>
+<b>Distinct</b>:
+Preparation code:
+</p>
+<pre class="example">
+CREATE TABLE t1 (
+    id serial NOT NULL PRIMARY KEY,
+        bcolor VARCHAR (25),
+        fcolor VARCHAR (25)
+    );
+INSERT INTO t1 (bcolor, fcolor)
+VALUES
+    ('red', 'red'),
+    ('red', 'red'),
+    ('red', NULL),
+    (NULL, 'red'),
+    ('red', 'green'),
+    ('red', 'blue'),
+    ('green', 'red'),
+    ('green', 'blue'),
+    ('green', 'green'),
+    ('blue', 'red'),
+    ('blue', 'green'),
+    ('blue', 'blue');
+</pre>
+
+<p>
+Multiple values combined to form distinction:
+</p>
+<pre class="example">
+SELECT DISTINCT
+    bcolor,
+    fcolor
+FROM
+    t1
+ORDER BY
+    bcolor,
+    fcolor;
+</pre>
+
+<p>
+Order by bcolor and fcolor and keep the first row for each duplicate group in 
+the result set.
+The column taken to `ON` is the distinction criterion.
+</p>
+<pre class="example">
+SELECT DISTINCT
+    ON (bcolor) bcolor,
+    fcolor
+FROM
+    t1
+ORDER BY
+    bcolor,
+    fcolor;
+</pre>
+</div></li>
+
+<li><a id="org8c180ca"></a>LIKE<br  /><div class="outline-text-6" id="text-1-7-1-4-2">
+<p>
+Works as in MS SQL, pattern matching is worth noting.
+</p>
+
+<pre class="example">
+SELECT
+    first_name,
+        last_name
+FROM
+    customer
+WHERE
+    first_name LIKE 'Jen%';
+</pre>
+
+<pre class="example">
+SELECT
+    first_name,
+        last_name
+FROM
+    customer
+WHERE
+    first_name LIKE '_en__';
+</pre>
+</div>
+
+<ol class="org-ol"><li><a id="org62366cf"></a>`%` maches any sequence of characters<br  /></li>
+<li><a id="orged732d6"></a>`_` matches any single character<br  /><div class="outline-text-7" id="text-1-7-1-4-2-2">
+<p>
+`ILIKE` is a case insensitive variant of `LIKE`.
+One can also use `NOT LIKE` or `NOT ILIKE`.
+</p>
+</div></li></ol></li>
+
+<li><a id="orgbdcd02a"></a>IN<br  /><div class="outline-text-6" id="text-1-7-1-4-3">
+<p>
+A sensible use case:
+</p>
+<pre class="example">
+SELECT
+    first_name,
+    last_name
+FROM
+    customer
+WHERE
+    customer_id IN (
+        SELECT
+            customer_id
+        FROM
+            rental
+        WHERE
+            CAST (return_date AS DATE) = '2005-05-27'
+    );
+</pre>
+</div></li>
+
+<li><a id="org806fc2b"></a>UNION<br  /><div class="outline-text-6" id="text-1-7-1-4-4">
+<p>
+Combines result sets of N `SELECT` statements into a single result set.
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="org7a53259"></a>Both queries must return the same number of columns.<br  /></li>
+<li><a id="orgeb18c44"></a>The corresponding columns in the queries must have compatible data types.<br  /><div class="outline-text-7" id="text-1-7-1-4-4-2">
+<pre class="example">
+SELECT *
+FROM
+    table1
+UNION
+SELECT *
+FROM
+    table2;
+</pre>
+
+<p>
+By default, it removes duplicate rows.
+To avoid that, use `UNION ALL`.
+</p>
+
+<p>
+It's important to remember that when using `ORDER BY` for results of `UNION`,
+you can sort each set separately, or sort the whole result set together.
+</p>
+
+<pre class="example">
+SELECT *
+FROM
+    table1
+UNION ALL
+SELECT *
+FROM
+    table2
+ORDER BY
+ column1 ASC,
+ column2 DESC;
+</pre>
+</div></li></ol></li>
+
+<li><a id="org43ef8f3"></a>JOIN<br  /><div class="outline-text-6" id="text-1-7-1-4-5">
+<p>
+`INNER JOIN` takes a common result set from the joined sets. Same as in MS SQL.
+</p>
+
+<pre class="example">
+SELECT
+    customer.customer_id,
+    customer.first_name customer_first_name,
+    customer.last_name customer_last_name,
+    customer.email,
+    staff.first_name staff_first_name,
+    staff.last_name staff_last_name,
+    amount,
+    payment_date
+FROM
+    customer
+INNER JOIN payment ON payment.customer_id = customer.customer_id
+INNER JOIN staff ON payment.staff_id = staff.staff_id;
+</pre>
+
+<p>
+`LEFT JOIN` is outer for set A and inner for set B.
+</p>
+<pre class="example">
+SELECT
+    film.film_id,
+    film.title,
+    inventory_id
+FROM
+    film
+LEFT JOIN inventory ON inventory.film_id = film.film_id
+WHERE
+    inventory.film_id IS NULL;
+</pre>
+</div></li>
+
+<li><a id="orgbe9d028"></a>HAVING<br  /><div class="outline-text-6" id="text-1-7-1-4-6">
+<p>
+Can be used to pass additional conditions after a `GROUP BY`.
+</p>
+
+<pre class="example">
+SELECT
+    customer_id,
+    SUM (amount)
+FROM
+    payment
+GROUP BY
+    customer_id
+HAVING
+    SUM (amount) &gt; 200;
+</pre>
+</div></li>
+
+<li><a id="orgc64bdbc"></a>Subquery<br  /><div class="outline-text-6" id="text-1-7-1-4-7">
+<p>
+PostgreSQL executes the query that contains a subquery in the following sequence:
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="org04c8b11"></a>Executes the subquery.<br  /></li>
+<li><a id="org6399568"></a>Gets the result and passes it to the outer query.<br  /></li>
+<li><a id="org690e43e"></a>Executes the outer query.<br  /><div class="outline-text-7" id="text-1-7-1-4-7-3">
+<pre class="example">
+SELECT
+    film_id,
+    title
+FROM
+    film
+WHERE
+    film_id IN (
+        SELECT
+            inventory.film_id
+        FROM
+            rental
+        INNER JOIN inventory ON inventory.inventory_id = rental.inventory_id
+        WHERE
+            return_date BETWEEN '2005-05-29'
+        AND '2005-05-30'
+    );
+</pre>
+
+<pre class="example">
+SELECT
+    first_name,
+    last_name
+FROM
+    customer
+WHERE
+    EXISTS (
+        SELECT
+            1
+        FROM
+            payment
+        WHERE
+            payment.customer_id = customer.customer_id
+    );
+</pre>
+</div></li></ol></li>
+
+<li><a id="orga38745d"></a>INSERT<br  /><div class="outline-text-6" id="text-1-7-1-4-8">
+<p>
+Multiple rows can be added at a time.
+</p>
+<pre class="example">
+INSERT INTO table (column1, column2, …)
+VALUES
+    (value1, value2, …),
+    (value1, value2, …) ,...;
+</pre>
+
+<p>
+Also, data from another table can be transferred.
+</p>
+<pre class="example">
+INSERT INTO table(value1,value2,...)
+SELECT column1,column2,...
+FROM another_table
+WHERE condition;
+</pre>
+
+<p>
+A value from the last inserted row can be returned.
+</p>
+<pre class="example">
+INSERT INTO link (url, NAME, last_update)
+VALUES('http://www.postgresql.org','PostgreSQL',DEFAULT) 
+RETURNING id;
+</pre>
+</div></li>
+
+<li><a id="org2166928"></a>UPDATE<br  /><div class="outline-text-6" id="text-1-7-1-4-9">
+<p>
+An interesting construct is the `UPDATE JOIN`:
+</p>
+<pre class="example">
+UPDATE link_tmp
+SET rel = link.rel,
+ description = link.description,
+ last_update = link.last_update
+FROM
+    link
+WHERE
+    link_tmp.id = link.id;
+</pre>
+</div></li>
+
+<li><a id="org6779eef"></a>DELETE<br  /><div class="outline-text-6" id="text-1-7-1-4-10">
+<p>
+Another tables can be referenced in a `DELETE`:
+</p>
+
+<pre class="example">
+DELETE FROM table
+USING another_table
+WHERE table.id = another_table.id AND …
+</pre>
+</div></li></ol>
+</div>
+
+<div id="outline-container-org9d7cbac" class="outline-5">
+<h5 id="org9d7cbac"><span class="section-number-5">1.7.1.5</span> Data types</h5>
+<div class="outline-text-5" id="text-1-7-1-5">
+</div><ol class="org-ol"><li><a id="org49916ea"></a>Character<br  /><ol class="org-ol"><li><a id="orgeda8600"></a>A single character: `char`<br  /></li>
+<li><a id="org6435247"></a>Fixed-length character strings: `char(n)`. If you insert a string that is shorter than the length of the column, PostgreSQL will pad spaces. If you insert a string that is longer than the length of the column, PostgreSQL will issue an error.<br  /></li>
+<li><a id="org2af2545"></a>Variable-length character strings: `varchar(n)`. You can store up to n characters with variable-length character strings. PostgreSQL does not pad spaces when the stored string is shorter than the length of the column.<br  /></li></ol></li>
+
+<li><a id="orgc0eb760"></a>Integer<br  /><ol class="org-ol"><li><a id="orgcfa0562"></a>Small integer (`smallint`)  is 2-byte signed integer that has a range of (-32768,32767)<br  /></li>
+<li><a id="orge0ee8eb"></a>Integer (`int`) is 4-byte integer that has a range of (-214783648, -214783647)<br  /></li>
+<li><a id="org66ad2f3"></a>`serial` is the same as integer except that PostgreSQL populate value into the column automatically. This is similar to `AUTO<sub>INCREMENT</sub>` attribute in other database management systems.<br  /></li></ol></li>
+
+<li><a id="orgd98a881"></a>Floating-point number<br  /><ol class="org-ol"><li><a id="orgf7b8637"></a>`float(n)`  is a floating-point number whose precision at least n, up to a maximum of 8 bytes.<br  /></li>
+<li><a id="orgc867905"></a>`real` or `float8` is a double-precision (8-byte) floating-point number.<br  /></li>
+<li><a id="orga00bba1"></a>`numeric` or `numeric(p,s)` is a real number with p digits with s number after decimal point. The `numeric(p,)` is exact number.<br  /></li></ol></li>
+
+<li><a id="org1adcc6a"></a>Temporal<br  /><ol class="org-ol"><li><a id="org630c38f"></a>`date` stores date data<br  /></li>
+<li><a id="org067fbcb"></a>`time` stores time data<br  /></li>
+<li><a id="org4a4a993"></a>`timestamp` stores data and time<br  /></li>
+<li><a id="org8f8fa96"></a>`interval` stores the difference in timestamps<br  /></li>
+<li><a id="orgb705d22"></a>`timestamptz` store both timestamp and timezone data. The `timestamptz` is a PostgreSQL’s extension to the temporal data type.<br  /></li></ol></li>
+
+<li><a id="org3aed9f8"></a>Special<br  /><ol class="org-ol"><li><a id="org99bfdc7"></a>`box` - a rectangular box.<br  /></li>
+<li><a id="org21f8035"></a>`line`  - a set of points.<br  /></li>
+<li><a id="org07154e9"></a>`point` - a geometric pair of numbers.<br  /></li>
+<li><a id="org7910e7c"></a>`lseg` - a line segment.<br  /></li>
+<li><a id="orgca88109"></a>`polygon` - a closed geometric.<br  /></li>
+<li><a id="orgcbe6748"></a>`inet` - an IP4 address.<br  /></li>
+<li><a id="org9a675d4"></a>`macaddr` - a MAC address.<br  /></li></ol></li></ol>
+</div>
+
+<div id="outline-container-orge6e65ea" class="outline-5">
+<h5 id="orge6e65ea"><span class="section-number-5">1.7.1.6</span> Table mgmt</h5>
+<div class="outline-text-5" id="text-1-7-1-6">
+</div><ol class="org-ol"><li><a id="orge4e1bf6"></a>CREATE TABLE<br  /><div class="outline-text-6" id="text-1-7-1-6-1">
+<p>
+Available column constraints:
+</p>
+</div>
+<ol class="org-ol"><li><a id="org16f6dd1"></a>`NOT NULL` - the value of the column cannot be `NULL`.<br  /></li>
+<li><a id="org985d4d6"></a>`UNIQUE` - the value of the column must be different for each row in the table. However, the column can have many NULL values because PostgreSQL treats each NULL value to be unique. Notice that SQL standard only allows one NULL value in the column that has `UNIQUE` constraint.<br  /></li>
+<li><a id="org7e9fa5f"></a>`PRIMARY KEY` - this constraint is the combination of `NOT NULL` and `UNIQUE` constraints. You can define one column as `PRIMARY KEY` by using column-level constraint. In case the primary key has multiple columns, you must use the table-level constraint.<br  /></li>
+<li><a id="org24271c4"></a>`CHECK` - enables to check a condition when you insert or update data.<br  /></li>
+<li><a id="orga8a0e54"></a>`REFERENCES` - constrains the value of the column that exists in a column in another table.<br  /><div class="outline-text-7" id="text-1-7-1-6-1-5">
+<p>
+All of those, except `NOT NULL`, can also serve as table constraints.
+</p>
+</div></li></ol></li>
+
+<li><a id="orgbbbef4c"></a>ALTER TABLE<br  /><div class="outline-text-6" id="text-1-7-1-6-2">
+<p>
+Noteworthy: instead of `exec SP<sub>RENAME</sub>`, the following can be used.
+</p>
+<pre class="example">
+ALTER TABLE table_name RENAME COLUMN column_name TO new_column_name;
+</pre>
+
+<p>
+This also applies to tables.
+</p>
+</div></li>
+
+<li><a id="org54d9947"></a>TRUNCATE TABLE<br  /><div class="outline-text-6" id="text-1-7-1-6-3">
+<p>
+This command allows to wipe data from large tables quickly.
+</p>
+<pre class="example">
+TRUNCATE TABLE table_name;
+
+TRUNCATE TABLE table_name RESET IDENTITY;
+
+TRUNCATE TABLE table_name1, table_name2, …
+
+TRUNCATE TABLE table_name CASCADE;  // also removes data related by foreign keys
+</pre>
+</div></li></ol>
+</div>
+
+<div id="outline-container-orgc8f9f66" class="outline-5">
+<h5 id="orgc8f9f66"><span class="section-number-5">1.7.1.7</span> Database mgmt</h5>
+<div class="outline-text-5" id="text-1-7-1-7">
+</div><ol class="org-ol"><li><a id="orgfb1d682"></a>Restoring a DB<br  /><div class="outline-text-6" id="text-1-7-1-7-1">
+<pre class="example">
+postgres=# CREATE DATABASE newdvdrental;
+</pre>
+
+<p>
+and from Bash:
+</p>
+<pre class="example">
+&gt;pg_restore --dbname=newdvdrental --verbose c:\pgbackup\dvdrental.tar
+</pre>
+</div></li></ol>
+</div>
+</div>
+</div>
+<div id="outline-container-org1b25ca7" class="outline-3">
+<h3 id="org1b25ca7"><span class="section-number-3">1.8</span> Riak</h3>
+<div class="outline-text-3" id="text-1-8">
+<p>
+#= Tools - Riak =
+</p>
+
+<p>
+Querying
+GET/PUT/DELETE
+MapReduce
+Full-Text Search
+Secondary Indexes (2i)
+</p>
+
+<p>
+Client libraries for nearly every platform.
+</p>
+
+<p>
+Under the hood
+consistent hashing
+160bit keyspace
+</p>
+
+<p>
+replicas
+requests go to fallback neighboring nodes when a node fails
+handoff - data returns when node is back up
+</p>
+
+<p>
+and rebalancing
+</p>
+
+<p>
+masterless, deployed as a cluster of 5 nodes per cluster
+</p>
+
+<p>
+automatic self healing
+repairs divergent, missing or corrupt replicas
+large clusters, long term storage
+</p>
+
+
+<p>
+Riak 1.4
+Eventually consistent counters
+</p>
+</div>
+<div id="outline-container-org4554a61" class="outline-4">
+<h4 id="org4554a61"><span class="section-number-4">1.8.1</span> distributed data type in Riak</h4>
+</div>
+<div id="outline-container-org0d6c969" class="outline-4">
+<h4 id="org0d6c969"><span class="section-number-4">1.8.2</span> PN Counters are capable of being incremented (P) an decremeted (N)</h4>
+</div>
+<div id="outline-container-orgafd5e86" class="outline-4">
+<h4 id="orgafd5e86"><span class="section-number-4">1.8.3</span> automatic conflict resolution after a network partition</h4>
+</div>
+<div id="outline-container-orgbf03c90" class="outline-4">
+<h4 id="orgbf03c90"><span class="section-number-4">1.8.4</span> 2i queries are sorted and client can request only first N results</h4>
+</div>
+<div id="outline-container-orgf1b09b8" class="outline-4">
+<h4 id="orgf1b09b8"><span class="section-number-4">1.8.5</span> pagination allows queries to begin where n left off to deliver the rest</h4>
+</div>
+<div id="outline-container-org8663918" class="outline-4">
+<h4 id="org8663918"><span class="section-number-4">1.8.6</span> can also view start, continuation, end value etc.</h4>
+<div class="outline-text-4" id="text-1-8-6">
+<p>
+Riak Control - mgmt studio?
+</p>
+
+<p>
+progressbar for handoff
+reduced object storage overhead (not turned on by default- check release notes)
+udpated protocol buffer properties
+overload protection for vnode processes
+cascading real-time writes for riak enterprise multi-datacenter replication
+</p>
+
+
+<p>
+when and why?
+enough data to require &gt;1 physical machine (&gt;5 prefereably)
+when availability &gt; consistency (big data, critical data)
+when data can be modeled as keys and values - denormalization
+</p>
+
+<p>
+Case studies
+enstratatius - cloud infrastructure mgmt
+George Reese - moving from mysql to riak
+best buy - replatform of e-commerce platform
+copious - registered accts and tokens for FB/twitter logins; lookign to move over more data due to operational simplicity.
+mochi - high availability and low latency
+openX - couchDB + cassandra -&gt; riak and riak core
+voxer - 60 nodes, 100s TBs of data, 400k concurrent users, billions of daily requests
+</p>
+
+<p>
+Hybrid solutions
+</p>
+</div>
+</div>
+<div id="outline-container-org93c3ca3" class="outline-4">
+<h4 id="org93c3ca3"><span class="section-number-4">1.8.7</span> riak with postgres</h4>
+</div>
+<div id="outline-container-org84344e3" class="outline-4">
+<h4 id="org84344e3"><span class="section-number-4">1.8.8</span> riak with elastic search</h4>
+</div>
+<div id="outline-container-org4fecc75" class="outline-4">
+<h4 id="org4fecc75"><span class="section-number-4">1.8.9</span> riak with hadoop</h4>
+</div>
+<div id="outline-container-org9a4b5e7" class="outline-4">
+<h4 id="org9a4b5e7"><span class="section-number-4">1.8.10</span> secondary analytic clusters (enterprise)</h4>
+<div class="outline-text-4" id="text-1-8-10">
+<p>
+Hosting options
+</p>
+</div>
+</div>
+<div id="outline-container-org4d5e282" class="outline-4">
+<h4 id="org4d5e282"><span class="section-number-4">1.8.11</span> amazon AMIs</h4>
+</div>
+<div id="outline-container-org3168a76" class="outline-4">
+<h4 id="org3168a76"><span class="section-number-4">1.8.12</span> Engine Yard</h4>
+</div>
+<div id="outline-container-org7345e16" class="outline-4">
+<h4 id="org7345e16"><span class="section-number-4">1.8.13</span> Azure VM depot</h4>
+</div>
+<div id="outline-container-orgc0e15d2" class="outline-4">
+<h4 id="orgc0e15d2"><span class="section-number-4">1.8.14</span> SoftLayer</h4>
+<div class="outline-text-4" id="text-1-8-14">
+<p>
+Open Source + commercial (enterprise)
+</p>
+</div>
+</div>
+<div id="outline-container-orgfde9616" class="outline-4">
+<h4 id="orgfde9616"><span class="section-number-4">1.8.15</span> multi datacenter replication</h4>
+</div>
+<div id="outline-container-orgc95198c" class="outline-4">
+<h4 id="orgc95198c"><span class="section-number-4">1.8.16</span> realtime or full-sync</h4>
+</div>
+<div id="outline-container-org98eecad" class="outline-4">
+<h4 id="org98eecad"><span class="section-number-4">1.8.17</span> 24/7 support</h4>
+<div class="outline-text-4" id="text-1-8-17">
+<p>
+1.4 enterprise
+</p>
+</div>
+</div>
+<div id="outline-container-org7859293" class="outline-4">
+<h4 id="org7859293"><span class="section-number-4">1.8.18</span> faster, more conns bvetween clusters</h4>
+</div>
+<div id="outline-container-org4bb54e6" class="outline-4">
+<h4 id="org4bb54e6"><span class="section-number-4">1.8.19</span> per connection statistics - better</h4>
+</div>
+<div id="outline-container-orge9b840e" class="outline-4">
+<h4 id="orge9b840e"><span class="section-number-4">1.8.20</span> ssl, nat and full sync scheduling support</h4>
+<div class="outline-text-4" id="text-1-8-20">
+<p>
+Riak Cloud Storage
+</p>
+</div>
+</div>
+<div id="outline-container-orgae88de5" class="outline-4">
+<h4 id="orgae88de5"><span class="section-number-4">1.8.21</span> large object support</h4>
+</div>
+<div id="outline-container-org9a230ce" class="outline-4">
+<h4 id="org9a230ce"><span class="section-number-4">1.8.22</span> S3-compatible API</h4>
+<div class="outline-text-4" id="text-1-8-22">
+<p>
+-multi-tenancy
+</p>
+</div>
+</div>
+<div id="outline-container-orgae19e16" class="outline-4">
+<h4 id="orgae19e16"><span class="section-number-4">1.8.23</span> reporting on usage</h4>
+<div class="outline-text-4" id="text-1-8-23">
+<p>
+Future Work
+</p>
+</div>
+</div>
+<div id="outline-container-org69bbdd1" class="outline-4">
+<h4 id="org69bbdd1"><span class="section-number-4">1.8.24</span> tight Solr integration</h4>
+</div>
+<div id="outline-container-orgf7682dd" class="outline-4">
+<h4 id="orgf7682dd"><span class="section-number-4">1.8.25</span> greater consistency</h4>
+<div class="outline-text-4" id="text-1-8-25">
+<p>
+-faster data transfer between clusters
+</p>
+</div>
+</div>
+<div id="outline-container-orgc8bb78b" class="outline-4">
+<h4 id="orgc8bb78b"><span class="section-number-4">1.8.26</span> dynamic ring resizing</h4>
+</div>
+<div id="outline-container-org6374a5d" class="outline-4">
+<h4 id="org6374a5d"><span class="section-number-4">1.8.27</span> check github</h4>
+</div>
+</div>
+
+<div id="outline-container-orge3233dc" class="outline-3">
+<h3 id="orge3233dc"><span class="section-number-3">1.9</span> SVN</h3>
+<div class="outline-text-3" id="text-1-9">
+</div><div id="outline-container-orga23f06f" class="outline-4">
+<h4 id="orga23f06f"><span class="section-number-4">1.9.1</span> Tools - SVN</h4>
+<div class="outline-text-4" id="text-1-9-1">
+</div><div id="outline-container-org266a80f" class="outline-5">
+<h5 id="org266a80f"><span class="section-number-5">1.9.1.1</span> Creating a patch</h5>
+<div class="outline-text-5" id="text-1-9-1-1">
+<p>
+To <b>create</b> a patch, use `svn diff &gt; ~/path/patch<sub>name.diff</sub>`.
+</p>
+
+<p>
+To <b>apply</b> a patch, use `patch -p0 -i ~/path/patch<sub>name.diff</sub>`.
+</p>
+
+<p>
+To create a patch from <b>specific revisions</b>, use `svn diff -r123:456 &gt; patch<sub>name.diff</sub>`.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgd2e5926" class="outline-3">
+<h3 id="orgd2e5926"><span class="section-number-3">1.10</span> Testing Tools</h3>
+<div class="outline-text-3" id="text-1-10">
+<p>
+#= Mailcatcher =
+</p>
+
+<p>
+MailCatcher runs a super simple SMTP server which catches any message sent to it
+to display in a web interface. Run mailcatcher, set your favourite app to
+deliver to smtp://127.0.0.1:1025 instead of your default SMTP server, then check
+out <a href="http://127.0.0.1:1080">http://127.0.0.1:1080</a> to see the mail that's arrived so far.
+</p>
+
+<p>
+<a href="https://github.com/sj26/mailcatcher">https://github.com/sj26/mailcatcher</a>
+</p>
+
+<p>
+<span class="underline">This is not strictly a testing tool but it has a good potential of testing
+e-mail based functionalities.</span>
+</p>
+</div>
+</div>
+<div id="outline-container-orga7bbf7d" class="outline-3">
+<h3 id="orga7bbf7d"><span class="section-number-3">1.11</span> Vagrant</h3>
+<div class="outline-text-3" id="text-1-11">
+<p>
+#= Tools - Vagrant =
+</p>
+
+<p>
+Test.
+</p>
+</div>
+</div>
+<div id="outline-container-org4e18534" class="outline-3">
+<h3 id="org4e18534"><span class="section-number-3">1.12</span> Vim</h3>
+<div class="outline-text-3" id="text-1-12">
+</div><div id="outline-container-org7aaa2c2" class="outline-4">
+<h4 id="org7aaa2c2"><span class="section-number-4">1.12.1</span> Tools - Vim</h4>
+<div class="outline-text-4" id="text-1-12-1">
+</div><div id="outline-container-orgc597efb" class="outline-5">
+<h5 id="orgc597efb"><span class="section-number-5">1.12.1.1</span> Synchronizing .vim through GitHub</h5>
+<div class="outline-text-5" id="text-1-12-1-1">
+</div><ol class="org-ol"><li><a id="org4fb8ff5"></a><br  /></li>
+<li><a id="org6c8b071"></a>Install `pathogen`.<br  /><div class="outline-text-6" id="text-1-12-1-1-2">
+<p>
+<b>Adding to source control</b>
+</p>
+<pre class="example">
+cd ~/.vim
+mkdir ~/.vim/bundle
+git submodule add http://github.com/tpope/vim-fugitive.git bundle/fugitive
+git add .
+git commit -m "Install Fugitive.vim bundle as a submodule."
+</pre>
+
+<p>
+<b>Installing on another machine</b>
+#+begin<sub>example</sub>
+cd ~
+git clone <a href="http://github.com/username/dotvim.git">http://github.com/username/dotvim.git</a> ~/.vim
+ln -s ~/.vim/vimrc ~/.vimrc
+ln -s ~/.vim/gvimrc ~/.gvimrc
+cd ~/.vim
+git submodule init
+git submodule update
+}}
+</p>
+</div></li></ol>
+</div>
+</div>
+</div>
+<div id="outline-container-org7112439" class="outline-3">
+<h3 id="org7112439"><span class="section-number-3">1.13</span> VoltDB</h3>
+<div class="outline-text-3" id="text-1-13">
+</div><div id="outline-container-orgc618d2e" class="outline-4">
+<h4 id="orgc618d2e"><span class="section-number-4">1.13.1</span> Tools - VoltDB</h4>
+<div class="outline-text-4" id="text-1-13-1">
+<p>
+An in-memory relational database, radically focused on performance and
+scalability.
+</p>
+
+<p>
+<a href="http://voltdb.com/">http://voltdb.com/</a>
+</p>
+</div>
+
+<div id="outline-container-orgdcc0b73" class="outline-5">
+<h5 id="orgdcc0b73"><span class="section-number-5">1.13.1.1</span> Use cases</h5>
+<div class="outline-text-5" id="text-1-13-1-1">
+</div><ol class="org-ol"><li><a id="org5824c9c"></a>Financial trade monitoring<br  /></li>
+<li><a id="org6619738"></a>Web bot vulnerability scanning (SaaS)<br  /></li>
+<li><a id="org9170369"></a>Online gaming leaderboard<br  /></li>
+<li><a id="org0dee5c3"></a>Package tracking<br  /></li>
+<li><a id="org6a7f851"></a>Ad content serving<br  /></li>
+<li><a id="org389ef8f"></a>Telephone exchange call detail record mgmt<br  /></li>
+<li><a id="org3cdee6a"></a>Airline reservation/ticketing<br  /><div class="outline-text-6" id="text-1-13-1-1-7">
+<p>
+This section requires followups:
+</p>
+</div></li>
+<li><a id="org1983352"></a><a href="http://highscalability.com/blog/2010/6/28/voltdb-decapitates-six-sql-urban-myths-and-delivers-internet.html">http://highscalability.com/blog/2010/6/28/voltdb-decapitates-six-sql-urban-myths-and-delivers-internet.html</a><br  /></li>
+<li><a id="orgdba4860"></a><a href="http://highscalability.com/blog/2010/12/6/what-the-heck-are-you-actually-using-nosql-for.html">Use cases</a><br  /></li></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author:  (<a href="mailto:elkorn@arch">elkorn@arch</a>)</p>
+<p class="date">Date: </p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 9.0.3)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
